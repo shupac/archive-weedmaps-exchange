@@ -1,0 +1,56 @@
+# https://docs.rancher.com/rancher/v1.4/en/cattle/rancher-compose/
+# This file is used to determine scaling, scheduling and load balancing of containers
+#
+version: '2'
+services:
+  app:
+    start_on_create: true
+    upgrade_strategy:
+      start_first: true
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      recreate_on_quorum_strategy_config:
+        quorum: 1
+      port: 1620
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      interval: 60000
+      strategy: recreateOnQuorum
+      reinitializing_timeout: 60000
+  web:
+    start_on_create: true
+    upgrade_strategy:
+      start_first: true
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      recreate_on_quorum_strategy_config:
+        quorum: 1
+      port: 80
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      interval: 2000
+      strategy: recreateOnQuorum
+      reinitializing_timeout: 60000
+  storybook:
+    start_on_create: true
+    upgrade_strategy:
+      start_first: true
+    health_check:
+    response_timeout: 2000
+    healthy_threshold: 2
+    recreate_on_quorum_strategy_config:
+      quorum: 1
+    port: 6006
+    unhealthy_threshold: 3
+    initializing_timeout: 60000
+    interval: 2000
+    strategy: recreateOnQuorum
+    reinitializing_timeout: 60000
+  api-${deploy_environment}.weedmaps.com:
+    hostname: api-${deploy_environment}.internal-weedmaps.com
+    start_on_create: true
+  ${deploy_environment}.weedmaps.com:
+    hostname: ${deploy_environment}.internal-weedmaps.com
+    start_on_create: true

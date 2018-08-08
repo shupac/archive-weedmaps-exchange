@@ -1,0 +1,3 @@
+#!/bin/bash
+
+if [[ "|production|performance|staging|acceptance|" =~ "|$CIRCLE_BRANCH|" ]]; then true; else $@; fi

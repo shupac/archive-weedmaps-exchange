@@ -1,0 +1,673 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The PageSideNav should be able to show all links sidenav when not taxes route 1`] = `
+<SideNav
+  collapse={false}
+>
+  <SideNavHeader>
+    <AppHeader
+      title="admin"
+    />
+  </SideNavHeader>
+  <TaxLinkFence
+    collapse={false}
+    currentRoute="/deals"
+  >
+    <WithTheme(SideNavLink)
+      collapse={false}
+      href="https://weedmaps.com/new_admin/"
+      icon={[Function]}
+      name="Back To Listings"
+      style={
+        Object {
+          "whiteSpace": "nowrap",
+        }
+      }
+    />
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="taxes"
+    />
+  </TaxLinkFence>
+  <NavLinkFence
+    currentRoute="/deals"
+  >
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="listings"
+    >
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/dispensaries"
+      >
+        My Dispensaries
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/deliveries"
+      >
+        My Deliveries
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/doctors"
+      >
+        My Doctors
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/converted_listings"
+      >
+        Convert Listings
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="brands"
+    >
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands"
+      >
+        Brands
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/banners"
+      >
+        Banners
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/categories"
+      >
+        Categories
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/brand_placements"
+      >
+        Brand Placements
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/product_placements"
+      >
+        Product Placements
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/reports/brands"
+      >
+        Reports Placements
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="deals"
+    >
+      <ChildLink
+        active={false}
+        href="/deals/placement"
+      >
+        Featured Deals
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/deals/moderate"
+      >
+        Moderate Deals
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/region_deal_subscriptions"
+      >
+        Daily Deal Email
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="reporting"
+    >
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/moderation/reported_contents"
+      >
+        Reported Contents
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/blacklist_incidents"
+      >
+        Blacklist Incidents
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="learn"
+    >
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/strains"
+      >
+        Strains
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/medical_uses"
+      >
+        Medical Uses
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/cannabinoids"
+      >
+        Pharmacopeia
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="ops"
+    >
+      <ChildLink
+        active={false}
+        href="https://feature-flag-admin-acceptance.internal-weedmaps.com"
+      >
+        Feature Flag Service
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/rollout"
+      >
+        Feature Flag (Rollout)
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/regions"
+      >
+        Manage Regions
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/delivery_service_areas"
+      >
+        Delivery Service Areas
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/banned_ips"
+      >
+        IP Ban Tool
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/users"
+      >
+        Users
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+  </NavLinkFence>
+</SideNav>
+`;
+
+exports[`The PageSideNav should be able to show all links sidenav, except for feature flagged ones 1`] = `
+<SideNav
+  collapse={false}
+>
+  <SideNavHeader>
+    <AppHeader
+      title="admin"
+    />
+  </SideNavHeader>
+  <TaxLinkFence
+    collapse={false}
+    currentRoute="/deals"
+  >
+    <WithTheme(SideNavLink)
+      collapse={false}
+      href="https://weedmaps.com/new_admin/"
+      icon={[Function]}
+      name="Back To Listings"
+      style={
+        Object {
+          "whiteSpace": "nowrap",
+        }
+      }
+    />
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="taxes"
+    />
+  </TaxLinkFence>
+  <NavLinkFence
+    currentRoute="/deals"
+  >
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="listings"
+    >
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/dispensaries"
+      >
+        My Dispensaries
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/deliveries"
+      >
+        My Deliveries
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/doctors"
+      >
+        My Doctors
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/converted_listings"
+      >
+        Convert Listings
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="brands"
+    >
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands"
+      >
+        Brands
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/banners"
+      >
+        Banners
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/categories"
+      >
+        Categories
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/brand_placements"
+      >
+        Brand Placements
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/product_placements"
+      >
+        Product Placements
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/reports/brands"
+      >
+        Reports Placements
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="deals"
+    >
+      <ChildLink
+        active={false}
+        href="/deals/placement"
+      >
+        Featured Deals
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/deals/moderate"
+      >
+        Moderate Deals
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/region_deal_subscriptions"
+      >
+        Daily Deal Email
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="reporting"
+    >
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/moderation/reported_contents"
+      >
+        Reported Contents
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/blacklist_incidents"
+      >
+        Blacklist Incidents
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="learn"
+    >
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/strains"
+      >
+        Strains
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/medical_uses"
+      >
+        Medical Uses
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/cannabinoids"
+      >
+        Pharmacopeia
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="ops"
+    >
+      <ChildLink
+        active={false}
+        href="https://feature-flag-admin-acceptance.internal-weedmaps.com"
+      >
+        Feature Flag Service
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/rollout"
+      >
+        Feature Flag (Rollout)
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/regions"
+      >
+        Manage Regions
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/delivery_service_areas"
+      >
+        Delivery Service Areas
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/banned_ips"
+      >
+        IP Ban Tool
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/users"
+      >
+        Users
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+  </NavLinkFence>
+</SideNav>
+`;
+
+exports[`The PageSideNav should be able to show ops_manager role only sidenav 1`] = `
+<SideNav
+  collapse={false}
+>
+  <SideNavHeader>
+    <AppHeader
+      title="admin"
+    />
+  </SideNavHeader>
+  <TaxLinkFence
+    collapse={false}
+    currentRoute="/deals"
+  >
+    <WithTheme(SideNavLink)
+      collapse={false}
+      href="https://weedmaps.com/new_admin/"
+      icon={[Function]}
+      name="Back To Listings"
+      style={
+        Object {
+          "whiteSpace": "nowrap",
+        }
+      }
+    />
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="taxes"
+    />
+  </TaxLinkFence>
+  <NavLinkFence
+    currentRoute="/deals"
+  >
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="listings"
+    >
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/dispensaries"
+      >
+        My Dispensaries
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/deliveries"
+      >
+        My Deliveries
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/doctors"
+      >
+        My Doctors
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/converted_listings"
+      >
+        Convert Listings
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="brands"
+    >
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands"
+      >
+        Brands
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/banners"
+      >
+        Banners
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/categories"
+      >
+        Categories
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/brand_placements"
+      >
+        Brand Placements
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/product_placements"
+      >
+        Product Placements
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/brands/reports/brands"
+      >
+        Reports Placements
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="deals"
+    >
+      <ChildLink
+        active={false}
+        href="/deals/placement"
+      >
+        Featured Deals
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/deals/moderate"
+      >
+        Moderate Deals
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/region_deal_subscriptions"
+      >
+        Daily Deal Email
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="reporting"
+    >
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/moderation/reported_contents"
+      >
+        Reported Contents
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/blacklist_incidents"
+      >
+        Blacklist Incidents
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="learn"
+    >
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/strains"
+      >
+        Strains
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/medical_uses"
+      >
+        Medical Uses
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/cannabinoids"
+      >
+        Pharmacopeia
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+    <WithTheme(SideNavLink)
+      collapse={false}
+      icon={[Function]}
+      isActive={false}
+      name="ops"
+    >
+      <ChildLink
+        active={false}
+        href="https://feature-flag-admin-acceptance.internal-weedmaps.com"
+      >
+        Feature Flag Service
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/rollout"
+      >
+        Feature Flag (Rollout)
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/regions"
+      >
+        Manage Regions
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/delivery_service_areas"
+      >
+        Delivery Service Areas
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/banned_ips"
+      >
+        IP Ban Tool
+      </ChildLink>
+      <ChildLink
+        active={false}
+        href="https://weedmaps.com/new_admin/users"
+      >
+        Users
+      </ChildLink>
+    </WithTheme(SideNavLink)>
+  </NavLinkFence>
+</SideNav>
+`;

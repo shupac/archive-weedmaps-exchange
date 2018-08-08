@@ -1,0 +1,28 @@
+# https://docs.docker.com/compose/extends/
+# This file gets automatically loaded via docker-compose/rancher-compose.
+#
+# It's used to set local dev specific overrides for volumes and ports.
+#
+# Out in the wild we use docker-compose.rancher.yml as the override removing ports
+# and local volumes bound to the host.
+#
+# YAML (String|Integer) in this file get replaced/override those set in docker-compose.yml
+# YAML Arrays in this file get merged/appended to those set in docker-compose.yml
+version: "2"
+services:
+  web:
+    ports:
+      - 80:80
+    volumes_from:
+      - app
+  app:
+    command: /docker-entrypoint.sh
+    ports:
+      - 1620:1620
+    volumes:
+      - /var/www/admin/static
+      - /var/www/admin/build
+  storybook:
+    ports:
+      - 6006:6006
+    command: /docker-entrypoint-storybook.sh

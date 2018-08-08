@@ -1,0 +1,25 @@
+[ignore]
+.*/node_modules/config-chain/.*
+.*/node_modules/npmconf/test/.*
+.*/node_modules/graphql/.*
+.*/node_modules/@mapbox/.*
+.*/node_modules/danger/.*
+.*/__mocks__/.*
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+esproposal.decorators=ignore
+module.name_mapper='^lib/mocks' ->'<PROJECT_ROOT>/lib/mocks'
+module.name_mapper='^pages' ->'<PROJECT_ROOT>/pages'
+module.name_mapper='^lib' ->'<PROJECT_ROOT>/lib'
+module.name_mapper='^routes' ->'<PROJECT_ROOT>/routes'
+module.name_mapper='^styles' ->'<PROJECT_ROOT>/styles'
+module.name_mapper='^config' ->'<PROJECT_ROOT>/config'
+module.name_mapper='^storybook' ->'<PROJECT_ROOT>/.storybook'
+module.name_mapper='^components' ->'<PROJECT_ROOT>/components'
+[strict]

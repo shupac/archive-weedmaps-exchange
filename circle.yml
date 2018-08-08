@@ -1,0 +1,140 @@
+machine:
+  node:
+    version: 9.10.0
+  timezone:
+    America/Los_Angeles
+  environment:
+    DOCKER_REGISTRY: docker-registry.weedmaps.com
+    SHA: ":$CIRCLE_SHA1"
+    BRANCH: $CIRCLE_BRANCH
+    REPOSITORY: admin
+    TESTRAIL_PROJECT: ${REPOSITORY} # admin
+    NOTIFY_SLACK_CHANNELS: "#bnr-wmw"
+    NOTIFY_SLACK_CHANNELS_PROD_RELEASE: "#bnr-wmw"
+    APPLICATION_ENVIRONMENT: production
+    DEPLOY_ENVIRONMENT: acceptance
+    PATH: ${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/scripts:${PATH}
+dependencies:
+  pre:
+    - if-testing echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+  post:
+    - wget -O jenkins_credentials https://provision-weedmaps.s3-us-west-2.amazonaws.com/jenkins_credentials
+    - wget -O crypto https://provision-weedmaps.s3-us-west-2.amazonaws.com/bin/crypto
+    - bash crypto -d jenkins_credentials
+  override:
+    - if-testing npm i
+test:
+  override:
+    - if-testing npx glow
+    - if-testing npm run lint
+    - if-testing npm run test:serial
+  post:
+    - if-testing bash <(curl -s https://codecov.io/bash)
+    - if-testing npm run test-bundlesize
+    - if-testing ./node_modules/.bin/danger ci
+    - wget -O jenkins_credentials https://provision-weedmaps.s3-us-west-2.amazonaws.com/jenkins_credentials
+    - wget -O crypto https://provision-weedmaps.s3-us-west-2.amazonaws.com/bin/crypto
+    - bash crypto -d jenkins_credentials
+deployment:
+  develop:
+    branch: develop
+    commands:
+      - >
+        curl https://provision-weedmaps.s3-us-west-2.amazonaws.com/bin/start_jenkins_task.sh |
+        JENKINS_JOB=build_docker_images
+        bash
+      - >
+        curl https://provision-weedmaps.s3-us-west-2.amazonaws.com/bin/start_jenkins_task.sh |
+        DEPLOY_ENVIRONMENT=acceptance JENKINS_JOB=rancher_deploy
+        bash
+  build:
+    # Builds also happen on release branches
+    branch: /^release.*/
+    commands:
+      - > 
+        curl https://provision-weedmaps.s3-us-west-2.amazonaws.com/bin/start_jenkins_task.sh |
+        JENKINS_JOB=build_docker_images
+        bash
+  performance:
+    branch: performance
+    commands:
+      - >
+        curl https://provision-weedmaps.s3-us-west-2.amazonaws.com/bin/start_jenkins_task.sh |
+        DEPLOY_ENVIRONMENT=${CIRCLE_BRANCH} JENKINS_JOB=rancher_deploy
+        bash
+      # Datadog Deployment Event
+      - >
+        curl https://provision-weedmaps.s3-us-west-2.amazonaws.com/testing/bin/report_datadog_event |
+        ENVIRONMENT=${CIRCLE_BRANCH}
+        REVISION=${CIRCLE_SHA1}
+        DEPLOYER=CircleCI
+        BUILD_ID=${CIRCLE_SHA1}
+        PROJECT=${CIRCLE_PROJECT_REPONAME}
+        bash
+       # Smoke Tests
+      - >
+        curl https://testrunner-api-acceptance.internal-weedmaps.com/bin/test_kick_off |
+        ENVIRONMENT=acceptance
+        SHA=${CIRCLE_SHA1}
+        DEPLOYER=CircleCI
+        JOB=FOREGROUND
+        PROJECT=${TESTRAIL_PROJECT}
+        bash
+  staging:
+    branch: staging
+    commands:
+      - >
+        curl https://provision-weedmaps.s3-us-west-2.amazonaws.com/bin/start_jenkins_task.sh |
+        DEPLOY_ENVIRONMENT=${CIRCLE_BRANCH}
+        JENKINS_JOB=rancher_deploy
+        bash
+      # Automated Release Notes
+      - >
+        curl -X POST
+        -d "sha=${CIRCLE_SHA1}"
+        -d "notify=true"
+        -d "pre=true"
+        -d "build_number=${CIRCLE_BUILD_NUM}"
+        -d "notify_rooms=${NOTIFY_SLACK_CHANNELS}"
+        https://build-api.internal-weedmaps.com/repos/${CIRCLE_PROJECT_REPONAME}/releases
+      # Datadog Deployment Event
+      - >
+        curl https://provision-weedmaps.s3-us-west-2.amazonaws.com/testing/bin/report_datadog_event |
+        ENVIRONMENT=${CIRCLE_BRANCH}
+        REVISION=${CIRCLE_SHA1}
+        DEPLOYER=CircleCI
+        BUILD_ID=${CIRCLE_SHA1}
+        PROJECT=${CIRCLE_PROJECT_REPONAME}
+        bash
+       # Smoke Tests
+      - >
+        curl https://testrunner-api-staging.internal-weedmaps.com/bin/test_kick_off |
+        ENVIRONMENT=staging SHA=${CIRCLE_SHA1}
+        DEPLOYER=CircleCI
+        JOB=FOREGROUND
+        PROJECT=${TESTRAIL_PROJECT}
+        bash
+  production:
+    branch: production
+    commands:
+      - >
+        curl https://provision-weedmaps.s3-us-west-2.amazonaws.com/bin/start_jenkins_task.sh |
+        DEPLOY_ENVIRONMENT=${CIRCLE_BRANCH}
+        JENKINS_JOB=rancher_deploy
+        bash
+      # Automated Release Notes
+      - >
+        curl -X PATCH
+        -d "notify=true"
+        -d "pre=false"
+        -d "notify_rooms=${NOTIFY_SLACK_CHANNELS_PROD_RELEASE}"
+        https://build-api.internal-weedmaps.com/repos/${CIRCLE_PROJECT_REPONAME}/releases/${CIRCLE_SHA1}
+      # Datadog Deployment Event
+      - >
+        curl https://provision-weedmaps.s3-us-west-2.amazonaws.com/testing/bin/report_datadog_event |
+        ENVIRONMENT=${CIRCLE_BRANCH}
+        REVISION=${CIRCLE_SHA1}
+        DEPLOYER=CircleCI
+        BUILD_ID=${CIRCLE_SHA1}
+        PROJECT=${CIRCLE_PROJECT_REPONAME}
+        bash

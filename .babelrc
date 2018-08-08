@@ -1,0 +1,34 @@
+{
+  "presets": [
+    "es2015",
+    "next/babel",
+    "flow"
+  ],
+  "plugins": [
+    "js-logger",
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-object-rest-spread",
+    [
+      "styled-components",
+      {
+        "ssr": true
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "mocks": "./lib/mocks",
+          "pages": "./pages",
+          "lib": "./lib",
+          "components": "./components",
+          "routes": "./routes",
+          "styles": "./styles",
+          "config": "./config",
+          "storybook": "./.storybook"
+        }
+      }
+    ]
+  ]
+}

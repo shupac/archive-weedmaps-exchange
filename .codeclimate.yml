@@ -1,0 +1,22 @@
+---
+engines:
+  duplication:
+    enabled: false
+    config:
+      languages:
+      - javascript
+  eslint:
+    enabled: false
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "**.js"
+  - "**.jsx"
+exclude_paths:
+- flow-typed/
+- config/
+- nginx/
+- .github/
+- __mocks__/
+- lib/mocks/

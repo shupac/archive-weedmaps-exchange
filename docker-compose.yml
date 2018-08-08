@@ -1,0 +1,45 @@
+# https://docs.docker.com/compose/extends/
+# The dockerfile has been split into 3 parts to support multiple environments.
+# This file contains just about everything except for host bound ports and volumes
+#
+# Local Dev port and volume settings go in docker-compose.override.yml
+version: "2"
+services:
+  web:
+    build:
+      context: ./nginx
+      args:
+        - CONF_FILE=nginx.tmpl.conf
+    environment:
+      - NEW_ADMIN_URL
+    links:
+      - app
+    depends_on:
+      - app
+  app:
+    build:
+      context: ./
+      args:
+        - NPM_TOKEN
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL}
+      - NODE_ENV=${NODE_ENV}
+      - DEPLOY_ENVIRONMENT=${DEPLOY_ENVIRONMENT}
+      - NPM_TOKEN=${NPM_TOKEN}
+      - NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY}
+      - HONEYBADGER_API_KEY=${HONEYBADGER_API_KEY}
+      - SHA=${sha}
+    command: /docker-entrypoint.sh
+  storybook:
+    build:
+      context: ./
+      args:
+        - NPM_TOKEN
+    command: /docker-entrypoint-storybook.sh
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL}
+      - NODE_ENV=${NODE_ENV}
+      - DEPLOY_ENVIRONMENT=${DEPLOY_ENVIRONMENT}
+      - NPM_TOKEN=${NPM_TOKEN}
+      - NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY}
+      - HONEYBADGER_API_KEY=${HONEYBADGER_API_KEY}

@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorMessage should render error state 404 1`] = `
+.c0 {
+  padding: 0 15px;
+}
+
+.c0 h1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-size: 2.625rem;
+  margin: 0;
+  padding-top: 64px;
+  padding-bottom: 24px;
+}
+
+.c0 div {
+  font-weight: 500;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+<div
+  className="c0"
+>
+  <h1>
+    404
+  </h1>
+  <div>
+    We're sorry. The page you're looking for does not exist.
+  </div>
+</div>
+`;
+
+exports[`ErrorMessage should render error state 500 1`] = `
+.c0 {
+  padding: 0 15px;
+}
+
+.c0 h1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-size: 2.625rem;
+  margin: 0;
+  padding-top: 64px;
+  padding-bottom: 24px;
+}
+
+.c0 div {
+  font-weight: 500;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+<div
+  className="c0"
+>
+  <h1>
+    500
+  </h1>
+  <div>
+    Internal server error.
+  </div>
+</div>
+`;
+
+exports[`ErrorMessage should render error state undefined 1`] = `
+.c0 {
+  padding: 0 15px;
+}
+
+.c0 h1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-size: 2.625rem;
+  margin: 0;
+  padding-top: 64px;
+  padding-bottom: 24px;
+}
+
+.c0 div {
+  font-weight: 500;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+<div
+  className="c0"
+>
+  <h1>
+    1000
+  </h1>
+  <div>
+    Something went wrong. Please refresh and try again.
+  </div>
+</div>
+`;

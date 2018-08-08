@@ -1,0 +1,10 @@
+ignore:
+  - "flow-typed"
+  - "config"
+  - "nginx"
+  - ".github"
+  - ".storybook"
+  - "__mocks__"
+  - "lib/mocks"
+  - "components/dev"
+  - "pages/login.js"

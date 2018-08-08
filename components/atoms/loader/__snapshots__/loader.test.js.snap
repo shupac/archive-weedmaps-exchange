@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Loader will render with a provided title  1`] = `
+<loader__LoaderWrap>
+  <Spinner
+    fill="#727682"
+    size="70px"
+  />
+  <p>
+    Loader text
+  </p>
+</loader__LoaderWrap>
+`;
+
+exports[`The Loader will render without a provided title  1`] = `
+<loader__LoaderWrap>
+  <Spinner
+    fill="#727682"
+    size="70px"
+  />
+</loader__LoaderWrap>
+`;

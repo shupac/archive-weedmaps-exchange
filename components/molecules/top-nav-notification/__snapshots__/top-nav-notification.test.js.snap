@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Top Nav Notification Notification 1`] = `
+<top-nav-notification__NotificationContainer>
+  <top-nav-notification__IconWrapper>
+    <Bell
+      className=""
+      fill="#999999"
+      size={
+        Object {
+          "height": "22px",
+          "width": "22px",
+        }
+      }
+    />
+  </top-nav-notification__IconWrapper>
+</top-nav-notification__NotificationContainer>
+`;
