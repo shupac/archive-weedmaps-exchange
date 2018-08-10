@@ -31,3 +31,7 @@ export { default as Wm404 } from './wm-404';
 export { default as WmTrashcan } from './wm-trashcan';
 export { default as Caret } from './caret';
 export { default as Plus } from './plus';
+export { default as Cart } from './cart';
+export { default as Gear } from './gear';
+export { default as Info } from './info';
+export { default as WM } from './wm';

@@ -1,28 +1,36 @@
+// @flow
 import React, { Component } from 'react';
+import RouterProvider from 'components/containers/router-provider';
+import AuthConnector from 'components/containers/auth-connector';
 import {
   PageContent,
   PageLayoutWithProgressBar,
 } from 'components/layouts/page-layout';
-import RouterProvider from 'components/containers/router-provider';
+import withStores from 'lib/stores/focused-store-provider';
 import AuthStore from 'lib/stores/auth';
+import { inject, observer } from 'mobx-react';
 
-type Props = {
-  auth: AuthStore,
-};
+type Props = {};
 
 export class Home extends Component<Props> {
   static displayName = 'HomePage';
 
   render() {
-    const { auth: authStore } = this.props;
     return (
       <PageLayoutWithProgressBar>
         <PageContent>
-          <h1>Admin</h1>
+          <h1>Well, hello der</h1>
         </PageContent>
       </PageLayoutWithProgressBar>
     );
   }
 }
 
-export default RouterProvider(Home);
+const pageStores = {
+  auth: { Store: AuthStore },
+};
+
+export default withStores(
+  AuthConnector(RouterProvider(inject('auth')(observer(Home)))),
+  pageStores,
+);

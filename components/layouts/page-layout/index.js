@@ -2,9 +2,7 @@
 import * as React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import theme from 'lib/styles/theme';
-// import TopNav from 'components/organisms/top-nav';
-import PageProgressBar from 'components/containers/page-progress-bar';
-import get from 'lodash.get';
+import TopNav from 'components/organisms/top-nav';
 import { rem } from 'polished';
 import { Flex } from '@ghostgroup/grid-styled';
 import PageSideNav from 'components/layouts/page-layout/page-side-nav';
@@ -79,7 +77,6 @@ export class PageLayout extends React.Component<Props, State> {
   };
 
   render() {
-    const { onMenuClick } = this;
     const {
       activeLink,
       childActiveLink,
@@ -91,7 +88,6 @@ export class PageLayout extends React.Component<Props, State> {
       flexRow,
     } = this.props;
     const { collapse } = this.state;
-    const mailCount = 1; // TODO: get mail count
 
     return (
       <ThemeProvider theme={theme}>
@@ -103,7 +99,11 @@ export class PageLayout extends React.Component<Props, State> {
           />
           <RightContainer>
             <div>
-
+              <TopNav
+                activeLink={activeLink}
+                // avatarUrl={get(user, 'avatar_url')}
+                onMenuClick={this.onMenuClick}
+              />
             </div>
             <ContentContainer
               className={`page ${this.props.className}`}
@@ -122,4 +122,4 @@ export class PageLayout extends React.Component<Props, State> {
 
 export { default as PageHead } from './page-head';
 export { default as PageContent } from './page-content';
-export const PageLayoutWithProgressBar = PageProgressBar(PageLayout);
+export const PageLayoutWithProgressBar = PageLayout;

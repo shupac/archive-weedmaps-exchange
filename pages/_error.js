@@ -1,16 +1,5 @@
 import React, { Component } from 'react';
-import { number } from 'prop-types';
-import {
-  PageContent,
-  PageHead,
-  PageLayout,
-} from 'components/layouts/page-layout';
-import ErrorMessage from 'components/atoms/error-message';
-import getFeatureFlags from 'components/containers/page-feature-flags';
-import { SIDE_NAV_FEATURE_FLAGS } from 'components/layouts/page-layout/page-side-nav';
-import urlConfig from 'lib/common/url-config';
-import withStores from 'lib/stores/focused-store-provider';
-import AuthStore from 'lib/stores/auth';
+// import { number } from 'prop-types';
 
 export class ErrorPage extends Component {
   static displayName = 'ErrorPage';
@@ -19,9 +8,9 @@ export class ErrorPage extends Component {
     statusCode: null,
   };
 
-  static propTypes = {
-    statusCode: number,
-  };
+  // static propTypes = {
+  //   statusCode: number,
+  // };
 
   static async getInitialProps(props) {
     const initialProps = {};
@@ -42,23 +31,9 @@ export class ErrorPage extends Component {
   }
 
   render() {
-    const { statusCode } = this.props;
-    return (
-      <PageLayout>
-        <PageHead />
-        <PageContent>
-          <ErrorMessage statusCode={statusCode} />
-        </PageContent>
-      </PageLayout>
-    );
+    //const { statusCode } = this.props;
+    return <h1>ERROR</h1>;
   }
 }
 
-const pageStores = {
-  auth: { Store: AuthStore },
-};
-export default getFeatureFlags(
-  withStores(ErrorPage, pageStores),
-  { baseUrl: urlConfig.featureFlagApiUrl },
-  [...SIDE_NAV_FEATURE_FLAGS],
-);
+export default ErrorPage;

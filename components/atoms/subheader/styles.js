@@ -1,0 +1,12 @@
+import { WmTheme } from '@ghostgroup/ui';
+import styled from 'styled-components';
+
+const { background, shadow } = WmTheme.style;
+
+export const SubHeaderWrap = styled.div`
+  display: flex;
+  width: 100%;
+  background-color: ${background.light};
+  box-shadow: 0 1px 3px 0 ${shadow};
+  z-index: 2;
+`;

@@ -7,7 +7,6 @@ const logger = require('./lib/common/logger');
 const express = require('express');
 const next = require('next');
 const Honeybadger = require('honeybadger');
-const { readFileSync } = require('fs');
 const asciiLogo = require('./lib/common/ascii_logo');
 const asciiRocket = require('./lib/common/ascii_rocket');
 const routes = require('./lib/routes');
@@ -39,33 +38,7 @@ function notifyHoneybadger(error, opts) {
   }
 }
 
-// eslint-disable-next-line import/no-dynamic-require
-const getMessages = locale => require(`./lib/lang/${locale}.json`);
-const localeDataCache = new Map();
-const { acceptedLanguages } = config;
-
-const getLocaleDataScript = locale => {
-  const lang = locale.split('-')[0];
-  if (!localeDataCache.has(lang)) {
-    const localeDataFile = require.resolve(`react-intl/locale-data/${lang}`);
-    const localeDataScript = readFileSync(localeDataFile, 'utf8');
-    localeDataCache.set(lang, localeDataScript);
-  }
-  return localeDataCache.get(lang);
-};
-
-// this preloads the locale cache Map and messages with the accepted languages
-acceptedLanguages.forEach(lang => {
-  getMessages(lang);
-  getLocaleDataScript(lang);
-});
-
 const renderApp = async (req, res, expressNext) => {
-  const locale = req.acceptsLanguages(acceptedLanguages);
-  req.locale = locale;
-  req.messages = getMessages(locale);
-  req.localeDataScript = getLocaleDataScript(locale);
-
   // Match route + parse params
   if (req.url === '/favicon.ico') {
     // @ToDo: We need to return the favicon.ico
@@ -75,7 +48,7 @@ const renderApp = async (req, res, expressNext) => {
   if (!route) return handle(req, res);
 
   // render route
-  logger.info(`Admin serving ${req.url}`);
+  logger.info(`Exchange serving ${req.url}`);
 
   try {
     const html = await app.renderToHTML(req, res, route.page, params);
@@ -101,7 +74,7 @@ const afterListen = err => {
   }
   const env = process.env.NODE_ENV || 'development';
   console.log(
-    `[WM Unified Admin]
+    `[WM Exchange]
 > NODE_ENV  => ${env}
 > envName   => ${config.envName}
 >           => http://localhost:${port}`,

@@ -4,15 +4,13 @@ import styled from 'styled-components';
 // UI Components
 import { SideNav, SideNavLayout, SideNavLink, AppHeader } from '@ghostgroup/ui';
 
-import { getPath } from '@/lenses/navigation';
-
 // Component Data
 import {
   buyerData,
   sellerData,
   buyerFooterData,
   sellerFooterData,
-} from './menuData';
+} from './navData';
 
 // Styled Components
 const { SideNavHeader, SideNavFooter } = SideNavLayout;
@@ -23,9 +21,6 @@ const Wrapper = styled.div`
 class SideNavComponent extends React.Component {
   render() {
     const { collapse } = this.props;
-
-    const linksData = asBuyer ? buyerData : sellerData;
-    const footerData = asBuyer ? buyerFooterData : sellerFooterData;
 
     return (
       <Wrapper>
@@ -39,27 +34,27 @@ class SideNavComponent extends React.Component {
             />
           </SideNavHeader>
 
-          {this.renderNavLinks(linksData)}
+          {this.renderNavLinks(buyerData)}
 
-          <SideNavFooter>{this.renderNavLinks(footerData)}</SideNavFooter>
+          <SideNavFooter>{this.renderNavLinks(buyerFooterData)}</SideNavFooter>
         </SideNav>
       </Wrapper>
     );
   }
 
   renderNavLinks(data) {
-    //const { dispatch, activePath } = this.props;
+    // const { dispatch, activePath } = this.props;
 
     return data.map(({ name, icon, path }) => (
       <SideNavLink
         key={name}
         name={name}
         icon={icon}
-        //isActive={matchPath(activePath, path)}
-        //onClick={() => dispatch(push(path))}
+        // isActive={matchPath(activePath, path)}
+        // onClick={() => dispatch(push(path))}
       />
     ));
   }
 }
 
-export default SideNavComponent
+export default SideNavComponent;
