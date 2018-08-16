@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react';
 import Transition from 'react-transition-group/Transition';
 import { Icons } from '@ghostgroup/ui';
 import theme from 'lib/styles/theme';
-import ModalStore from 'lib/stores/modal';
+// import ModalStore from 'lib/stores/modal';
 import { CloseButton, ModalContainer } from './styled-components';
 import Portal from './portal';
 
@@ -14,7 +14,8 @@ const valueOfIsServer = isServer();
 
 type Props = {
   children: React.Node,
-  modal: ModalStore,
+  // modal: ModalStore,
+  modal: any, // TODO: create ModalStore in lib/stores
   showOnMount: boolean,
   modalHandle: string,
   onCancel?: () => void,
