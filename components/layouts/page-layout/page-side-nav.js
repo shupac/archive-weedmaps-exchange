@@ -1,4 +1,6 @@
 import React from 'react';
+import { withRouter } from 'next/router';
+import urlConfig from 'lib/common/url-config';
 import styled from 'styled-components';
 
 // UI Components
