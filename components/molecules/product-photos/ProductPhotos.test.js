@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { productPhotos as mockProductPhotos } from '@/tests/_mocks/productPhotos';
+import { productPhotos as mockProductPhotos } from 'lib/mocks/product-photos';
 import MiniPhotos from './MiniPhotos';
 import FeaturedPhoto from './FeaturedPhoto';
 import ProductPhotos from './';

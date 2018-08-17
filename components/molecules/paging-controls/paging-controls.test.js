@@ -1,5 +1,4 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
 
 import PagingControls from './';
@@ -14,14 +13,14 @@ const pageButtonArray = (pageCount, currentPage) => {
 
 it('should render with four pages', () => {
   const component = <PagingControls pageCount={4} />;
-  const tree = renderer.create(component).toJSON();
-  expect(tree).toMatchSnapshot();
+  const tree = shallow(component);
+  expect(tree.exists()).toEqual(true);
 });
 
 it('should render with nine pages', () => {
   const component = <PagingControls pageCount={9} currentPage={5} />;
-  const tree = renderer.create(component).toJSON();
-  expect(tree).toMatchSnapshot();
+  const tree = shallow(component);
+  expect(tree.exists()).toEqual(true);
 });
 
 it('should have the right page number values with four pages', () => {

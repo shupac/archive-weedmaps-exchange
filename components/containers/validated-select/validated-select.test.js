@@ -1,6 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import ValidatedForm from 'react-validation/build/form';
 import ValidatedSelect from './';
 
@@ -9,18 +8,16 @@ ValidatedForm.displayName = 'ValidatedForm';
 describe('validated select', () => {
   it('renders correctly', () => {
     const onChange = () => null;
-    const tree = renderer
-      .create(
-        <ValidatedForm>
-          <ValidatedSelect onChange={onChange}>
-            <option value="one">One</option>
-            <option value="two">Two</option>
-            <option value="three">Three</option>
-          </ValidatedSelect>
-        </ValidatedForm>,
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
+    const tree = shallow(
+      <ValidatedForm>
+        <ValidatedSelect onChange={onChange}>
+          <option value="one">One</option>
+          <option value="two">Two</option>
+          <option value="three">Three</option>
+        </ValidatedSelect>
+      </ValidatedForm>,
+    );
+    expect(tree.exists()).toEqual(true);
   });
 
   it('should call onChange when clicking on a SelectionItem', () => {

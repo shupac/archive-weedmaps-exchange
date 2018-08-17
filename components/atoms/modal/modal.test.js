@@ -3,7 +3,7 @@
 jest.mock('./portal');
 jest.mock('lib/common/universal-helpers');
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'mobx-react';
 import theme from 'lib/styles/theme';
@@ -20,34 +20,30 @@ describe('Modal', () => {
 
   it('should render a modal ', () => {
     jest.spyOn(universalHelpers, 'isServer').mockReturnValue(false);
-    const tree = renderer
-      .create(
-        <ThemeProvider theme={theme}>
-          <Provider modal={{ showModalMap: new Map() }}>
-            <Modal modal={{ showModalMap: new Map() }} modalHandle="modal">
-              MODAL
-            </Modal>
-          </Provider>
-        </ThemeProvider>,
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
+    const tree = shallow(
+      <ThemeProvider theme={theme}>
+        <Provider modal={{ showModalMap: new Map() }}>
+          <Modal modal={{ showModalMap: new Map() }} modalHandle="modal">
+            MODAL
+          </Modal>
+        </Provider>
+      </ThemeProvider>,
+    );
+    expect(tree.exists()).toEqual(true);
   });
 
   it('should be able to not render modal ', () => {
     jest.spyOn(universalHelpers, 'isServer').mockReturnValue(true);
-    const tree = renderer
-      .create(
-        <ThemeProvider theme={theme}>
-          <Provider modal={{ showModalMap: new Map() }}>
-            <Modal modal={{ showModalMap: new Map() }} modalHandle="modal">
-              MODAL
-            </Modal>
-          </Provider>
-        </ThemeProvider>,
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
+    const tree = shallow(
+      <ThemeProvider theme={theme}>
+        <Provider modal={{ showModalMap: new Map() }}>
+          <Modal modal={{ showModalMap: new Map() }} modalHandle="modal">
+            MODAL
+          </Modal>
+        </Provider>
+      </ThemeProvider>,
+    );
+    expect(tree.exists()).toEqual(true);
   });
 
   it('should be able to lock scrolling ', () => {
