@@ -131,6 +131,7 @@
     "polished": "^1.9.3",
     "process-nextick-args": "^2.0.0",
     "prop-types": "^15.6.2",
+    "qs": "^6.5.2",
     "query-string": "^5.0.1",
     "react": "^16.3.2",
     "react-css-transition-replace": "^3.0.3",

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import get from 'lodash.get';
 import { Select, Icons, WmTheme } from '@ghostgroup/ui';
-import queryString from 'query-string';
+import qs from 'qs';
 
 import {
   SearchBarWrapper,
@@ -41,7 +41,7 @@ type CategorySelected = {
   value: string,
 };
 
-class SearchBar extends Component<Props, State> {
+export default class SearchBar extends Component<Props, State> {
   state = {
     searchValue: '',
     categorySelected: null,
@@ -57,7 +57,7 @@ class SearchBar extends Component<Props, State> {
 
   updateState(props: Props) {
     const { query } = props;
-    const { search, department } = queryString.parse(query);
+    const { search, department } = qs.parse(query);
 
     const category = items.find(i => i.value === department);
 
@@ -86,7 +86,7 @@ class SearchBar extends Component<Props, State> {
     //const { dispatch } = this.props;
     const { searchValue, categorySelected } = this.state;
 
-    const query = queryString.stringify({
+    const query = qs.stringify({
       search: searchValue,
       department: categorySelected && categorySelected.value,
     });
@@ -119,5 +119,3 @@ class SearchBar extends Component<Props, State> {
     );
   }
 }
-
-export default SearchBar;
