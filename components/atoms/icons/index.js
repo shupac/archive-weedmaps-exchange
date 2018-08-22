@@ -4,7 +4,7 @@ export { default as BigArrow } from './big-arrow';
 export { default as Brands } from './brands';
 export { default as Camera } from './camera';
 export { default as Chart } from './chart';
-export { ChevronRight, ChevronLeft } from './chevron';
+export { ChevronRight, ChevronLeft, ChevronDown } from './chevron';
 export { default as Close } from './close';
 export { default as Dashboard } from './dashboard';
 export { default as Desktop } from './desktop';

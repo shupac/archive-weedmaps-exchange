@@ -23,7 +23,7 @@ import { Tag } from './tag';
 import { Toolbox } from './toolbox';
 import { WmLogo } from './wm-logo';
 import { WmLogoMini } from './wm-logo-mini';
-import { ChevronRight, ChevronLeft } from './chevron';
+import { ChevronRight, ChevronLeft, ChevronDown } from './chevron';
 import { Spinner } from './spinner';
 import { Caret } from './caret';
 import { Plus } from './plus';
@@ -46,6 +46,7 @@ export default storiesOf('Icons', module)
   .add('Chart', () => <Chart />)
   .add('Chevron Right', () => <ChevronRight />)
   .add('Chevron Left', () => <ChevronLeft />)
+  .add('Chevron Down', () => <ChevronDown />)
   .add('Dashboard', () => <Dashboard />)
   .add('Desktop', () => <Desktop />)
   .add('ErrorIcon', () => <ErrorIcon />)
