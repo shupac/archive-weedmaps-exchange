@@ -33,7 +33,7 @@ export default storiesOf('Carousel', module)
       >
         {data.map((width, i) => (
           <Card
-            key={i}
+            key={width}
             width={width}
             height={200}
             style={{
@@ -57,7 +57,7 @@ export default storiesOf('Carousel', module)
       >
         {data.map((width, i) => (
           <Card
-            key={i}
+            key={width}
             width={width}
             height={200}
             style={{
@@ -80,7 +80,7 @@ export default storiesOf('Carousel', module)
       >
         {data.slice(0, 2).map((width, i) => (
           <Card
-            key={i}
+            key={width}
             width={width}
             height={200}
             style={{
@@ -104,7 +104,7 @@ export default storiesOf('Carousel', module)
       >
         {data.map((width, i) => (
           <Card
-            key={i}
+            key={width}
             width={width}
             height={100}
             style={{
@@ -123,7 +123,7 @@ export default storiesOf('Carousel', module)
       >
         {data.map((width, i) => (
           <Card
-            key={i}
+            key={width}
             width={width}
             height={300}
             style={{

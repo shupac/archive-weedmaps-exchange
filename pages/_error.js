@@ -31,7 +31,7 @@ export class ErrorPage extends Component {
   }
 
   render() {
-    //const { statusCode } = this.props;
+    // const { statusCode } = this.props;
     return <h1>ERROR</h1>;
   }
 }

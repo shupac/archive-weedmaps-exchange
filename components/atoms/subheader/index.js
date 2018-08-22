@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { SubHeaderWrap } from './styles';
+import SubHeaderWrap from './styles';
 
 type Props = {
   children?: React.Node,

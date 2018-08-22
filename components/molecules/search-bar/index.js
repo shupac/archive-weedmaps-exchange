@@ -83,14 +83,12 @@ export default class SearchBar extends Component<Props, State> {
   };
 
   handleSearch() {
-    //const { dispatch } = this.props;
-    const { searchValue, categorySelected } = this.state;
-
-    const query = qs.stringify({
-      search: searchValue,
-      department: categorySelected && categorySelected.value,
-    });
-
+    // const { dispatch } = this.props;
+    // const { searchValue, categorySelected } = this.state;
+    // const query = qs.stringify({
+    //   search: searchValue,
+    //   department: categorySelected && categorySelected.value,
+    // });
     // dispatch(push(`/buyer/marketplace/catalog?${query}`));
   }
 

@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { withTheme } from 'styled-components';
 import theme from 'lib/styles/theme';
 
 type Props = {
@@ -30,4 +29,4 @@ export const Bookmark = ({
   </svg>
 );
 
-export default withTheme(Bookmark);
+export default Bookmark;

@@ -28,7 +28,7 @@ import { Spinner } from './spinner';
 import { Caret } from './caret';
 import { Plus } from './plus';
 import { Bookmark } from './bookmark';
-import { Error } from './error';
+import { ErrorIcon } from './error';
 import { Cart } from './cart';
 import { Info } from './info';
 
@@ -48,7 +48,7 @@ export default storiesOf('Icons', module)
   .add('Chevron Left', () => <ChevronLeft />)
   .add('Dashboard', () => <Dashboard />)
   .add('Desktop', () => <Desktop />)
-  .add('Error', () => <Error />)
+  .add('ErrorIcon', () => <ErrorIcon />)
   .add('Flag', () => <Flag />)
   .add('Flag big for top nav bar', () => (
     <Flag size={{ width: '20px', height: '25px' }} />

@@ -15,7 +15,7 @@ import {
 type Props = {
   activeLink: string,
   user: any,
-  avatarUrl: string,
+  avatarUrl?: string,
   onMenuClick: string => void,
 };
 

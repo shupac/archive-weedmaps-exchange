@@ -41,7 +41,7 @@ type Props = {
   className: string,
   activeLink?: string,
   childActiveLink?: string,
-  user: any,
+  user?: any,
   pageScrollY?: boolean,
   pageScrollX?: boolean,
   contentScrollY?: boolean,
