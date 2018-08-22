@@ -13,7 +13,7 @@ import {
   ButtonRow,
   ActionButton,
 } from './styles';
-import { VariantRow } from './VariantRow';
+import VariantRow from './VariantRow';
 
 type Props = {
   variants: Array<Variant>,
@@ -30,7 +30,7 @@ const tableHead = [
 export class ProductVariants extends React.Component<Props> {
   calculateTotal = (formVals: { id: string, quantity: number }) => {
     const { variants } = this.props;
-    if (!variants) return;
+    if (!variants) return false;
     const total = variants.reduce((acc, item) => {
       const quantity = Number(formVals[item.id]);
       if (!this.validateQuantity(quantity)) {
@@ -75,15 +75,22 @@ export class ProductVariants extends React.Component<Props> {
             const errors = {};
             console.log('vals ', values);
 
-            for (const key in values) {
-              const error = this.validateQuantity(values[key]);
+            // for (const key in values) {
+            //   const error = this.validateQuantity(values[key]);
+            //   if (error) {
+            //     errors[key] = error;
+            //   }
+            // }
+            Object.entries(values).forEach(([key, val]) => {
+              if (typeof val !== 'number') throw new Error();
+              const error = this.validateQuantity(val);
               if (error) {
                 errors[key] = error;
               }
-            }
+            });
             return errors;
           }}
-          onSubmit={(values, actions) => {}}
+          // onSubmit={(values, actions) => {}}
           render={({
             values,
             handleChange,

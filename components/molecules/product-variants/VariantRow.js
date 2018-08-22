@@ -15,7 +15,7 @@ type Props = {
   resetField: (string, number, boolean) => void,
 };
 
-export const VariantRow = ({
+const VariantRow = ({
   variant,
   quantity,
   handleChange,
@@ -55,3 +55,5 @@ export const VariantRow = ({
     )}
   </TableRow>
 );
+
+export default VariantRow;

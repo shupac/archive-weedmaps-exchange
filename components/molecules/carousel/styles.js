@@ -37,9 +37,8 @@ export const Control = styled.div`
   align-items: center;
 
   svg path {
-    fill: ${({ theme, disabled }) => {
-      return disabled ? theme.palette.lightGrey1 : theme.style.text.normal;
-    }};
+    fill: ${({ theme, disabled }) =>
+      disabled ? theme.palette.lightGrey1 : theme.style.text.normal};
   }
 
   &:first-of-type {

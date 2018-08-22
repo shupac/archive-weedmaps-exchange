@@ -70,7 +70,7 @@ class CatalogCarousel extends React.Component<Props, State> {
     if (index < 0 || atLimit || index > this.cardRefs.length - 1) return;
 
     let offset = 0;
-    for (let i = 0; i < index; i++) {
+    for (let i = 0; i < index; i + 1) {
       offset += this.cardRefs[i].clientWidth;
     }
 
@@ -94,6 +94,7 @@ class CatalogCarousel extends React.Component<Props, State> {
 
     const productCards = children.map((card, i) => (
       <CardWrapper
+        // eslint-disable-next-line
         key={i}
         margin={cardMargin}
         innerRef={n => this.cardRefs.push(n)}

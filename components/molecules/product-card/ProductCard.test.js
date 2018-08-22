@@ -37,7 +37,7 @@ describe('Product Card', () => {
   });
 
   it('should render out of stock products', () => {
-    const component = shallow(<ProductCard {...product} outOfStock={true} />);
+    const component = shallow(<ProductCard {...product} outOfStock />);
     expect(component.find(CardWrapper).length).toEqual(1);
     expect(component.find(Brand).length).toEqual(1);
     expect(component.find(Name).length).toEqual(1);

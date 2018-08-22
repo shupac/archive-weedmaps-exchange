@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
-import toJSON from 'enzyme-to-json';
 import AuthStore from 'lib/stores/auth';
 import theme from 'lib/styles/theme';
 import SideNavComponent from './page-side-nav';

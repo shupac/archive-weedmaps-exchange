@@ -3,7 +3,7 @@ import React from 'react';
 import type { AttributesLicenses } from 'lib/types/products';
 import { LicenseNumber, LicenseType } from './styles';
 
-const LicenseItem = ({ license }: AttributesLicenses) => {
+const LicenseItem = ({ license }: { license: AttributesLicenses }) => {
   const { number, type } = license;
 
   return (

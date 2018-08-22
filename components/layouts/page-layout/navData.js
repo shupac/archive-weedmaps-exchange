@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 import { Cart, Papers, WM, Gear, Info } from 'components/atoms/icons';

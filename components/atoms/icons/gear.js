@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { withTheme } from 'styled-components';
 import themeDefault from 'lib/styles/theme';
 
 type Props = {
@@ -28,4 +27,4 @@ export const Gear = ({
   </svg>
 );
 
-export default withTheme(Gear);
+export default Gear;
