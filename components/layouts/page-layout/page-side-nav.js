@@ -1,6 +1,6 @@
 import React from 'react';
-import { withRouter } from 'next/router';
-import urlConfig from 'lib/common/url-config';
+// import { withRouter } from 'next/router';
+// import urlConfig from 'lib/common/url-config';
 import styled from 'styled-components';
 
 // UI Components
@@ -9,9 +9,9 @@ import { SideNav, SideNavLayout, SideNavLink, AppHeader } from '@ghostgroup/ui';
 // Component Data
 import {
   buyerData,
-  sellerData,
+  // sellerData,
   buyerFooterData,
-  sellerFooterData,
+  // sellerFooterData,
 } from './navData';
 
 // Styled Components
@@ -20,7 +20,11 @@ const Wrapper = styled.div`
   align-self: stretch;
 `;
 
-class SideNavComponent extends React.Component {
+type Props = {
+  collapse: any,
+};
+
+class SideNavComponent extends React.Component<Props> {
   render() {
     const { collapse } = this.props;
 
@@ -47,7 +51,7 @@ class SideNavComponent extends React.Component {
   renderNavLinks(data) {
     // const { dispatch, activePath } = this.props;
 
-    return data.map(({ name, icon, path }) => (
+    return data.map(({ name, icon }) => (
       <SideNavLink
         key={name}
         name={name}

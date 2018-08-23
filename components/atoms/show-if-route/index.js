@@ -12,7 +12,11 @@ type ShowIfRouteProps = {
 
 export class ShowIfRoute extends Component<ShowIfRouteProps> {
   render() {
-    const { children, match, router: { asPath } } = this.props;
+    const {
+      children,
+      match,
+      router: { asPath },
+    } = this.props;
     const re = pathToRegexp(match);
     const isMatch = re.exec(asPath);
 

@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import dynamic from 'next/dynamic';
 import withStores from 'lib/stores/focused-store-provider';
 import { withRouter } from 'next/router';
@@ -37,7 +37,11 @@ const tabs = [
   },
 ];
 
-export class Marketplace extends Component<Props, State> {
+type Props = {
+  router: any,
+};
+
+export class Marketplace extends Component<Props> {
   render() {
     const { router } = this.props;
 

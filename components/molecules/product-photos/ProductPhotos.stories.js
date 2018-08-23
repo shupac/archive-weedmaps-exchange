@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import {
   productPhotos as mockProductPhotos,
   emptyProductPhotos,
-} from 'lib/mocks/productPhotos';
+} from 'lib/mocks/product-photos';
 import ProductPhotos from './';
 
 export default storiesOf('Product Photos', module)

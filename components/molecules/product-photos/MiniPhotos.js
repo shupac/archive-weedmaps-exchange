@@ -1,6 +1,6 @@
 // @flow
 import React, { Fragment } from 'react';
-import type { ProductImage } from '@/lib/types/products';
+import type { ProductImage } from 'lib/types/products';
 import { MiniPhoto } from './styles';
 
 type Props = {

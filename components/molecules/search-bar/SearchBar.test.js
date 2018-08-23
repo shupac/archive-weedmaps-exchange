@@ -6,8 +6,8 @@ import {
   SelectWrapper,
   SearchIcon,
   SearchInputText,
-} from './styled';
-import { SearchBar } from './';
+} from './styles';
+import SearchBar from './';
 
 describe('Search Bar', () => {
   it('should render the search bar', () => {

@@ -5,6 +5,6 @@ import Menu from './';
 describe('Top Nav Menu', () => {
   it('Menu', () => {
     const tree = shallow(<Menu active="deals" />);
-    expect(tree).toMatchSnapshot();
+    expect(tree.exists()).toEqual(true);
   });
 });

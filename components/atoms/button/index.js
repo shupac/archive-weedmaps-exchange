@@ -102,3 +102,11 @@ export const ButtonWhite = styled(uiButton)`
   }
 `;
 ButtonWhite.displayName = 'ButtonWhite';
+
+export const ButtonWhiteNoHover = styled(uiButton)`
+  ${ButtonBase};
+  width: 100%;
+  background: ${theme.style.state.secondary};
+  border: 1px solid ${theme.style.border.default};
+`;
+ButtonWhite.displayName = 'ButtonWhiteNoHover';

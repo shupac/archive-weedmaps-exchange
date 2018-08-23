@@ -23,10 +23,14 @@ import { Tag } from './tag';
 import { Toolbox } from './toolbox';
 import { WmLogo } from './wm-logo';
 import { WmLogoMini } from './wm-logo-mini';
-import { ChevronRight, ChevronLeft } from './chevron';
+import { ChevronRight, ChevronLeft, ChevronDown } from './chevron';
 import { Spinner } from './spinner';
 import { Caret } from './caret';
 import { Plus } from './plus';
+import { Bookmark } from './bookmark';
+import { ErrorIcon } from './error';
+import { Cart } from './cart';
+import { Info } from './info';
 
 export default storiesOf('Icons', module)
   .addDecorator(GlobalStyleDecorator)
@@ -36,18 +40,23 @@ export default storiesOf('Icons', module)
   .add('ArrowRight', () => <ArrowRight />)
   .add('ArrowUp', () => <ArrowUp />)
   .add('Bell', () => <Bell size={{ width: '24px', height: '20px' }} />)
+  .add('Bookmark', () => <Bookmark />)
   .add('Brands', () => <Brands />)
+  .add('Cart', () => <Cart />)
   .add('Chart', () => <Chart />)
   .add('Chevron Right', () => <ChevronRight />)
   .add('Chevron Left', () => <ChevronLeft />)
+  .add('Chevron Down', () => <ChevronDown />)
   .add('Dashboard', () => <Dashboard />)
   .add('Desktop', () => <Desktop />)
+  .add('ErrorIcon', () => <ErrorIcon />)
   .add('Flag', () => <Flag />)
   .add('Flag big for top nav bar', () => (
     <Flag size={{ width: '20px', height: '25px' }} />
   ))
   .add('Grid', () => <Grid />)
   .add('Help', () => <Help size={{ width: '24px', height: '24px' }} />)
+  .add('Info', () => <Info />)
   .add('Keylock', () => <Keylock />)
   .add('Listings', () => <Listings />)
   .add('Mail', () => <Mail size={{ width: '24px', height: '18px' }} />)
