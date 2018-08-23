@@ -1,5 +1,5 @@
 // @flow
-import * as React from 'react';
+import React, { type Node } from 'react';
 import theme from 'lib/styles/theme';
 import { ChevronDown } from 'components/atoms/icons';
 import {
@@ -16,7 +16,7 @@ type Props = {
   collapsed: boolean,
   maxHeight?: number,
   onToggleCollapse: () => void,
-  children?: React.Node,
+  children?: Node,
 };
 
 type State = {

@@ -29,7 +29,7 @@ export const FilterName = styled.div`
 `;
 
 export const Filters = styled.div`
-  color: ${theme.palette.darkGrey1};
+  color: ${theme.colors.gullGray};
   font-size: ${rem(12)};
 `;
 
@@ -52,7 +52,7 @@ export const Expandable = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${theme.palette.lightGrey1};
+    background-color: ${theme.colors.divider};
     border-radius: 2.5px;
   }
 `;
