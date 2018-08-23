@@ -5,6 +5,6 @@ import Notification from './';
 describe('Top Nav Notification', () => {
   it('Notification', () => {
     const tree = shallow(<Notification active="deals" />);
-    expect(tree).toMatchSnapshot();
+    expect(tree.exists()).toEqual(true);
   });
 });

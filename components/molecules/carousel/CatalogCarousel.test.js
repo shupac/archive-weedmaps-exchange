@@ -28,7 +28,7 @@ const Card = styled.div`
 `;
 
 const cards = data.map((width, i) => (
-  <Card key={i} width={width} height={200}>
+  <Card key={width} width={width} height={200}>
     {i}
   </Card>
 ));

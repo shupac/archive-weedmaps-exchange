@@ -43,7 +43,10 @@ export default class ErrorBoundary extends Component<Props, State> {
         <ErrorWrapper>
           <div>
             <ErrorTitle>Error!</ErrorTitle>
-            <span>&nbsp;{message}</span>
+            <span>
+              &nbsp;
+              {message}
+            </span>
           </div>
         </ErrorWrapper>
       </Flex>

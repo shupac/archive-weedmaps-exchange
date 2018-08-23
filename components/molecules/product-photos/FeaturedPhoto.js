@@ -1,6 +1,6 @@
 // @flow
 import React, { Fragment } from 'react';
-import type { ProductImage } from '@/lib/types/products';
+import type { ProductImage } from 'lib/types/products';
 import { FeaturedPhotoWrapper } from './styles';
 
 const FeaturedPhoto = ({ featuredPhoto }: { featuredPhoto?: ProductImage }) => (

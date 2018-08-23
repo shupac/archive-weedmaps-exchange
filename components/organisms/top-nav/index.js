@@ -15,7 +15,7 @@ import {
 type Props = {
   activeLink: string,
   user: any,
-  avatarUrl: string,
+  avatarUrl?: string,
   onMenuClick: string => void,
 };
 
@@ -26,7 +26,7 @@ export default class TopNav extends Component<Props> {
   };
 
   render() {
-    const { activeLink: active, onMenuClick } = this.props;
+    const { /* activeLink: active, */ onMenuClick } = this.props;
 
     return (
       <TopNavContainer>
