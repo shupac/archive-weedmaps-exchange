@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
+import { withKnobs, text } from '@storybook/addon-knobs/react';
 import storybookBackgrounds from 'lib/common/storybook-backgrounds';
 import BackgroundColorDecorator from '../../../.storybook/decorators/background-color';
 import GlobalStyleDecorator from '../../../.storybook/decorators/global-style';
@@ -29,6 +31,8 @@ class Parent extends React.Component {
         collapsed={collapsed}
         onToggleCollapse={() => this.setState({ collapsed: !collapsed })}
         maxHeight={200}
+        title={text('Title', 'Categories')}
+        filters={text('Filters', 'All Categories')}
       >
         {contents.map(i => (
           <Child key={i}>{i}</Child>
@@ -39,13 +43,16 @@ class Parent extends React.Component {
 }
 
 Parent.propTypes = {
-  contents: [],
+  contents: PropTypes.array,
+  title: PropTypes.string,
+  filters: PropTypes.string,
 };
 
 export default storiesOf('FilterContainer', module)
   .addDecorator(storybookBackgrounds())
   .addDecorator(GlobalStyleDecorator)
   .addDecorator(BackgroundColorDecorator)
+  .addDecorator(withKnobs)
   .add('Default', () => (
     <Wrapper>
       <Parent contents={[1, 2, 3]} />

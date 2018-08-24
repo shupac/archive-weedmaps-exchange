@@ -17,6 +17,8 @@ type Props = {
   maxHeight?: number,
   onToggleCollapse: () => void,
   children?: Node,
+  title: string,
+  filters: string,
 };
 
 type State = {
@@ -46,15 +48,22 @@ class FilterContainer extends React.Component<Props, State> {
   }
 
   render() {
-    const { collapsed, onToggleCollapse, children, maxHeight } = this.props;
+    const {
+      collapsed,
+      onToggleCollapse,
+      children,
+      maxHeight,
+      title,
+      filters,
+    } = this.props;
     const { contentHeight } = this.state;
 
     return (
       <Container>
         <Header>
           <FilterInfo>
-            <FilterName>Categories</FilterName>
-            <Filters>All Categories</Filters>
+            <FilterName>{title}</FilterName>
+            <Filters>{filters}</Filters>
           </FilterInfo>
           <Chevron collapsed={collapsed} onClick={onToggleCollapse}>
             <ChevronDown
