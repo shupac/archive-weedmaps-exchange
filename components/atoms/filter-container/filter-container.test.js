@@ -8,7 +8,12 @@ describe('FilterContainer', () => {
     const onToggleCollapse = jest.fn();
 
     const component = mount(
-      <FilterContainer collapsed onToggleCollapse={onToggleCollapse} />,
+      <FilterContainer
+        collapsed
+        onToggleCollapse={onToggleCollapse}
+        title="Title"
+        filters="All filters"
+      />,
     );
     expect(component.exists()).toEqual(true);
   });
@@ -17,7 +22,12 @@ describe('FilterContainer', () => {
     const onToggleCollapse = jest.fn();
 
     const component = mount(
-      <FilterContainer collapsed onToggleCollapse={onToggleCollapse} />,
+      <FilterContainer
+        collapsed
+        onToggleCollapse={onToggleCollapse}
+        title="Title"
+        filters="All filters"
+      />,
     );
 
     component.find(Chevron).simulate('click');
