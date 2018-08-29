@@ -60,9 +60,6 @@ dist/
 # tsconfig (vscode experimentalDecorators)
 tsconfig.json
 
-# using NPM for admin
-yarn.lock
-
 # vscode config files
 .vscode/
 
