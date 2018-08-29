@@ -14,7 +14,7 @@ services:
     image: docker-registry.weedmaps.com/exchange-fe/app:${sha}
     mem_limit: 3584000000
     labels:
-      io.rancher_nginxlb.server_names: exchange-fe-${DEPLOY_ENVIRONMENT}.internal-weedmaps.com,exchange.weedmaps.com
+      io.rancher_activelb.server_names: ${SERVER_NAMES}
       io.rancher.scheduler.global: 'true'
       io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
       com.datadoghq.ad.check_names: '["tcp_check"]'
@@ -31,7 +31,7 @@ services:
       io.rancher.scheduler.global: 'true'
       io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
       # Server names from Consul
-      io.rancher_nginxlb.server_names: ${STORYBOOK_SERVER_NAMES}
+      io.rancher_nginxlb.server_names: ${SERVER_NAMES_STORYBOOK}
       com.datadoghq.ad.check_names: '["tcp_check"]'
       com.datadoghq.ad.init_configs: '[{}]'
       com.datadoghq.ad.instances: '[{"name":"exchange-fe-storybook", "host":"%%host%%", "port":"%%port%%", "collect_response_time":"true", "timeout":"3", "tags":["env:${deploy_environment}"]}]'
