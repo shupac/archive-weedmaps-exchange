@@ -1,0 +1,196 @@
+version: 2
+
+environment: &environment
+  COMPOSE_PROJECT_NAME: exchange-fe
+  NODE_ENV: test
+  NOTIFY_SLACK_CHANNELS: '#bnr-wmw'
+
+docker_defaults: &docker_defaults
+  docker:
+    - image: circleci/node:10
+      environment: *environment
+
+machine_defaults: &machine_defaults
+  machine:
+    docker_layer_caching: true
+  environment: *environment
+
+cache_key: &cache_key v1-yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+cache_keys: &cache_keys
+  - *cache_key
+  - v1-yarn-{{ .Branch }}-
+  - v1-yarn-
+
+cache_paths: &cache_paths
+  - node_modules
+  - ~/.cache/yarn
+
+yarn_install: &yarn_install
+  run:
+    name: Install yarn packages
+    command: yarn install --non-interactive --cache-folder ~/.cache/yarn
+
+set_deploy_environment: &set_deploy_environment
+  run:
+    name: Set DEPLOY_ENVIRONMENT based on current branch
+    command: |
+      export DEPLOY_ENVIRONMENT=weedmaps-${CIRCLE_BRANCH}
+      if [ ${DEPLOY_ENVIRONMENT} == 'develop' ]; then export DEPLOY_ENVIRONMENT=weedmaps-acceptance; fi
+      echo $DEPLOY_ENVIRONMENT > ~/.deploy_environment
+      echo "export DEPLOY_ENVIRONMENT=${DEPLOY_ENVIRONMENT}" >> ~/.bashrc
+
+jobs:
+  test:
+    <<: *docker_defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys: *cache_keys
+      - *yarn_install
+      - save_cache:
+          key: *cache_key
+          paths: *cache_paths
+      - run: yarn test
+
+  verify:
+    <<: *docker_defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys: *cache_keys
+      - *yarn_install
+      - save_cache:
+          key: *cache_key
+          paths: *cache_paths
+
+  build_app:
+    <<: *machine_defaults
+    steps:
+      - checkout
+      - run:
+          name: Log in to Docker registry
+          command: docker login -u ${DOCKER_REGISTRY_USERNAME} -p ${DOCKER_REGISTRY_PASSWORD} ${DOCKER_REGISTRY_URL}
+      - run:
+          name: Build containers
+          command: docker-compose build app
+      - run:
+          name: Tag and push Docker images
+          command: |
+            docker tag exchangefe_app ${DOCKER_REGISTRY_URL}/exchange-fe/app:${CIRCLE_SHA1}
+            docker push ${DOCKER_REGISTRY_URL}/exchange-fe/app:${CIRCLE_SHA1}
+  build_storybook:
+    <<: *machine_defaults
+    steps:
+      - checkout
+      - run:
+          name: Log in to Docker registry
+          command: docker login -u ${DOCKER_REGISTRY_USERNAME} -p ${DOCKER_REGISTRY_PASSWORD} ${DOCKER_REGISTRY_URL}
+      - run:
+          name: Build storybook container
+          command: docker-compose build storybook
+      - run:
+          name: Tag and push Docker images
+          command: |
+            docker tag exchangefe_storybook ${DOCKER_REGISTRY_URL}/exchange-fe/storybook:${CIRCLE_SHA1}
+            docker push ${DOCKER_REGISTRY_URL}/exchange-fe/storybook:${CIRCLE_SHA1}
+
+
+  deploy:
+    <<: *machine_defaults
+    working_directory: /home/circleci
+    steps:
+      - *set_deploy_environment
+      - run:
+          name: Download provisioning scripts
+          command: |
+            wget -O jenkins_credentials https://provision-weedmaps.s3-us-west-2.amazonaws.com/jenkins_credentials
+            wget -O crypto https://provision-weedmaps.s3-us-west-2.amazonaws.com/bin/crypto
+            wget -O run_jenkins https://provision-weedmaps.s3-us-west-2.amazonaws.com/bin/start_jenkins_task.sh
+            chmod u+x crypto run_jenkins
+      - run:
+          name: Decrypt Jenkins credentials
+          command: bash crypto -d jenkins_credentials
+      - run:
+          name: Deploy to Rancher
+          command: APPLICATION_ENVIRONMENT=production DEPLOY_ENVIRONMENT=$(cat ~/.deploy_environment) BRANCH=${CIRCLE_BRANCH} REPOSITORY=${CIRCLE_PROJECT_REPONAME} SHA=${CIRCLE_SHA1} JENKINS_JOB=rancher_deploy ./run_jenkins
+
+
+  notify_pre:
+    <<: *docker_defaults
+    steps:
+      - run:
+          name: Notify Build Automation API of pre-release
+          command: curl -X POST -d "build_number=${CIRCLE_BUILD_NUM}&sha=${CIRCLE_SHA1}&notify=true&pre=true&notify_rooms=${NOTIFY_SLACK_CHANNELS}" https://build-api.internal-weedmaps.com/repos/${CIRCLE_PROJECT_REPONAME}/releases
+
+  notify_prod:
+    <<: *docker_defaults
+    steps:
+      - run:
+          name: Notify Build Automation API of production release
+          command: curl -X PATCH -d "notify=true&pre=false&notify_rooms=${NOTIFY_SLACK_CHANNELS}" https://build-api.internal-weedmaps.com/repos/${CIRCLE_PROJECT_REPONAME}/releases/${CIRCLE_SHA1}
+      - run:
+          name: Notify Datadog of production release
+          command: curl https://provision-weedmaps.s3-us-west-2.amazonaws.com/testing/bin/report_datadog_event | ENVIRONMENT=production REVISION=${CIRCLE_SHA1} DEPLOYER=CircleCI BUILD_ID=${CIRCLE_SHA1} PROJECT=${CIRCLE_PROJECT_REPONAME} bash
+
+exclude_refspec: &exclude_refspec
+  filters:
+    branches:
+      ignore:
+        - staging
+        - performance
+        - production
+
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - test:
+          <<: *exclude_refspec
+      - verify:
+          <<: *exclude_refspec
+      - build_app:
+          context: weedmaps
+          requires:
+            - test
+            - verify
+          filters:
+            branches:
+              only:
+                - develop
+      - deploy:
+          requires:
+            - build_app
+      - build_storybook:
+          context: weedmaps
+          requires:
+            - test
+            - verify
+          filters:
+            branches:
+              only:
+                - develop
+
+
+  refspec:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only:
+                - staging
+                - performance
+                - production
+      - notify_pre:
+          requires:
+            - deploy
+          filters:
+            branches:
+              only:
+                - staging
+      - notify_prod:
+          requires:
+            - deploy
+          filters:
+            branches:
+              only:
+                - production

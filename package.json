@@ -26,6 +26,12 @@
     "clean-build": "rm -rf ./build",
     "test-bundlesize": "NODE_ENV=production npm run build && bundlesize"
   },
+  "bundlesize": [
+    {
+      "path": "./build/.next/main.js",
+      "maxSize": "220 kB"
+    }
+  ],
   "lint-staged": {
     "*.js": [
       "npx glow focus-check",
