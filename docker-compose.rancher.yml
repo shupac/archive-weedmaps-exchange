@@ -10,48 +10,33 @@
 # YAML Arrays get merged/appended opposed to overridden
 version: "2"
 services:
-  web:
-    image: docker-registry.weedmaps.com/admin/nginx:${sha}
-    labels:
-      io.rancher_activelb.server_names: ${SERVER_NAMES}
-      io.rancher.scheduler.global: 'true'
-      # sets things up so it responds to admin-acceptance.weedmaps.com and web.admin.acceptance-us-west2.weedmaps.com
-      io.rancher_nginxlb.server_names: admin-${deploy_environment}.internal-weedmaps.com,web.admin,admin.internal-weedmaps.com,www.admin-${deploy_environment}.internal-weedmaps.com,www.admin.weedmaps.com,admin.weedmaps.com,admin-${deploy_environment}.weedmaps.com
-      io.rancher.sidekicks: app
-      io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
-      io.rancher_activelb.visibility: ${SERVICE_VISIBILITY}
-    environment:
-      - NODE_ENV=${APPLICATION_ENVIRONMENT}
-      # these add fields and tags in the ELK dashboards for filtering/aggregation
-      - LOGSTASH_TAGS=admin,${deploy_environment},nginx,web
-      - LOGSTASH_FIELDS=stack=admin,service=web,deploy_environment=${deploy_environment},sha=${sha},application_environment=${application_environment}
-    ports:
-      - 80
-    volumes_from:
-      - app
   app:
-    image: docker-registry.weedmaps.com/admin/app:${sha}
+    image: docker-registry.weedmaps.com/exchange-fe/app:${sha}
+    mem_limit: 3584000000
     labels:
+      io.rancher_nginxlb.server_names: exchange-fe-${DEPLOY_ENVIRONMENT}.internal-weedmaps.com,exchange.weedmaps.com
       io.rancher.scheduler.global: 'true'
       io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
+      com.datadoghq.ad.check_names: '["tcp_check"]'
+      com.datadoghq.ad.init_configs: '[{}]'
+      com.datadoghq.ad.instances: '[{"name":"exchange-fe_app", "host":"%%host%%", "port":"%%port%%", "collect_response_time":"true", "timeout":"3", "tags":["env:${deploy_environment}"]}]'
     ports:
       - 1620
-    volumes:
-      - /var/www/admin/static
-      - /var/www/admin/build
     environment:
-      - NODE_ENV=${APPLICATION_ENVIRONMENT}
-      - DEPLOY_ENVIRONMENT=${deploy_environment}
-      # these add fields and tags in the ELK dashboards for filtering/aggregation
-      - LOGSTASH_TAGS=admin,${deploy_environment},app
-      - LOGSTASH_FIELDS=stack=admin,service=app,deploy_environment=${deploy_environment},sha=${sha},application_environment=${application_environment}
+      - LOGSTASH_TAGS=exchange-fe,${deploy_environment},nodejs,app
+      - LOGSTASH_FIELDS=stack=exchange-fe,service=app,deploy_environment=${deploy_environment},sha=${sha},application_environment=${application_environment}
   storybook:
-    image: docker-registry.weedmaps.com/admin/storybook:${sha}
+    image: docker-registry.weedmaps.com/exchange-fe/storybook:${sha}
     labels:
-      io.rancher_activelb.server_names: ${SERVER_NAMES_STORYBOOK}
       io.rancher.scheduler.global: 'true'
       io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
+      # Server names from Consul
+      io.rancher_nginxlb.server_names: ${STORYBOOK_SERVER_NAMES}
+      com.datadoghq.ad.check_names: '["tcp_check"]'
+      com.datadoghq.ad.init_configs: '[{}]'
+      com.datadoghq.ad.instances: '[{"name":"exchange-fe-storybook", "host":"%%host%%", "port":"%%port%%", "collect_response_time":"true", "timeout":"3", "tags":["env:${deploy_environment}"]}]'
     environment:
-      - NODE_ENV=${APPLICATION_ENVIRONMENT}
+      - LOGSTASH_TAGS=exchange-fe,${deploy_environment},nodejs,app
+      - LOGSTASH_FIELDS=stack=exchange-fe,service=storybook,deploy_environment=${deploy_environment},sha=${sha},application_environment=${application_environment}
     ports:
-      - 6006
+      - 8080

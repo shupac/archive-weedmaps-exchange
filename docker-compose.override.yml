@@ -10,19 +10,9 @@
 # YAML Arrays in this file get merged/appended to those set in docker-compose.yml
 version: "2"
 services:
-  web:
-    ports:
-      - 80:80
-    volumes_from:
-      - app
   app:
-    command: /docker-entrypoint.sh
     ports:
-      - 1620:1620
-    volumes:
-      - /var/www/admin/static
-      - /var/www/admin/build
+      - 80:1620
   storybook:
     ports:
-      - 6006:6006
-    command: /docker-entrypoint-storybook.sh
+      - 6006:8080

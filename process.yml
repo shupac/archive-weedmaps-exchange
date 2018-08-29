@@ -1,0 +1,7 @@
+apps:
+  - script             : './server.js'
+    name               : 'exchange'
+    exec_mode          : 'cluster'
+    instances          : '-1'
+    merge_logs         : true
+    max_memory_restart : '512M'
