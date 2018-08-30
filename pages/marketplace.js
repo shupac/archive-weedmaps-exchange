@@ -9,6 +9,7 @@ import { Tabs } from '@ghostgroup/ui';
 import { Link } from 'lib/routes';
 import {
   PageContent,
+  TabContent,
   PageLayoutWithProgressBar,
 } from 'components/layouts/page-layout';
 import ShowIfRoute from 'components/atoms/show-if-route';
@@ -21,6 +22,10 @@ const DiscoverTab = dynamic(
     loading: () => <p>loading</p>,
   },
 );
+
+const CatalogTab = dynamic(import('components/organisms/marketplace-catalog'), {
+  loading: () => <p>loading</p>,
+});
 
 const tabs = [
   {
@@ -59,9 +64,16 @@ export class Marketplace extends Component<Props> {
               ))}
             </Tabs>
           </Subheader>
-          <ShowIfRoute match="/buyer/marketplace/catalog">
-            {<DiscoverTab />}
-          </ShowIfRoute>
+
+          <TabContent>
+            <ShowIfRoute match="/buyer/marketplace/discover">
+              {<DiscoverTab />}
+            </ShowIfRoute>
+
+            <ShowIfRoute match="/buyer/marketplace/catalog">
+              {<CatalogTab />}
+            </ShowIfRoute>
+          </TabContent>
         </PageContent>
       </PageLayoutWithProgressBar>
     );

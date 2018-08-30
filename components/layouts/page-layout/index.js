@@ -36,6 +36,10 @@ const ContentContainer = styled(Flex)`
     contentScrollX ? `scroll` : `hidden`};
 `;
 
+const TabContent = styled.div`
+  padding: 16px;
+`;
+
 type Props = {
   children?: React.Node,
   className: string,
@@ -122,4 +126,5 @@ export class PageLayout extends React.Component<Props, State> {
 
 export { default as PageHead } from './page-head';
 export { default as PageContent } from './page-content';
+export { TabContent };
 export const PageLayoutWithProgressBar = PageLayout;

@@ -44,8 +44,6 @@ class Parent extends React.Component {
 
 Parent.propTypes = {
   contents: PropTypes.array,
-  title: PropTypes.string,
-  filters: PropTypes.string,
 };
 
 export default storiesOf('FilterContainer', module)

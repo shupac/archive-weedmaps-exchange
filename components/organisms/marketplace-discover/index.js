@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const MarketplaceDiscover = () => <h1>MarketplaceDiscover</h1>;
+export const Discover = () => <h1>Discover</h1>;
 
-export default MarketplaceDiscover;
+export default Discover;

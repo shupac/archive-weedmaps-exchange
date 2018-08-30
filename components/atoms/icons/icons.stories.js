@@ -5,6 +5,7 @@ import GlobalStyleDecorator from '../../../.storybook/decorators/global-style';
 import { ArrowDown, ArrowUp, ArrowLeft, ArrowRight } from './arrow';
 import { Bell } from './bell';
 import { Brands } from './brands';
+import { Check } from './check';
 import { Chart } from './chart';
 import { Dashboard } from './dashboard';
 import { Desktop } from './desktop';
@@ -42,6 +43,7 @@ export default storiesOf('Icons', module)
   .add('Bell', () => <Bell size={{ width: '24px', height: '20px' }} />)
   .add('Bookmark', () => <Bookmark />)
   .add('Brands', () => <Brands />)
+  .add('Check', () => <Check />)
   .add('Cart', () => <Cart />)
   .add('Chart', () => <Chart />)
   .add('Chevron Right', () => <ChevronRight />)

@@ -7,32 +7,32 @@ import {
   Header,
   FilterInfo,
   FilterName,
-  Filters,
+  FiltersLabel,
   Chevron,
   Expandable,
+  Filters,
 } from './styles';
 
 type Props = {
-  collapsed: boolean,
-  maxHeight?: number,
-  onToggleCollapse: () => void,
-  children?: Node,
   title: string,
   filters: string,
+  maxHeight?: number,
+  children?: Node,
 };
 
 type State = {
+  collapsed: boolean,
   contentHeight: ?number,
 };
 
 class FilterContainer extends React.Component<Props, State> {
   static defaultProps = {
-    collapsed: true,
     maxHeight: 400,
   };
 
   state = {
     contentHeight: 0,
+    collapsed: true,
   };
 
   contents: ?HTMLDivElement;
@@ -48,24 +48,20 @@ class FilterContainer extends React.Component<Props, State> {
   }
 
   render() {
-    const {
-      collapsed,
-      onToggleCollapse,
-      children,
-      maxHeight,
-      title,
-      filters,
-    } = this.props;
-    const { contentHeight } = this.state;
+    const { children, maxHeight, title, filters } = this.props;
+    const { contentHeight, collapsed } = this.state;
 
     return (
       <Container>
         <Header>
           <FilterInfo>
             <FilterName>{title}</FilterName>
-            <Filters>{filters}</Filters>
+            <FiltersLabel>{filters}</FiltersLabel>
           </FilterInfo>
-          <Chevron collapsed={collapsed} onClick={onToggleCollapse}>
+          <Chevron
+            collapsed={collapsed}
+            onClick={() => this.setState({ collapsed: !collapsed })}
+          >
             <ChevronDown
               fill={theme.palette.darkGrey2}
               size={{ width: '16px', height: '16px' }}
@@ -78,13 +74,13 @@ class FilterContainer extends React.Component<Props, State> {
           contentHeight={contentHeight}
           maxHeight={maxHeight}
         >
-          <div
-            ref={n => {
+          <Filters
+            innerRef={n => {
               this.contents = n;
             }}
           >
             {children}
-          </div>
+          </Filters>
         </Expandable>
       </Container>
     );

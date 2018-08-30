@@ -2,6 +2,7 @@ export { ArrowDown, ArrowUp, ArrowLeft, ArrowRight } from './arrow';
 export { Bell } from './bell';
 export { default as BigArrow } from './big-arrow';
 export { default as Brands } from './brands';
+export { default as Check } from './check';
 export { default as Camera } from './camera';
 export { default as Chart } from './chart';
 export { ChevronRight, ChevronLeft, ChevronDown } from './chevron';

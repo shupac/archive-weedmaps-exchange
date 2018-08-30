@@ -18,7 +18,6 @@ export const FilterInfo = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: auto;
-  margin-bottom: 16px;
 `;
 
 export const FilterName = styled.div`
@@ -26,11 +25,13 @@ export const FilterName = styled.div`
   font-size: ${rem(16)};
   font-weight: 600;
   line-height: ${rem(24)};
+  margin-top: -4px;
 `;
 
-export const Filters = styled.div`
+export const FiltersLabel = styled.div`
   color: ${theme.colors.gullGray};
   font-size: ${rem(12)};
+  line-height: ${rem(14)};
 `;
 
 export const Chevron = styled.div`
@@ -55,4 +56,9 @@ export const Expandable = styled.div`
     background-color: ${theme.colors.divider};
     border-radius: 2.5px;
   }
+`;
+
+export const Filters = styled.div`
+  padding: 0 16px;
+  padding-bottom: 4px;
 `;
