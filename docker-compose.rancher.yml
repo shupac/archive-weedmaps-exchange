@@ -11,6 +11,7 @@
 version: "2"
 services:
   app:
+    container_name: app
     image: docker-registry.weedmaps.com/exchange-fe/app:${sha}
     mem_limit: 3584000000
     labels:
@@ -27,6 +28,7 @@ services:
       - LOGSTASH_TAGS=exchange-fe,${deploy_environment},nodejs,app
       - LOGSTASH_FIELDS=stack=exchange-fe,service=app,deploy_environment=${deploy_environment},sha=${sha},application_environment=${application_environment}
   storybook:
+    container_name: storybook
     image: docker-registry.weedmaps.com/exchange-fe/storybook:${sha}
     labels:
       io.rancher.scheduler.global: 'true'
