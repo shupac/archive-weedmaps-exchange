@@ -15,6 +15,7 @@ services:
     mem_limit: 3584000000
     labels:
       io.rancher_activelb.server_names: ${SERVER_NAMES}
+      io.rancher_activelb.visibility: ${VISIBILITY}
       io.rancher.scheduler.global: 'true'
       io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
       com.datadoghq.ad.check_names: '["tcp_check"]'
@@ -30,8 +31,9 @@ services:
     labels:
       io.rancher.scheduler.global: 'true'
       io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
+      io.rancher_activelb.visibility: ${VISIBILITY}
       # Server names from Consul
-      io.rancher_nginxlb.server_names: ${SERVER_NAMES_STORYBOOK}
+      io.rancher_activelb.server_names: ${SERVER_NAMES_STORYBOOK}
       com.datadoghq.ad.check_names: '["tcp_check"]'
       com.datadoghq.ad.init_configs: '[{}]'
       com.datadoghq.ad.instances: '[{"name":"exchange-fe-storybook", "host":"%%host%%", "port":"%%port%%", "collect_response_time":"true", "timeout":"3", "tags":["env:${deploy_environment}"]}]'
