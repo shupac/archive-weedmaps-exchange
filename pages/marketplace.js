@@ -1,16 +1,15 @@
 // @flow
 import React, { Component } from 'react';
 import dynamic from 'next/dynamic';
-import withStores from 'lib/stores/focused-store-provider';
-import { withRouter } from 'next/router';
-import { inject, observer } from 'mobx-react';
-import AuthStore from 'lib/stores/auth';
+import provide from 'lib/data-access/stores/provider';
+import { inject } from 'mobx-react';
+import AuthConnector from 'components/containers/auth-connector';
 import { Tabs } from '@ghostgroup/ui';
 import { Link } from 'lib/routes';
 import {
   PageContent,
+  PageLayout,
   TabContent,
-  PageLayoutWithProgressBar,
 } from 'components/layouts/page-layout';
 import ShowIfRoute from 'components/atoms/show-if-route';
 import TabButton from 'components/atoms/tab-button';
@@ -43,20 +42,21 @@ const tabs = [
 ];
 
 type Props = {
-  router: any,
+  store?: any,
+  url: any,
 };
 
 export class Marketplace extends Component<Props> {
   render() {
-    const { router } = this.props;
+    const { url } = this.props;
 
     return (
-      <PageLayoutWithProgressBar>
+      <PageLayout>
         <PageContent>
           <Subheader>
             <Tabs>
               {tabs.map(({ path, label }) => (
-                <TabButton key={label} isSelected={path === router.query.tab}>
+                <TabButton key={label} isSelected={path === url.query.tab}>
                   <Link route="marketplace" params={{ tab: path }}>
                     <a>{label}</a>
                   </Link>
@@ -64,7 +64,6 @@ export class Marketplace extends Component<Props> {
               ))}
             </Tabs>
           </Subheader>
-
           <TabContent>
             <ShowIfRoute match="/buyer/marketplace/discover">
               {<DiscoverTab />}
@@ -75,16 +74,9 @@ export class Marketplace extends Component<Props> {
             </ShowIfRoute>
           </TabContent>
         </PageContent>
-      </PageLayoutWithProgressBar>
+      </PageLayout>
     );
   }
 }
 
-const pageStores = {
-  auth: { Store: AuthStore },
-};
-
-export default withStores(
-  withRouter(inject('auth')(observer(Marketplace))),
-  pageStores,
-);
+export default provide(AuthConnector(inject('store')(Marketplace)));

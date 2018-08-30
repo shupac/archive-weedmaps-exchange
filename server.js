@@ -13,7 +13,6 @@ const routes = require('./lib/routes');
 const configMiddleware = require('./lib/server/middleware/config');
 const requestContext = require('./lib/server/request-context');
 const newRelic = require('./lib/server/middleware/new-relic');
-const auth = require('./lib/server/middleware/auth');
 const csp = require('express-csp');
 const policy = require('./lib/server/content-security-policy');
 const insertNonce = require('./lib/server/insert-csp-nonce');
@@ -92,7 +91,6 @@ const afterPrepare = () => {
   expressApp
     .use(Honeybadger.requestHandler)
     .use(newRelic)
-    .use(auth)
     .use(renderApp)
     .use(Honeybadger.errorHandler)
     .listen(port, afterListen);

@@ -17,7 +17,7 @@ Logger.useDefaults({
     const log = {
       message: messages[0],
       component: context.name
-        ? context.name.replace('@ghostgroup/deliveries:', 'APP:')
+        ? context.name.replace('@ghostgroup/exchange:', 'APP:')
         : '-',
       data: args === false ? undefined : args,
       log_level: context.level.name,

@@ -34,26 +34,30 @@ export const AuthConnectorWrapper = ComponentToCompose => {
     static ComposedComponent = ComponentToCompose;
     static displayName = `${AuthConnectorWrapper.displayName}(${displayName})`;
 
-    static async getInitialProps(props, stores) {
-      const { auth: authStore } = stores;
+    static async getInitialProps(props, store) {
+      const { authStore } = store;
+
       let initialProps = {};
-      // Check user status
+
       logger.debug('Checking if we are authenticated (hasTokens?)');
-      if (!authStore.user && authStore.isAuthenticated) {
+
+      // Check user status
+      if (authStore.isAuthenticated) {
         // Auth tokens exists, try and fetch the user
         try {
           logger.debug('Fetching user!');
-          await stores.auth.getUser();
+          await authStore.fetchUser();
         } catch (e) {
-          return resolveUnauthenticatedRedirect(props, stores);
+          logger.debug('Fetching user FAIL');
+          return resolveUnauthenticatedRedirect(props, store);
         }
       } else {
-        return resolveUnauthenticatedRedirect(props, stores);
+        return resolveUnauthenticatedRedirect(props, store);
       }
 
       // run component getInitialProps on the composed component
       if (ComponentToCompose.getInitialProps) {
-        initialProps = ComponentToCompose.getInitialProps(props, stores);
+        initialProps = ComponentToCompose.getInitialProps(props, store);
       }
       // return any initial props
       return initialProps;

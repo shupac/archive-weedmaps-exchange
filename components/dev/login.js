@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import urlConfig from 'lib/common/url-config';
+import { apiGatewayUrl, apiRootPath } from 'config';
+import { getEnv } from 'mobx-state-tree';
 import axios from 'axios';
 import { redirectTo } from 'lib/common/redirect-unauthenticated-user';
 
@@ -43,12 +45,14 @@ export default class DevLoginForm extends Component {
 
   onSubmit = async event => {
     const { username, password } = this.state;
-    const { auth: authStore } = this.props;
-    const { auth: authModule } = authStore.sdk.user;
+    const { store } = this.props;
+    const sdk = getEnv(store).wmSdk;
+    const { auth: authModule } = sdk.user;
+
     event.preventDefault();
     const result = await axios({
       method: 'POST',
-      url: urlConfig.oauthLogin,
+      url: `${apiGatewayUrl}/auth/token`,
       data: {
         grant_type: 'password',
         scope: 'user',
@@ -57,16 +61,19 @@ export default class DevLoginForm extends Component {
       },
     });
     const { data } = result;
+    console.log('authModule ', authModule);
+
     authModule.updateTokens({
       accessToken: data.access_token,
       refreshToken: data.refresh_token,
     });
     authModule.flush();
-    redirectTo({}, '/');
+    redirectTo({}, '/buyer/marketplace/catalog');
   };
 
   render() {
     const { username, password } = this.state;
+
     return (
       <FormCenterParent>
         <Form onSubmit={this.onSubmit}>

@@ -1,37 +1,27 @@
 import React, { Component } from 'react';
-import {
-  PageContent,
-  PageLayoutWithProgressBar,
-} from 'components/layouts/page-layout';
-import RouterProvider from 'components/containers/router-provider';
+import { PageContent } from 'components/layouts/page-layout';
 import { inject, observer } from 'mobx-react';
-import withStores from 'lib/stores/focused-store-provider';
-import AuthStore from 'lib/stores/auth';
+import provide from 'lib/data-access/stores/provider';
 import DevLoginForm from 'components/dev/login';
+import { withRouter } from 'next/router';
 
 type Props = {
   auth: AuthStore,
+  store: any,
 };
 
 export class Login extends Component<Props> {
   static displayName = 'LoginPage';
 
   render() {
-    const { auth: authStore } = this.props;
+    const { store } = this.props;
+
     return (
-      <PageLayoutWithProgressBar user={authStore.user}>
-        <PageContent>
-          <DevLoginForm auth={authStore} />
-        </PageContent>
-      </PageLayoutWithProgressBar>
+      <PageContent>
+        <DevLoginForm store={store} />
+      </PageContent>
     );
   }
 }
 
-const pageStores = {
-  auth: { Store: AuthStore },
-};
-export default withStores(
-  RouterProvider(inject('auth')(observer(Login))),
-  pageStores,
-);
+export default provide(withRouter(Login));

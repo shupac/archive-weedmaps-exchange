@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth Store actions will update the state of the model 1`] = `
+Object {
+  "isLoading": true,
+  "user": Object {
+    "email": "weedmaps@weedmaps.com",
+    "roles": Array [
+      "ops_manager",
+      "content_moderator",
+      "sales_manager",
+    ],
+    "slug": "kushagram",
+    "username": "weedmaps",
+  },
+}
+`;
+
+exports[`Auth Store can create an instance of a model 1`] = `
+Object {
+  "isLoading": false,
+  "user": Object {
+    "email": "",
+    "roles": Array [],
+    "slug": "",
+    "username": "",
+  },
+}
+`;
+
+exports[`User Model can create an instance of a model 1`] = `
+Object {
+  "email": "weedmaps@weedmaps.com",
+  "roles": Array [
+    "ops_manager",
+    "content_moderator",
+    "sales_manager",
+  ],
+  "slug": "kushagram",
+  "username": "weedmaps",
+}
+`;

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User Model can create an instance of a model 1`] = `
+Object {
+  "email": "weedmaps@weedmaps.com",
+  "roles": Array [
+    "ops_manager",
+    "content_moderator",
+    "sales_manager",
+  ],
+  "slug": "kushagram",
+  "username": "weedmaps",
+}
+`;

@@ -45,7 +45,6 @@ type Props = {
   className: string,
   activeLink?: string,
   childActiveLink?: string,
-  user?: any,
   pageScrollY?: boolean,
   pageScrollX?: boolean,
   contentScrollY?: boolean,
@@ -84,7 +83,6 @@ export class PageLayout extends React.Component<Props, State> {
     const {
       activeLink,
       childActiveLink,
-      // user,
       pageScrollY,
       pageScrollX,
       contentScrollY,
@@ -127,4 +125,4 @@ export class PageLayout extends React.Component<Props, State> {
 export { default as PageHead } from './page-head';
 export { default as PageContent } from './page-content';
 export { TabContent };
-export const PageLayoutWithProgressBar = PageLayout;
+export default PageLayout;
