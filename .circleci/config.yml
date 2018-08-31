@@ -34,8 +34,8 @@ set_deploy_environment: &set_deploy_environment
   run:
     name: Set DEPLOY_ENVIRONMENT based on current branch
     command: |
-      export DEPLOY_ENVIRONMENT=weedmaps-${CIRCLE_BRANCH}
-      if [ ${DEPLOY_ENVIRONMENT} == 'weedmaps-develop' ]; then export DEPLOY_ENVIRONMENT=weedmaps-acceptance; fi
+      export DEPLOY_ENVIRONMENT=${CIRCLE_BRANCH}
+      if [ ${DEPLOY_ENVIRONMENT} == 'develop' ]; then export DEPLOY_ENVIRONMENT=acceptance; fi
       echo $DEPLOY_ENVIRONMENT > ~/.deploy_environment
       echo "export DEPLOY_ENVIRONMENT=${DEPLOY_ENVIRONMENT}" >> ~/.bashrc
 
