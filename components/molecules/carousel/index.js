@@ -70,7 +70,7 @@ class CatalogCarousel extends React.Component<Props, State> {
     if (index < 0 || atLimit || index > this.cardRefs.length - 1) return;
 
     let offset = 0;
-    for (let i = 0; i < index; i + 1) {
+    for (let i = 0; i < index; i += 1) {
       offset += this.cardRefs[i].clientWidth;
     }
 
