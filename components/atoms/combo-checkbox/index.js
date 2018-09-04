@@ -1,74 +1,55 @@
 // @flow
 import React from 'react';
 import { Check } from 'components/atoms/icons';
-import { Container, Row, PartialCheck } from './styles';
+import { Container, PartialCheck } from './styles';
 
-type CheckboxProps = {
-  checked: mixed,
+type Checked = 0 | 1 | 2 | boolean;
+
+type Props = {
+  checked: Checked,
   allowPartial?: ?boolean,
-  onChange?: mixed => void,
+  onChange: (checked: Checked) => void,
 };
 
-type GroupProps = {
-  name: string,
-  checked: mixed,
-  allowPartial?: ?boolean,
-  onChange: mixed => void,
-};
+class ComboCheckbox extends React.Component<Props> {
+  static defaultProps = {
+    allowPartial: false,
+  };
 
-const getNextState = (checked, allowPartial) => {
-  if (allowPartial) {
-    if (!checked) return 1;
-    if (checked === 1) return 2;
-    return 0;
+  handleClick = () => {
+    const { checked, allowPartial, onChange } = this.props;
+
+    let next;
+
+    if (allowPartial) {
+      if (!checked) next = 1;
+      else if (checked === 1) next = 2;
+      else next = 0;
+    } else {
+      next = !checked;
+    }
+
+    onChange(next);
+  };
+
+  render() {
+    const { checked } = this.props;
+
+    let checkmark = null;
+
+    if (checked)
+      checkmark = (
+        <Check fill="white" size={{ width: '10px', height: '10px' }} />
+      );
+    if (checked === 1) checkmark = <PartialCheck />;
+
+    return (
+      <Container checked={checked} onClick={this.handleClick}>
+        {checkmark}
+      </Container>
+    );
   }
-  return !checked;
-};
-
-export const ComboCheckbox = ({
-  checked,
-  allowPartial,
-  onChange,
-}: CheckboxProps) => {
-  let result = null;
-
-  if (checked)
-    result = <Check fill="white" size={{ width: '10px', height: '10px' }} />;
-  if (checked === 1) result = <PartialCheck />;
-
-  return (
-    <Container
-      checked={checked}
-      onClick={() => {
-        const nextState = getNextState(checked, allowPartial);
-        if (onChange) onChange(nextState);
-      }}
-    >
-      {result}
-    </Container>
-  );
-};
-
-ComboCheckbox.defaultProps = {
-  allowPartial: false,
-};
-
-const CheckboxGroup = ({
-  name,
-  checked,
-  allowPartial,
-  onChange,
-}: GroupProps) => (
-  <Row
-    onClick={() => {
-      const nextState = getNextState(checked, allowPartial);
-      onChange(nextState);
-    }}
-  >
-    <ComboCheckbox checked={checked} allowPartial={allowPartial} />
-    <span>{name}</span>
-  </Row>
-);
+}
 
 export default ComboCheckbox;
-export { CheckboxGroup, Row, Check, PartialCheck };
+export { Check, PartialCheck };

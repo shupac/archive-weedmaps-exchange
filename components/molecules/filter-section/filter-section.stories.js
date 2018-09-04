@@ -1,23 +1,16 @@
 import React from 'react';
+import { string } from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import GlobalStyleDecorator from 'storybook/decorators/global-style';
 
-import FilterSection from 'components/molecules/filter-section';
-import PriceRangeFilter from 'components/molecules/price-range-filter';
-import FilterPanel from './';
-
-import * as data from './mock-data';
+import * as data from 'components/molecules/filter-panel/mock-data';
+import FilterSection from './';
 
 class Parent extends React.Component {
   state = {
     categories: data.categories,
     availabilities: data.availabilities,
     brands: data.brands,
-    price: {
-      min: '',
-      max: '',
-      hasErrors: false,
-    },
   };
 
   updateOptions = section => nextState => {
@@ -36,25 +29,14 @@ class Parent extends React.Component {
     });
   };
 
-  clearAll = () => {
-    // Reseting store to default values
-    this.setState({
-      categories: data.categories,
-      availabilities: data.availabilities,
-      brands: data.brands,
-      price: {
-        min: '',
-        max: '',
-        hasErrors: false,
-      },
-    });
-  };
-
   render() {
-    const { categories, availabilities, brands, price } = this.state;
+    const { filter } = this.props;
+    const { categories, availabilities, brands } = this.state;
 
-    return (
-      <FilterPanel onClearAll={this.clearAll}>
+    let section;
+
+    if (filter === 'categories')
+      section = (
         <FilterSection
           type="tree"
           title="Categories"
@@ -62,27 +44,38 @@ class Parent extends React.Component {
           state={categories}
           onChange={this.updateOptions('categories')}
         />
+      );
+
+    if (filter === 'availabilities')
+      section = (
         <FilterSection
           title="Availability"
           defaultLabel="All Availability"
           state={availabilities}
           onChange={this.updateOptions('availabilities')}
         />
+      );
+
+    if (filter === 'brands')
+      section = (
         <FilterSection
           title="Brands"
           defaultLabel="All Brands"
           state={brands}
           onChange={this.updateOptions('brands')}
         />
-        <PriceRangeFilter
-          state={price}
-          onChange={nextState => this.setState({ price: nextState })}
-        />
-      </FilterPanel>
-    );
+      );
+
+    return <div style={{ width: 220 }}>{section}</div>;
   }
 }
 
-export default storiesOf('FilterPanel', module)
+Parent.propTypes = {
+  filter: string,
+};
+
+export default storiesOf('FilterSection', module)
   .addDecorator(GlobalStyleDecorator)
-  .add('Default', () => <Parent />);
+  .add('Categories', () => <Parent filter="categories" />)
+  .add('Availability', () => <Parent filter="availabilities" />)
+  .add('Brands', () => <Parent filter="brands" />);

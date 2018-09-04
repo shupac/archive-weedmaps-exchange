@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { storiesOf } from '@storybook/react';
 import storybookBackgrounds from 'lib/common/storybook-backgrounds';
+import BackgroundColorDecorator from 'storybook/decorators/background-color';
+import GlobalStyleDecorator from 'storybook/decorators/global-style';
 import LoadingButton from './';
-import BackgroundColorDecorator from '../../../.storybook/decorators/background-color';
-import GlobalStyleDecorator from '../../../.storybook/decorators/global-style';
 
 class LoadingButtonContainer extends Component {
   state = {

@@ -2,21 +2,26 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { CheckboxGroup, Row } from 'components/atoms/combo-checkbox';
+import CheckboxGroup, { Row } from 'components/atoms/checkbox-group';
 
 const Children = styled(Row)`
   margin-left: 33px;
   display: block;
 `;
 
+type Parent = {
+  id: string,
+  name: string,
+};
+
 type Option = {
   id: string,
   name: string,
-  checked?: 0 | 1 | 2 | boolean,
+  checked: 0 | 1 | 2 | boolean,
 };
 
 type State = {
-  parent: Option,
+  parent: Parent,
   children: Array<Option>,
 };
 
@@ -25,7 +30,7 @@ type Props = {
   onChange: (state: State) => void,
 };
 
-const isParentChecked = children => {
+const isParentChecked = (children: Array<Option>) => {
   const numChecked = children.filter(({ checked }) => checked).length;
   if (!numChecked) return 0;
   if (numChecked === children.length) return 2;
@@ -76,10 +81,11 @@ const ComboCheckbox = ({ state, onChange }: Props) => {
   return (
     <div>
       <CheckboxGroup
-        id={parent.id}
-        name={parent.name}
-        checked={isParentChecked(children)}
-        allowPartial
+        state={{
+          name: parent.name,
+          checked: isParentChecked(children),
+          allowPartial: true,
+        }}
         onChange={() => {
           const nextState = getNextState(parent.id, state);
           onChange(nextState);
@@ -89,7 +95,10 @@ const ComboCheckbox = ({ state, onChange }: Props) => {
         {children.map(child => (
           <CheckboxGroup
             key={child.id}
-            {...child}
+            state={{
+              name: child.name,
+              checked: child.checked,
+            }}
             onChange={() => {
               const nextState = getNextState(child.id, state);
               onChange(nextState);

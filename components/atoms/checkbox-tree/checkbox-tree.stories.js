@@ -1,18 +1,20 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import GlobalStyleDecorator from '../../../.storybook/decorators/global-style';
+import GlobalStyleDecorator from 'storybook/decorators/global-style';
 
+import { categories } from 'components/molecules/filter-panel/mock-data';
 import CheckboxTree from './';
-import data from './mock-data';
 
 class Parent extends React.Component {
-  state = data;
+  state = {
+    tree: categories[0],
+  };
 
   render() {
     return (
       <CheckboxTree
-        state={this.state}
-        onChange={nextState => this.setState({ ...nextState })}
+        state={this.state.tree}
+        onChange={next => this.setState({ tree: next })}
       />
     );
   }

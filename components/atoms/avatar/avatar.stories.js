@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import storybookBackgrounds from 'lib/common/storybook-backgrounds';
-import BackgroundColorDecorator from '../../../.storybook/decorators/background-color';
-import GlobalStyleDecorator from '../../../.storybook/decorators/global-style';
+import BackgroundColorDecorator from 'storybook/decorators/background-color';
+import GlobalStyleDecorator from 'storybook/decorators/global-style';
 import Avatar from './index.js';
 
 export default storiesOf('Avatar')

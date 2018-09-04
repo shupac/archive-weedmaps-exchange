@@ -15,22 +15,9 @@ export const Container = styled.div`
   justify-content: center;
 `;
 
-export const Row = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-
-  span {
-    margin-left: 16px;
-    font-size: 14px;
-    color: ${theme.colors.oxfordBlue};
-    user-select: none;
-  }
-`;
-
 export const PartialCheck = styled.div`
   height: 1.6px;
   width: 8px;
   border-radius: 1px;
-  background-color: white;
+  background-color: ${theme.colors.white};
 `;

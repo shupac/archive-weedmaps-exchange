@@ -1,12 +1,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import {
-  CheckboxGroup,
-  Check,
-  PartialCheck,
-} from 'components/atoms/combo-checkbox';
+
+import { categories } from 'components/molecules/filter-panel/mock-data';
+
+import Checkbox, { Check, PartialCheck } from 'components/atoms/combo-checkbox';
+import CheckboxGroup from 'components/atoms/checkbox-group';
 import CheckboxTree, { Children } from './';
-import defaultData from './mock-data';
+
+const defaultData = categories[0];
 
 describe('CheckboxTree', () => {
   it('should render the checkbox tree', () => {
@@ -128,7 +129,7 @@ describe('CheckboxTree', () => {
     const children = wrapper.find(Children);
 
     children
-      .find(CheckboxGroup)
+      .find(Checkbox)
       .first()
       .simulate('click');
     expect(onChange).toHaveBeenCalled();
@@ -145,7 +146,7 @@ describe('CheckboxTree', () => {
     const wrapper = mount(component);
 
     wrapper
-      .find(CheckboxGroup)
+      .find(Checkbox)
       .first()
       .simulate('click');
     expect(onChange).toHaveBeenCalled();
@@ -203,7 +204,7 @@ describe('CheckboxTree', () => {
     expect(wrapper.find(PartialCheck)).toHaveLength(1);
 
     wrapper
-      .find(CheckboxGroup)
+      .find(Checkbox)
       .first()
       .simulate('click');
     expect(onChange).toHaveBeenCalled();
@@ -261,7 +262,7 @@ describe('CheckboxTree', () => {
     expect(wrapper.find(PartialCheck)).toHaveLength(0);
 
     wrapper
-      .find(CheckboxGroup)
+      .find(Checkbox)
       .first()
       .simulate('click');
     expect(onChange).toHaveBeenCalled();

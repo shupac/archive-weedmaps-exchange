@@ -1,6 +1,7 @@
 // @flow
 import React, { type Node } from 'react';
 import theme from 'lib/styles/theme';
+import Shiitake from 'shiitake';
 import { ChevronDown } from 'components/atoms/icons';
 import {
   Container,
@@ -41,6 +42,10 @@ class FilterContainer extends React.Component<Props, State> {
     this.setContentHeight();
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.children !== this.props.children) this.setContentHeight();
+  }
+
   setContentHeight() {
     this.setState({
       contentHeight: this.contents && this.contents.clientHeight,
@@ -56,7 +61,9 @@ class FilterContainer extends React.Component<Props, State> {
         <Header>
           <FilterInfo>
             <FilterName>{title}</FilterName>
-            <FiltersLabel>{filters}</FiltersLabel>
+            <FiltersLabel>
+              <Shiitake lines={2}>{filters}</Shiitake>
+            </FiltersLabel>
           </FilterInfo>
           <Chevron
             collapsed={collapsed}

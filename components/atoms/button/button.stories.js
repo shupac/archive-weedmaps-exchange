@@ -2,8 +2,8 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import storybookBackgrounds from 'lib/common/storybook-backgrounds';
 import { action } from '@storybook/addon-actions';
-import BackgroundColorDecorator from '../../../.storybook/decorators/background-color';
-import GlobalStyleDecorator from '../../../.storybook/decorators/global-style';
+import BackgroundColorDecorator from 'storybook/decorators/background-color';
+import GlobalStyleDecorator from 'storybook/decorators/global-style';
 import Button, {
   ButtonPrimary,
   ButtonGradient,

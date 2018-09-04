@@ -32,6 +32,7 @@ export const FiltersLabel = styled.div`
   color: ${theme.colors.gullGray};
   font-size: ${rem(12)};
   line-height: ${rem(14)};
+  margin-right: 8px;
 `;
 
 export const Chevron = styled.div`

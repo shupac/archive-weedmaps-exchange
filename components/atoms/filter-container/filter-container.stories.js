@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text } from '@storybook/addon-knobs/react';
 import storybookBackgrounds from 'lib/common/storybook-backgrounds';
-import BackgroundColorDecorator from '../../../.storybook/decorators/background-color';
-import GlobalStyleDecorator from '../../../.storybook/decorators/global-style';
+import BackgroundColorDecorator from 'storybook/decorators/background-color';
+import GlobalStyleDecorator from 'storybook/decorators/global-style';
 
 import FilterContainer from './';
 

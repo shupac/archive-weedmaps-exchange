@@ -1,71 +1,79 @@
 import React from 'react';
 import FilterPanel from 'components/molecules/filter-panel';
-import FilterContainer from 'components/atoms/filter-container';
-import CheckboxTree from 'components/atoms/checkbox-tree';
-import categoriesData from 'components/atoms/checkbox-tree/mock-data';
-import { CheckboxGroup } from 'components/atoms/combo-checkbox';
+import FilterSection from 'components/molecules/filter-section';
+import {
+  categories,
+  availabilities,
+  brands,
+} from 'components/molecules/filter-panel/mock-data';
 
 import { Wrapper, Content } from './styles';
 
 class Catalog extends React.Component {
   state = {
-    categories: categoriesData,
-    availabilities: [
-      {
-        id: 'inStock',
-        name: 'In Stock',
-        checked: false,
-      },
-      {
-        id: 'outOfStock',
-        name: 'Out of Stock',
-        checked: false,
-      },
-    ],
+    sections: {
+      categories,
+      availabilities,
+      brands,
+    },
   };
 
-  toggleCheckbox = (section, clickedId, checked) => {
-    const options = this.state[section];
+  updateOptions = section => nextState => {
+    const states = this.state.sections[section];
 
-    const next = options.map(option => {
-      if (option.id !== clickedId) return option;
-      return {
-        ...option,
-        checked,
-      };
+    const nextStates = states.map(state => {
+      const thisId = state.id || state.parent.id;
+      const nextId = nextState.id || nextState.parent.id;
+
+      if (thisId === nextId) return nextState;
+      return state;
     });
 
     this.setState({
-      [section]: next,
+      sections: {
+        ...this.state.sections,
+        [section]: nextStates,
+      },
+    });
+  };
+
+  clearAll = () => {
+    this.setState({
+      sections: {
+        categories,
+        availabilities,
+        brands,
+      },
     });
   };
 
   render() {
-    const { categories, availabilities } = this.state;
+    const { sections } = this.state;
 
     return (
       <Wrapper>
-        <FilterPanel>
-          <FilterContainer title="Categories" filters="All Categories">
-            <CheckboxTree
-              state={categories}
-              onChange={state => this.setState({ categories: state })}
-            />
-          </FilterContainer>
-
-          <FilterContainer title="Availability" filters="All Availability">
-            {availabilities.map(({ id, name, checked }) => (
-              <CheckboxGroup
-                key={id}
-                name={name}
-                checked={checked}
-                onChange={next =>
-                  this.toggleCheckbox('availabilities', id, next)
-                }
-              />
-            ))}
-          </FilterContainer>
+        <FilterPanel onClearAll={this.clearAll}>
+          <FilterSection
+            type="tree"
+            title="Categories"
+            defaultLabel="All Categories"
+            state={sections.categories}
+            onChange={this.updateOptions('categories')}
+          />
+          <FilterSection
+            title="Availability"
+            defaultLabel="All Availability"
+            state={sections.availabilities}
+            onChange={this.updateOptions('availabilities')}
+          />
+          <FilterSection
+            title="Brands"
+            defaultLabel="All Brands"
+            state={sections.brands}
+            onChange={this.updateOptions('brands')}
+          />
         </FilterPanel>
+
         <Content>Search</Content>
       </Wrapper>
     );

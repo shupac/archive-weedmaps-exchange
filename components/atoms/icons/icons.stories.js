@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import BackgroundColorDecorator from '../../../.storybook/decorators/background-color';
-import GlobalStyleDecorator from '../../../.storybook/decorators/global-style';
+import BackgroundColorDecorator from 'storybook/decorators/background-color';
+import GlobalStyleDecorator from 'storybook/decorators/global-style';
 import { ArrowDown, ArrowUp, ArrowLeft, ArrowRight } from './arrow';
 import { Bell } from './bell';
 import { Brands } from './brands';
