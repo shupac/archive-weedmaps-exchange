@@ -15,7 +15,7 @@ module.exports = {
     apiGatewayUrl:
       process.env.API_GATEWAY_URL ||
       'https://api-g-acceptance.internal-weedmaps.com',
-    siteUrl: 'localhost:1620',
+    siteUrl: 'http://localhost:1620',
     apiRootPath: '/exchange/v1',
     cookieDomain: 'localhost',
   },
