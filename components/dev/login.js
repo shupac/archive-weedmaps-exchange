@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import urlConfig from 'lib/common/url-config';
-import { apiGatewayUrl, apiRootPath } from 'config';
+import { apiGatewayUrl, siteUrl } from 'config';
 import { getEnv } from 'mobx-state-tree';
 import axios from 'axios';
 import { redirectTo } from 'lib/common/redirect-unauthenticated-user';
@@ -68,7 +67,7 @@ export default class DevLoginForm extends Component {
       refreshToken: data.refresh_token,
     });
     authModule.flush();
-    redirectTo({}, '/buyer/marketplace/catalog');
+    redirectTo({}, `${siteUrl}/buyer/marketplace/catalog`);
   };
 
   render() {
