@@ -6,6 +6,7 @@ import TopNav from 'components/organisms/top-nav';
 import { rem } from 'polished';
 import { Flex } from '@ghostgroup/grid-styled';
 import PageSideNav from 'components/layouts/page-layout/page-side-nav';
+import ToastManager from 'components/molecules/toast-manager';
 
 const PageContainer = styled(Flex)`
   min-height: 100%;
@@ -116,6 +117,7 @@ export class PageLayout extends React.Component<Props, State> {
               {this.props.children}
             </ContentContainer>
           </RightContainer>
+          <ToastManager />
         </PageContainer>
       </ThemeProvider>
     );
