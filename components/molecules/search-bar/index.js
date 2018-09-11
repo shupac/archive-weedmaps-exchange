@@ -1,8 +1,9 @@
-// @flow
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react';
 import get from 'lodash.get';
 import { Select, Icons, WmTheme } from '@ghostgroup/ui';
 import qs from 'qs';
+import { Router } from 'lib/routes';
 
 import {
   SearchBarWrapper,
@@ -13,19 +14,6 @@ import {
 
 const { Search } = Icons;
 const { state } = WmTheme.style;
-
-// TODO: Pull in real data
-const items = [
-  { text: 'All', value: 'all' },
-  { text: 'Indica', value: 'indica' },
-  { text: 'Sativa', value: 'sativa' },
-  { text: 'Hybrid', value: 'hybrid' },
-  { text: 'Edible', value: 'edible' },
-  { text: 'Concentrate', value: 'concentrate' },
-  { text: 'Drink', value: 'drink' },
-  { text: 'Clone', value: 'clone' },
-  { text: 'Seed', value: 'seed' },
-];
 
 type Props = {
   dispatch: any => void,
@@ -39,33 +27,41 @@ type State = {
 
 type CategorySelected = {
   value: string,
+  text: string,
 };
 
-export default class SearchBar extends Component<Props, State> {
+const allOption = {
+  value: 'all',
+  text: 'All',
+};
+
+class SearchBar extends Component<Props, State> {
+  static displayName = 'SearchBar';
+
   state = {
     searchValue: '',
-    categorySelected: null,
+    categorySelected: allOption,
   };
 
-  componentWillMount() {
-    this.updateState(this.props);
-  }
+  // componentWillMount() {
+  //   // this.updateState(this.props);
+  // }
+  //
+  // componentWillReceiveProps(nextProps: Props) {
+  //   // this.updateState(nextProps);
+  // }
 
-  componentWillReceiveProps(nextProps: Props) {
-    this.updateState(nextProps);
-  }
-
-  updateState(props: Props) {
-    const { query } = props;
-    const { search, department } = qs.parse(query);
-
-    const category = items.find(i => i.value === department);
-
-    this.setState({
-      searchValue: search || '',
-      categorySelected: category || items[0],
-    });
-  }
+  // updateState(props: Props) {
+  //   const { query } = props;
+  //   const { search, department } = qs.parse(query);
+  //
+  //   const category = items.find(i => i.value === department);
+  //
+  //   this.setState({
+  //     searchValue: search || '',
+  //     categorySelected: category || items[0],
+  //   });
+  // }
 
   handleSelectChange = (categorySelected: CategorySelected) => {
     this.setState({ categorySelected });
@@ -83,17 +79,28 @@ export default class SearchBar extends Component<Props, State> {
   };
 
   handleSearch() {
-    // const { dispatch } = this.props;
-    // const { searchValue, categorySelected } = this.state;
-    // const query = qs.stringify({
-    //   search: searchValue,
-    //   department: categorySelected && categorySelected.value,
-    // });
-    // dispatch(push(`/buyer/marketplace/catalog?${query}`));
+    const { searchValue, categorySelected } = this.state;
+
+    Router.pushRoute('marketplace', {
+      tab: 'catalog',
+      search: searchValue,
+      category: categorySelected && categorySelected.value,
+    });
   }
 
   render() {
+    const {
+      store: {
+        categoryStore: { departments },
+      },
+    } = this.props;
     const { searchValue, categorySelected } = this.state;
+
+    const items = departments.map(({ id, name }) => ({
+      value: id,
+      text: name,
+    }));
+    items.unshift(allOption);
 
     return (
       <SearchBarWrapper>
@@ -117,3 +124,5 @@ export default class SearchBar extends Component<Props, State> {
     );
   }
 }
+
+export default inject('store')(observer(SearchBar));

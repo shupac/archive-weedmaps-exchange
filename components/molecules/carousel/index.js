@@ -48,6 +48,12 @@ class CatalogCarousel extends React.Component<Props, State> {
     this.scrollToIndex(0); // sets atLimit
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.children !== this.props.children) {
+      this.scrollToIndex(this.state.currentIndex);
+    }
+  }
+
   cardRefs = [];
   content = {};
   wrapper = {};
@@ -97,7 +103,9 @@ class CatalogCarousel extends React.Component<Props, State> {
         // eslint-disable-next-line
         key={i}
         margin={cardMargin}
-        innerRef={n => this.cardRefs.push(n)}
+        innerRef={n => {
+          this.cardRefs[i] = n;
+        }}
       >
         {card}
       </CardWrapper>

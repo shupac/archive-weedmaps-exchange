@@ -84,6 +84,7 @@
   },
   "homepage": "https://github.com/GhostGroup/admin#readme",
   "dependencies": {
+    "@ghostgroup/next-routes": "1.5.1-beta",
     "@ghostgroup/grid-styled": "~4.0.0",
     "@ghostgroup/puffpuff": "^3.0.1",
     "@ghostgroup/ui": "^19.0.2",
@@ -134,7 +135,6 @@
     "mockdate": "~2.0.2",
     "newrelic": "^4.1.4",
     "next": "^5.1.0",
-    "next-routes": "^1.4.2",
     "nprogress": "~0.2.0",
     "polished": "^1.9.3",
     "process-nextick-args": "^2.0.0",

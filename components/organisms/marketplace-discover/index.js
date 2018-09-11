@@ -1,5 +1,32 @@
-import React from 'react';
+// @flow
+import React, { Fragment } from 'react';
+import { inject, observer } from 'mobx-react';
+import SearchBar from 'components/molecules/search-bar';
+import CategoryCard from 'components/molecules/category-card';
+import CatalogCarousel from 'components/molecules/carousel';
 
-export const Discover = () => <h1>Discover</h1>;
+type Props = {
+  store: any,
+};
 
-export default Discover;
+export const Discover = ({ store }: Props) => {
+  const { departments } = store.categoryStore;
+  return (
+    <Fragment>
+      <SearchBar />
+      <CatalogCarousel title="Categories" cardMargin={16}>
+        {departments.map(({ id, name, avatarImageUrl, iconImageUrl }) => (
+          <CategoryCard
+            title={name}
+            icon={iconImageUrl}
+            image={avatarImageUrl}
+            id={id}
+            key={id}
+          />
+        ))}
+      </CatalogCarousel>
+    </Fragment>
+  );
+};
+
+export default inject('store')(observer(Discover));

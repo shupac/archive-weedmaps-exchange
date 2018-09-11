@@ -10,6 +10,7 @@ export const SearchBarWrapper = styled.div`
   display: flex;
   height: 40px;
   width: 100%;
+  margin-bottom: 16px;
 `;
 SearchBarWrapper.displayName = 'SearchBarWrapper';
 

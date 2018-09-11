@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Category Store can create an instance of a model 1`] = `
+Object {
+  "departments": Array [
+    Object {
+      "avatarImageUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/images/concentrates.png",
+      "iconImageUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/icons/concentrates.svg",
+      "id": "1234",
+      "name": "Indica",
+      "position": 1,
+    },
+  ],
+}
+`;

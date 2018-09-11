@@ -1,4 +1,7 @@
 import React from 'react';
+import { withRouter } from 'next/router';
+import { Router } from 'lib/routes';
+import { inject, observer } from 'mobx-react';
 import FilterPanel from 'components/molecules/filter-panel';
 import FilterSection from 'components/molecules/filter-section';
 import {
@@ -6,6 +9,7 @@ import {
   availabilities,
   brands,
 } from 'components/molecules/filter-panel/mock-data';
+import qs from 'qs';
 
 import { Wrapper, Content } from './styles';
 
@@ -17,6 +21,11 @@ class Catalog extends React.Component {
       brands,
     },
   };
+
+  componentDidMount() {
+    const { router } = this.props;
+    console.log(router);
+  }
 
   updateOptions = section => nextState => {
     const states = this.state.sections[section];
@@ -49,6 +58,8 @@ class Catalog extends React.Component {
 
   render() {
     const { sections } = this.state;
+    const { store } = this.props;
+    const { departments } = store.categoryStore;
 
     return (
       <Wrapper>
@@ -80,4 +91,4 @@ class Catalog extends React.Component {
   }
 }
 
-export default Catalog;
+export default inject('store')(observer(withRouter(Catalog)));

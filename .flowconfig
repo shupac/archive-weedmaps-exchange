@@ -4,6 +4,7 @@
 .*/node_modules/graphql/.*
 .*/node_modules/@mapbox/.*
 .*/node_modules/danger/.*
+.*/node_modules/@ghostgroup/.*
 .*/__mocks__/.*
 
 [include]

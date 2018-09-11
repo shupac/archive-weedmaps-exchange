@@ -152,6 +152,12 @@
     prop-types "^15.6.0"
     styled-system "2.0.2"
 
+"@ghostgroup/next-routes@1.5.1-beta":
+  version "1.5.1-beta"
+  resolved "https://registry.npmjs.org/@ghostgroup/next-routes/-/next-routes-1.5.1-beta.tgz#fe519697c03755a3550b2475394375da50742579"
+  dependencies:
+    path-to-regexp "^2.1.0"
+
 "@ghostgroup/puffpuff@^3.0.1":
   version "3.1.0"
   resolved "https://registry.npmjs.org/@ghostgroup/puffpuff/-/puffpuff-3.1.0.tgz#abe35f8afa718bf78ffadc05d6b543c1796e1946"
@@ -7585,12 +7591,6 @@ newrelic@^4.1.4:
     semver "^5.3.0"
   optionalDependencies:
     "@newrelic/native-metrics" "^3.0.0"
-
-next-routes@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.npmjs.org/next-routes/-/next-routes-1.4.2.tgz#736a382579a792ea69f35ae70b449acdfefa7944"
-  dependencies:
-    path-to-regexp "^2.1.0"
 
 next-tick@1:
   version "1.0.0"

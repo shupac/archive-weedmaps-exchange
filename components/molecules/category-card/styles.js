@@ -12,7 +12,12 @@ export const CategoryCardWrapper = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  background-size: cover;
+  background-position: center center;
   box-shadow: inset 0 0 0 100px ${theme.colors.shadow.dark};
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const CategoryCardTitle = styled.span`

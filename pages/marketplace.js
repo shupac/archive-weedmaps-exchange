@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import dynamic from 'next/dynamic';
 import provide from 'lib/data-access/stores/provider';
 import { inject } from 'mobx-react';
 import AuthConnector from 'components/containers/auth-connector';
@@ -15,16 +14,8 @@ import ShowIfRoute from 'components/atoms/show-if-route';
 import TabButton from 'components/atoms/tab-button';
 import Subheader from 'components/atoms/subheader';
 
-const DiscoverTab = dynamic(
-  import('components/organisms/marketplace-discover'),
-  {
-    loading: () => <p>loading</p>,
-  },
-);
-
-const CatalogTab = dynamic(import('components/organisms/marketplace-catalog'), {
-  loading: () => <p>loading</p>,
-});
+import DiscoverTab from 'components/organisms/marketplace-discover';
+import CatalogTab from 'components/organisms/marketplace-catalog';
 
 const tabs = [
   {
@@ -42,11 +33,20 @@ const tabs = [
 ];
 
 type Props = {
-  store?: any,
+  store: {
+    categoryStore: {
+      getDepartments: string => any,
+    },
+  },
   url: any,
 };
 
 export class Marketplace extends Component<Props> {
+  componentDidMount() {
+    this.props.store.categoryStore.getDepartments(
+      '64d05017-4339-4cda-9e57-0da061bf6b00',
+    );
+  }
   render() {
     const { url } = this.props;
 
@@ -66,11 +66,11 @@ export class Marketplace extends Component<Props> {
           </Subheader>
           <TabContent>
             <ShowIfRoute match="/buyer/marketplace/discover">
-              {<DiscoverTab />}
+              <DiscoverTab />
             </ShowIfRoute>
 
-            <ShowIfRoute match="/buyer/marketplace/catalog">
-              {<CatalogTab />}
+            <ShowIfRoute match="/buyer/marketplace/catalog(.*)">
+              <CatalogTab />
             </ShowIfRoute>
           </TabContent>
         </PageContent>
