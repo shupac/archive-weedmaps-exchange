@@ -16,7 +16,6 @@ class Parent extends React.Component {
     price: {
       min: '',
       max: '',
-      hasErrors: false,
     },
   };
 
@@ -45,7 +44,6 @@ class Parent extends React.Component {
       price: {
         min: '',
         max: '',
-        hasErrors: false,
       },
     });
   };

@@ -5,6 +5,7 @@
 .*/node_modules/@mapbox/.*
 .*/node_modules/danger/.*
 .*/node_modules/@ghostgroup/.*
+.*/build/.*
 .*/__mocks__/.*
 
 [include]

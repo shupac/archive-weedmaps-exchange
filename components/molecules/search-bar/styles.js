@@ -37,6 +37,9 @@ export const SearchInputText = styled.input`
   cursor: auto;
   border-style: none;
   font-size: ${rem(14)};
+  border-left: ${({ showBorder }) =>
+    showBorder && `1px solid ${theme.palette.lightGrey2}`};
+  border-radius: ${({ showBorder }) => showBorder && '3px 0 0 3px'};
   border-top: 1px solid ${border.default};
   border-bottom: 1px solid ${border.default};
 `;

@@ -13,9 +13,10 @@ import {
 import ShowIfRoute from 'components/atoms/show-if-route';
 import TabButton from 'components/atoms/tab-button';
 import Subheader from 'components/atoms/subheader';
-
 import DiscoverTab from 'components/organisms/marketplace-discover';
 import CatalogTab from 'components/organisms/marketplace-catalog';
+
+import { type Store } from 'lib/types/stores';
 
 const tabs = [
   {
@@ -33,11 +34,7 @@ const tabs = [
 ];
 
 type Props = {
-  store: {
-    categoryStore: {
-      getDepartments: string => any,
-    },
-  },
+  store: Store,
   url: any,
 };
 
@@ -47,6 +44,7 @@ export class Marketplace extends Component<Props> {
       '64d05017-4339-4cda-9e57-0da061bf6b00',
     );
   }
+
   render() {
     const { url } = this.props;
 

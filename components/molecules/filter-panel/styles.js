@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   border-radius: 3px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  align-self: baseline;
 
   > div {
     border-bottom: 1px solid ${theme.colors.divider};

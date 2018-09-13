@@ -8,12 +8,13 @@ const textGray = theme.palette.darkGrey1;
 const { red } = theme.palette;
 
 export const CardWrapper = styled(Card)`
-  width: 217px;
+  width: ${({ width }) => width || '217px'};
   height: 330px;
   position: relative;
   display: flex;
   flex-direction: column;
   box-shadow: 0 1px 3px ${theme.style.shadow};
+  cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
 `;
 
 export const Product = styled.div`
@@ -28,6 +29,11 @@ export const ImageWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
 `;
 
 export const Info = styled.div`
@@ -64,7 +70,7 @@ export const Row = styled.div`
 `;
 
 export const Price = styled.div`
-  color: ${textNormal}
+  color: ${textNormal};
   margin-right: auto;
 `;
 

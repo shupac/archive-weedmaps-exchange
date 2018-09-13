@@ -25,6 +25,8 @@ type Props = {
   maxPrice?: number,
   category: string,
   outOfStock?: boolean,
+  width?: string,
+  onClick?: () => void,
 };
 
 const ProductCard = ({
@@ -36,8 +38,10 @@ const ProductCard = ({
   maxPrice,
   category,
   outOfStock = false,
+  width,
+  onClick,
 }: Props) => (
-  <CardWrapper>
+  <CardWrapper width={width} onClick={onClick}>
     <Product outOfStock={outOfStock}>
       <ImageWrapper>
         <img src={imageUrl} alt={name} />

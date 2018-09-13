@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 import get from 'lodash.get';
 import { Select, Icons, WmTheme } from '@ghostgroup/ui';
-import qs from 'qs';
 import { Router } from 'lib/routes';
+import { type Store } from 'lib/types/stores';
+import { type RouterType } from 'lib/types/router';
 
 import {
   SearchBarWrapper,
@@ -16,8 +18,9 @@ const { Search } = Icons;
 const { state } = WmTheme.style;
 
 type Props = {
-  dispatch: any => void,
-  query: string,
+  showCategory: boolean,
+  store: Store,
+  router: RouterType,
 };
 
 type State = {
@@ -38,30 +41,48 @@ const allOption = {
 class SearchBar extends Component<Props, State> {
   static displayName = 'SearchBar';
 
+  static defaultProps = {
+    showCategory: true,
+  };
+
   state = {
     searchValue: '',
     categorySelected: allOption,
   };
 
-  // componentWillMount() {
-  //   // this.updateState(this.props);
-  // }
-  //
-  // componentWillReceiveProps(nextProps: Props) {
-  //   // this.updateState(nextProps);
-  // }
+  componentDidMount() {
+    this.updateState();
+  }
 
-  // updateState(props: Props) {
-  //   const { query } = props;
-  //   const { search, department } = qs.parse(query);
-  //
-  //   const category = items.find(i => i.value === department);
-  //
-  //   this.setState({
-  //     searchValue: search || '',
-  //     categorySelected: category || items[0],
-  //   });
-  // }
+  componentDidUpdate(prevProps) {
+    if (prevProps.router.asPath !== this.props.router.asPath)
+      this.updateState();
+  }
+
+  updateState = () => {
+    const { search, category } = this.props.router.query;
+
+    const options = this.getOptions();
+    const categorySelected = options.find(i => i.value === category);
+
+    this.setState({
+      searchValue: search || '',
+      categorySelected: categorySelected || options[0],
+    });
+  };
+
+  getOptions = () => {
+    const { departments } = this.props.store.categoryStore;
+
+    const options = departments.map(({ id, name }) => ({
+      value: id,
+      text: name,
+    }));
+
+    options.unshift(allOption);
+
+    return options;
+  };
 
   handleSelectChange = (categorySelected: CategorySelected) => {
     this.setState({ categorySelected });
@@ -79,43 +100,50 @@ class SearchBar extends Component<Props, State> {
   };
 
   handleSearch() {
+    const { showCategory, router } = this.props;
+    const { query: existingQuery } = router;
+
     const { searchValue, categorySelected } = this.state;
 
-    Router.pushRoute('marketplace', {
+    const queryParams = {
+      ...existingQuery,
       tab: 'catalog',
       search: searchValue,
-      category: categorySelected && categorySelected.value,
+    };
+
+    if (showCategory && categorySelected.value !== 'all')
+      queryParams.category = categorySelected.value;
+
+    Object.keys(queryParams).forEach(key => {
+      if (!queryParams[key]) delete queryParams[key];
     });
+
+    Router.pushRoute('marketplace', queryParams);
   }
 
   render() {
-    const {
-      store: {
-        categoryStore: { departments },
-      },
-    } = this.props;
+    const { showCategory } = this.props;
     const { searchValue, categorySelected } = this.state;
 
-    const items = departments.map(({ id, name }) => ({
-      value: id,
-      text: name,
-    }));
-    items.unshift(allOption);
+    const options = this.getOptions();
 
     return (
       <SearchBarWrapper>
-        <SelectWrapper>
-          <Select
-            items={items}
-            selectedItem={categorySelected}
-            onChange={this.handleSelectChange}
-          />
-        </SelectWrapper>
+        {showCategory && (
+          <SelectWrapper>
+            <Select
+              items={options}
+              selectedItem={categorySelected}
+              onChange={this.handleSelectChange}
+            />
+          </SelectWrapper>
+        )}
         <SearchInputText
           value={searchValue}
           onChange={this.handleSearchInputChange}
           onKeyDown={this.onKeyDown}
           placeholder="What are you looking for?"
+          showBorder={!showCategory}
         />
         <SearchIcon onClick={() => this.handleSearch()}>
           <Search fill={state.secondary} size="16px" />
@@ -125,4 +153,6 @@ class SearchBar extends Component<Props, State> {
   }
 }
 
-export default inject('store')(observer(SearchBar));
+export default withRouter(inject('store')(observer(SearchBar)));
+
+export { SearchBar };
