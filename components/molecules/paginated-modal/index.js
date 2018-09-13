@@ -56,7 +56,7 @@ export class PaginatedModalTemplate extends Component<Props> {
             <div onClick={onNextItem}>
               <Arrow
                 className="rightArrow"
-                size="40px"
+                size="24px"
                 rotate="270deg"
                 fill={theme.colors.white}
               />
@@ -64,7 +64,7 @@ export class PaginatedModalTemplate extends Component<Props> {
             <div onClick={onPrevItem}>
               <Arrow
                 className="leftArrow"
-                size="40px"
+                size="24px"
                 rotate="90deg"
                 fill={theme.colors.white}
               />
