@@ -29,13 +29,13 @@ export class DealsAdminDocument extends Document {
     return (
       <html lang="en">
         <Head>
-          <title>Weedmaps Admin</title>
+          <title>Weedmaps Exchange</title>
           <meta charSet="utf-8" />
           <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"
           />
-          <meta name="description" content="Weedmaps Admin" />
+          <meta name="description" content="Weedmaps Exchange" />
           <script type="text/javascript" src="/static/config.js" />
           <script
             dangerouslySetInnerHTML={{

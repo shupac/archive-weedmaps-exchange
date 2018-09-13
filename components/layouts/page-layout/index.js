@@ -14,10 +14,10 @@ const PageContainer = styled(Flex)`
   overflow-y: ${({ pageScrollY }: { pageScrollY: boolean }) =>
     pageScrollY
       ? `
-scroll`
+auto`
       : `hidden`};
   overflow-x: ${({ pageScrollX }: { pageScrollX: boolean }) =>
-    pageScrollX ? `scroll` : `hidden`};
+    pageScrollX ? `auto` : `hidden`};
 `;
 
 const RightContainer = styled(Flex)`
@@ -32,9 +32,9 @@ const ContentContainer = styled(Flex)`
   flex-direction: ${({ flexRow }: { flexRow: boolean }) =>
     flexRow ? `row` : `column`};
   overflow-y: ${({ contentScrollY }: { contentScrollY: boolean }) =>
-    contentScrollY ? `scroll` : `hidden`};
+    contentScrollY ? `auto` : `hidden`};
   overflow-x: ${({ contentScrollX }: { contentScrollX: boolean }) =>
-    contentScrollX ? `scroll` : `hidden`};
+    contentScrollX ? `auto` : `hidden`};
 `;
 
 const TabContent = styled.div`
