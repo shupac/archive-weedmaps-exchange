@@ -11,17 +11,19 @@ class Portal extends React.Component<Props> {
   modalRoot: HTMLDivElement;
 
   componentWillMount() {
+    const { keyDownHandler } = this.props;
     this.modalRoot = document.createElement('div');
     this.modalRoot.id = 'modal-node';
     if (document.body) document.body.appendChild(this.modalRoot);
-    if (this.props.keyDownHandler)
-      document.addEventListener('keydown', this.props.keyDownHandler);
+    if (keyDownHandler)
+      document.addEventListener('keydown', keyDownHandler, false);
   }
 
   componentWillUnmount() {
+    const { keyDownHandler } = this.props;
     if (document.body) document.body.removeChild(this.modalRoot);
-    if (this.props.keyDownHandler)
-      document.removeEventListener('keydown', this.props.keyDownHandler);
+    if (keyDownHandler)
+      document.removeEventListener('keydown', keyDownHandler, false);
   }
 
   render() {

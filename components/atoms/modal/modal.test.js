@@ -7,7 +7,7 @@ import { shallow } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'mobx-react';
 import theme from 'lib/styles/theme';
-import { Modal } from './';
+import { ModalTemplate } from './';
 import * as universalHelpers from 'lib/common/universal-helpers';
 
 describe('Modal', () => {
@@ -15,7 +15,7 @@ describe('Modal', () => {
   let page;
   beforeEach(() => {
     jest.spyOn(universalHelpers, 'isServer').mockReturnValue(false);
-    page = new Modal({ ...stores });
+    page = new ModalTemplate({ ...stores });
   });
 
   it('should render a modal ', () => {
@@ -23,9 +23,12 @@ describe('Modal', () => {
     const tree = shallow(
       <ThemeProvider theme={theme}>
         <Provider modal={{ showModalMap: new Map() }}>
-          <Modal modal={{ showModalMap: new Map() }} modalHandle="modal">
+          <ModalTemplate
+            modal={{ showModalMap: new Map() }}
+            modalHandle="modal"
+          >
             MODAL
-          </Modal>
+          </ModalTemplate>
         </Provider>
       </ThemeProvider>,
     );
@@ -37,9 +40,12 @@ describe('Modal', () => {
     const tree = shallow(
       <ThemeProvider theme={theme}>
         <Provider modal={{ showModalMap: new Map() }}>
-          <Modal modal={{ showModalMap: new Map() }} modalHandle="modal">
+          <ModalTemplate
+            modal={{ showModalMap: new Map() }}
+            modalHandle="modal"
+          >
             MODAL
-          </Modal>
+          </ModalTemplate>
         </Provider>
       </ThemeProvider>,
     );
@@ -47,13 +53,13 @@ describe('Modal', () => {
   });
 
   it('should be able to lock scrolling ', () => {
-    page.lockBackgroundScroll(true);
+    page.lockBgScroll(true);
     const doc = [...document.body.classList];
     expect(doc[0]).toEqual('modal-open');
   });
 
   it('should be able to unlock scrolling ', () => {
-    page.lockBackgroundScroll(false);
+    page.lockBgScroll(false);
     const doc = [...document.body.classList];
     expect(doc[0]).toBe(undefined);
   });
@@ -68,48 +74,44 @@ describe('Modal', () => {
 
       stores = {
         modal: {
-          showModalMap: new Map(),
-          toggleModal: jest.fn(),
-          closeModal: jest.fn(),
+          onClosePress: jest.fn(),
         },
       };
       props = {
-        modal: {
-          showModalMap: newShowModalMap,
-          toggleModal: jest.fn(),
-          closeModal: jest.fn(),
+        store: {
+          uiStore: {
+            onCloseModal: jest.fn(),
+            modalIsOpen: jest.fn().mockReturnValue(true),
+          },
         },
         showOnMount: true,
         modalHandle: 'modal',
       };
       oldProps = {
-        modal: {
-          showModalMap: new Map(),
-          toggleModal: jest.fn(),
-          closeModal: jest.fn(),
+        store: {
+          uiStore: {
+            onCloseModal: jest.fn(),
+            modalIsOpen: jest.fn().mockReturnValue(false),
+          },
         },
         modalHandle: 'modal',
       };
-      page = new Modal({ ...stores });
-    });
-
-    it('should be able to show on mount ', () => {
-      page = new Modal({ ...stores, ...props });
-      page.componentDidMount();
-      expect(props.modal.toggleModal).toHaveBeenCalled();
+      page = new ModalTemplate({ ...stores });
     });
 
     it('should reset modal state when unmounts ', () => {
-      page = new Modal({ ...stores, ...props });
+      page = new ModalTemplate({ ...stores, ...props });
       page.componentWillUnmount();
-      expect(props.modal.closeModal).toHaveBeenCalled();
+      expect(props.store.uiStore.onCloseModal).toHaveBeenCalled();
     });
 
     it('will lock the background if has new props', async () => {
-      page = new Modal({ ...stores, ...props });
-      const lockBackgroundScroll = jest.spyOn(page, 'lockBackgroundScroll');
-      await page.componentDidUpdate(oldProps);
-      expect(lockBackgroundScroll).toHaveBeenCalled();
+      page = new ModalTemplate({ ...stores, ...props });
+      const lockBackgroundScroll = jest.spyOn(page, 'lockBgScroll');
+      page.componentDidUpdate(oldProps);
+      expect(lockBackgroundScroll).toHaveBeenCalledWith(
+        props.store.uiStore.modalIsOpen,
+      );
     });
   });
 });

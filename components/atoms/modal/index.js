@@ -2,11 +2,11 @@
 /* globals document window */
 import { Component } from 'react';
 import { isServer } from 'lib/common/universal-helpers';
+import { type Store } from 'lib/types/stores';
 import { inject, observer } from 'mobx-react';
 import Transition from 'react-transition-group/Transition';
 import { Icons } from '@ghostgroup/ui';
 import theme from 'lib/styles/theme';
-// import ModalStore from 'lib/stores/modal';
 import { CloseButton, ModalContainer } from './styled-components';
 import Portal from './portal';
 
@@ -14,50 +14,13 @@ const valueOfIsServer = isServer();
 
 type Props = {
   children: React.Node,
-  // modal: ModalStore,
-  modal: any, // TODO: create ModalStore in lib/stores
-  showOnMount: boolean,
-  modalHandle: string,
-  onCancel?: () => void,
+  store: Store,
+  keyDownHandler: (event: KeyboardEvent) => void,
 };
-
-export class Modal extends Component<Props> {
-  static defaultProps = {
-    showOnMount: false,
-  };
-
-  componentDidMount() {
-    const { showOnMount, modal: modalStore, modalHandle } = this.props;
-    if (showOnMount && modalHandle) {
-      modalStore.toggleModal(modalHandle);
-    }
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    const { modal: modalStore, modalHandle } = this.props;
-    const { modal: oldModalStore } = prevProps;
-
-    const modalIsShown = modalStore.showModalMap.get(modalHandle);
-    const oldModalIsShown = oldModalStore.showModalMap.get(modalHandle);
-    if (oldModalIsShown !== modalIsShown) {
-      this.lockBackgroundScroll(modalIsShown);
-    }
-  }
-
-  closeModal = () => {
-    const { modal: modalStore, modalHandle } = this.props;
-
-    modalStore.closeModal(modalHandle);
-  };
-
-  // Ensure that modal state is set to off before unmounting
-  componentWillUnmount() {
-    this.closeModal();
-  }
-
-  lockBackgroundScroll(locked: boolean) {
-    if (!isServer()) {
-      if (locked) {
+export class ModalTemplate extends Component<Props> {
+  lockBgScroll = (lock: boolean) => {
+    if (!isServer() && document.body && document.body.classList) {
+      if (lock) {
         // $FlowFixMe
         document.body.classList.add('modal-open');
       } else {
@@ -65,41 +28,55 @@ export class Modal extends Component<Props> {
         document.body.classList.remove('modal-open');
       }
     }
+  };
+
+  onKeyDown = (event: KeyboardEvent) => {
+    const { keyDownHandler, store } = this.props;
+    const { onCloseModal } = store.uiStore;
+    return event.keyCode === 27 ? onCloseModal() : keyDownHandler(event);
+  };
+
+  componentDidUpdate(prevProps: Props) {
+    const { uiStore: newStore } = this.props.store;
+    const { uiStore: oldStore } = prevProps.store;
+    if (newStore.modalIsOpen !== oldStore.modalIsOpen) {
+      this.lockBgScroll(newStore.modalIsOpen);
+    }
   }
 
-  portalContent() {
-    const { onCancel, modal: modalStore, children, modalHandle } = this.props;
-    const isOpen = modalStore.showModalMap.get(modalHandle);
-
-    if (!isOpen) return null;
-
-    return (
-      <Transition in timeout={300} appear>
-        {status => (
-          <div className={`modal-overlay ${status}`}>
-            <ModalContainer>
-              <CloseButton onClick={onCancel || this.closeModal}>
-                <Icons.Close
-                  theme={{
-                    colors: { border: theme.colors.textInput },
-                  }}
-                />
-              </CloseButton>
-              {children}
-            </ModalContainer>
-          </div>
-        )}
-      </Transition>
-    );
+  componentWillUnmount() {
+    const { onCloseModal } = this.props.store.uiStore;
+    this.lockBgScroll(false);
+    onCloseModal();
   }
 
   render() {
+    const { children, store } = this.props;
+    const { uiStore } = store;
+    const { modalIsOpen, onCloseModal } = uiStore;
     if (valueOfIsServer) return null;
-
-    return <Portal>{this.portalContent()}</Portal>;
+    return (
+      <Portal keyDownHandler={e => this.onKeyDown(e)}>
+        <Transition in={modalIsOpen} timeout={300} appear>
+          {status => (
+            <div className={`modal-overlay ${status}`}>
+              <ModalContainer>
+                <CloseButton onClick={onCloseModal}>
+                  <Icons.Close
+                    theme={{
+                      colors: { border: theme.colors.textInput },
+                    }}
+                  />
+                </CloseButton>
+                {children}
+              </ModalContainer>
+            </div>
+          )}
+        </Transition>
+      </Portal>
+    );
   }
 }
 
-const InjectedModal = inject('modal')(observer(Modal));
-
-export default InjectedModal;
+const Modal = inject('store')(observer(ModalTemplate));
+export default Modal;
