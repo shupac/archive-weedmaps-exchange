@@ -27,10 +27,10 @@ const tabs = [
     path: 'catalog',
     label: 'Catalog',
   },
-  {
-    path: 'watchlist',
-    label: 'Watchlist',
-  },
+  // {
+  //   path: 'watchlist',
+  //   label: 'Watchlist',
+  // },
 ];
 
 type Props = {

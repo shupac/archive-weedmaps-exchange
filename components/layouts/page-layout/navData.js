@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Cart, Papers, WM, Gear, Info } from 'components/atoms/icons';
+import { Cart, Papers, Gear, Info } from 'components/atoms/icons';
 
 function sizeIcon(icon) {
   return styled(icon).attrs({
@@ -15,41 +15,46 @@ export const buyerData = [
   {
     name: 'Marketplace',
     icon: sizeIcon(Cart),
-    path: '/buyer/marketplace',
+    route: {
+      name: 'marketplace',
+      params: {
+        tab: 'discover',
+      },
+    },
   },
   {
     name: 'Orders',
     icon: sizeIcon(Papers),
-    path: '/buyer/orders',
+    route: '/buyer/orders',
   },
-  {
-    name: 'Admin',
-    icon: sizeIcon(WM),
-  },
+  // {
+  //   name: 'Admin',
+  //   icon: sizeIcon(WM),
+  // },
 ];
 
 export const sellerData = [
   {
     name: 'Orders',
     icon: sizeIcon(Cart),
-    path: '/seller/orders',
+    route: '/seller/orders',
   },
   {
     name: 'Products',
     icon: sizeIcon(Papers),
-    path: '/seller/products',
+    route: '/seller/products',
   },
-  {
-    name: 'Business',
-    icon: sizeIcon(WM),
-  },
+  // {
+  //   name: 'Business',
+  //   icon: sizeIcon(WM),
+  // },
 ];
 
 export const buyerFooterData = [
   {
     name: 'settings',
     icon: sizeIcon(Gear),
-    path: '/buyer/settings',
+    route: '/buyer/settings',
   },
   {
     name: 'help',
@@ -61,7 +66,7 @@ export const sellerFooterData = [
   {
     name: 'settings',
     icon: sizeIcon(Gear),
-    path: '/seller/settings',
+    route: '/seller/settings',
   },
   {
     name: 'help',

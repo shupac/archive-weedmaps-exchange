@@ -1,5 +1,6 @@
 import React from 'react';
-// import { withRouter } from 'next/router';
+import { Router } from 'lib/routes';
+import { withRouter } from 'next/router';
 // import urlConfig from 'lib/common/url-config';
 import styled from 'styled-components';
 
@@ -22,6 +23,9 @@ const Wrapper = styled.div`
 
 type Props = {
   collapse: any,
+  router: {
+    route: string,
+  },
 };
 
 class SideNavComponent extends React.Component<Props> {
@@ -49,18 +53,18 @@ class SideNavComponent extends React.Component<Props> {
   }
 
   renderNavLinks(data) {
-    // const { dispatch, activePath } = this.props;
+    const { router } = this.props;
 
-    return data.map(({ name, icon }) => (
+    return data.map(({ name, icon, route }) => (
       <SideNavLink
         key={name}
         name={name}
         icon={icon}
-        // isActive={matchPath(activePath, path)}
-        // onClick={() => dispatch(push(path))}
+        isActive={route && `/${route.name}` === router.route}
+        onClick={() => route && Router.pushRoute(route.name, route.params)}
       />
     ));
   }
 }
 
-export default SideNavComponent;
+export default withRouter(SideNavComponent);
