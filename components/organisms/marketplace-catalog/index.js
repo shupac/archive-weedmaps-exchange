@@ -262,3 +262,4 @@ class Catalog extends React.Component {
 }
 
 export default withRouter(inject('store')(observer(Catalog)));
+export { Catalog };

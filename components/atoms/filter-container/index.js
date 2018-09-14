@@ -58,17 +58,14 @@ class FilterContainer extends React.Component<Props, State> {
 
     return (
       <Container>
-        <Header>
+        <Header onClick={() => this.setState({ collapsed: !collapsed })}>
           <FilterInfo>
             <FilterName>{title}</FilterName>
             <FiltersLabel>
               <Shiitake lines={2}>{filters}</Shiitake>
             </FiltersLabel>
           </FilterInfo>
-          <Chevron
-            collapsed={collapsed}
-            onClick={() => this.setState({ collapsed: !collapsed })}
-          >
+          <Chevron collapsed={collapsed}>
             <ChevronDown
               fill={theme.palette.darkGrey2}
               size={{ width: '16px', height: '16px' }}

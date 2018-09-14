@@ -91,7 +91,7 @@ const FilterSection = (props: Props) => {
   const labels =
     selected.length === 0 || allSelected
       ? defaultLabel
-      : selected.map(({ name }) => name).join(' ');
+      : selected.map(({ name }) => name).join(', ');
 
   return (
     <FilterContainer title={title} filters={labels}>

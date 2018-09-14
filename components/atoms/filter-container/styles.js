@@ -5,6 +5,7 @@ import theme from 'lib/styles/theme';
 export const Container = styled.div`
   width: 100%;
   background-color: white;
+  cursor: pointer;
 `;
 
 export const Header = styled.div`
@@ -21,7 +22,7 @@ export const FilterInfo = styled.div`
 `;
 
 export const FilterName = styled.div`
-  color: #354052;
+  color: ${theme.colors.oxfordBlue};
   font-size: ${rem(16)};
   font-weight: 600;
   line-height: ${rem(24)};
@@ -36,7 +37,6 @@ export const FiltersLabel = styled.div`
 `;
 
 export const Chevron = styled.div`
-  cursor: pointer;
   transform: rotateZ(${({ collapsed }) => (collapsed ? '0deg' : '180deg')});
   transform-origin: center;
   transition: transform 0.3s;
