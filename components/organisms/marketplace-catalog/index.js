@@ -230,8 +230,6 @@ class Catalog extends React.Component {
   renderProducts() {
     const { products } = this.props.store.catalogSearchStore;
 
-    // console.log('catalog', products.toJSON());
-
     if (!products) return <h1>Catalog Home</h1>;
 
     if (!products.length)
