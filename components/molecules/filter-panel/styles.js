@@ -4,6 +4,7 @@ import theme from 'lib/styles/theme';
 
 export const Wrapper = styled.div`
   width: 220px;
+  flex: 0 0 220px;
   background-color: ${theme.colors.white};
   border-radius: 3px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);

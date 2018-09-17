@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
 export const Content = styled.div`
   margin-left: 16px;
   flex: 1;
+  width: calc(100% - 236px);
 `;
 
 export const Products = styled.div`

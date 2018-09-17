@@ -2,6 +2,7 @@
 
 exports[`Category Store can create an instance of a model 1`] = `
 Object {
+  "carouselCategories": Array [],
   "departments": Array [
     Object {
       "avatarImageUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/images/concentrates.png",

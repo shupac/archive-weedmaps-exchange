@@ -9,6 +9,7 @@ import PriceRangeFilter from 'components/molecules/price-range-filter';
 import SearchBar from 'components/molecules/search-bar';
 import ProductCard from 'components/molecules/product-card';
 import * as mockData from 'components/molecules/filter-panel/mock-data';
+import CategoryCarousels from './carousels';
 
 import { Wrapper, Content, Products, NoResults } from './styles';
 
@@ -167,6 +168,8 @@ class Catalog extends React.Component {
       }
     });
 
+    console.log('queryParms', queryParams);
+
     Router.pushRoute('marketplace', queryParams);
   };
 
@@ -228,7 +231,14 @@ class Catalog extends React.Component {
   }
 
   renderProducts() {
-    const { products } = this.props.store.catalogSearchStore;
+    const { router, store } = this.props;
+
+    // no search or filter, show carousels
+    if (router.asPath === '/buyer/marketplace/catalog')
+      return <CategoryCarousels />;
+
+    // show search results
+    const { products } = store.catalogSearchStore;
 
     if (!products) return <h1>Catalog Home</h1>;
 
