@@ -6,6 +6,7 @@ import centered from '@storybook/addon-centered';
 import { rem } from 'polished';
 import { ButtonPrimary } from 'components/atoms/button';
 import ModalWithHeader from './';
+import SellerDetailModal, { type Seller } from './seller-detail-modal';
 
 const MockModal = styled.div`
   width: 400px;
@@ -20,6 +21,7 @@ const MockModalBody = styled.div`
 type Props = {
   children?: Node,
   header?: any,
+  seller: Seller,
 };
 
 class ModalWrapper extends Component<Props> {
@@ -34,25 +36,40 @@ class ModalWrapper extends Component<Props> {
   keyDownHandler = event => (event.keyCode === 27 ? this.onClosePress() : null);
 
   render() {
-    const { children, header } = this.props;
+    const { children, header, seller } = this.props;
     const { isOpen } = this.state;
     return (
       <div>
         <button onClick={() => this.onOpenPress()}>
           <span>Open Modal</span>
         </button>
-        <ModalWithHeader
-          keyDownHandler={e => this.keyDownHandler(e)}
-          store={{
-            uiStore: {
-              modalIsOpen: isOpen,
-              onCloseModal: this.onClosePress,
-            },
-          }}
-          header={header}
-        >
-          {children}
-        </ModalWithHeader>
+        {seller ? (
+          <SellerDetailModal
+            seller={seller}
+            store={{
+              uiStore: {
+                modalIsOpen: isOpen,
+                onCloseModal: this.onClosePress,
+              },
+            }}
+            header={header}
+          >
+            {children}
+          </SellerDetailModal>
+        ) : (
+          <ModalWithHeader
+            keyDownHandler={e => this.keyDownHandler(e)}
+            store={{
+              uiStore: {
+                modalIsOpen: isOpen,
+                onCloseModal: this.onClosePress,
+              },
+            }}
+            header={header}
+          >
+            {children}
+          </ModalWithHeader>
+        )}
       </div>
     );
   }
@@ -85,4 +102,23 @@ export default storiesOf('Modal: Header', module)
         </MockModalBody>
       </ModalWrapper>
     </Provider>
+  ))
+  .add('Seller Detail Modal', () => (
+    <ModalWrapper
+      seller={{
+        name: 'STIIZY',
+        phone: '(555)-555-5555',
+        email: 'weedmaps@weedmaps.com',
+        licenses: [
+          {
+            number: 'ABC-123-420-YAY',
+            type: 'Medical Retailer',
+          },
+          {
+            number: 'DEF-456-024-AYA',
+            type: 'Recreational Grower',
+          },
+        ],
+      }}
+    />
   ));

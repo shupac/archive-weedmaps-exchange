@@ -10,6 +10,7 @@ type Props = {
   children: Node,
   header?: string,
   width?: string,
+  height?: string,
   keyDownHandler?: () => void,
 };
 
@@ -24,10 +25,11 @@ export const ModalWithHeaderTemplate = ({
   children,
   header,
   width,
+  height,
   keyDownHandler,
 }: Props) => (
   <Modal keyDownHandler={keyDownHandler} store={store}>
-    {header ? <ModalHeader>{header}</ModalHeader> : null}
+    {header && <ModalHeader height={height}>{header}</ModalHeader>}
     <ModalBody width={width}>{children}</ModalBody>
   </Modal>
 );

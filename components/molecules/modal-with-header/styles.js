@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 
-const { charcoal, white, porcelain, iron } = theme.colors;
+const { charcoal, white, iron, gullGray, oxfordBlue } = theme.colors;
 
 export const ModalBody = styled.div`
   width: ${props => (props.width ? props.width : '400px')};
@@ -13,17 +13,35 @@ export const ModalBody = styled.div`
   line-height: ${rem(20)};
   color: ${charcoal};
   border-radius: ${rem(3)};
+  font-family: ${theme.text.proximaNovaFont};
+  margin: 23px 16px;
 `;
 
 export const ModalHeader = styled.div`
-  width: 100%;
-  height: ${rem(45)};
-  background-color: ${porcelain};
+  width: ${({ width }) => width || '100%'};
+  height: ${({ height }) => height || rem(45)};
+  font-family: ${theme.text.proximaNovaFont};
+  background-color: ${white};
   border-radius: ${rem(3)} ${rem(3)} 0 0;
   border-bottom: 1px solid ${iron};
-  line-height: ${rem(45)};
   padding-left: ${rem(16)};
   font-size: ${rem(18)};
   font-weight: ${400};
   color: ${charcoal};
+  display: flex;
+  align-items: center;
+`;
+
+export const SellerDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: ${gullGray};
+  font-size: ${rem(14)};
+  font-weight: 600;
+  margin-bottom: 20px;
+  span {
+    color: ${oxfordBlue};
+    font-weight: normal;
+  }
 `;
