@@ -1,16 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Category Store can create an instance of a model 1`] = `
-Object {
-  "carouselCategories": Array [],
-  "departments": Array [
-    Object {
-      "avatarImageUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/images/concentrates.png",
-      "iconImageUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/icons/concentrates.svg",
-      "id": "1234",
-      "name": "Indica",
-      "position": 1,
-    },
-  ],
-}
+exports[`Category Store can fetch data from categories endpoint 1`] = `
+Array [
+  Object {
+    "avatarImage": null,
+    "categories": undefined,
+    "iconImage": null,
+    "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",
+    "name": "Concentrates",
+    "parentCategoryId": null,
+    "slug": null,
+  },
+]
 `;

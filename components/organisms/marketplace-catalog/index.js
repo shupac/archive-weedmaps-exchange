@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import { Router } from 'lib/routes';
 import { inject, observer } from 'mobx-react';
@@ -13,7 +13,7 @@ import CategoryCarousels from './carousels';
 
 import { Wrapper, Content, Products, NoResults } from './styles';
 
-class Catalog extends React.Component {
+class Catalog extends Component {
   state = {
     sections: {
       category: mockData.categories,
@@ -95,9 +95,7 @@ class Catalog extends React.Component {
     const { router } = this.props;
     const { query } = router;
 
-    console.log('load data', query);
-
-    this.props.store.catalogSearchStore.getProducts(query.search);
+    this.props.store.productsStore.searchProducts(query.search);
   };
 
   updateFilters = section => nextState => {
@@ -168,8 +166,6 @@ class Catalog extends React.Component {
       }
     });
 
-    console.log('queryParms', queryParams);
-
     Router.pushRoute('marketplace', queryParams);
   };
 
@@ -231,18 +227,16 @@ class Catalog extends React.Component {
   }
 
   renderProducts() {
-    const { router, store } = this.props;
+    const { router } = this.props;
 
     // no search or filter, show carousels
     if (router.asPath === '/buyer/marketplace/catalog')
       return <CategoryCarousels />;
 
     // show search results
-    const { products } = store.catalogSearchStore;
+    const { productsStore } = this.props.store;
 
-    if (!products) return <h1>Catalog Home</h1>;
-
-    if (!products.length)
+    if (!productsStore.productCards)
       return (
         <NoResults>
           <h2>No Results Found</h2>
@@ -258,7 +252,7 @@ class Catalog extends React.Component {
 
     return (
       <Products>
-        {products.map(product => (
+        {productsStore.productCards.map(product => (
           <ProductCard
             key={product.id}
             {...product}

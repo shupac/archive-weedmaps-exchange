@@ -7,8 +7,8 @@ import ProductCard from 'components/molecules/product-card';
 import { Catalog } from './';
 
 const mockStore = {
-  catalogSearchStore: {
-    products: [mockProduct],
+  productsStore: {
+    productCards: [mockProduct],
   },
 };
 

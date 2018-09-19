@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react';
 import CatalogCarousel from 'components/molecules/carousel';
 import ProductCard from 'components/molecules/product-card';
 import { type CarouselCategoriesTypes } from 'lib/data-access/models/carousel-categories';
+import { mockProduct } from 'lib/mocks/product-search';
 import styled from 'styled-components';
 
 const CatalogWrapper = styled.div``;
@@ -18,6 +19,7 @@ class CategoryCarousels extends Component<CarouselCategoriesTypes> {
   render() {
     const { store } = this.props;
     const { carouselCategories } = store.categoryStore;
+    // TODO: Remove test array and replace with carouselCategories.products when available
 
     return (
       <CatalogWrapper>
@@ -27,18 +29,18 @@ class CategoryCarousels extends Component<CarouselCategoriesTypes> {
             title={category.name}
             cardMargin={16}
           >
-            {category.products.map(product => (
+            {[1, 2, 3, 4, 5, 6].map(item => (
               <ProductCard
-                key={product.id}
-                id={product.id}
-                brand={product.brand}
-                name={product.name}
-                priceUnit={product.unit}
-                minPrice={product.minPrice}
-                maxPrice={product.maxPrice}
-                imageUrl={product.imageUrl}
-                category={product.category}
-                outOfStock={product.inStock}
+                key={item}
+                id={mockProduct.id}
+                brand={mockProduct.brand}
+                name={mockProduct.name}
+                priceUnit={mockProduct.unit}
+                minPrice={mockProduct.minPrice}
+                maxPrice={mockProduct.maxPrice}
+                imageUrl={mockProduct.imageUrl}
+                category={mockProduct.category}
+                outOfStock={mockProduct.inStock}
                 onClick={() => {}}
               />
             ))}

@@ -16,7 +16,7 @@ describe('CategoryCarousels', () => {
       disableLifecycleMethods: true,
     });
 
-    expect(tree.dive().find(ProductCard).length).toEqual(9);
+    expect(tree.dive().find(ProductCard).length).toEqual(12);
     expect(
       tree
         .dive()

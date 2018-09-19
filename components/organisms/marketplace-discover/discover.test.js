@@ -6,7 +6,7 @@ import { Discover } from './';
 
 const mockCategoryStore = {
   categoryStore: {
-    departments: mockCategories,
+    departmentCards: mockCategories,
   },
 };
 
