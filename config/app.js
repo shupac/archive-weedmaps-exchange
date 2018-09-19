@@ -9,6 +9,7 @@ module.exports = {
     coreBaseUrl: 'https://weedmaps.com',
     apiRootPath: '/exchange/v1',
     cookieDomain: '.weedmaps.com',
+    uatCookie: '_wm_uat_test',
   },
   development: {
     envName: 'development',
@@ -18,6 +19,7 @@ module.exports = {
     siteUrl: 'http://localhost:1620',
     apiRootPath: '/exchange/v1',
     cookieDomain: 'localhost',
+    uatCookie: '_wm_uat_development',
   },
   acceptance: {
     envName: 'acceptance',
@@ -26,6 +28,7 @@ module.exports = {
     coreBaseUrl: 'https://acceptance.internal-weedmaps.com',
     apiRootPath: '/exchange/v1',
     cookieDomain: '.internal-weedmaps.com',
+    uatCookie: '_wm_uat_acceptance',
   },
   staging: {
     envName: 'staging',
@@ -34,6 +37,7 @@ module.exports = {
     coreBaseUrl: 'https://staging.internal-weedmaps.com',
     apiRootPath: '/exchange/v1',
     cookieDomain: '.internal-weedmaps.com',
+    uatCookie: '_wm_uat_staging',
   },
   performance: {
     envName: 'performance',
@@ -42,6 +46,7 @@ module.exports = {
     coreBaseUrl: 'https://performance.internal-weedmaps.com',
     apiRootPath: '/exchange/v1',
     cookieDomain: '.internal-weedmaps.com',
+    uatCookie: '_wm_uat_performance',
   },
   production: {
     envName: 'production',
@@ -50,5 +55,6 @@ module.exports = {
     coreBaseUrl: 'https://weedmaps.com',
     apiRootPath: '/exchange/v1',
     cookieDomain: '.weedmaps.com',
+    uatCookie: '_wm_uat',
   },
 };
