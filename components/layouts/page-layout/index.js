@@ -51,6 +51,7 @@ type Props = {
   contentScrollY?: boolean,
   contentScrollX?: boolean,
   flexRow?: boolean,
+  pathname?: string,
 };
 
 type State = {
@@ -89,6 +90,7 @@ export class PageLayout extends React.Component<Props, State> {
       contentScrollY,
       contentScrollX,
       flexRow,
+      pathname,
     } = this.props;
     const { collapse } = this.state;
 
@@ -106,6 +108,7 @@ export class PageLayout extends React.Component<Props, State> {
                 activeLink={activeLink}
                 // avatarUrl={get(user, 'avatar_url')}
                 onMenuClick={this.onMenuClick}
+                pathname={pathname}
               />
             </div>
             <ContentContainer

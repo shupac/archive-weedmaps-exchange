@@ -45,9 +45,10 @@ export class Marketplace extends Component<Props> {
 
   render() {
     const { url } = this.props;
+    const { pathname } = url;
 
     return (
-      <PageLayout>
+      <PageLayout pathname={pathname}>
         <PageContent>
           <Subheader>
             <Tabs>

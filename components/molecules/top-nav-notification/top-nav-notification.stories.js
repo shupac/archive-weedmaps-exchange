@@ -9,4 +9,5 @@ export default storiesOf('Top nav: Notification')
   .addDecorator(GlobalStyleDecorator)
   .addDecorator(backgroundColor(['#F2F5F5', '#FFFFFF', '#000000']))
   .addDecorator(withKnobs)
-  .add('Notification', () => <Notification />);
+  .add('Notification', () => <Notification />)
+  .add('NotificationWithCount', () => <Notification count={3} />);
