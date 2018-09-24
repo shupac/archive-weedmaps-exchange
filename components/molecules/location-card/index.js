@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import Bookmark from 'components/atoms/icons/bookmark';
 import Shiitake from 'shiitake';
+import Tooltip from 'components/atoms/tool-tip';
 import {
   LocationCardAddress,
   IconWrapper,
@@ -64,7 +65,9 @@ export default class LocationCard extends Component<Props> {
           {locationTitle}
           {isPrimary && (
             <IconWrapper>
-              <Bookmark />
+              <Tooltip message="This location is tied to an existing Weedmaps listing">
+                <Bookmark />
+              </Tooltip>
             </IconWrapper>
           )}
         </LocationCardTitle>

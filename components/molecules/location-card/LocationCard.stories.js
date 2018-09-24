@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import centered from '@storybook/addon-centered';
 import LocationCard from './';
 
 const mockLocationCardData = {
@@ -24,6 +25,7 @@ const mockLocationCardData = {
 };
 
 export default storiesOf('LocationCard', module)
+  .addDecorator(centered)
   .add('Default', () => (
     <LocationCard
       locationTitle={mockLocationCardData.data.locationTitle}

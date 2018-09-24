@@ -27,6 +27,7 @@ LocationCardTitle.displayName = 'LocationCardTitle';
 
 export const IconWrapper = styled.div`
   cursor: pointer;
+  font-weight: normal;
 `;
 
 export const LocationCardAddress = styled.p`
