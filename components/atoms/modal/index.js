@@ -13,11 +13,14 @@ import Portal from './portal';
 const valueOfIsServer = isServer();
 
 type Props = {
-  children: React.Node,
+  children: Node,
   store: Store,
   keyDownHandler: (event: KeyboardEvent) => void,
+  mouseDownHandler?: () => void,
 };
 export class ModalTemplate extends Component<Props> {
+  nodeRef: Node;
+
   lockBgScroll = (lock: boolean) => {
     if (!isServer() && document.body && document.body.classList) {
       if (lock) {
@@ -33,7 +36,27 @@ export class ModalTemplate extends Component<Props> {
   onKeyDown = (event: KeyboardEvent) => {
     const { keyDownHandler, store } = this.props;
     const { onCloseModal } = store.uiStore;
-    return event.keyCode === 27 ? onCloseModal() : keyDownHandler(event);
+
+    if (event.keyCode === 27) {
+      if (keyDownHandler) {
+        keyDownHandler(event);
+      }
+      return onCloseModal();
+    }
+
+    return keyDownHandler(event);
+  };
+
+  onMouseDown = (event: MouseEvent) => {
+    const { mouseDownHandler } = this.props;
+    const { uiStore } = this.props.store;
+    if (this.nodeRef === event.target) {
+      if (mouseDownHandler) {
+        mouseDownHandler();
+      }
+      return uiStore.onCloseModal();
+    }
+    return null;
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -50,16 +73,23 @@ export class ModalTemplate extends Component<Props> {
     onCloseModal();
   }
 
+  setRef = (node: Node) => {
+    this.nodeRef = node;
+  };
+
   render() {
     const { children, store } = this.props;
     const { uiStore } = store;
     const { modalIsOpen, onCloseModal } = uiStore;
     if (valueOfIsServer) return null;
     return (
-      <Portal keyDownHandler={e => this.onKeyDown(e)}>
+      <Portal
+        keyDownHandler={e => this.onKeyDown(e)}
+        mouseDownHandler={e => this.onMouseDown(e)}
+      >
         <Transition in={modalIsOpen} timeout={300} appear>
           {status => (
-            <div className={`modal-overlay ${status}`}>
+            <div className={`modal-overlay ${status}`} ref={this.setRef}>
               <ModalContainer>
                 <CloseButton onClick={onCloseModal}>
                   <Icons.Close

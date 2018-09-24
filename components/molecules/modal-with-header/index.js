@@ -12,6 +12,7 @@ type Props = {
   width?: string,
   height?: string,
   keyDownHandler?: () => void,
+  mouseDownHandler?: () => void,
 };
 
 // Preferably, this would be named `Modal`, but that conflicts with the `Modal`
@@ -27,8 +28,13 @@ export const ModalWithHeaderTemplate = ({
   width,
   height,
   keyDownHandler,
+  mouseDownHandler,
 }: Props) => (
-  <Modal keyDownHandler={keyDownHandler} store={store}>
+  <Modal
+    keyDownHandler={keyDownHandler}
+    mouseDownHandler={mouseDownHandler}
+    store={store}
+  >
     {header && <ModalHeader height={height}>{header}</ModalHeader>}
     <ModalBody width={width}>{children}</ModalBody>
   </Modal>

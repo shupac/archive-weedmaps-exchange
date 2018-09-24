@@ -9,6 +9,7 @@ export const TextInput = ({
 }: {
   hasError: boolean,
   errorMessage: string,
+  height?: number,
 }) => (
   <InputWrap>
     <StyledInput hasError={hasError} {...props} />
