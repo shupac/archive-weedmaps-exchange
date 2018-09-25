@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { productPhotos as mockProductPhotos } from 'lib/mocks/product-photos';
-import MiniPhotos from './MiniPhotos';
-import FeaturedPhoto from './FeaturedPhoto';
+import MiniPhotos from './mini-photos';
+import FeaturedPhoto from './featured-photo';
 import ProductPhotos from './';
 
 describe('Product Photos', () => {

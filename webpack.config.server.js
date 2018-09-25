@@ -36,6 +36,7 @@ module.exports = {
                       lib: './lib',
                       routes: './routes',
                       config: './config',
+                      models: './lib/data-access/models',
                     },
                   },
                 ],

@@ -24,10 +24,10 @@ type Group = {
   checked: Checked,
   allowPartial?: ?boolean,
   parent: Parent,
-  children: Array<Option>,
+  children: Option[],
 };
 
-type State = Array<Group>;
+type State = Group[];
 
 type Props = {
   type?: 'list' | 'tree',

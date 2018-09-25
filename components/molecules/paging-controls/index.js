@@ -82,7 +82,7 @@ export default class PagingControls extends React.Component<Props> {
     }
   }
 
-  pageButtonArray(): Array<number> {
+  pageButtonArray(): number[] {
     const { pageCount, currentPage } = this.props;
 
     if (!pageCount) return [];

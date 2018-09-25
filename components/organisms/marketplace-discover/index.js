@@ -10,18 +10,19 @@ type Props = {
 };
 
 export const Discover = ({ store }: Props) => {
-  const { departmentCards } = store.categoryStore;
+  const { departments } = store.buyerSettings;
+
   return (
     <Fragment>
       <SearchBar />
       <CatalogCarousel title="Categories" cardMargin={16}>
-        {departmentCards.map(({ id, name, avatarImageUrl, iconImageUrl }) => (
+        {departments.map(({ id, name, avatarImageUrl, iconImageUrl }) => (
           <CategoryCard
+            key={id}
+            id={id}
             title={name}
             icon={iconImageUrl}
             image={avatarImageUrl}
-            id={id}
-            key={id}
           />
         ))}
       </CatalogCarousel>

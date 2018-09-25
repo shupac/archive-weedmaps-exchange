@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { type Store } from 'lib/types/stores';
+import { type StoreType } from 'lib/types/store';
 import { type AttributesLicenses } from 'lib/types/products';
 import { ModalBody, SellerDetails } from './styles';
 import ModalWithHeader from './';
@@ -13,7 +13,7 @@ export type Seller = {
 };
 
 type Props = {
-  store: Store,
+  store: StoreType,
   seller: Seller,
 };
 

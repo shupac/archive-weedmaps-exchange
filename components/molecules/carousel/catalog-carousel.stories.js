@@ -5,7 +5,7 @@ import { withKnobs, number, text } from '@storybook/addon-knobs/react';
 import { action } from '@storybook/addon-actions';
 
 import CatalogCarousel from './';
-import data from './mockData.js';
+import data from './mock-data.js';
 
 const PageWrapper = styled.div`
   flex: 1;

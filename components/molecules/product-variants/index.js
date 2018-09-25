@@ -13,10 +13,10 @@ import {
   ButtonRow,
   ActionButton,
 } from './styles';
-import VariantRow from './VariantRow';
+import VariantRow from './variant-row';
 
 type Props = {
-  variants: Array<Variant>,
+  variants: Variant[],
 };
 
 const tableHead = [

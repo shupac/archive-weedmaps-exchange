@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import { Router } from 'lib/routes';
@@ -9,11 +11,30 @@ import PriceRangeFilter from 'components/molecules/price-range-filter';
 import SearchBar from 'components/molecules/search-bar';
 import ProductCard from 'components/molecules/product-card';
 import * as mockData from 'components/molecules/filter-panel/mock-data';
+import { type RouterType } from 'lib/types/router';
+import { type StoreType } from 'lib/types/store';
 import CategoryCarousels from './carousels';
 
 import { Wrapper, Content, Products, NoResults } from './styles';
 
-class Catalog extends Component {
+type State = {
+  sections: {
+    category: any,
+    availability: any,
+    brands: any,
+    price: {
+      min: string | number,
+      max: string | number,
+    },
+  },
+};
+
+type Props = {
+  router: RouterType,
+  store: StoreType,
+};
+
+class Catalog extends Component<Props, State> {
   state = {
     sections: {
       category: mockData.categories,
@@ -95,10 +116,10 @@ class Catalog extends Component {
     const { router } = this.props;
     const { query } = router;
 
-    this.props.store.productsStore.searchProducts(query.search);
+    this.props.store.buyerProducts.searchCatalog(query.search);
   };
 
-  updateFilters = section => nextState => {
+  updateFilters = (section: string) => (nextState: any) => {
     const states = this.state.sections[section];
 
     let nextStates;
@@ -123,7 +144,7 @@ class Catalog extends Component {
           [section]: nextStates,
         },
       },
-      stateChanged ? this.updateQueryString : null,
+      stateChanged ? this.updateQueryString : () => {},
     );
   };
 
@@ -234,9 +255,9 @@ class Catalog extends Component {
       return <CategoryCarousels />;
 
     // show search results
-    const { productsStore } = this.props.store;
+    const { buyerProducts } = this.props.store;
 
-    if (!productsStore.productCards)
+    if (!buyerProducts.searchResults)
       return (
         <NoResults>
           <h2>No Results Found</h2>
@@ -252,7 +273,7 @@ class Catalog extends Component {
 
     return (
       <Products>
-        {productsStore.productCards.map(product => (
+        {buyerProducts.searchResults.map(product => (
           <ProductCard
             key={product.id}
             {...product}

@@ -3,27 +3,27 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import CatalogCarousel from 'components/molecules/carousel';
 import ProductCard from 'components/molecules/product-card';
-import { type CarouselCategoriesTypes } from 'lib/data-access/models/carousel-categories';
-import { mockProduct } from 'lib/mocks/product-search';
+import { type CategoryProductsType } from 'models/category-products';
+import { mockProduct } from 'mocks/search-results';
 import styled from 'styled-components';
 
 const CatalogWrapper = styled.div``;
 
-class CategoryCarousels extends Component<CarouselCategoriesTypes> {
+class CategoryCarousels extends Component<CategoryProductsType> {
   componentDidMount() {
-    const { categoryStore } = this.props.store;
+    const { buyerProducts } = this.props.store;
 
-    categoryStore.getCarouselCategories('64d05017-4339-4cda-9e57-0da061bf6b00');
+    buyerProducts.getCategoryProducts('64d05017-4339-4cda-9e57-0da061bf6b00');
   }
 
   render() {
     const { store } = this.props;
-    const { carouselCategories } = store.categoryStore;
-    // TODO: Remove test array and replace with carouselCategories.products when available
+    const { categoryProducts } = store.buyerProducts;
+    // TODO: Remove test array and replace with categoryProducts.products when available
 
     return (
       <CatalogWrapper>
-        {carouselCategories.map(category => (
+        {categoryProducts.map(category => (
           <CatalogCarousel
             key={category.id}
             title={category.name}

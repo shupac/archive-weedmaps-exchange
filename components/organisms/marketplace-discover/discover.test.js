@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { mockCategories } from 'lib/mocks/category-card';
+import { mockCategories } from 'lib/mocks/categories';
 import SearchBar from 'components/molecules/search-bar';
 import { Discover } from './';
 
 const mockCategoryStore = {
-  categoryStore: {
-    departmentCards: mockCategories,
+  buyerSettings: {
+    departments: mockCategories,
   },
 };
 

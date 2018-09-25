@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { title, image } from 'lib/mocks/category-card';
+import { title, image } from 'lib/mocks/category-products';
 import CategoryCard from './';
 import { CategoryCardWrapper } from './styles';
 

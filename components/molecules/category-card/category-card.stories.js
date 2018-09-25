@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { title, image, mockCategoryCard } from 'lib/mocks/category-card';
+import { title, image, mockCategoryCard } from 'lib/mocks/category-products';
 import styled from 'styled-components';
 import CategoryCard from './';
 

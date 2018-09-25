@@ -1,14 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { mockProduct } from 'lib/mocks/product-search';
+import { mockProduct } from 'lib/mocks/search-results';
 import SearchBar from 'components/molecules/search-bar';
 import FilterPanel from 'components/molecules/filter-panel';
 import ProductCard from 'components/molecules/product-card';
 import { Catalog } from './';
 
 const mockStore = {
-  productsStore: {
-    productCards: [mockProduct],
+  buyerProducts: {
+    categoryProducts: [mockProduct],
+    searchResults: [mockProduct],
   },
 };
 

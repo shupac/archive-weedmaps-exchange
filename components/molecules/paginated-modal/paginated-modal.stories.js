@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { Box } from '@ghostgroup/grid-styled';
 import { Provider } from 'mobx-react';
 import centered from '@storybook/addon-centered';
-import FeaturedPhoto from 'components/molecules/product-photos/FeaturedPhoto';
+import FeaturedPhoto from 'components/molecules/product-photos/featured-photo';
 import PaginatedModal from './';
 
 const photos = [

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Products Store can fetch data from products endpoint 1`] = `
+exports[`Catalog Store can fetch data from products endpoint 1`] = `
 Array [
   Object {
     "id": "2f3ac24c-6528-4fef-94e8-ec43820c2c76",
@@ -8,49 +8,34 @@ Array [
     "minPrice": 2.3,
     "product": Object {
       "avatarImage": Object {
-        "hashCode": "p6ba8iGQQuOl8fbvnOztjA==",
         "id": "41c06b6d-099c-48c4-82c6-015d3b8dcc3e",
         "largeUrl": "https://images.weedmaps.com/products/000/023/221/avatar/large/gfarmsalab_nug-run-indica_2.jpg?development=1",
         "mediumUrl": "https://images.weedmaps.com/products/000/023/221/avatar/medium/gfarmsalab_nug-run-indica_2.jpg?development=1",
         "smallUrl": "https://images.weedmaps.com/products/000/023/221/avatar/square/gfarmsalab_nug-run-indica_2.jpg?development=1",
       },
       "brand": Object {
-        "avatarImage": null,
         "description": "<p><strong><ins>Our Mission:</ins></strong></p> <p><em>Leader of the American Cannabis Revolution</em></p> <p> </p> <p>G FarmaLabs has become a well known brand throughout the cannabis community with both cannabis patients and connoisseurs alike. G FarmaLabs is committed to applying science and global resources to design and develop market leading brands in the cannabis flower, extracts, and edible product areas.</p> <p><strong><ins>History:</ins></strong></p> <p>Family owned and operated, G Farmalabs was conceived in 2007 by husband and wife team Ata and Nicole Gonzalez. Forced to relocate to California in 2009 after the financial crisis known as “The Great Recession,” Ata and Nicole believed the end of marijuana prohibition was near. Upon arriving in California, Ata attended Oaksterdam University and rented their first farm in Northern California.</p>",
         "id": "d054b34f-428e-4583-a2a4-27f4e5aea6f3",
-        "licenses": Object {
-          "id": "",
-          "insertedAt": null,
-          "licenseType": null,
-          "number": null,
-          "updatedAt": null,
-        },
         "name": "GfarmaLabs",
         "slug": "gfarmalabs",
-        "vendorId": 64,
       },
       "categories": Array [],
       "departments": Array [
         Object {
-          "avatarImage": null,
-          "categories": Array [],
-          "iconImage": null,
           "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",
           "name": "Concentrates",
-          "parentCategoryId": null,
           "slug": "concentrates",
         },
       ],
+      "description": "<p>G FarmaLabs is proud to bring you NUG RUN Cannabis Oil Injectors. This pharmaceutical grade Co2 extract is created by using 100% IndoorCannabis Flower and then further removing any undesirable compounds. </p>",
       "galleryImages": Array [
         Object {
-          "hashCode": "hfg8b/VF6TnRM5VJGrSlfw==",
           "id": "1608ec15-013e-4a77-9cb9-27cc232a6640",
           "largeUrl": "https://images.weedmaps.com/photos/products/000/023/221/large/29923_gfarmsalab_nug-run-indica_2.jpg?development=1",
           "mediumUrl": "https://images.weedmaps.com/photos/products/000/023/221/medium/29923_gfarmsalab_nug-run-indica_2.jpg?development=1",
           "smallUrl": "https://images.weedmaps.com/photos/products/000/023/221/square/29923_gfarmsalab_nug-run-indica_2.jpg?development=1",
         },
         Object {
-          "hashCode": "0t01fMlxRZtcQEyGEoq63g==",
           "id": "b2d1cf18-e1e1-443a-985a-bec6b104eaac",
           "largeUrl": "https://images.weedmaps.com/photos/products/000/023/221/large/29969_gfarmsalab_nug-run-indica_1.jpg?development=1",
           "mediumUrl": "https://images.weedmaps.com/photos/products/000/023/221/medium/29969_gfarmsalab_nug-run-indica_1.jpg?development=1",
@@ -70,17 +55,10 @@ Array [
               "id": "091ed653-2f28-4904-89b8-5ba31330a21d",
               "price": "30",
               "sellerId": "2f4ddb82-3b67-4780-8ae4-7f27da36d813",
-              "variant": null,
-              "zone": null,
             },
           ],
-          "defaultCurrency": "usd",
-          "defaultPrice": "30",
-          "description": "Eighth Gram Pack",
           "id": "5cfce13e-b8b9-4da0-a363-4becc6a06bb9",
           "name": "Eighth Pack",
-          "product": null,
-          "sellerId": "2f4ddb82-3b67-4780-8ae4-7f27da36d813",
           "size": 3.5,
           "sku": "sku",
           "unit": "gram",

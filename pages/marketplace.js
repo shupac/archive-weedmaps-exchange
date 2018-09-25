@@ -16,7 +16,7 @@ import Subheader from 'components/atoms/subheader';
 import DiscoverTab from 'components/organisms/marketplace-discover';
 import CatalogTab from 'components/organisms/marketplace-catalog';
 
-import { type Store } from 'lib/types/stores';
+import { type StoreType } from 'lib/types/store';
 
 const tabs = [
   {
@@ -34,13 +34,13 @@ const tabs = [
 ];
 
 type Props = {
-  store: Store,
+  store: StoreType,
   url: any,
 };
 
 export class Marketplace extends Component<Props> {
   componentDidMount() {
-    this.props.store.categoryStore.getDepartments();
+    this.props.store.buyerSettings.getDepartments();
   }
 
   render() {

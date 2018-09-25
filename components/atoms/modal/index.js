@@ -2,7 +2,7 @@
 /* globals document window */
 import { Component } from 'react';
 import { isServer } from 'lib/common/universal-helpers';
-import { type Store } from 'lib/types/stores';
+import { type StoreType } from 'lib/types/store';
 import { inject, observer } from 'mobx-react';
 import Transition from 'react-transition-group/Transition';
 import { Icons } from '@ghostgroup/ui';
@@ -14,7 +14,7 @@ const valueOfIsServer = isServer();
 
 type Props = {
   children: Node,
-  store: Store,
+  store: StoreType,
   keyDownHandler: (event: KeyboardEvent) => void,
   mouseDownHandler?: () => void,
 };

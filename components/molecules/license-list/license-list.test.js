@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { mockProduct } from 'lib/mocks/product';
 import { BrandHeader, LicenseNumber, LicenseType } from './styles';
 import LicenseList from './';
-import LicenseItem from './LicenseItem';
+import LicenseItem from './license-item';
 
 const { included: arr } = mockProduct;
 describe('License List', () => {

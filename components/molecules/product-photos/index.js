@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import find from 'lodash.find';
 import type { ProductImage } from 'lib/types/products';
 import { ProductPhotosWrapper, MiniPhotoWrapper } from './styles';
-import MiniPhotos from './MiniPhotos';
-import FeaturedPhoto from './FeaturedPhoto';
+import MiniPhotos from './mini-photos';
+import FeaturedPhoto from './featured-photo';
 
 type Props = {
-  productPhotos: Array<ProductImage>,
+  productPhotos: ProductImage[],
 };
 
 type State = {

@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 import get from 'lodash.get';
 import { Select, Icons, WmTheme } from '@ghostgroup/ui';
 import { Router } from 'lib/routes';
-import { type Store } from 'lib/types/stores';
+import { type StoreType } from 'lib/types/store';
 import { type RouterType } from 'lib/types/router';
 
 import {
@@ -19,7 +19,7 @@ const { state } = WmTheme.style;
 
 type Props = {
   showCategory: boolean,
-  store: Store,
+  store: StoreType,
   router: RouterType,
 };
 
@@ -72,7 +72,7 @@ class SearchBar extends Component<Props, State> {
   };
 
   getOptions = () => {
-    const { departments } = this.props.store.categoryStore;
+    const { departments } = this.props.store.buyerSettings;
 
     const options = departments.map(({ id, name }) => ({
       value: id,

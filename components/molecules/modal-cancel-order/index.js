@@ -1,6 +1,6 @@
 // @flow
 import { Component } from 'react';
-import { type Store } from 'lib/types/stores';
+import { type StoreType } from 'lib/types/store';
 import { inject, observer } from 'mobx-react';
 import ModalWithHeader from 'components/molecules/modal-with-header';
 import TextArea from 'components/atoms/forms/text-area';
@@ -9,7 +9,7 @@ import { ModalBody, ButtonRow } from './styles';
 
 type Props = {
   children: Node,
-  store: Store,
+  store: StoreType,
   onConfirm: (text: string) => void,
   title: string,
 };

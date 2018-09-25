@@ -2,11 +2,11 @@
 import React, { type Node } from 'react';
 import { inject, observer } from 'mobx-react';
 import Modal from 'components/atoms/modal';
-import { type Store } from 'lib/types/stores';
+import { type StoreType } from 'lib/types/store';
 import { ModalHeader, ModalBody } from './styles';
 
 type Props = {
-  store: Store,
+  store: StoreType,
   children: Node,
   header?: string,
   width?: string,

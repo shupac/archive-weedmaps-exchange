@@ -22,7 +22,7 @@ type Option = {
 
 type State = {
   parent: Parent,
-  children: Array<Option>,
+  children: Option[],
 };
 
 type Props = {
@@ -30,7 +30,7 @@ type Props = {
   onChange: (state: State) => void,
 };
 
-const isParentChecked = (children: Array<Option>) => {
+const isParentChecked = (children: Option[]) => {
   const numChecked = children.filter(({ checked }) => checked).length;
   if (!numChecked) return 0;
   if (numChecked === children.length) return 2;

@@ -7,7 +7,7 @@ import { SearchBarWrapper } from './styles';
 const props = {
   showCategory: true,
   store: {
-    categoryStore: {
+    buyerSettings: {
       departments: [
         {
           id: '123',

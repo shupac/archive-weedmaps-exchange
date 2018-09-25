@@ -13,7 +13,7 @@ import {
   // sellerData,
   buyerFooterData,
   // sellerFooterData,
-} from './navData';
+} from './nav-data';
 
 // Styled Components
 const { SideNavHeader, SideNavFooter } = SideNavLayout;

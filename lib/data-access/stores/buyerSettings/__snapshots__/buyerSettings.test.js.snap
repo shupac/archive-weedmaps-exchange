@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BuyerSettings Store can fetch data from categories endpoint 1`] = `
+Array [
+  Object {
+    "avatarImage": Object {
+      "id": "82c8a744-10c6-48c9-b5a0-3a90de6d2c2f",
+      "largeUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/images/concentrates.png",
+      "mediumUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/images/concentrates.png",
+      "smallUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/images/concentrates.png",
+    },
+    "iconImage": Object {
+      "id": "c77396fe-4293-4911-805c-2cd3afb18949",
+      "largeUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/icons/concentrates.svg",
+      "mediumUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/icons/concentrates.svg",
+      "smallUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/icons/concentrates.svg",
+    },
+    "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",
+    "name": "Concentrates",
+    "position": 1,
+    "slug": "concentrates",
+  },
+  Object {
+    "avatarImage": Object {
+      "id": "97cc29eb-0ce4-4b55-81ae-e1899b6dc7ce",
+      "largeUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/images/edibles.png",
+      "mediumUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/images/edibles.png",
+      "smallUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/images/edibles.png",
+    },
+    "iconImage": Object {
+      "id": "b252a9f9-f06e-4981-80db-cf74d6c7573a",
+      "largeUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/icons/edibles.svg",
+      "mediumUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/icons/edibles.svg",
+      "smallUrl": "https://wm-exchange-assets-acceptance.s3.amazonaws.com/categories/icons/edibles.svg",
+    },
+    "id": "e306a27d-5076-4074-ab7a-21f6485ad4bb",
+    "name": "Edibles",
+    "position": 3,
+    "slug": "edibles",
+  },
+]
+`;

@@ -14,7 +14,7 @@ import {
   Content,
   CardWrapper,
 } from './styles';
-import data from './mockData';
+import data from './mock-data';
 
 const Card = styled.div`
   width: ${({ width }) => width}px;

@@ -16,7 +16,8 @@
 
 [options]
 esproposal.decorators=ignore
-module.name_mapper='^lib/mocks' ->'<PROJECT_ROOT>/lib/mocks'
+module.name_mapper='^mocks' ->'<PROJECT_ROOT>/lib/mocks'
+module.name_mapper='^models' ->'<PROJECT_ROOT>/lib/data-access/models'
 module.name_mapper='^pages' ->'<PROJECT_ROOT>/pages'
 module.name_mapper='^lib' ->'<PROJECT_ROOT>/lib'
 module.name_mapper='^routes' ->'<PROJECT_ROOT>/routes'

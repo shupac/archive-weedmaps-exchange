@@ -2,7 +2,7 @@
 import React, { Fragment } from 'react';
 import type { IncludedTypes } from 'lib/types/products';
 import { BrandHeader } from './styles';
-import LicenseItem from './LicenseItem';
+import LicenseItem from './license-item';
 
 const LicenseList = ({ brand }: { brand: IncludedTypes }) => {
   const { attributes } = brand;

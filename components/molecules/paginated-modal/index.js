@@ -1,7 +1,7 @@
 // @flow
 import { Component, type Node } from 'react';
 import { isServer } from 'lib/common/universal-helpers';
-import { type Store } from 'lib/types/stores';
+import { type StoreType } from 'lib/types/store';
 import { inject, observer } from 'mobx-react';
 import Modal from 'components/atoms/modal';
 import { Icons } from '@ghostgroup/ui';
@@ -12,7 +12,7 @@ const { Arrow } = Icons;
 
 type Props = {
   children: Node,
-  store: Store,
+  store: StoreType,
   hasPaging: boolean,
   onNextItem: () => void,
   onPrevItem: () => void,

@@ -19,9 +19,10 @@
       "module-resolver",
       {
         "alias": {
-          "mocks": "./lib/mocks",
-          "pages": "./pages",
           "lib": "./lib",
+          "mocks": "./lib/mocks",
+          "models": "./lib/data-access/models",
+          "pages": "./pages",
           "components": "./components",
           "routes": "./routes",
           "styles": "./styles",
