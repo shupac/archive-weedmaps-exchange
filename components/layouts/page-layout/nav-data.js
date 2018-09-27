@@ -54,7 +54,12 @@ export const buyerFooterData = [
   {
     name: 'settings',
     icon: sizeIcon(Gear),
-    route: '/buyer/settings',
+    route: {
+      name: 'settings',
+      params: {
+        tab: 'profile',
+      },
+    },
   },
   {
     name: 'help',

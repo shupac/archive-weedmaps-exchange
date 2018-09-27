@@ -1,46 +1,30 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { mockLocation } from 'lib/mocks/location';
 import centered from '@storybook/addon-centered';
 import LocationCard from './';
-
-const mockLocationCardData = {
-  data: {
-    locationTitle: 'Irvine Warehouse',
-    locationAddress: {
-      street: '41 Discovery',
-      city: 'Irvine',
-      state: 'CA',
-      zipCode: 921618,
-      country: 'USA',
-    },
-    isPrimary: true,
-    deliveryInstruction:
-      'Knock twice, stand on one foot, say the alphabet backwards',
-    locationContact: {
-      name: 'Bob Ross',
-      phone: '310-123-1234',
-      email: 'weedmaps@weedmaps.com',
-    },
-  },
-};
 
 export default storiesOf('LocationCard', module)
   .addDecorator(centered)
   .add('Default', () => (
     <LocationCard
-      locationTitle={mockLocationCardData.data.locationTitle}
-      locationAddress={mockLocationCardData.data.locationAddress}
-      deliveryInstruction={mockLocationCardData.data.deliveryInstruction}
-      locationContact={mockLocationCardData.data.locationContact}
-      isPrimary
+      locationTitle={mockLocation[0].name}
+      locationAddress={mockLocation[0].address}
+      deliveryInstruction={mockLocation[0].deliveryInstructions}
+      isPrimary={mockLocation[0].source === 'weedmaps'}
+      contactName={mockLocation[0].contactName}
+      phone={mockLocation[0].phoneNumber}
+      email={mockLocation[0].email}
     />
   ))
   .add('NonPrimary', () => (
     <LocationCard
-      locationTitle={mockLocationCardData.data.locationTitle}
-      locationAddress={mockLocationCardData.data.locationAddress}
-      deliveryInstruction={mockLocationCardData.data.deliveryInstruction}
-      locationContact={mockLocationCardData.data.locationContact}
+      locationTitle={mockLocation[0].name}
+      locationAddress={mockLocation[0].address}
+      deliveryInstruction={mockLocation[0].deliveryInstructions}
       isPrimary={false}
+      contactName={mockLocation[0].contactName}
+      phone={mockLocation[0].phoneNumber}
+      email={mockLocation[0].email}
     />
   ));

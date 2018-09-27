@@ -16,24 +16,20 @@ import {
 } from './styles';
 
 type locationAddressType = {
-  street: string,
+  streetAddress: string,
   city: string,
-  state: string,
-  zipCode: number,
   country: string,
-};
-
-type locationContactType = {
-  name?: string,
-  phone?: string,
-  email?: string,
+  postalCode: number,
+  territory: string,
 };
 
 type Props = {
   locationTitle?: string,
   locationAddress: locationAddressType,
   deliveryInstruction?: string,
-  locationContact: locationContactType,
+  contactName: string,
+  phone: string,
+  email: string,
   isPrimary: boolean,
 };
 
@@ -54,11 +50,18 @@ export default class LocationCard extends Component<Props> {
       locationTitle,
       locationAddress,
       deliveryInstruction,
-      locationContact,
+      contactName,
+      phone,
+      email,
       isPrimary,
     } = this.props;
-    const { street, city, state, zipCode, country } = locationAddress;
-    const { name, phone, email } = locationContact;
+    const {
+      streetAddress,
+      city,
+      territory,
+      postalCode,
+      country,
+    } = locationAddress;
     return (
       <LocationCardWrapper>
         <LocationCardTitle>
@@ -72,13 +75,13 @@ export default class LocationCard extends Component<Props> {
           )}
         </LocationCardTitle>
         <LocationCardAddress>
-          <span>{street}</span>
+          <span>{streetAddress}</span>
           <br />
           <span>
-            {city}, {state} {zipCode}{' '}
+            {city}, {territory} {postalCode}{' '}
           </span>
           <br />
-          <span>{country}</span>
+          <span style={{ textTransform: 'uppercase' }}>{country}</span>
         </LocationCardAddress>
         <LocationCardInstructions>
           <span>Delivery Instructions</span> <br />
@@ -87,7 +90,7 @@ export default class LocationCard extends Component<Props> {
         <LocationCardContact>
           <span>Contact</span>
           <br />
-          {name && <ContactLine>{name}</ContactLine>}
+          {contactName && <ContactLine>{contactName}</ContactLine>}
           {phone && <ContactLine>Phone: {phone}</ContactLine>}
           {email && <ContactLine>Email: {email}</ContactLine>}
         </LocationCardContact>

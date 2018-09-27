@@ -11,6 +11,7 @@ export const LocationCardWrapper = styled.div`
   padding: 17px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   font-family: ${theme.text.proximaNovaFont};
   color: ${theme.palette.darkBlue1};
 `;

@@ -15,7 +15,7 @@ const valueOfIsServer = isServer();
 type Props = {
   children: Node,
   store: StoreType,
-  keyDownHandler: (event: KeyboardEvent) => void,
+  keyDownHandler?: (event: KeyboardEvent) => void,
   mouseDownHandler?: () => void,
 };
 export class ModalTemplate extends Component<Props> {
@@ -37,14 +37,17 @@ export class ModalTemplate extends Component<Props> {
     const { keyDownHandler, store } = this.props;
     const { onCloseModal } = store.uiStore;
 
-    if (event.keyCode === 27) {
-      if (keyDownHandler) {
+    if (keyDownHandler) {
+      if (event.keyCode === 27) {
         keyDownHandler(event);
+        return onCloseModal();
       }
+      return keyDownHandler(event);
+    }
+    if (event.keyCode === 27) {
       return onCloseModal();
     }
-
-    return keyDownHandler(event);
+    return null;
   };
 
   onMouseDown = (event: MouseEvent) => {

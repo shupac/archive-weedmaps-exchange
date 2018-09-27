@@ -10,6 +10,11 @@ const SubHeaderWrap = styled.div`
   background-color: ${background.light};
   box-shadow: 0 1px 3px 0 ${shadow};
   z-index: 2;
+  align-items: center;
+  justify-content: space-between;
+  button {
+    margin-right: 16px;
+  }
 `;
 
 export default SubHeaderWrap;

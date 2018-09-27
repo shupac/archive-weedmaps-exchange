@@ -58,16 +58,17 @@ export default Button;
 export const ButtonPrimary = styled(uiButton)`
   ${ButtonBase};
   font-size: ${props => (props.fontSize ? rem(props.fontSize) : rem(14))};
-  width: ${props => (props.w ? rem(props.w) : '100%')};
+  width: ${props => (props.width ? rem(props.width) : '100%')};
   height: ${props => rem(props.h)};
   background: ${theme.style.state.primary};
   border: 1px solid ${theme.colors.persianGreen};
   color: ${theme.style.text.inverted};
   font-weight: ${props => props.weight};
+  font-family: ${theme.text.proximaNovaFont};
 `;
 ButtonPrimary.propTypes = {
   theme: PropTypes.object,
-  w: PropTypes.number,
+  width: PropTypes.number,
   h: PropTypes.number,
   primary: PropTypes.bool,
   weight: PropTypes.number,
