@@ -13,6 +13,7 @@ const gridColumns = css`
   align-items: center;
   justify-items: start;
   padding: 8px 16px;
+  margin: 0 24px;
 `;
 
 export const TableWrap = styled.div``;
@@ -75,8 +76,6 @@ export const TotalsRow = styled.div`
 
 export const ButtonRow = styled.div`
   border-top: 1px solid ${icon.inverted};
-  margin-left: -24px;
-  margin-right: -24px;
   display: flex;
   justify-content: flex-end;
   padding: 16px 24px;

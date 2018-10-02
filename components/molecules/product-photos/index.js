@@ -1,27 +1,27 @@
 // @flow
 import React, { Component } from 'react';
 import find from 'lodash.find';
-import type { ProductImage } from 'lib/types/products';
+import type { ImageType } from 'lib/data-access/models/image';
 import { ProductPhotosWrapper, MiniPhotoWrapper } from './styles';
 import MiniPhotos from './mini-photos';
 import FeaturedPhoto from './featured-photo';
 
 type Props = {
-  productPhotos: ProductImage[],
+  productPhotos: ImageType[],
 };
 
 type State = {
-  featuredPhoto?: ProductImage,
+  featuredPhoto?: ImageType,
 };
 
-export default class ProductPhotos extends Component<Props, State> {
+export class ProductPhotos extends Component<Props, State> {
   state = {
     featuredPhoto: this.props.productPhotos[0],
   };
 
   changeFeaturePhoto = (photoId: string) => {
     const { productPhotos } = this.props;
-    const clickedPhoto = find(productPhotos, { small_url: photoId });
+    const clickedPhoto = find(productPhotos, { id: photoId });
     this.setState({ featuredPhoto: clickedPhoto });
   };
 
@@ -36,12 +36,10 @@ export default class ProductPhotos extends Component<Props, State> {
           {productPhotos &&
             productPhotos.map(photo => (
               <MiniPhotos
-                key={photo.small_url}
+                key={photo.id}
                 photo={photo}
                 onClick={this.changeFeaturePhoto}
-                isFeatured={
-                  featuredPhoto && photo.small_url === featuredPhoto.small_url
-                }
+                isFeatured={featuredPhoto && photo.id === featuredPhoto.id}
               />
             ))}
         </MiniPhotoWrapper>
@@ -49,3 +47,5 @@ export default class ProductPhotos extends Component<Props, State> {
     );
   }
 }
+
+export default ProductPhotos;

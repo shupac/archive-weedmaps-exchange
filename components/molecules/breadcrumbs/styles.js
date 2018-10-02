@@ -6,7 +6,7 @@ const { text } = WmTheme.style;
 
 export const BreadcrumbWrap = styled.div`
   display: flex;
-  padding: 8px 0;
+  margin: 16px 0;
 `;
 
 export const ActiveCrumb = styled.p`

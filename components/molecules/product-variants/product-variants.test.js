@@ -7,21 +7,20 @@ import ProductVariants from './index';
 import { TableWrap } from './styles';
 import TextInput from '../../atoms/forms/text-input';
 
-const variantData = mockVariants.filter(item => item.type === 'variant');
 describe('Product Variants', () => {
   it('should render a variant grid if data exists', () => {
-    const component = shallow(<ProductVariants variants={variantData} />);
+    const component = shallow(<ProductVariants variants={mockVariants} />);
     expect(component.find(TableWrap).exists()).toEqual(true);
   });
   it('should give the correct variant', () => {
-    const component = shallow(<ProductVariants variants={variantData} />);
+    const component = shallow(<ProductVariants variants={mockVariants} />);
 
     expect(
       component
         .find('[data-test-id="form"]')
         .dive()
         .find('[data-test-id="data-row"]').length,
-    ).toEqual(3);
+    ).toEqual(2);
 
     expect(
       component
@@ -33,7 +32,7 @@ describe('Product Variants', () => {
         .find('p')
         .first()
         .text(),
-    ).toEqual('1 Gram Bag');
+    ).toEqual('Gram Packs');
 
     expect(
       component
@@ -45,7 +44,7 @@ describe('Product Variants', () => {
         .find('p')
         .last()
         .text(),
-    ).toEqual('$15.99');
+    ).toEqual('$20.00');
 
     expect(
       component
@@ -59,7 +58,7 @@ describe('Product Variants', () => {
     ).toEqual(true);
   });
   it('should have the button disabled if there is no quantity', () => {
-    const component = shallow(<ProductVariants variants={variantData} />);
+    const component = shallow(<ProductVariants variants={mockVariants} />);
     expect(
       component
         .find('[data-test-id="form"]')
@@ -71,7 +70,7 @@ describe('Product Variants', () => {
   it('should have the button enabled if there is a quantity', () => {
     const component = mount(
       <ThemeProvider theme={WmTheme}>
-        <ProductVariants variants={variantData} />
+        <ProductVariants variants={mockVariants} />
       </ThemeProvider>,
     );
 

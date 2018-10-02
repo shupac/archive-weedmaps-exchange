@@ -11,19 +11,19 @@ describe('Product Photos', () => {
       <ProductPhotos productPhotos={mockProductPhotos} />,
     ).dive();
     expect(component.find(FeaturedPhoto).length).toEqual(1);
-    expect(component.find(MiniPhotos).length).toEqual(5);
+    expect(component.find(MiniPhotos).length).toEqual(2);
   });
   it('should check if mini photo isFeatured is true', () => {
     const photo = {
-      small_url: 'weedmaps.com/images/blue-dream-small.jpg',
-      medium_url: 'weedmaps.com/images/blue-dream-medium.jpg',
-      large_url: 'weedmaps.com/images/blue-dream-large.jpg',
+      smallUrl: 'weedmaps.com/images/blue-dream-small.jpg',
+      mediumUrl: 'weedmaps.com/images/blue-dream-medium.jpg',
+      largeUrl: 'weedmaps.com/images/blue-dream-large.jpg',
     };
     const state = {
       featuredPhoto: {
-        small_url: 'weedmaps.com/images/blue-dream-small.jpg',
-        medium_url: 'weedmaps.com/images/blue-dream-medium.jpg',
-        large_url: 'weedmaps.com/images/blue-dream-large.jpg',
+        smallUrl: 'weedmaps.com/images/blue-dream-small.jpg',
+        mediumUrl: 'weedmaps.com/images/blue-dream-medium.jpg',
+        largeUrl: 'weedmaps.com/images/blue-dream-large.jpg',
       },
     };
     const component = shallow(
@@ -42,15 +42,15 @@ describe('Product Photos', () => {
   });
   it('should check if mini photo isFeatured is false', () => {
     const photo = {
-      small_url: 'http://via.placeholder.com/400x400',
-      medium_url: 'weedmaps.com/images/blue-dream-medium.jpg',
-      large_url: 'http://via.placeholder.com/400x400',
+      smallUrl: 'http://via.placeholder.com/400x400',
+      mediumUrl: 'weedmaps.com/images/blue-dream-medium.jpg',
+      largeUrl: 'http://via.placeholder.com/400x400',
     };
     const state = {
       featuredPhoto: {
-        small_url: 'weedmaps.com/images/blue-dream-small.jpg',
-        medium_url: 'weedmaps.com/images/blue-dream-medium.jpg',
-        large_url: 'weedmaps.com/images/blue-dream-large.jpg',
+        smallUrl: 'weedmaps.com/images/blue-dream-small.jpg',
+        mediumUrl: 'weedmaps.com/images/blue-dream-medium.jpg',
+        largeUrl: 'weedmaps.com/images/blue-dream-large.jpg',
       },
     };
     const component = shallow(
@@ -68,29 +68,25 @@ describe('Product Photos', () => {
     ).toEqual(false);
   });
   it('should render the changeFeaturePhoto', () => {
-    const photo = {
-      small_url: 'weedmaps.com/images/blue-dream-small.jpg',
-      medium_url: 'weedmaps.com/images/blue-dream-medium.jpg',
-      large_url: 'weedmaps.com/images/blue-dream-large.jpg',
-    };
     const component = mount(
-      <ProductPhotos productPhotos={mockProductPhotos} photo={photo} />,
+      <ProductPhotos productPhotos={mockProductPhotos} />,
     );
     expect(component.state('featuredPhoto')).toEqual({
-      large_url: 'http://via.placeholder.com/400x400/d4201e',
-      medium_url: 'weedmaps.com/images/blue-dream-medium.jpg',
-      small_url: 'http://via.placeholder.com/400x400/d4201e',
+      smallUrl: 'http://via.placeholder.com/400x400/d4201e',
+      mediumUrl: 'weedmaps.com/images/blue-dream-medium.jpg',
+      largeUrl: 'http://via.placeholder.com/400x400/d4201e',
+      id: '1234',
     });
-
     component
       .find(MiniPhotos)
-      .at(2)
+      .at(1)
       .simulate('click');
 
     expect(component.state('featuredPhoto')).toEqual({
-      small_url: 'http://via.placeholder.com/400x400/bd8cfd',
-      medium_url: 'weedmaps.com/images/blue-dream-medium.jpg',
-      large_url: 'http://via.placeholder.com/400x400/bd8cfd',
+      smallUrl: 'http://via.placeholder.com/400x400',
+      mediumUrl: 'weedmaps.com/images/blue-dream-medium.jpg',
+      largeUrl: 'http://via.placeholder.com/400x400',
+      id: '5678',
     });
   });
 });

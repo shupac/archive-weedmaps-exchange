@@ -15,6 +15,7 @@ import TabButton from 'components/atoms/tab-button';
 import Subheader from 'components/atoms/subheader';
 import DiscoverTab from 'components/organisms/marketplace-discover';
 import CatalogTab from 'components/organisms/marketplace-catalog';
+import ProductDetail from 'components/organisms/product-detail';
 
 import { type StoreType } from 'lib/types/store';
 
@@ -27,10 +28,6 @@ const tabs = [
     path: 'catalog',
     label: 'Catalog',
   },
-  // {
-  //   path: 'watchlist',
-  //   label: 'Watchlist',
-  // },
 ];
 
 type Props = {
@@ -66,8 +63,17 @@ export class Marketplace extends Component<Props> {
               <DiscoverTab />
             </ShowIfRoute>
 
-            <ShowIfRoute match="/buyer/marketplace/catalog(.*)">
+            <ShowIfRoute
+              match={[
+                '/buyer/marketplace/catalog',
+                '/buyer/marketplace/catalog?(.*)',
+              ]}
+            >
               <CatalogTab />
+            </ShowIfRoute>
+
+            <ShowIfRoute match="/buyer/marketplace/catalog/product(.*)">
+              <ProductDetail productIdQuery={url.query.productId} />
             </ShowIfRoute>
           </TabContent>
         </PageContent>

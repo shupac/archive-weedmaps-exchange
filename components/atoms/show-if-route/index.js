@@ -17,10 +17,23 @@ export class ShowIfRoute extends Component<ShowIfRouteProps> {
       match,
       router: { asPath },
     } = this.props;
-    const re = pathToRegexp(match);
-    const isMatch = re.exec(asPath);
+    const isMatch = () => {
+      const pathOnlyNoParams = asPath.split('?')[0];
 
-    if (!isMatch) return null;
+      if (Array.isArray(match)) {
+        return match.some(pathMatch => {
+          const re = pathToRegexp(pathMatch);
+
+          return re && re.exec(pathOnlyNoParams);
+        });
+      }
+      const re = pathToRegexp(match);
+      if (re && re.exec(pathOnlyNoParams)) return true;
+
+      return false;
+    };
+
+    if (!isMatch()) return null;
     return children;
   }
 }

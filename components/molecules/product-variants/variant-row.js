@@ -1,13 +1,13 @@
 // @flow
 import React from 'react';
 import { formatDollars } from 'lib/common/strings';
-import type { VariantAttributes } from 'lib/types/products';
+import type { VariantType } from 'lib/data-access/models/variant';
 import { ErrorIcon } from 'components/atoms/icons/error';
+import TextInput from 'components/atoms/forms/text-input';
 import { TableRow, Stock, QuantityAlert, ResetLink } from './styles';
-import TextInput from '../../atoms/forms/text-input';
 
 type Props = {
-  variant: VariantAttributes,
+  variant: VariantType,
   error: any,
   fieldValue: number,
   handleChange: () => void,

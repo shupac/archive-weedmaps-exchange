@@ -4,7 +4,7 @@ import { Formik, Form } from 'formik';
 import { formatDollars } from 'lib/common/strings';
 import { Cart } from 'components/atoms/icons/cart';
 import { WmTheme, Icons } from '@ghostgroup/ui';
-import type { Variant } from 'lib/types/products';
+import type { VariantType } from 'lib/data-access/models/variant';
 
 import {
   TableHead,
@@ -16,7 +16,7 @@ import {
 import VariantRow from './variant-row';
 
 type Props = {
-  variants: Variant[],
+  variants: VariantType[],
 };
 
 const tableHead = [
@@ -34,7 +34,7 @@ export class ProductVariants extends React.Component<Props> {
     const total = variants.reduce((acc, item) => {
       const quantity = Number(formVals[item.id]);
       if (!this.validateQuantity(quantity)) {
-        return acc + item.attributes.price * quantity || 0;
+        return acc + item.price * quantity || 0;
       }
       return acc;
     }, 0);
@@ -106,16 +106,16 @@ export class ProductVariants extends React.Component<Props> {
 
             return (
               <Form>
-                {variants.map(({ attributes, id }) => (
+                {variants.map(item => (
                   <VariantRow
                     data-test-id="data-row"
-                    key={id}
-                    variant={{ ...attributes, id }}
-                    quantity={values && values[id]}
+                    key={item.id}
+                    variant={item}
+                    quantity={values && values[item.id]}
                     handleChange={handleChange}
-                    error={errors[id] && errors[id]}
+                    error={errors[item.id] && errors[item.id]}
                     resetField={setFieldValue}
-                    fieldValue={values[id]}
+                    fieldValue={values[item.id]}
                   />
                 ))}
                 <TotalsRow>
@@ -136,7 +136,10 @@ export class ProductVariants extends React.Component<Props> {
                     disabled={!isValid}
                   >
                     {' '}
-                    <Cart fill="white" />
+                    <Cart
+                      fill="white"
+                      size={{ width: '26px', height: '26px' }}
+                    />
                     ADD TO CART
                   </ActionButton>
                 </ButtonRow>

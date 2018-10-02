@@ -12,7 +12,7 @@ const mockLinks = [
 describe('Breadcrumbs', () => {
   it('should render active links', () => {
     const component = shallow(<Breadcrumbs links={mockLinks} />).dive();
-    expect(component.find(BreadcrumbLink).length).toEqual(2);
+    expect(component.find(BreadcrumbLink).length).toEqual(3);
   });
   it('should render current link', () => {
     const component = shallow(<Breadcrumbs links={mockLinks} />).dive();

@@ -4,7 +4,7 @@ import { WmTheme } from '@ghostgroup/ui';
 const { shadow, background, state: WmColor } = WmTheme.style;
 
 export const ProductPhotosWrapper = styled.div`
-  margin-left: 16px;
+  width: 100%;
 `;
 ProductPhotosWrapper.displayName = 'ProductPhotosWrapper';
 

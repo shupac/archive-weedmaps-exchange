@@ -1,19 +1,19 @@
 // @flow
 import React, { Fragment } from 'react';
-import type { ProductImage } from 'lib/types/products';
+import type { ImageType } from 'lib/data-access/models/image';
 import { MiniPhoto } from './styles';
 
 type Props = {
   onClick: string => void,
   isFeatured?: boolean,
-  photo: ProductImage,
+  photo: ImageType,
 };
 
 const MiniPhotos = ({ photo, onClick, isFeatured }: Props) => (
   <Fragment>
     <MiniPhoto
-      style={{ backgroundImage: `url(${photo.small_url})` }}
-      onClick={() => onClick(photo.small_url)}
+      style={{ backgroundImage: `url(${photo.smallUrl})` }}
+      onClick={() => onClick(photo.id)}
       isFeatured={isFeatured}
     />
   </Fragment>

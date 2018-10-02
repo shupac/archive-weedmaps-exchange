@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 
+export const DescriptionWrapper = styled.div`
+  padding: 24px 24px 0 24px;
+`;
+
 export const Header = styled.div`
   width: 100%;
   display: flex;
