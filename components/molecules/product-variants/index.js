@@ -73,14 +73,7 @@ export class ProductVariants extends React.Component<Props> {
           data-test-id="form"
           validate={values => {
             const errors = {};
-            console.log('vals ', values);
 
-            // for (const key in values) {
-            //   const error = this.validateQuantity(values[key]);
-            //   if (error) {
-            //     errors[key] = error;
-            //   }
-            // }
             Object.entries(values).forEach(([key, val]) => {
               if (typeof val !== 'number') throw new Error();
               const error = this.validateQuantity(val);

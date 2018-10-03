@@ -4,17 +4,6 @@ exports[`UI Store can create an instance of a model 1`] = `
 Object {
   "isLoading": false,
   "modalIsOpen": false,
-  "notifications": Array [
-    Object {
-      "body": "this is the toast body",
-      "id": "1234",
-      "title": "Toast Title One",
-    },
-    Object {
-      "body": "this is the toast body",
-      "id": "5678",
-      "title": "Toast Title Two",
-    },
-  ],
+  "notifications": Array [],
 }
 `;
