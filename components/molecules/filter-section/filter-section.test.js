@@ -1,344 +1,146 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import {
-  categories,
-  brands,
-} from 'components/molecules/filter-panel/mock-data';
-import CheckboxTree from 'components/atoms/checkbox-tree';
+import { shallow } from 'enzyme';
+import { Router } from 'lib/routes';
 import CheckboxGroup from 'components/atoms/checkbox-group';
-import { FiltersLabel } from 'components/atoms/filter-container/styles';
-import FilterSection from './';
+import ComboCheckbox from 'components/atoms/combo-checkbox';
+import { FilterSection } from './';
+
+function setup(brandsQuery) {
+  const mockRouter = {
+    query: {
+      tab: 'catalog',
+      brands: brandsQuery,
+    },
+  };
+  if (!brandsQuery) delete mockRouter.query.brands;
+
+  const mockOptions = [
+    {
+      id: '1',
+      name: 'Brand1',
+    },
+    {
+      id: '2',
+      name: 'Brand2',
+    },
+    {
+      id: '3',
+      name: 'Brand3',
+    },
+    {
+      id: '4',
+      name: 'Brand4',
+    },
+  ];
+
+  const component = (
+    <FilterSection
+      router={mockRouter}
+      paramKey="brands"
+      options={mockOptions}
+      title="Brands"
+      defaultLabel="All Brands"
+    />
+  );
+  const wrapper = shallow(component);
+
+  return wrapper;
+}
 
 describe('FilterSection', () => {
   it('should render the filter section', () => {
-    const onChange = jest.fn();
-    const component = (
-      <FilterSection
-        type="tree"
-        title="Categories"
-        defaultLabel="All Categories"
-        state={[]}
-        onChange={onChange}
-      />
-    );
-    const wrapper = shallow(component);
+    const wrapper = setup();
     expect(wrapper.exists()).toEqual(true);
-  });
-
-  it('should render a section of checkbox trees', () => {
-    const onChange = jest.fn();
-    const component = (
-      <FilterSection
-        type="tree"
-        title="Categories"
-        defaultLabel="All Categories"
-        state={categories}
-        onChange={onChange}
-      />
-    );
-    const wrapper = shallow(component);
-    expect(wrapper.exists()).toEqual(true);
-    expect(wrapper.find(CheckboxTree).exists()).toEqual(true);
-    expect(wrapper.find(CheckboxTree)).toHaveLength(3);
   });
 
   it('should render a section of checkbox groups', () => {
-    const onChange = jest.fn();
-    const component = (
-      <FilterSection
-        title="Brands"
-        defaultLabel="All Brands"
-        state={brands}
-        onChange={onChange}
-      />
-    );
-    const wrapper = shallow(component);
+    const wrapper = setup();
     expect(wrapper.exists()).toEqual(true);
     expect(wrapper.find(CheckboxGroup).exists()).toEqual(true);
-    expect(wrapper.find(CheckboxGroup)).toHaveLength(15);
+    expect(wrapper.find(CheckboxGroup)).toHaveLength(4);
   });
 
-  it('should aggregate the selected filters for a series of trees', () => {
-    const onChange = jest.fn();
-    const component = (
-      <FilterSection
-        type="tree"
-        title="Categories"
-        defaultLabel="All Categories"
-        state={[
-          {
-            parent: {
-              id: '1',
-              name: 'parent1',
-            },
-            children: [
-              {
-                id: '11',
-                name: 'child1',
-                checked: true,
-              },
-              {
-                id: '12',
-                name: 'child2',
-                checked: false,
-              },
-            ],
-          },
-          {
-            parent: {
-              id: '2',
-              name: 'parent2',
-            },
-            children: [
-              {
-                id: '21',
-                name: 'child3',
-                checked: true,
-              },
-              {
-                id: '22',
-                name: 'child4',
-                checked: true,
-              },
-            ],
-          },
-        ]}
-        onChange={onChange}
-      />
-    );
-    const wrapper = mount(component);
-
-    const label = wrapper.find(FiltersLabel).text();
-    expect(label.includes('parent1')).toEqual(false);
-    expect(label.includes('parent2')).toEqual(true);
-    expect(label.includes('child1')).toEqual(true);
-    expect(label.includes('child2')).toEqual(false);
-    expect(label.includes('child3')).toEqual(false);
-    expect(label.includes('child4')).toEqual(false);
+  it('should set the checked states with none selections', () => {
+    const wrapper = setup();
+    expect(wrapper.exists()).toEqual(true);
+    const checkboxes = wrapper.find(CheckboxGroup);
+    expect(checkboxes.at(0).props().state.checked).toEqual(false);
+    expect(checkboxes.at(1).props().state.checked).toEqual(false);
+    expect(checkboxes.at(2).props().state.checked).toEqual(false);
+    expect(checkboxes.at(3).props().state.checked).toEqual(false);
   });
 
-  it('should show the default label for a series of trees with no selection', () => {
-    const onChange = jest.fn();
-    const component = (
-      <FilterSection
-        type="tree"
-        title="Categories"
-        defaultLabel="All Categories"
-        state={[
-          {
-            parent: {
-              id: '1',
-              name: 'parent1',
-            },
-            children: [
-              {
-                id: '11',
-                name: 'child1',
-                checked: false,
-              },
-              {
-                id: '12',
-                name: 'child2',
-                checked: false,
-              },
-            ],
-          },
-          {
-            parent: {
-              id: '2',
-              name: 'parent2',
-            },
-            children: [
-              {
-                id: '21',
-                name: 'child3',
-                checked: false,
-              },
-              {
-                id: '22',
-                name: 'child4',
-                checked: false,
-              },
-            ],
-          },
-        ]}
-        onChange={onChange}
-      />
-    );
-    const wrapper = mount(component);
-
-    const label = wrapper.find(FiltersLabel).text();
-    expect(label.includes('parent1')).toEqual(false);
-    expect(label.includes('parent2')).toEqual(false);
-    expect(label.includes('child1')).toEqual(false);
-    expect(label.includes('child2')).toEqual(false);
-    expect(label.includes('child3')).toEqual(false);
-    expect(label.includes('child4')).toEqual(false);
-    expect(label.includes('All Categories')).toEqual(true);
+  it('should set the checked states with one selection', () => {
+    const wrapper = setup('1');
+    expect(wrapper.exists()).toEqual(true);
+    const checkboxes = wrapper.find(CheckboxGroup);
+    expect(checkboxes.at(0).props().state.checked).toEqual(true);
+    expect(checkboxes.at(1).props().state.checked).toEqual(false);
+    expect(checkboxes.at(2).props().state.checked).toEqual(false);
+    expect(checkboxes.at(3).props().state.checked).toEqual(false);
   });
 
-  it('should show the default label for a series of trees with all selected', () => {
-    const onChange = jest.fn();
-    const component = (
-      <FilterSection
-        type="tree"
-        title="Categories"
-        defaultLabel="All Categories"
-        state={[
-          {
-            parent: {
-              id: '1',
-              name: 'parent1',
-            },
-            children: [
-              {
-                id: '11',
-                name: 'child1',
-                checked: true,
-              },
-              {
-                id: '12',
-                name: 'child2',
-                checked: true,
-              },
-            ],
-          },
-          {
-            parent: {
-              id: '2',
-              name: 'parent2',
-            },
-            children: [
-              {
-                id: '21',
-                name: 'child3',
-                checked: true,
-              },
-              {
-                id: '22',
-                name: 'child4',
-                checked: true,
-              },
-            ],
-          },
-        ]}
-        onChange={onChange}
-      />
-    );
-    const wrapper = mount(component);
-
-    const label = wrapper.find(FiltersLabel).text();
-    expect(label.includes('parent1')).toEqual(false);
-    expect(label.includes('parent2')).toEqual(false);
-    expect(label.includes('child1')).toEqual(false);
-    expect(label.includes('child2')).toEqual(false);
-    expect(label.includes('child3')).toEqual(false);
-    expect(label.includes('child4')).toEqual(false);
-    expect(label.includes('All Categories')).toEqual(true);
+  it('should set the checked states with multiple selections', () => {
+    const wrapper = setup('1/2');
+    expect(wrapper.exists()).toEqual(true);
+    const checkboxes = wrapper.find(CheckboxGroup);
+    expect(checkboxes.at(0).props().state.checked).toEqual(true);
+    expect(checkboxes.at(1).props().state.checked).toEqual(true);
+    expect(checkboxes.at(2).props().state.checked).toEqual(false);
+    expect(checkboxes.at(3).props().state.checked).toEqual(false);
   });
 
-  it('should aggregate the selected filters for a series of trees', () => {
-    const onChange = jest.fn();
-    const component = (
-      <FilterSection
-        title="Brands"
-        defaultLabel="All Brands"
-        state={[
-          {
-            id: '1',
-            name: 'option1',
-            checked: true,
-          },
-          {
-            id: '2',
-            name: 'option2',
-            checked: true,
-          },
-          {
-            id: '3',
-            name: 'option3',
-            checked: false,
-          },
-        ]}
-        onChange={onChange}
-      />
-    );
-    const wrapper = mount(component);
-
-    const label = wrapper.find(FiltersLabel).text();
-
-    expect(label.includes('option1')).toEqual(true);
-    expect(label.includes('option2')).toEqual(true);
-    expect(label.includes('option3')).toEqual(false);
+  it('should update the query params when an option is clicked', () => {
+    const wrapper = setup('1/2');
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    const checkboxes = wrapper.find(CheckboxGroup);
+    checkboxes
+      .at(2)
+      .dive()
+      .find(ComboCheckbox)
+      .dive()
+      .simulate('click');
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      brands: ['1', '2', '3'],
+    });
+    pushRoute.mockRestore();
   });
 
-  it('should show the default label for a series of trees with no selection', () => {
-    const onChange = jest.fn();
-    const component = (
-      <FilterSection
-        title="Brands"
-        defaultLabel="All Brands"
-        state={[
-          {
-            id: '1',
-            name: 'option1',
-            checked: false,
-          },
-          {
-            id: '2',
-            name: 'option2',
-            checked: false,
-          },
-          {
-            id: '3',
-            name: 'option3',
-            checked: false,
-          },
-        ]}
-        onChange={onChange}
-      />
-    );
-    const wrapper = mount(component);
-
-    const label = wrapper.find(FiltersLabel).text();
-    expect(label.includes('option1')).toEqual(false);
-    expect(label.includes('option2')).toEqual(false);
-    expect(label.includes('option3')).toEqual(false);
-    expect(label.includes('All Brands')).toEqual(true);
+  it('should delete query param when all options are unchecked', () => {
+    const wrapper = setup('1');
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    const checkboxes = wrapper.find(CheckboxGroup);
+    checkboxes
+      .at(0)
+      .dive()
+      .find(ComboCheckbox)
+      .dive()
+      .simulate('click');
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+    });
+    pushRoute.mockRestore();
   });
 
-  it('should show the default label for a series of trees with all selected', () => {
-    const onChange = jest.fn();
-    const component = (
-      <FilterSection
-        title="Brands"
-        defaultLabel="All Brands"
-        state={[
-          {
-            id: '1',
-            name: 'option1',
-            checked: true,
-          },
-          {
-            id: '2',
-            name: 'option2',
-            checked: true,
-          },
-          {
-            id: '3',
-            name: 'option3',
-            checked: true,
-          },
-        ]}
-        onChange={onChange}
-      />
-    );
-    const wrapper = mount(component);
+  it('should display the correct filter labels', () => {
+    const wrapper = setup('1/2');
+    const instance = wrapper.instance();
+    const labels = instance.getLabels();
+    expect(labels).toEqual('Brand1, Brand2');
+  });
 
-    const label = wrapper.find(FiltersLabel).text();
-    expect(label.includes('option1')).toEqual(false);
-    expect(label.includes('option2')).toEqual(false);
-    expect(label.includes('option3')).toEqual(false);
-    expect(label.includes('All Brands')).toEqual(true);
+  it('should display the default label with no selections', () => {
+    const wrapper = setup();
+    const instance = wrapper.instance();
+    const labels = instance.getLabels();
+    expect(labels).toEqual('All Brands');
+  });
+
+  it('should display the default label with all selections', () => {
+    const wrapper = setup('1/2/3/4');
+    const instance = wrapper.instance();
+    const labels = instance.getLabels();
+    expect(labels).toEqual('All Brands');
   });
 });

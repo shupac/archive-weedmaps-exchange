@@ -133,4 +133,18 @@ describe('CheckboxGroup', () => {
     expect(onToggle).toHaveBeenCalled();
     expect(onToggle).toBeCalledWith({ ...state, checked: 0 });
   });
+
+  it('should call click on checkbox when label is clicked', () => {
+    const onToggle = jest.fn();
+
+    const state = { name: 'Test', checked: false };
+    const component = <CheckboxGroup state={state} onChange={onToggle} />;
+    const wrapper = mount(component);
+    const instance = wrapper.instance();
+    instance.checkbox = {
+      handleClick: jest.fn(),
+    };
+    wrapper.find('span').simulate('click');
+    expect(instance.checkbox.handleClick).toHaveBeenCalled();
+  });
 });

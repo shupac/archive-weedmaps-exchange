@@ -16,10 +16,26 @@ class CategoryCarousels extends Component<CategoryProductsType> {
     buyerProducts.getCategoryProducts('64d05017-4339-4cda-9e57-0da061bf6b00');
   }
 
+  getProductCards = () =>
+    [1, 2, 3, 4, 5, 6].map(item => (
+      <ProductCard
+        key={item}
+        id={mockProduct.id}
+        brand={mockProduct.brand}
+        name={mockProduct.name}
+        priceUnit={mockProduct.unit}
+        minPrice={mockProduct.minPrice}
+        maxPrice={mockProduct.maxPrice}
+        imageUrl={mockProduct.imageUrl}
+        category={mockProduct.category}
+        outOfStock={mockProduct.inStock}
+      />
+    ));
+
   render() {
     const { store } = this.props;
     const { categoryProducts } = store.buyerProducts;
-    // TODO: Remove test array and replace with categoryProducts.products when available
+    // TODO: WMX-453 Remove test array and replace with categoryProducts.products when available
 
     return (
       <CatalogWrapper>
@@ -29,21 +45,7 @@ class CategoryCarousels extends Component<CategoryProductsType> {
             title={category.name}
             cardMargin={16}
           >
-            {[1, 2, 3, 4, 5, 6].map(item => (
-              <ProductCard
-                key={item}
-                id={mockProduct.id}
-                brand={mockProduct.brand}
-                name={mockProduct.name}
-                priceUnit={mockProduct.unit}
-                minPrice={mockProduct.minPrice}
-                maxPrice={mockProduct.maxPrice}
-                imageUrl={mockProduct.imageUrl}
-                category={mockProduct.category}
-                outOfStock={mockProduct.inStock}
-                onClick={() => {}}
-              />
-            ))}
+            {this.getProductCards()}
           </CatalogCarousel>
         ))}
       </CatalogWrapper>
@@ -52,3 +54,4 @@ class CategoryCarousels extends Component<CategoryProductsType> {
 }
 
 export default inject('store')(observer(CategoryCarousels));
+export { CategoryCarousels };

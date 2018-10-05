@@ -99,7 +99,7 @@ class SearchBar extends Component<Props, State> {
     }
   };
 
-  handleSearch() {
+  handleSearch = () => {
     const { showCategory, router } = this.props;
     const { query: existingQuery } = router;
 
@@ -111,15 +111,15 @@ class SearchBar extends Component<Props, State> {
       search: searchValue,
     };
 
-    if (showCategory && categorySelected.value !== 'all')
-      queryParams.category = categorySelected.value;
-
-    Object.keys(queryParams).forEach(key => {
-      if (!queryParams[key]) delete queryParams[key];
-    });
+    if (showCategory && categorySelected.value !== 'all') {
+      queryParams.categories = categorySelected.value;
+    }
+    if (!searchValue) {
+      delete queryParams.search;
+    }
 
     Router.pushRoute('marketplace', queryParams);
-  }
+  };
 
   render() {
     const { showCategory } = this.props;
@@ -145,7 +145,7 @@ class SearchBar extends Component<Props, State> {
           placeholder="What are you looking for?"
           showBorder={!showCategory}
         />
-        <SearchIcon onClick={() => this.handleSearch()}>
+        <SearchIcon onClick={this.handleSearch}>
           <Search fill={state.secondary} size="16px" />
         </SearchIcon>
       </SearchBarWrapper>
@@ -154,5 +154,4 @@ class SearchBar extends Component<Props, State> {
 }
 
 export default withRouter(inject('store')(observer(SearchBar)));
-
 export { SearchBar };

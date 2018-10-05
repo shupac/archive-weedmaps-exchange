@@ -11,7 +11,11 @@ type Props = {
 };
 
 const CategoryCard = ({ title, image, icon, id }: Props) => (
-  <Link key={id} route="marketplace" params={{ tab: 'catalog', category: id }}>
+  <Link
+    key={id}
+    route="marketplace"
+    params={{ tab: 'catalog', categories: id }}
+  >
     <a style={{ textDecoration: 'none' }}>
       <CategoryCardWrapper style={{ backgroundImage: `url(${image})` }}>
         <div style={{ maxHeight: '50px' }}>

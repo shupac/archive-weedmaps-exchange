@@ -13,7 +13,7 @@ type Props = {
 class Locations extends Component<Props> {
   componentDidMount() {
     const { buyerSettings } = this.props.store;
-    buyerSettings.getLocation();
+    buyerSettings.getLocations();
   }
   render() {
     const { locations } = this.props.store.buyerSettings;

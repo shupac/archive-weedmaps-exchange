@@ -9,19 +9,16 @@ const Children = styled(Row)`
   display: block;
 `;
 
-type Parent = {
-  id: string,
-  name: string,
-};
+type Checked = 0 | 1 | 2 | boolean;
 
 type Option = {
   id: string,
   name: string,
-  checked: 0 | 1 | 2 | boolean,
+  checked: Checked,
 };
 
 type State = {
-  parent: Parent,
+  parent: Option,
   children: Option[],
 };
 
@@ -82,6 +79,7 @@ const ComboCheckbox = ({ state, onChange }: Props) => {
     <div>
       <CheckboxGroup
         state={{
+          id: parent.id,
           name: parent.name,
           checked: isParentChecked(children),
           allowPartial: true,
@@ -96,6 +94,7 @@ const ComboCheckbox = ({ state, onChange }: Props) => {
           <CheckboxGroup
             key={child.id}
             state={{
+              id: child.id,
               name: child.name,
               checked: child.checked,
             }}

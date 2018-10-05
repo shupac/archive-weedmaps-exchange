@@ -3,15 +3,18 @@ import React from 'react';
 import ComboCheckbox from 'components/atoms/combo-checkbox';
 import { Row } from './styles';
 
-type State = {
+type Checked = 0 | 1 | 2 | boolean;
+
+type Option = {
+  id: string,
   name: string,
-  checked: 0 | 1 | 2 | boolean,
+  checked: Checked,
   allowPartial?: ?boolean,
 };
 
 type Props = {
-  state: State,
-  onChange: mixed => void,
+  state: Option,
+  onChange: Option => void,
 };
 
 class CheckboxGroup extends React.Component<Props> {

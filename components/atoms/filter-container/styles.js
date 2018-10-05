@@ -5,7 +5,6 @@ import theme from 'lib/styles/theme';
 export const Container = styled.div`
   width: 100%;
   background-color: white;
-  cursor: pointer;
 `;
 
 export const Header = styled.div`
@@ -13,6 +12,7 @@ export const Header = styled.div`
   padding: 8px 16px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const FilterInfo = styled.div`
