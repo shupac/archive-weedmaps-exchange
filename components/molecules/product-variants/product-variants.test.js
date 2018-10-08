@@ -91,4 +91,48 @@ describe('Product Variants', () => {
         .props().disabled,
     ).toEqual(false);
   });
+  describe('can calculate', () => {
+    it('the total price', () => {
+      const component = new ProductVariants({ variants: mockVariants });
+      const total = component.calculateTotal({
+        'cb429ae1-cb29-46b8-adcc-1eb234dc266b': 4,
+      });
+      expect(total).toEqual('$80.00');
+    });
+    it('the total quantity', () => {
+      const component = new ProductVariants({ variants: mockVariants });
+      const quantity = component.calculateQuantity({
+        'cb429ae1-cb29-46b8-adcc-1eb234dc266b': 4,
+      });
+      expect(quantity).toEqual(4);
+    });
+  });
+  it('can validate form quantities', () => {
+    const component = new ProductVariants({ variants: mockVariants });
+    // Test validation for negative values
+    const negativeError = component.validateQuantity(-2);
+    expect(negativeError).toEqual('Must be positive value');
+
+    // Test validation for non-whole values
+    const fractionError = component.validateQuantity(2.5);
+    expect(fractionError).toEqual('Must be whole value');
+
+    // Test validation for valid values
+    const legitVal = component.validateQuantity(2);
+    expect(legitVal).toBe(false);
+  });
+
+  describe('will validate the form', () => {
+    it('when value is not a number', () => {
+      const formVals = {
+        'b3527898-b6e5-4fa7-8de0-35e4e43277db': 10,
+        '67879046-6491-4f6b-869b-75e94adeb9f0': -12,
+      };
+      const component = new ProductVariants({ variants: mockVariants });
+      const negative = component.validateForm(formVals);
+      expect(negative).toEqual({
+        '67879046-6491-4f6b-869b-75e94adeb9f0': 'Must be positive value',
+      });
+    });
+  });
 });

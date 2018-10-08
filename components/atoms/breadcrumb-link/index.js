@@ -29,12 +29,11 @@ ActiveLink.displayName = 'ActiveLink';
 type Props = {
   label: string,
   route?: string,
-  param?: string,
 };
 
-export const BreadcrumbLink = ({ label, route, param }: Props) => (
+export const BreadcrumbLink = ({ label, route }: Props) => (
   <ActiveLink>
-    <Link href={route} params={{ query: param }}>
+    <Link href={route}>
       <a>{label}</a>
     </Link>
     <ChevronRight size={{ width: '8px', height: '8px' }} />

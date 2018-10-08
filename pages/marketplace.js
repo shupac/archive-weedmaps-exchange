@@ -73,7 +73,7 @@ export class Marketplace extends Component<Props> {
             </ShowIfRoute>
 
             <ShowIfRoute match="/buyer/marketplace/catalog/product(.*)">
-              <ProductDetail productIdQuery={url.query.productId} />
+              <ProductDetail productId={url.query.productId} />
             </ShowIfRoute>
           </TabContent>
         </PageContent>

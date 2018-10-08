@@ -1,6 +1,8 @@
 // @flow
-import * as React from 'react';
+import React, { Component } from 'react';
+import { type UIStoreType } from 'lib/data-access/stores/ui';
 import { Formik, Form } from 'formik';
+import type { FormikActions } from 'formik';
 import { formatDollars } from 'lib/common/strings';
 import { Cart } from 'components/atoms/icons/cart';
 import { WmTheme, Icons } from '@ghostgroup/ui';
@@ -15,8 +17,14 @@ import {
 } from './styles';
 import VariantRow from './variant-row';
 
+type FormValueType = {
+  [key: string]: number | '',
+};
+
 type Props = {
   variants: VariantType[],
+  handleCartSuccess: ({ quantityTotal: number, dollarTotal: number }) => void,
+  mockAddToCart: () => void,
 };
 
 const tableHead = [
@@ -27,10 +35,9 @@ const tableHead = [
   'subtotal',
 ];
 
-export class ProductVariants extends React.Component<Props> {
-  calculateTotal = (formVals: { id: string, quantity: number }) => {
+export class ProductVariants extends Component<Props> {
+  calculateTotal = (formVals: FormValueType) => {
     const { variants } = this.props;
-    if (!variants) return false;
     const total = variants.reduce((acc, item) => {
       const quantity = Number(formVals[item.id]);
       if (!this.validateQuantity(quantity)) {
@@ -38,10 +45,11 @@ export class ProductVariants extends React.Component<Props> {
       }
       return acc;
     }, 0);
+
     return formatDollars(total);
   };
 
-  calculateQuantity = (values: ?{ id: string, quantity: number }) =>
+  calculateQuantity = (values: FormValueType) =>
     Object.values(values).reduce((acc, value) => {
       const quantity = Number(value);
       if (!this.validateQuantity(quantity)) {
@@ -51,7 +59,10 @@ export class ProductVariants extends React.Component<Props> {
     }, 0);
 
   validateQuantity = (value: number) => {
-    if (value <= 0) {
+    if (value === '') {
+      return false;
+    }
+    if (value < 0) {
       return 'Must be positive value';
     } else if (value % 1 !== 0) {
       return 'Must be whole value';
@@ -59,9 +70,34 @@ export class ProductVariants extends React.Component<Props> {
     return false;
   };
 
+  validateForm = (formVals: FormValueType) => {
+    const errors = {};
+    Object.entries(formVals).forEach(([key, val]) => {
+      // $FlowFixMe
+      const error = this.validateQuantity(val);
+      if (error) {
+        errors[key] = error;
+      }
+    });
+    return errors;
+  };
+
+  handleSubmit = async (
+    values: FormValueType,
+    { setSubmitting }: FormikActions,
+  ) => {
+    const { handleCartSuccess, mockAddToCart } = this.props;
+    await mockAddToCart();
+    setSubmitting(false);
+    const toastContent = {
+      quantityTotal: this.calculateQuantity(values),
+      dollarTotal: this.calculateTotal(values),
+    };
+    handleCartSuccess(toastContent);
+  };
+
   render() {
     const { variants } = this.props;
-
     return (
       <TableWrap>
         <TableHead>
@@ -71,26 +107,15 @@ export class ProductVariants extends React.Component<Props> {
         </TableHead>
         <Formik
           data-test-id="form"
-          validate={values => {
-            const errors = {};
-
-            Object.entries(values).forEach(([key, val]) => {
-              if (typeof val !== 'number') throw new Error();
-              const error = this.validateQuantity(val);
-              if (error) {
-                errors[key] = error;
-              }
-            });
-            return errors;
-          }}
-          // onSubmit={(values, actions) => {}}
+          validate={this.validateForm}
+          onSubmit={this.handleSubmit}
           render={({
             values,
             handleChange,
             errors,
-            validateForm,
             isValid,
             setFieldValue,
+            isSubmitting,
           }) => {
             if (!variants) return null;
 
@@ -124,9 +149,9 @@ export class ProductVariants extends React.Component<Props> {
                   </ActionButton>
                   <ActionButton
                     data-test-id="add-to-cart-button"
-                    onClick={validateForm}
+                    type="submit"
                     state="primary"
-                    disabled={!isValid}
+                    disabled={!isValid || isSubmitting || quantityTotal < 1}
                   >
                     {' '}
                     <Cart
