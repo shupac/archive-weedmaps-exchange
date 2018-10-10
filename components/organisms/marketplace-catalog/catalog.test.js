@@ -5,6 +5,7 @@ import { mockCategories, mockMappedCategories } from 'lib/mocks/categories';
 import { mockBrands } from 'lib/mocks/brands';
 import { mockProduct } from 'lib/mocks/search-results';
 import ProductCard from 'components/molecules/product-card';
+import { Icons } from '@ghostgroup/ui';
 import { Catalog } from './';
 import CategoryCarousels from './carousels';
 import { Products, NoResults } from './styles';
@@ -18,6 +19,7 @@ const mockStore = {
   },
   buyerProducts: {
     searchResults: [mockProduct],
+    searchResultsLoading: false,
     searchCatalog: jest.fn(),
   },
 };
@@ -87,9 +89,11 @@ describe('Marketplace Catalog', () => {
     const wrapper = setup({ store: mockStore });
     const instance = wrapper.instance();
     instance.searchProducts();
-    expect(mockStore.buyerProducts.searchCatalog).toHaveBeenCalledWith(
-      'indica',
-    );
+    expect(mockStore.buyerProducts.searchCatalog).toHaveBeenCalledWith({
+      tab: 'catalog',
+      search: 'indica',
+      brands: '1/2',
+    });
   });
 
   it('should clear all filters', () => {
@@ -154,7 +158,13 @@ describe('Marketplace Catalog', () => {
     const wrapper = setup({ store: thisStore });
     expect(wrapper.find(CategoryCarousels).exists()).toEqual(false);
     expect(wrapper.find(Products).exists()).toEqual(false);
-    expect(wrapper.find(NoResults).exists()).toEqual(true);
+    expect(
+      wrapper
+        .find(NoResults)
+        .dive()
+        .text()
+        .includes('No Results Found'),
+    ).toEqual(true);
   });
 
   it('should go to the product detail page when card is clicked', () => {
@@ -165,5 +175,18 @@ describe('Marketplace Catalog', () => {
       '/buyer/marketplace/catalog/product/1234',
     );
     push.mockRestore();
+  });
+
+  it('should render the loader when loading', () => {
+    const thisStore = {
+      ...mockStore,
+      buyerProducts: {
+        searchResultsLoading: true,
+      },
+    };
+    const wrapper = setup({ store: thisStore });
+    expect(wrapper.find(CategoryCarousels).exists()).toEqual(false);
+    expect(wrapper.find(Products).exists()).toEqual(false);
+    expect(wrapper.find(Icons.Spinner).exists()).toEqual(true);
   });
 });

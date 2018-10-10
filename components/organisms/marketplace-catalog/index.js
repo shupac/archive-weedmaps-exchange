@@ -9,10 +9,11 @@ import TreeFilterSection from 'components/molecules/tree-filter-section';
 import PriceRangeFilter from 'components/molecules/price-range-filter';
 import SearchBar from 'components/molecules/search-bar';
 import ProductCard from 'components/molecules/product-card';
+import { Icons } from '@ghostgroup/ui';
+import theme from 'lib/styles/theme';
 import { type RouterType } from 'lib/types/router';
 import { type StoreType } from 'lib/types/store';
 import CategoryCarousels from './carousels';
-
 import { Wrapper, Content, Products, NoResults } from './styles';
 
 type Props = {
@@ -45,7 +46,7 @@ class Catalog extends Component<Props> {
     const { router } = this.props;
     const { query } = router;
 
-    this.props.store.buyerProducts.searchCatalog(query.search);
+    this.props.store.buyerProducts.searchCatalog(query);
   };
 
   clearAll = () => {
@@ -109,16 +110,24 @@ class Catalog extends Component<Props> {
   }
 
   renderProducts() {
-    const { router } = this.props;
+    const { router, store } = this.props;
 
     // no search or filter, show carousels
     if (router.asPath === '/buyer/marketplace/catalog')
       return <CategoryCarousels />;
 
     // show search results
-    const { buyerProducts } = this.props.store;
+    const { searchResultsLoading, searchResults } = store.buyerProducts;
 
-    if (!buyerProducts.searchResults)
+    if (searchResultsLoading) {
+      return (
+        <NoResults>
+          <Icons.Spinner fill={theme.style.icon.dark} />
+        </NoResults>
+      );
+    }
+
+    if (!searchResults) {
       return (
         <NoResults>
           <h2>No Results Found</h2>
@@ -128,13 +137,14 @@ class Catalog extends Component<Props> {
           </p>
         </NoResults>
       );
+    }
 
     const gotoProduct = productId =>
       Router.push(`/buyer/marketplace/catalog/product/${productId}`);
 
     return (
       <Products>
-        {buyerProducts.searchResults.map(product => (
+        {searchResults.map(product => (
           <ProductCard
             key={product.id}
             {...product}

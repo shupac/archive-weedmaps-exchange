@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { mockResponse } from 'lib/mocks/search-results';
+import { mockProducts } from 'lib/mocks/search-results';
 import BuyerProducts from 'lib/data-access/stores/buyer-products';
 import BuyerCart from 'lib/data-access/stores/buyer-cart';
 import { ProductDetails } from './';
 
 const mockStore = BuyerProducts.create(
   {},
-  { client: { fetch: jest.fn().mockReturnValue(mockResponse[0]) } },
+  { client: { fetch: jest.fn().mockReturnValue(mockProducts[0]) } },
 );
 
 const mockCartStore = BuyerCart.create({ mockAddToCart: jest.fn() }, {});

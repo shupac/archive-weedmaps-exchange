@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import { type UIStoreType } from 'lib/data-access/stores/ui';
 import { Formik, Form } from 'formik';
 import type { FormikActions } from 'formik';
 import { formatDollars } from 'lib/common/strings';

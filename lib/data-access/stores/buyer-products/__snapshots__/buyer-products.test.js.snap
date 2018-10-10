@@ -1,6 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BuyerProducts Store getProductDetails action can fetch and set data for product details 1`] = `
+exports[`BuyerProducts Store can fetch category products and set data 1`] = `
+Array [
+  Object {
+    "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",
+    "name": "Concentrates",
+    "position": 1,
+    "products": Array [
+      Object {
+        "id": "4e12ea30-ccd8-455e-841b-1e4b0c7ac799",
+        "maxPrice": 3.2,
+        "minPrice": 2.3,
+        "unit": "gram",
+      },
+      Object {
+        "id": "dac7d79a-3383-498e-a251-84b4d70e5c68",
+        "maxPrice": 3.2,
+        "minPrice": 2.3,
+        "unit": "gram",
+      },
+      Object {
+        "id": "5cd4463d-52bf-4b18-84f4-e3b378fbc989",
+        "maxPrice": 3.2,
+        "minPrice": 2.3,
+        "unit": "gram",
+      },
+      Object {
+        "id": "7e0fb515-f87b-4d07-82fb-d2168aa859dc",
+        "maxPrice": 3.2,
+        "minPrice": 2.3,
+        "unit": "gram",
+      },
+      Object {
+        "id": "0e2894ce-c638-4e53-87a8-dc8ea7db0c06",
+        "maxPrice": 3.2,
+        "minPrice": 2.3,
+        "unit": "gram",
+      },
+      Object {
+        "id": "9eee5973-4f82-4759-904d-9617378f0868",
+        "maxPrice": 3.2,
+        "minPrice": 2.3,
+        "unit": "gram",
+      },
+    ],
+    "slug": "concentrates",
+  },
+  Object {
+    "id": "e306a27d-5076-4074-ab7a-21f6485ad4bb",
+    "name": "Edibles",
+    "position": 3,
+    "products": Array [
+      Object {
+        "id": "05f56e24-5842-4d0a-a4f0-ad18a41e2f0b",
+        "maxPrice": 3.2,
+        "minPrice": 2.3,
+        "unit": "gram",
+      },
+      Object {
+        "id": "5265e476-1324-4cf2-825b-4d7902ea7f41",
+        "maxPrice": 3.2,
+        "minPrice": 2.3,
+        "unit": "gram",
+      },
+      Object {
+        "id": "2f3ac24c-6528-4fef-94e8-ec43820c2c76",
+        "maxPrice": 3.2,
+        "minPrice": 2.3,
+        "unit": "gram",
+      },
+    ],
+    "slug": "edibles",
+  },
+]
+`;
+
+exports[`BuyerProducts Store can fetch product details and set data 1`] = `
 Object {
   "id": "5cd4463d-52bf-4b18-84f4-e3b378fbc989",
   "maxPrice": 20,
@@ -74,7 +149,7 @@ Object {
 }
 `;
 
-exports[`BuyerProducts Store searchCatalog action can fetch and set data for product search 1`] = `
+exports[`BuyerProducts Store can fetch product search and set data 1`] = `
 Array [
   Object {
     "id": "5cd4463d-52bf-4b18-84f4-e3b378fbc989",
@@ -146,6 +221,94 @@ Array [
       ],
     },
     "unit": "gram",
+  },
+]
+`;
+
+exports[`BuyerProducts Store can return the category products view 1`] = `
+Array [
+  Object {
+    "avatarImageUrl": "",
+    "iconImageUrl": "",
+    "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",
+    "name": "Concentrates",
+  },
+  Object {
+    "avatarImageUrl": "",
+    "iconImageUrl": "",
+    "id": "e306a27d-5076-4074-ab7a-21f6485ad4bb",
+    "name": "Edibles",
+  },
+]
+`;
+
+exports[`BuyerProducts Store can return the product breadcrumb view 1`] = `
+Array [
+  Object {
+    "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",
+    "name": "Concentrates",
+    "slug": "concentrates",
+  },
+]
+`;
+
+exports[`BuyerProducts Store can return the product details view 1`] = `
+Object {
+  "brand": "GfarmaLabs",
+  "description": "<p>G FarmaLabs is proud to bring you NUG RUN Cannabis Oil Injectors. This pharmaceutical grade Co2 extract is created by using 100% IndoorCannabis Flower and then further removing any undesirable compounds. By purifying the essential oils of what remains, Liquid Gold™ NUG RUN was born. Liquid Gold™ NUG RUN Cannabis Oil was developed to better serve Patients through the form of vaporizing. Cannabis vaporizers are designed to let users inhale active Cannabinoids while avoiding harmful smoke toxins. They do so by heating cannabis to a temperature of 180 - 200° C (356° - 392°), Just below the point of combustion where smoke is produced. By vaporizing, THC and other medically active Cannabinoids are emitted with little to none of the carcinogenic tars and noxious gasses found in smoke. Many medical marijuana patients who find smoking marijuana highly irritating, report effective relief through vaporizers. Users who are concerned about the respiratory hazards of smoking are strongly advised to use vaporizers. Liquid Gold™ NUG RUN Cannabis Oil Injectors is available in .5 GRAM Injector, manufactured to fit most Vape Pen batteries in the marketplace.</p>",
+  "galleryImages": Array [
+    Object {
+      "id": "1608ec15-013e-4a77-9cb9-27cc232a6640",
+      "largeUrl": "https://images.weedmaps.com/photos/products/000/023/221/large/29923_gfarmsalab_nug-run-indica_2.jpg?development=1",
+      "smallUrl": "https://images.weedmaps.com/photos/products/000/023/221/square/29923_gfarmsalab_nug-run-indica_2.jpg?development=1",
+    },
+    Object {
+      "id": "b2d1cf18-e1e1-443a-985a-bec6b104eaac",
+      "largeUrl": "https://images.weedmaps.com/photos/products/000/023/221/large/29969_gfarmsalab_nug-run-indica_1.jpg?development=1",
+      "smallUrl": "https://images.weedmaps.com/photos/products/000/023/221/square/29969_gfarmsalab_nug-run-indica_1.jpg?development=1",
+    },
+  ],
+  "id": "5cd4463d-52bf-4b18-84f4-e3b378fbc989",
+  "licenses": Array [
+    Object {
+      "id": "8c4369fc-a767-4e5c-9863-b5225705d563",
+      "licenseType": "Sales",
+      "number": "420710",
+    },
+  ],
+  "maxPrice": 20,
+  "minPrice": 10,
+  "name": "NUG RUN Injector, Indica",
+  "priceUnit": "gram",
+}
+`;
+
+exports[`BuyerProducts Store can return the product variants view 1`] = `
+Array [
+  Object {
+    "amount": 81,
+    "id": "5cfce13e-b8b9-4da0-a363-4becc6a06bb9",
+    "inStock": true,
+    "name": "Eighth Pack",
+    "price": 30,
+    "size": 3.5,
+    "unit": "gram",
+  },
+]
+`;
+
+exports[`BuyerProducts Store can return the search results view 1`] = `
+Array [
+  Object {
+    "brand": "GfarmaLabs",
+    "category": "Concentrates",
+    "id": "5cd4463d-52bf-4b18-84f4-e3b378fbc989",
+    "imageUrl": "https://images.weedmaps.com/products/000/023/221/avatar/medium/gfarmsalab_nug-run-indica_2.jpg?development=1",
+    "maxPrice": 20,
+    "minPrice": 10,
+    "name": "NUG RUN Injector, Indica",
+    "outOfStock": false,
+    "priceUnit": "gram",
   },
 ]
 `;
