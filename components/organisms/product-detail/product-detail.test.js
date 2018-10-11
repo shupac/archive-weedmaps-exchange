@@ -56,7 +56,7 @@ describe('Product Detail Page', () => {
       {
         label: 'Concentrates',
         route:
-          '/buyer/marketplace/catalog?catalog=81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6',
+          '/buyer/marketplace/catalog?categories=81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6',
       },
     ]);
   });

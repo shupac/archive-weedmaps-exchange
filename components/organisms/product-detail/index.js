@@ -44,7 +44,7 @@ export class ProductDetails extends Component<Props> {
     };
     const crumbTrail = buyerProducts.productBreadcrumb.map(({ id, name }) => ({
       label: name,
-      route: `/buyer/marketplace/catalog?catalog=${id}`,
+      route: `/buyer/marketplace/catalog?categories=${id}`,
     }));
 
     return [baseCrumb, ...crumbTrail];
