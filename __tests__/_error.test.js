@@ -3,7 +3,6 @@
 jest.mock('lib/routes');
 import React from 'react';
 import { shallow } from 'enzyme';
-import toJSON from 'enzyme-to-json';
 import { Provider } from 'mobx-react';
 import { ErrorPage } from 'pages/_error';
 

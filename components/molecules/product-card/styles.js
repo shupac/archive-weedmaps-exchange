@@ -16,6 +16,7 @@ export const CardWrapper = styled(Card)`
   box-shadow: 0 1px 3px ${theme.style.shadow};
   cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
 `;
+CardWrapper.displayName = 'CardWrapper';
 
 export const Product = styled.div`
   flex: 1;
@@ -23,6 +24,7 @@ export const Product = styled.div`
   flex-direction: column;
   opacity: ${({ outOfStock }) => (outOfStock ? 0.4 : 1)};
 `;
+Product.displayName = 'Product';
 
 export const ImageWrapper = styled.div`
   height: 200px;

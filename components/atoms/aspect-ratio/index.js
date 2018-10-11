@@ -3,7 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Flex } from '@ghostgroup/grid-styled';
 
-const AspectRatioWrapper = styled.div`
+export const AspectRatioWrapper = styled.div`
   position: relative;
   height: 0;
   width: 100%;

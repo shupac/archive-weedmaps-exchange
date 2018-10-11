@@ -1,6 +1,5 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
-import { withTheme } from 'styled-components';
 import themeDefault from 'lib/styles/theme';
 import IconWrapper from './icon-wrapper.styled';
 
@@ -37,4 +36,4 @@ Keylock.defaultProps = {
   fill: themeDefault.colors.teal,
 };
 
-export default withTheme(Keylock);
+export default Keylock;

@@ -41,6 +41,7 @@ export class Settings extends Component<Props> {
     const { url } = this.props;
     const { query, pathname } = url;
     const { tab } = query;
+    console.log('this is the store', this.props.store);
 
     return (
       <PageLayout pathname={pathname}>

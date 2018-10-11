@@ -20,7 +20,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-const NotificationCount = styled.div`
+export const NotificationCount = styled.div`
   background-color: ${theme.colors.red};
   color: ${theme.colors.white};
   border-radius: 10px;
@@ -31,8 +31,9 @@ const NotificationCount = styled.div`
   min-width: 20px;
   text-align: center;
 `;
+NotificationCount.displayName = 'NotificationCount';
 
-const NotificationWrapper = styled.div`
+export const NotificationWrapper = styled.div`
   transform: scale(${props => (props.show ? 1.0 : 0.0)});
   transform-origin: 50% 50%;
   transition: transform 0.3s ease-out;
@@ -40,6 +41,7 @@ const NotificationWrapper = styled.div`
   top: -10px;
   left: 15px;
 `;
+NotificationWrapper.displayName = 'NotificationWrapper';
 
 type Props = {
   count: number,

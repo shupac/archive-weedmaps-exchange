@@ -1,6 +1,5 @@
 import React from 'react';
 import { string, shape } from 'prop-types';
-import { withTheme } from 'styled-components';
 import themeDefault from 'lib/styles/theme';
 import IconWrapper from './icon-wrapper.styled';
 
@@ -19,7 +18,7 @@ const getRotation = direction => {
   }
 };
 
-const Arrow = ({ className, size, fill, direction }) => (
+export const Arrow = ({ className, size, fill, direction }) => (
   <IconWrapper className={className} size={size}>
     <svg viewBox="0 0 10 6" {...size}>
       <defs>
@@ -112,4 +111,4 @@ ArrowRight.defaultProps = {
   fill: themeDefault.colors.aluminum,
 };
 
-export default withTheme(ArrowDown);
+export default ArrowDown;

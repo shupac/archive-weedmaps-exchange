@@ -1,11 +1,11 @@
-export { ArrowDown, ArrowUp, ArrowLeft, ArrowRight } from './arrow';
+export { ArrowDown, ArrowUp, ArrowLeft, ArrowRight, Arrow } from './arrow';
 export { Bell } from './bell';
 export { default as BigArrow } from './big-arrow';
 export { default as Brands } from './brands';
 export { default as Check } from './check';
 export { default as Camera } from './camera';
 export { default as Chart } from './chart';
-export { ChevronRight, ChevronLeft, ChevronDown } from './chevron';
+export { ChevronRight, ChevronLeft, ChevronDown, Chevron } from './chevron';
 export { default as Close } from './close';
 export { default as Dashboard } from './dashboard';
 export { default as Desktop } from './desktop';
@@ -24,7 +24,11 @@ export { default as Toolbox } from './toolbox';
 export { default as Mail } from './mail';
 export { default as Menu } from './menu';
 export { default as Mobile } from './mobile';
-export { PaginationArrowRight, PaginationArrowLeft } from './pagination-arrow';
+export {
+  PaginationArrowRight,
+  PaginationArrowLeft,
+  PaginationArrow,
+} from './pagination-arrow';
 export { default as Photo } from './photo';
 export { default as Spinner } from './spinner';
 export { default as WmLogo } from './wm-logo';

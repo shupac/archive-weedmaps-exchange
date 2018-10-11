@@ -1,7 +1,6 @@
 /* eslint-disable import/first, no-unused-vars */
 jest.mock('mobx-react');
 import { inject, observer } from 'mobx-react';
-import RootStore from 'lib/data-access/stores';
 import AuthStore from 'lib/data-access/stores/auth';
 import AuthConnector from './index';
 
@@ -61,4 +60,51 @@ describe('AuthConnector', () => {
       expect(finalProps).toEqual({ someProp: 'test' });
     });
   });
+  // describe('User Not Authenticated', () => {
+  //   let mockAuthStore;
+  //   let mockSDK;
+  //   beforeEach(() => {
+  //     mockSDK = {
+  //       user: {
+  //         auth: {
+  //           isAuthenticated: jest.fn().mockReturnValue(false),
+  //         },
+  //         roles: [],
+  //         me: jest.fn().mockReturnValue({ id: 420 }),
+  //       },
+  //     };
+  //     mockAuthStore = AuthStore.create(
+  //       {
+  //         isLoading: false,
+  //       },
+  //       { wmSdk: mockSDK },
+  //     );
+  //   });
+  //
+  //   it('will call getInitialProps on the wrapped component', async () => {
+  //     const component = () => <div>test</div>;
+  //     const store = { authStore: mockAuthStore };
+  //     const props = {};
+  //     component.getInitialProps = jest.fn(() => null);
+  //     const Wrapped = AuthConnector(component);
+  //     // const resolveUnauthenticatedRedirect = jest.spyOn(
+  //     //   component,
+  //     //   'resolveUnauthenticatedRedirect',
+  //     // );
+  //     await Wrapped.getInitialProps(props, store);
+  //     expect(resolveUnauthenticatedRedirect).toHaveBeenCalledWith(props, store);
+  //     // expect(component.getInitialProps).toBeCalledWith(props, store);
+  //   });
+
+  // it('will return the props passed by the wrapped component', async () => {
+  //   const component = () => <div>test</div>;
+  //   const store = { authStore: mockAuthStore };
+  //   const props = {};
+  //   component.getInitialProps = jest.fn(() => ({ someProp: 'test' }));
+  //   const Wrapped = AuthConnector(component);
+  //   const finalProps = await Wrapped.getInitialProps(props, store);
+  //   expect(component.getInitialProps).toBeCalledWith(props, store);
+  //   expect(finalProps).toEqual({ someProp: 'test' });
+  // });
+  // });
 });

@@ -1,6 +1,5 @@
 import React from 'react';
 import { string, shape } from 'prop-types';
-import { withTheme } from 'styled-components';
 import themeDefault from 'lib/styles/theme';
 import IconWrapper from './icon-wrapper.styled';
 
@@ -17,7 +16,7 @@ const getRotation = direction => {
   }
 };
 
-const Chevron = ({ size, fill, direction, thickness }) => (
+export const Chevron = ({ size, fill, direction, thickness }) => (
   <IconWrapper size={size}>
     <svg {...size} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
       <path
@@ -92,4 +91,4 @@ ChevronDown.defaultProps = {
   thickness: 2,
 };
 
-export default withTheme(ChevronRight);
+export default ChevronRight;

@@ -1,5 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Card } from '@ghostgroup/ui';
+
 import {
   CardWrapper,
   Brand,
@@ -8,6 +10,7 @@ import {
   Row,
   Price,
   Category,
+  Product,
   OutOfStock,
 } from './styles';
 import ProductCard from './';
@@ -26,7 +29,7 @@ const product = {
 
 describe('Product Card', () => {
   it('should render the product card', () => {
-    const component = shallow(<ProductCard {...product} />);
+    const component = shallow(<ProductCard {...product} width="200px" />);
     expect(component.find(CardWrapper).length).toEqual(1);
     expect(component.find(Brand).length).toEqual(1);
     expect(component.find(Name).length).toEqual(1);
@@ -34,6 +37,20 @@ describe('Product Card', () => {
     expect(component.find(Row).length).toEqual(1);
     expect(component.find(Price).length).toEqual(1);
     expect(component.find(Category).length).toEqual(1);
+    expect(
+      component
+        .find(CardWrapper)
+        .dive()
+        .find(Card)
+        .dive(),
+    ).toHaveStyleRule('width: 200px');
+    expect(
+      component
+        .find(CardWrapper)
+        .dive()
+        .find(Card)
+        .dive(),
+    ).toHaveStyleRule('cursor: pointer');
   });
 
   it('should render out of stock products', () => {
@@ -46,5 +63,6 @@ describe('Product Card', () => {
     expect(component.find(Price).length).toEqual(1);
     expect(component.find(Category).length).toEqual(1);
     expect(component.find(OutOfStock).length).toEqual(1);
+    expect(component.find(Product).dive()).toHaveStyleRule('opacity: 0.4');
   });
 });

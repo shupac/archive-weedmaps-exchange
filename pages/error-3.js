@@ -5,7 +5,7 @@ import {
 } from 'components/layouts/page-layout';
 import RouterProvider from 'components/containers/router-provider';
 
-const h = {};
+const h = { thisIsAnErrorInGlobalScope: () => {} };
 
 h.thisIsAnErrorInGlobalScope(); // intentional error for Honeybadger
 

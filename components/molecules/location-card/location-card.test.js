@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { ButtonWhiteNoHover } from 'components/atoms/button';
 import Shiitake from 'shiitake';
 import LocationCard from './index';
-import { LocationCardInstructions } from './styles';
+import { LocationCardInstructions, LocationCardButton } from './styles';
 
 const mockLocationCardData = {
   data: {
@@ -56,5 +57,45 @@ describe('Location Card', () => {
         .dive()
         .text(),
     ).toContain('N/A');
+    expect(
+      component
+        .find(LocationCardButton)
+        .dive()
+        .find(ButtonWhiteNoHover)
+        .dive(),
+    ).toHaveStyleRule('width : 100%');
+  });
+  it('should handle the handleDelete method', () => {
+    const component = shallow(
+      <LocationCard
+        locationTitle={mockLocationCardData.data.locationTitle}
+        locationAddress={mockLocationCardData.data.locationAddress}
+        locationContact={mockLocationCardData.data.locationContact}
+        isPrimary={false}
+      />,
+    );
+    const handleDelete = jest.spyOn(component.instance(), 'handleDelete');
+    component.instance().forceUpdate();
+    component
+      .find(LocationCardButton)
+      .last()
+      .simulate('click');
+    expect(handleDelete).toHaveBeenCalled();
+  });
+  it('should handle the handleEdit method', () => {
+    const component = shallow(
+      <LocationCard
+        locationTitle={mockLocationCardData.data.locationTitle}
+        locationAddress={mockLocationCardData.data.locationAddress}
+        locationContact={mockLocationCardData.data.locationContact}
+      />,
+    );
+    const handleEdit = jest.spyOn(component.instance(), 'handleEdit');
+    component.instance().forceUpdate();
+    component
+      .find(LocationCardButton)
+      .first()
+      .simulate('click');
+    expect(handleEdit).toHaveBeenCalled();
   });
 });

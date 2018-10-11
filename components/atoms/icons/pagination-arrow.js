@@ -1,6 +1,5 @@
 import React from 'react';
 import { string, shape } from 'prop-types';
-import { withTheme } from 'styled-components';
 import themeDefault from 'lib/styles/theme';
 
 const getRotation = direction => {
@@ -14,7 +13,7 @@ const getRotation = direction => {
   }
 };
 
-const PaginationArrow = ({ direction, fill, size }) => (
+export const PaginationArrow = ({ direction, fill, size }) => (
   <svg {...size}>
     <path
       fill={fill}
@@ -54,4 +53,4 @@ PaginationArrowRight.propTypes = {
   fill: string,
 };
 
-export default withTheme(PaginationArrow);
+export default PaginationArrow;

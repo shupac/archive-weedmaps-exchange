@@ -1,6 +1,5 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
-import { withTheme } from 'styled-components';
 import themeDefault from 'lib/styles/theme';
 import IconWrapper from './icon-wrapper.styled';
 
@@ -45,4 +44,4 @@ Papers.defaultProps = {
   fill: themeDefault.colors.teal,
 };
 
-export default withTheme(Papers);
+export default Papers;

@@ -18,6 +18,22 @@ describe('License List', () => {
       <LicenseList brandName="Brand Name" licenseList={mockLicenses} />,
     );
     expect(component.find(BrandHeader).exists()).toBe(true);
+    expect(
+      component
+        .find(LicenseItem)
+        .dive()
+        .find(LicenseType)
+        .dive()
+        .text(),
+    ).toEqual('Sales: ');
+    expect(
+      component
+        .find(LicenseItem)
+        .dive()
+        .find(LicenseNumber)
+        .dive()
+        .text(),
+    ).toEqual('420710');
   });
 
   it('should render the component with title if there are no licenses', () => {

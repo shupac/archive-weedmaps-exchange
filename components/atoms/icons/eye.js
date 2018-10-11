@@ -1,6 +1,5 @@
 import React from 'react';
 import { shape, string, bool } from 'prop-types';
-import { withTheme } from 'styled-components';
 import themeDefault from 'lib/styles/theme';
 import IconWrapper from './icon-wrapper.styled';
 
@@ -44,4 +43,4 @@ Eye.defaultProps = {
   inline: false,
 };
 
-export default withTheme(Eye);
+export default Eye;

@@ -29,7 +29,7 @@ const NavIcon = {
       fill={theme.colors.primary}
     />
   ),
-  setting: <Settings size={{ width: '24px', height: '24px' }} />,
+  settings: <Settings size={{ width: '24px', height: '24px' }} />,
 };
 
 export class TopNav extends Component<Props> {

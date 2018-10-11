@@ -1,6 +1,5 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
-import { withTheme } from 'styled-components';
 import themeDefault from 'lib/styles/theme';
 import IconWrapper from './icon-wrapper.styled';
 
@@ -28,4 +27,4 @@ Mail.defaultProps = {
   fill: themeDefault.colors.aluminum,
 };
 
-export default withTheme(Mail);
+export default Mail;

@@ -5,7 +5,7 @@ import {
 } from 'components/layouts/page-layout';
 import RouterProvider from 'components/containers/router-provider';
 
-const h = {};
+const h = { thisIsAnErrorInGetInitialProps: () => {} };
 
 export class Error1 extends Component<Props> {
   static async getInitialProps() {

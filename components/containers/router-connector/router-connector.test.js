@@ -14,6 +14,16 @@ describe('RouterConnector', () => {
     expect(Wrapped.contextTypes.url).toBeDefined();
   });
 
+  it('will call getInitialProps on the wrapped component', async () => {
+    const component = () => <div>test</div>;
+    const store = {};
+    const props = {};
+    component.getInitialProps = jest.fn(() => null);
+    const Wrapped = RouterConnector(component);
+    await Wrapped.getInitialProps(props, store);
+    expect(component.getInitialProps).toBeCalledWith(props, store);
+  });
+
   it('will pass the context', () => {
     const context = { url: { query: { slug: 123 } } };
     const Component = () => <div />;
