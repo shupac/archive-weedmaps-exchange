@@ -4,19 +4,18 @@ import { rem } from 'polished';
 
 export const TopNavContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   background-color: ${theme.colors.white};
   border-bottom: 1px solid ${theme.colors.smoke};
 `;
 
 export const LeftContainer = styled.div`
   display: flex;
-  justify-content: left;
+  align-items: center;
+  flex: 1;
 `;
 
 export const RightContainer = styled.div`
   display: flex;
-  justify-content: right;
 `;
 
 export const MenuButton = styled.button`

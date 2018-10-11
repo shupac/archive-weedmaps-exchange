@@ -159,7 +159,37 @@ Array [
 ]
 `;
 
-exports[`BuyerSettings Store can fetch data from locations endpoint 1`] = `Array []`;
+exports[`BuyerSettings Store can fetch data from locations endpoint 1`] = `
+Array [
+  Object {
+    "active": true,
+    "address": Object {
+      "city": "Irvine",
+      "country": "us",
+      "id": "b393b3e0-0814-4352-aa63-95a4d07fe1af",
+      "latitude": 33.6618199,
+      "longitude": -117.7597545,
+      "postalCode": "92618",
+      "streetAddress": "55 Discovery",
+      "territory": "CA",
+    },
+    "contactName": "Andre Smithh",
+    "deliveryInstructions": "TEST.",
+    "email": "asciametta@aol.com",
+    "id": "6039ad85-7be7-45ce-a5f9-3e802eeba1e5",
+    "licenses": Array [
+      Object {
+        "id": "e5ae232c-9ae7-4e81-b6f6-67bd5562706f",
+        "licenseType": "medical",
+        "number": "THX1138",
+      },
+    ],
+    "name": "Andrew's Cryb",
+    "phoneNumber": "(303) 555-5555",
+    "source": "weedmaps",
+  },
+]
+`;
 
 exports[`BuyerSettings Store should return availabilities 1`] = `
 Array [

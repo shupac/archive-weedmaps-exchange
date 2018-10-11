@@ -38,3 +38,4 @@ export { default as Gear } from './gear';
 export { default as Info } from './info';
 export { default as WM } from './wm';
 export { default as Bookmark } from './bookmark';
+export { default as MapPin } from './map-pin';
