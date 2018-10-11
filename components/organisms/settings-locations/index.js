@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
+import AddressSuggestions from 'components/molecules/address-suggestion';
 import { type StoreType } from 'lib/types/store';
 import LocationCard from 'components/molecules/location-card';
 import { LocationsWrapper, LocationCardWrapper } from './styles';
@@ -44,6 +45,7 @@ class Locations extends Component<Props> {
             </LocationCardWrapper>
           );
         })}
+        <AddressSuggestions />
       </LocationsWrapper>
     );
   }
