@@ -149,6 +149,15 @@ Object {
 }
 `;
 
+exports[`BuyerProducts Store can fetch product details and set data 2`] = `
+Object {
+  "id": "1608ec15-013e-4a77-9cb9-27cc232a6640",
+  "largeUrl": "https://images.weedmaps.com/photos/products/000/023/221/large/29923_gfarmsalab_nug-run-indica_2.jpg?development=1",
+  "mediumUrl": "https://images.weedmaps.com/photos/products/000/023/221/medium/29923_gfarmsalab_nug-run-indica_2.jpg?development=1",
+  "smallUrl": "https://images.weedmaps.com/photos/products/000/023/221/square/29923_gfarmsalab_nug-run-indica_2.jpg?development=1",
+}
+`;
+
 exports[`BuyerProducts Store can fetch product search and set data 1`] = `
 Array [
   Object {

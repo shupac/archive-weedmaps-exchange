@@ -1,6 +1,7 @@
 // @flow
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
+import find from 'lodash.find';
 import { type UIStoreType } from 'lib/data-access/stores/ui';
 import { type BuyerProductsType } from 'lib/data-access/stores/buyer-products';
 import { type BuyerCartType } from 'lib/data-access/stores/buyer-cart';
@@ -36,6 +37,14 @@ export class ProductDetails extends Component<Props> {
     buyerProducts.getProductDetails(productId);
   }
 
+  changeFeaturePhoto = (photoId: string) => {
+    const { buyerProducts } = this.props.store;
+    const clickedPhoto = find(buyerProducts.productDetails.galleryImages, {
+      id: photoId,
+    });
+    buyerProducts.setFeaturedProductPhoto(clickedPhoto);
+  };
+
   constructBreadcrumb = () => {
     const { buyerProducts } = this.props.store;
     const baseCrumb = {
@@ -64,7 +73,6 @@ export class ProductDetails extends Component<Props> {
 
   render() {
     const { buyerProducts, buyerCart } = this.props.store;
-
     return (
       <Fragment>
         <SearchBar />
@@ -76,13 +84,14 @@ export class ProductDetails extends Component<Props> {
           <div>
             <ProductPhotos
               productPhotos={buyerProducts.productDetails.galleryImages}
+              featuredProduct={buyerProducts.featuredProductPhoto}
+              changeFeaturePhoto={this.changeFeaturePhoto}
             />
             <LicenseList
               brandName={buyerProducts.productDetails.brand}
               licenseList={buyerProducts.productDetails.licenses}
             />
           </div>
-
           <MainPanel>
             <ProductDescription productDetail={buyerProducts.productDetails} />
             <ProductVariants
