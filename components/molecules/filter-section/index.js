@@ -68,6 +68,7 @@ class FilterSection extends React.Component<Props> {
     };
 
     if (!nextOptions.length) delete nextParams[paramKey];
+    delete nextParams.page;
 
     Router.pushRoute('marketplace', nextParams);
   };

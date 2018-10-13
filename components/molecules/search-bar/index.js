@@ -105,20 +105,21 @@ class SearchBar extends Component<Props, State> {
 
     const { searchValue, categorySelected } = this.state;
 
-    const queryParams = {
+    const nextParams = {
       ...existingQuery,
       tab: 'catalog',
       search: searchValue,
     };
 
     if (showCategory && categorySelected.value !== 'all') {
-      queryParams.categories = categorySelected.value;
+      nextParams.categories = categorySelected.value;
     }
     if (!searchValue) {
-      delete queryParams.search;
+      delete nextParams.search;
     }
+    delete nextParams.page;
 
-    Router.pushRoute('marketplace', queryParams);
+    Router.pushRoute('marketplace', nextParams);
   };
 
   render() {

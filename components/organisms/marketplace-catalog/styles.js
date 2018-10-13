@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from 'lib/styles/theme';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -20,4 +21,13 @@ export const Products = styled.div`
 export const NoResults = styled.div`
   width: 100%;
   text-align: center;
+`;
+
+export const Pagination = styled.div`
+  margin: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: ${theme.colors.steel};
 `;

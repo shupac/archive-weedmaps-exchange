@@ -6,12 +6,13 @@ import TextInput from 'components/atoms/forms/text-input';
 import { PriceRangeFilter } from './';
 import { Wrapper, ErrorMessage } from './styles';
 
-function setup({ minPrice, maxPrice }) {
+function setup({ minPrice, maxPrice, page }) {
   const mockRouter = {
     query: {
       tab: 'catalog',
       minPrice,
       maxPrice,
+      page,
     },
   };
   if (!minPrice) delete mockRouter.query.minPrice;
@@ -56,6 +57,34 @@ describe('Price Range Filter', () => {
     pushRoute.mockRestore();
   });
 
+  it('should not remove the page query param on mount', () => {
+    const wrapper = setup({ minPrice: '2', maxPrice: '5', page: 2 });
+    const instance = wrapper.instance();
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    instance.componentDidMount();
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      minPrice: '2.00',
+      maxPrice: '5.00',
+      page: 2,
+    });
+    pushRoute.mockRestore();
+  });
+
+  it('should remove the page query param on update state', () => {
+    const wrapper = setup({ minPrice: '2', maxPrice: '5', page: 2 });
+    const instance = wrapper.instance();
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    instance.componentDidMount();
+    instance.updateState({ minPrice: '3', maxPrice: '5' });
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      minPrice: '3',
+      maxPrice: '5',
+    });
+    pushRoute.mockRestore();
+  });
+
   it('should remove the query params if values are falsy', () => {
     const wrapper = setup({ minPrice: '2', maxPrice: '5' });
     const instance = wrapper.instance();
@@ -80,10 +109,13 @@ describe('Price Range Filter', () => {
     const instance = wrapper.instance();
     const updateState = jest.spyOn(instance, 'updateState').mockReturnValue();
     instance.formatValues();
-    expect(updateState).toHaveBeenCalledWith({
-      minPrice: '2.00',
-      maxPrice: '5.10',
-    });
+    expect(updateState).toHaveBeenCalledWith(
+      {
+        minPrice: '2.00',
+        maxPrice: '5.10',
+      },
+      false,
+    );
   });
 
   it('should format prices with no values', () => {
@@ -91,10 +123,13 @@ describe('Price Range Filter', () => {
     const instance = wrapper.instance();
     const updateState = jest.spyOn(instance, 'updateState').mockReturnValue();
     instance.formatValues();
-    expect(updateState).toHaveBeenCalledWith({
-      minPrice: '',
-      maxPrice: '',
-    });
+    expect(updateState).toHaveBeenCalledWith(
+      {
+        minPrice: '',
+        maxPrice: '',
+      },
+      false,
+    );
     updateState.mockRestore();
   });
 
@@ -107,10 +142,13 @@ describe('Price Range Filter', () => {
         value: '3',
       },
     });
-    expect(updateState).toHaveBeenCalledWith({
-      minPrice: '3',
-      maxPrice: '5',
-    });
+    expect(updateState).toHaveBeenCalledWith(
+      {
+        minPrice: '3',
+        maxPrice: '5',
+      },
+      false,
+    );
     updateState.mockRestore();
   });
 
@@ -123,10 +161,13 @@ describe('Price Range Filter', () => {
         value: '-1',
       },
     });
-    expect(updateState).toHaveBeenCalledWith({
-      minPrice: '',
-      maxPrice: '5',
-    });
+    expect(updateState).toHaveBeenCalledWith(
+      {
+        minPrice: '',
+        maxPrice: '5',
+      },
+      false,
+    );
     updateState.mockRestore();
   });
 
@@ -139,10 +180,13 @@ describe('Price Range Filter', () => {
         value: 'a',
       },
     });
-    expect(updateState).toHaveBeenCalledWith({
-      minPrice: '',
-      maxPrice: '5',
-    });
+    expect(updateState).toHaveBeenCalledWith(
+      {
+        minPrice: '',
+        maxPrice: '5',
+      },
+      false,
+    );
     updateState.mockRestore();
   });
 

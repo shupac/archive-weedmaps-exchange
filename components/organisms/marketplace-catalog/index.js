@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withRouter } from 'next/router';
 import { Router } from 'lib/routes';
 import { inject, observer } from 'mobx-react';
@@ -9,17 +9,20 @@ import TreeFilterSection from 'components/molecules/tree-filter-section';
 import PriceRangeFilter from 'components/molecules/price-range-filter';
 import SearchBar from 'components/molecules/search-bar';
 import ProductCard from 'components/molecules/product-card';
+import PagingControls from 'components/molecules/paging-controls';
 import { Icons } from '@ghostgroup/ui';
 import theme from 'lib/styles/theme';
 import { type RouterType } from 'lib/types/router';
 import { type StoreType } from 'lib/types/store';
 import CategoryCarousels from './carousels';
-import { Wrapper, Content, Products, NoResults } from './styles';
+import { Wrapper, Content, Products, NoResults, Pagination } from './styles';
 
 type Props = {
   router: RouterType,
   store: StoreType,
 };
+
+const DEFAULT_PAGE_SIZE = 96;
 
 class Catalog extends Component<Props> {
   prevRoute = null; // needed to detect route change
@@ -46,7 +49,11 @@ class Catalog extends Component<Props> {
     const { router } = this.props;
     const { query } = router;
 
-    this.props.store.buyerProducts.searchCatalog(query);
+    this.props.store.buyerProducts.searchCatalog({
+      page_size: DEFAULT_PAGE_SIZE,
+      page: 1,
+      ...query,
+    });
   };
 
   clearAll = () => {
@@ -70,6 +77,15 @@ class Catalog extends Component<Props> {
         name: category.name,
       })),
     }));
+  };
+
+  goToPage = (page: number) => {
+    const { query } = this.props.router;
+    const nextQuery = {
+      ...query,
+      page,
+    };
+    Router.pushRoute('marketplace', nextQuery);
   };
 
   render() {
@@ -117,7 +133,11 @@ class Catalog extends Component<Props> {
       return <CategoryCarousels />;
 
     // show search results
-    const { searchResultsLoading, searchResults } = store.buyerProducts;
+    const {
+      searchResultsLoading,
+      searchResults,
+      searchResultsTotalItems,
+    } = store.buyerProducts;
 
     if (searchResultsLoading) {
       return (
@@ -142,17 +162,38 @@ class Catalog extends Component<Props> {
     const gotoProduct = productId =>
       Router.push(`/buyer/marketplace/catalog/product/${productId}`);
 
+    const page = router.query.page || 1;
+    const pageSize = router.query.page_size || DEFAULT_PAGE_SIZE;
+
+    const countStart = (page - 1) * pageSize + 1;
+    const countEnd = countStart + searchResults.length - 1;
+    const countRange =
+      countStart === countEnd ? countStart : `${countStart}-${countEnd}`;
+
     return (
-      <Products>
-        {searchResults.map(product => (
-          <ProductCard
-            key={product.id}
-            {...product}
-            width="100%"
-            onClick={() => gotoProduct(product.id)}
-          />
-        ))}
-      </Products>
+      <Fragment>
+        <Products>
+          {searchResults.map(product => (
+            <ProductCard
+              key={product.id}
+              {...product}
+              width="100%"
+              onClick={() => gotoProduct(product.id)}
+            />
+          ))}
+        </Products>
+
+        <Pagination>
+          Showing {countRange} of {searchResultsTotalItems} Products
+          {searchResultsTotalItems > pageSize && (
+            <PagingControls
+              pageCount={Math.ceil(searchResultsTotalItems / pageSize)}
+              currentPage={page && Number(page)}
+              onSelectPage={this.goToPage}
+            />
+          )}
+        </Pagination>
+      </Fragment>
     );
   }
 }

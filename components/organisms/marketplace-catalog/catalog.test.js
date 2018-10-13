@@ -6,9 +6,10 @@ import { mockBrands } from 'lib/mocks/brands';
 import { mockProduct } from 'lib/mocks/search-results';
 import ProductCard from 'components/molecules/product-card';
 import { Icons } from '@ghostgroup/ui';
+import PagingControls from 'components/molecules/paging-controls';
 import { Catalog } from './';
 import CategoryCarousels from './carousels';
-import { Products, NoResults } from './styles';
+import { Products, NoResults, Pagination } from './styles';
 
 const mockStore = {
   buyerSettings: {
@@ -93,7 +94,23 @@ describe('Marketplace Catalog', () => {
       tab: 'catalog',
       search: 'indica',
       brands: '1/2',
+      page_size: 96,
+      page: 1,
     });
+  });
+
+  it('should paginate', () => {
+    const wrapper = setup({ store: mockStore });
+    const instance = wrapper.instance();
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    instance.goToPage(3);
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      search: 'indica',
+      brands: '1/2',
+      page: 3,
+    });
+    pushRoute.mockRestore();
   });
 
   it('should clear all filters', () => {
@@ -188,5 +205,79 @@ describe('Marketplace Catalog', () => {
     expect(wrapper.find(CategoryCarousels).exists()).toEqual(false);
     expect(wrapper.find(Products).exists()).toEqual(false);
     expect(wrapper.find(Icons.Spinner).exists()).toEqual(true);
+  });
+
+  it('should display pagination when product count is greater than page size', () => {
+    const thisStore = {
+      ...mockStore,
+      buyerProducts: {
+        searchResults: [1, 2, 3].map(() => mockProduct),
+        searchResultsTotalItems: 10,
+      },
+    };
+    const thisQuery = {
+      page: 2,
+      page_size: 3,
+    };
+    const wrapper = setup({ store: thisStore, query: thisQuery });
+    expect(wrapper.find(PagingControls).exists()).toEqual(true);
+  });
+
+  it('should not display pagination when product count is less than or equal to page size', () => {
+    const thisStore = {
+      ...mockStore,
+      buyerProducts: {
+        searchResults: [1, 2, 3].map(() => mockProduct),
+        searchResultsTotalItems: 3,
+      },
+    };
+    const thisQuery = {
+      page: 1,
+      page_size: 10,
+    };
+    const wrapper = setup({ store: thisStore, query: thisQuery });
+    expect(wrapper.find(PagingControls).exists()).toEqual(false);
+  });
+
+  it('should display the product count range for more than 1 product on page', () => {
+    const thisStore = {
+      ...mockStore,
+      buyerProducts: {
+        searchResults: [1, 2, 3].map(() => mockProduct),
+        searchResultsTotalItems: 3,
+      },
+    };
+    const thisQuery = {
+      page: 1,
+      page_size: 10,
+    };
+    const wrapper = setup({ store: thisStore, query: thisQuery });
+    expect(
+      wrapper
+        .find(Pagination)
+        .dive()
+        .text(),
+    ).toEqual('Showing 1-3 of 3 Products');
+  });
+
+  it('should display the product count for only one product on page', () => {
+    const thisStore = {
+      ...mockStore,
+      buyerProducts: {
+        searchResults: [1].map(() => mockProduct),
+        searchResultsTotalItems: 9,
+      },
+    };
+    const thisQuery = {
+      page: 3,
+      page_size: 4,
+    };
+    const wrapper = setup({ store: thisStore, query: thisQuery });
+    expect(
+      wrapper
+        .find(Pagination)
+        .dive()
+        .text(),
+    ).toEqual('Showing 9 of 9 Products<PagingControls />');
   });
 });

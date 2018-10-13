@@ -13,13 +13,18 @@ type Event = {
   },
 };
 
+type State = {
+  minPrice: string,
+  maxPrice: string,
+};
+
 type Props = {
   router: RouterType,
 };
 
 class PriceRangeFilter extends React.Component<Props> {
   componentDidMount() {
-    this.formatValues();
+    this.formatValues(true);
   }
 
   getState = () => {
@@ -32,13 +37,8 @@ class PriceRangeFilter extends React.Component<Props> {
     };
   };
 
-  updateState = ({
-    minPrice,
-    maxPrice,
-  }: {
-    minPrice: string,
-    maxPrice: string,
-  }) => {
+  updateState = (state: State, onMount: boolean) => {
+    const { minPrice, maxPrice } = state;
     const { router } = this.props;
 
     const nextParams = {
@@ -49,6 +49,7 @@ class PriceRangeFilter extends React.Component<Props> {
 
     if (!minPrice) delete nextParams.minPrice;
     if (!maxPrice) delete nextParams.maxPrice;
+    if (!onMount) delete nextParams.page;
 
     Router.pushRoute('marketplace', nextParams);
   };
@@ -60,13 +61,16 @@ class PriceRangeFilter extends React.Component<Props> {
     return +minPrice > +maxPrice;
   };
 
-  formatValues = () => {
+  formatValues = (onMount: boolean) => {
     const { minPrice, maxPrice } = this.getState();
 
-    this.updateState({
-      minPrice: minPrice ? parseFloat(minPrice).toFixed(2) : '',
-      maxPrice: maxPrice ? parseFloat(maxPrice).toFixed(2) : '',
-    });
+    this.updateState(
+      {
+        minPrice: minPrice ? parseFloat(minPrice).toFixed(2) : '',
+        maxPrice: maxPrice ? parseFloat(maxPrice).toFixed(2) : '',
+      },
+      onMount || false,
+    );
   };
 
   handlePriceChange = (type: string) => (e: Event) => {
@@ -74,10 +78,13 @@ class PriceRangeFilter extends React.Component<Props> {
 
     if (value <= 0 || Number.isNaN(value)) value = '';
 
-    this.updateState({
-      ...this.getState(),
-      [type]: value.toString(),
-    });
+    this.updateState(
+      {
+        ...this.getState(),
+        [type]: value.toString(),
+      },
+      false,
+    );
   };
 
   getLabel = () => {
