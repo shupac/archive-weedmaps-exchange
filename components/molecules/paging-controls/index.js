@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { color } from 'lib/styles/theme-getters';
+import { WmTheme } from '@ghostgroup/ui';
 import { rem } from 'polished';
 import styled from 'styled-components';
 import { Flex } from '@ghostgroup/grid-styled';
@@ -10,18 +10,18 @@ import {
 } from 'components/atoms/icons';
 
 const PLACEHOLDER = 0;
-
+console.log(WmTheme.style);
 const PageButton = styled.button`
   min-width: ${rem(32)};
   height: ${rem(32)};
   font-size: ${rem(14)};
   border-radius: ${rem(3)};
   line-height: ${rem(29)};
-  border: ${rem(1)} solid ${color('iron')};
-  color: ${color('steel')};
+  border: ${rem(1)} solid ${WmTheme.style.border.default};
+  color: ${WmTheme.style.text.normal};
   margin: 0 ${rem(2)} 0 ${rem(2)};
   cursor: pointer;
-  background: ${color('white')};
+  background: ${WmTheme.style.background.light};
 `;
 PageButton.displayName = 'PageButton';
 
@@ -32,9 +32,9 @@ const PlaceholderButton = styled(PageButton)`
 `;
 
 const CurrentPageButton = styled(PageButton)`
-  border-color: ${color('midTeal')};
-  color: ${color('white')};
-  background-color: ${color('teal')};
+  border-color: ${WmTheme.style.border.default};
+  color: ${WmTheme.style.text.inverted};
+  background-color: ${WmTheme.style.state.primary};
   cursor: default;
 `;
 CurrentPageButton.displayName = 'CurrentPageButton';
@@ -46,7 +46,7 @@ const ChangePageButton = styled(PageButton)`
   align-items: center;
   justify-content: center;
   path {
-    fill: ${color('steel')};
+    fill: ${WmTheme.style.state.lightCompanion};
   }
 `;
 

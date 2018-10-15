@@ -1,12 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import ProductDescription from './';
-import {
-  Brand,
-  Description,
-  PricingTitle,
-  Title,
-} from './styles';
+import { Brand, Description, PricingTitle, Title } from './styles';
 
 const product = {
   id: '123',

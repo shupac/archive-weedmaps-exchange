@@ -29,5 +29,5 @@ export const Pagination = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
-  color: ${theme.colors.steel};
+  color: ${theme.style.text.normal};
 `;

@@ -49,11 +49,9 @@ export const AuthConnectorWrapper = ComponentToCompose => {
           await authStore.fetchUser();
         } catch (e) {
           logger.debug('Fetching user FAIL');
-          console.log('in here')
           return resolveUnauthenticatedRedirect(props, store);
         }
       } else {
-        console.log('hello')
         return resolveUnauthenticatedRedirect(props, store);
       }
 

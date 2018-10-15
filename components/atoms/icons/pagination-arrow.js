@@ -34,7 +34,7 @@ PaginationArrow.defaultProps = {
   className: '',
   direction: 'down',
   size: { width: '8px', height: '14px' },
-  fill: themeDefault.colors.aluminum,
+  fill: themeDefault.colors.headerGrey,
 };
 
 export const PaginationArrowLeft = ({ size, fill }) => (
