@@ -2,10 +2,10 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
 import { WmTheme } from '@ghostgroup/ui';
+import TextInput from 'components/atoms/forms/text-input';
 import { mockVariants } from 'lib/mocks/product-details';
 import ProductVariants from './index';
 import { TableWrap } from './styles';
-import TextInput from '../../atoms/forms/text-input';
 
 describe('Product Variants', () => {
   it('should render a variant grid if data exists', () => {
@@ -90,6 +90,30 @@ describe('Product Variants', () => {
         .first()
         .props().disabled,
     ).toEqual(false);
+  });
+  it('will display N/A when variant is Out of Stock', () => {
+    const outOfStockVariant = [
+      {
+        id: 'cb429ae1-cb29-46b8-adcc-1eb234dc266b',
+        name: 'Gram Packs',
+        size: 1,
+        unit: 'gram',
+        price: 20,
+        amount: 151,
+        inStock: false,
+      },
+    ];
+    const component = shallow(<ProductVariants variants={outOfStockVariant} />);
+    expect(
+      component
+        .find('Formik')
+        .dive()
+        .find('VariantRow')
+        .first()
+        .dive()
+        .find('span')
+        .text(),
+    ).toEqual('N/A');
   });
   describe('can calculate', () => {
     it('the total price', () => {

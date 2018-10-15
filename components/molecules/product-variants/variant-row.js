@@ -39,7 +39,11 @@ const VariantRow = ({
       errorMessage={error}
       value={fieldValue}
     />
-    {quantity && !error && formatDollars(quantity * variant.price)}
+    <span>
+      {variant.inStock
+        ? quantity && !error && formatDollars(quantity * variant.price)
+        : 'N/A'}
+    </span>
     {variant.hasQuantityAlert && (
       <QuantityAlert>
         <div style={{ marginRight: '10px' }}>
