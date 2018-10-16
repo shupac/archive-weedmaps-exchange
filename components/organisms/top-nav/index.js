@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import Menu from 'components/molecules/top-nav-menu';
+
 // import Heading from 'components/molecules/top-nav-heading';
 import { Cart, Settings } from 'components/atoms/icons';
 import Notification from 'components/molecules/top-nav-notification';
@@ -58,11 +59,10 @@ export class TopNav extends Component<Props> {
           <LocationSelector />
         </LeftContainer>
         <RightContainer>
-          <Notification count={3} />
+          <Notification />
         </RightContainer>
       </TopNavContainer>
     );
   }
 }
-
 export default TopNav;

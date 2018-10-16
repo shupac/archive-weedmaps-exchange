@@ -1,6 +1,7 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
 import theme from 'lib/styles/theme';
+import { inject, observer } from 'mobx-react';
 import styled from 'styled-components';
 import { Cart } from 'components/atoms/icons';
 import { rem } from 'polished';
@@ -43,29 +44,19 @@ export const NotificationWrapper = styled.div`
 `;
 NotificationWrapper.displayName = 'NotificationWrapper';
 
-type Props = {
-  count: number,
-};
+const Notification = inject('store')(
+  observer(({ store }) => (
+    <CartContainer>
+      <IconWrapper>
+        <a>
+          <Cart size={{ width: '24px', height: '24px' }} />
+        </a>
+        <NotificationWrapper show={store.buyerCart.cartItemCount}>
+          <NotificationCount>{store.buyerCart.cartItemCount}</NotificationCount>
+        </NotificationWrapper>
+      </IconWrapper>
+    </CartContainer>
+  )),
+);
 
-export default class Notification extends Component<Props> {
-  static defaultProps = {
-    count: 0,
-  };
-
-  render() {
-    const { count } = this.props;
-
-    return (
-      <CartContainer>
-        <IconWrapper>
-          <a>
-            <Cart size={{ width: '24px', height: '24px' }} />
-          </a>
-          <NotificationWrapper show={count > 0}>
-            <NotificationCount>{count}</NotificationCount>
-          </NotificationWrapper>
-        </IconWrapper>
-      </CartContainer>
-    );
-  }
-}
+export default Notification;

@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Buyer Cart Store can fetch buyer from cart endpoint and set data 1`] = `
+Object {
+  "brands": Array [
+    Object {
+      "deliveryEta": Object {
+        "etaMax": 3,
+        "etaMaxUnit": "day",
+        "etaMin": 1,
+        "etaMinUnit": "day",
+      },
+      "description": "this is the brand description",
+      "id": "d054b34f-428e-4583-a2a4-27f4e5aea6f3",
+      "minimumPurchasePrice": 0,
+      "name": "GfarmaLabs",
+      "shippingFee": 0,
+      "slug": "gfarmalabs",
+    },
+  ],
+  "cartErrors": Array [],
+  "id": "238ee8c0-0297-44c0-b768-41397260df40",
+  "items": Array [
+    Object {
+      "amount": 3,
+      "id": "126974e5-a216-4b63-98c8-d065c0180125",
+      "price": 2800,
+      "variantId": "630580e0-c20b-48fc-8ea1-e03abe831b05",
+    },
+    Object {
+      "amount": 3,
+      "id": "6b1e92e0-ce45-442a-b54d-e6e9ba617614",
+      "price": 300,
+      "variantId": "67879046-6491-4f6b-869b-75e94adeb9f0",
+    },
+  ],
+  "shippingAddress": Object {
+    "city": "Irvine",
+    "country": "us",
+    "id": "b393b3e0-0814-4352-aa63-95a4d07fe1af",
+    "latitude": 33.6618199,
+    "longitude": -117.7597545,
+    "postalCode": "92618",
+    "streetAddress": "55 Discovery",
+    "territory": "CA",
+  },
+  "shippingFee": 0,
+  "subtotal": 93890,
+  "total": 93890,
+}
+`;

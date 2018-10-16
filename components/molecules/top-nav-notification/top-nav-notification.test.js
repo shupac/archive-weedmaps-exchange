@@ -2,23 +2,37 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Notification, { NotificationWrapper, NotificationCount } from './';
 
+function setup() {
+  const mockStore = {
+    buyerCart: {
+      cartItemCount: 2,
+    },
+  };
+  return { mockStore };
+}
+
 describe('Top Nav Notification', () => {
   it('Notification', () => {
-    const tree = shallow(<Notification active="deals" />);
+    const { mockStore } = setup();
+    const tree = shallow(<Notification store={mockStore} />);
     expect(tree.exists()).toEqual(true);
   });
   it('Notification with count', () => {
-    const tree = shallow(<Notification active="deals" count={1} />);
+    const { mockStore } = setup();
+    const tree = shallow(<Notification store={mockStore} />);
     expect(tree.exists()).toEqual(true);
-    expect(tree.find(NotificationWrapper).props().show).toEqual(true);
     expect(
       tree
+        .dive()
         .find(NotificationCount)
         .dive()
         .text(),
-    ).toEqual('1');
-    expect(tree.find(NotificationWrapper).dive()).toHaveStyleRule(
-      'transform: scale(1)',
-    );
+    ).toEqual('2');
+    expect(
+      tree
+        .dive()
+        .find(NotificationWrapper)
+        .dive(),
+    ).toHaveStyleRule('transform: scale(1)');
   });
 });
