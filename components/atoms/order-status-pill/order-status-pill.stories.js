@@ -12,7 +12,7 @@ export const orderStatus = [
   'inProgress',
   'notStarted',
   'returned',
-  'cancelled',
+  'canceled',
   'completed',
 ];
 
@@ -20,7 +20,7 @@ export const statusColor = {
   inProgress: colors.amethyst,
   notStarted: colors.havelockBlue,
   returned: colors.buttercup,
-  cancelled: colors.red,
+  canceled: colors.red,
   completed: colors.fountainBlue,
 };
 
@@ -28,7 +28,7 @@ export const statusName = {
   inProgress: 'in progress',
   notStarted: 'not started',
   returned: 'ready',
-  cancelled: 'cancelled',
+  canceled: 'canceled',
   completed: 'completed',
 };
 

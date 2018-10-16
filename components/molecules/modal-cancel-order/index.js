@@ -67,7 +67,7 @@ export class CancelOrderModalTemplate extends Component<Props, State> {
         <ModalBody>
           <p>
             Cancelling the order will remove the PO from your list, and notify
-            the seller that the order has been cancelled.
+            the seller that the order has been canceled.
           </p>
           <p>Please inform the seller why you are cancelling the PO.</p>
           <TextArea
