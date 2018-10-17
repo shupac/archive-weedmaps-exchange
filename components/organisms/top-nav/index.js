@@ -31,6 +31,12 @@ const NavIcon = {
     />
   ),
   settings: <Settings size={{ width: '24px', height: '24px' }} />,
+  cart: (
+    <Cart
+      size={{ width: '24px', height: '24px' }}
+      fill={theme.colors.primary}
+    />
+  ),
 };
 
 export class TopNav extends Component<Props> {
@@ -53,7 +59,7 @@ export class TopNav extends Component<Props> {
           {pathName && (
             <NavContent>
               <div>{NavIcon[pathName]}</div>
-              <span>{pathName}</span>
+              <span>{pathName === 'cart' ? 'shopping cart' : pathName}</span>
             </NavContent>
           )}
           <LocationSelector />

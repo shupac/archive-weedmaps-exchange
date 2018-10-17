@@ -27,7 +27,6 @@ const SellerDetailModal = ({ store, seller }: Props) => (
     <ModalBody>
       <SellerDetails>
         Seller Name
-        {console.log('this is the seller', seller)}
         <span>{seller.name}</span>
       </SellerDetails>
       <SellerDetails>

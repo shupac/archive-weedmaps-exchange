@@ -19,7 +19,7 @@ describe('Top Nav Notification', () => {
   });
   it('Notification with count', () => {
     const { mockStore } = setup();
-    const tree = shallow(<Notification store={mockStore} />);
+    const tree = shallow(<Notification store={mockStore} />).dive();
     expect(tree.exists()).toEqual(true);
     expect(
       tree

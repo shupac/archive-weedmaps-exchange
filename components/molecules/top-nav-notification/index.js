@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { Router } from 'lib/routes';
 import theme from 'lib/styles/theme';
 import { inject, observer } from 'mobx-react';
 import styled from 'styled-components';
@@ -12,13 +13,16 @@ const CartContainer = styled.div`
   height: ${rem(60)};
   width: ${rem(60)};
   border-left: 1px solid ${theme.colors.smoke};
+  &:hover {
+    cursor: pointer;
+  }
+  &:hover path {
+    fill: ${theme.colors.primary};
+  }
 `;
 
 const IconWrapper = styled.div`
   transform: translate(79%, 35%);
-  svg:hover path {
-    fill: ${theme.colors.primary};
-  }
 `;
 
 export const NotificationCount = styled.div`
@@ -46,7 +50,7 @@ NotificationWrapper.displayName = 'NotificationWrapper';
 
 const Notification = inject('store')(
   observer(({ store }) => (
-    <CartContainer>
+    <CartContainer onClick={() => Router.pushRoute('/buyer/cart')}>
       <IconWrapper>
         <a>
           <Cart size={{ width: '24px', height: '24px' }} />
