@@ -147,7 +147,7 @@ class Catalog extends Component<Props> {
       );
     }
 
-    if (!searchResults) {
+    if (!searchResults.length) {
       return (
         <NoResults>
           <h2>No Results Found</h2>

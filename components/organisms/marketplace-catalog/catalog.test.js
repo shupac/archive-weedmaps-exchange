@@ -169,7 +169,7 @@ describe('Marketplace Catalog', () => {
     const thisStore = {
       ...mockStore,
       buyerProducts: {
-        searchResults: null,
+        searchResults: [],
       },
     };
     const wrapper = setup({ store: thisStore });

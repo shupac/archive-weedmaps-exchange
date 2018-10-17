@@ -10,7 +10,7 @@ import {
 } from 'components/atoms/icons';
 
 const PLACEHOLDER = 0;
-console.log(WmTheme.style);
+
 const PageButton = styled.button`
   min-width: ${rem(32)};
   height: ${rem(32)};

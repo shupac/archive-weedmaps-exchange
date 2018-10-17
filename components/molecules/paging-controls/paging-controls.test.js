@@ -23,6 +23,12 @@ describe('Paging Controls', () => {
     expect(tree.exists()).toEqual(true);
   });
 
+  it('should render with 0 pages', () => {
+    const component = <PagingControls pageCount={0} />;
+    const tree = shallow(component);
+    expect(tree.exists()).toEqual(true);
+  });
+
   it('should have the right page number values with four pages', () => {
     expect(pageButtonArray(4, 1)).toEqual([1, 2, 3, 4]);
     expect(pageButtonArray(4, 2)).toEqual([1, 2, 3, 4]);
