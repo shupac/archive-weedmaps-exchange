@@ -36,6 +36,7 @@ export const BrowseProductButton = styled.button`
   border: 1px solid ${border.default};
   font-size: ${rem(14)};
   font-weight: 600;
+  text-transform: uppercase;
   color: ${text.normal};
   &:hover {
     cursor: pointer;

@@ -39,6 +39,9 @@ const NavIcon = {
   ),
 };
 
+// Add any pathname that will exclude the Location Selector into the array
+const excludeLocationSelector = ['cart'];
+
 export class TopNav extends Component<Props> {
   static defaultProps = {
     user: '',
@@ -47,9 +50,7 @@ export class TopNav extends Component<Props> {
 
   render() {
     const { onMenuClick, pathname } = this.props;
-
     const pathName = pathname && pathname.substring(1);
-
     return (
       <TopNavContainer>
         <LeftContainer>
@@ -62,7 +63,7 @@ export class TopNav extends Component<Props> {
               <span>{pathName === 'cart' ? 'shopping cart' : pathName}</span>
             </NavContent>
           )}
-          <LocationSelector />
+          {!excludeLocationSelector.includes(pathName) && <LocationSelector />}
         </LeftContainer>
         <RightContainer>
           <Notification />
