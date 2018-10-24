@@ -37,50 +37,21 @@ describe('Price Range Filter', () => {
 
   it('should get the state from the router', () => {
     const wrapper = setup({ minPrice: '2', maxPrice: '5' });
-    const instance = wrapper.instance();
-    expect(instance.getState()).toEqual({
-      minPrice: '2',
-      maxPrice: '5',
-    });
+    expect(wrapper.state('min')).toEqual('2');
+    expect(wrapper.state('max')).toEqual('5');
   });
 
   it('should update the router query params on state change', () => {
     const wrapper = setup({});
     const instance = wrapper.instance();
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
-    instance.updateState({ minPrice: '2', maxPrice: '5' });
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      minPrice: '2',
-      maxPrice: '5',
-    });
-    pushRoute.mockRestore();
-  });
-
-  it('should not remove the page query param on mount', () => {
-    const wrapper = setup({ minPrice: '2', maxPrice: '5', page: 2 });
-    const instance = wrapper.instance();
-    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
-    instance.componentDidMount();
+    instance.setPrice('max')({ target: { value: '10' } });
+    instance.setPrice('min')({ target: { value: '2' } });
+    instance.updateState();
     expect(pushRoute).toHaveBeenCalledWith('marketplace', {
       tab: 'catalog',
       minPrice: '2.00',
-      maxPrice: '5.00',
-      page: 2,
-    });
-    pushRoute.mockRestore();
-  });
-
-  it('should remove the page query param on update state', () => {
-    const wrapper = setup({ minPrice: '2', maxPrice: '5', page: 2 });
-    const instance = wrapper.instance();
-    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
-    instance.componentDidMount();
-    instance.updateState({ minPrice: '3', maxPrice: '5' });
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      minPrice: '3',
-      maxPrice: '5',
+      maxPrice: '10.00',
     });
     pushRoute.mockRestore();
   });
@@ -89,105 +60,81 @@ describe('Price Range Filter', () => {
     const wrapper = setup({ minPrice: '2', maxPrice: '5' });
     const instance = wrapper.instance();
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
-    instance.updateState({});
+    instance.setPrice('min')({ target: { value: '' } });
+    instance.setPrice('max')({ target: { value: '' } });
+    instance.updateState();
     expect(pushRoute).toHaveBeenCalledWith('marketplace', {
       tab: 'catalog',
     });
     pushRoute.mockRestore();
   });
 
-  it('should format values on mount', () => {
-    const wrapper = setup({ minPrice: '2', maxPrice: '5' });
-    const instance = wrapper.instance();
-    instance.formatValues = jest.fn();
-    instance.componentDidMount();
-    expect(instance.formatValues).toHaveBeenCalled();
-  });
-
   it('should format prices to 2 decimal places', () => {
     const wrapper = setup({ minPrice: '2', maxPrice: '5.1' });
     const instance = wrapper.instance();
-    const updateState = jest.spyOn(instance, 'updateState').mockReturnValue();
-    instance.formatValues();
-    expect(updateState).toHaveBeenCalledWith(
-      {
-        minPrice: '2.00',
-        maxPrice: '5.10',
-      },
-      false,
-    );
-  });
-
-  it('should format prices with no values', () => {
-    const wrapper = setup({});
-    const instance = wrapper.instance();
-    const updateState = jest.spyOn(instance, 'updateState').mockReturnValue();
-    instance.formatValues();
-    expect(updateState).toHaveBeenCalledWith(
-      {
-        minPrice: '',
-        maxPrice: '',
-      },
-      false,
-    );
-    updateState.mockRestore();
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    instance.setPrice('min')({ target: { value: '2' } });
+    instance.setPrice('max')({ target: { value: '5.88888' } });
+    instance.updateState();
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      minPrice: '2.00',
+      maxPrice: '5.89',
+    });
+    pushRoute.mockRestore();
   });
 
   it('should handle valid price change', () => {
     const wrapper = setup({ minPrice: '2', maxPrice: '5' });
     const instance = wrapper.instance();
-    const updateState = jest.spyOn(instance, 'updateState').mockReturnValue();
-    instance.handlePriceChange('minPrice')({
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    instance.setPrice('min')({
       target: {
         value: '3',
       },
     });
-    expect(updateState).toHaveBeenCalledWith(
-      {
-        minPrice: '3',
-        maxPrice: '5',
-      },
-      false,
-    );
-    updateState.mockRestore();
+    instance.updateState();
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      minPrice: '3.00',
+      maxPrice: '5.00',
+    });
+    pushRoute.mockRestore();
   });
 
   it('should handle negative price', () => {
     const wrapper = setup({ minPrice: '2', maxPrice: '5' });
     const instance = wrapper.instance();
-    const updateState = jest.spyOn(instance, 'updateState').mockReturnValue();
-    instance.handlePriceChange('minPrice')({
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    instance.setPrice('min')({
       target: {
         value: '-1',
       },
     });
-    expect(updateState).toHaveBeenCalledWith(
-      {
-        minPrice: '',
-        maxPrice: '5',
-      },
-      false,
-    );
-    updateState.mockRestore();
+    instance.updateState();
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      minPrice: '1.00',
+      maxPrice: '5.00',
+    });
+    pushRoute.mockRestore();
   });
 
   it('should handle non-numeric price', () => {
     const wrapper = setup({ minPrice: '2', maxPrice: '5' });
     const instance = wrapper.instance();
-    const updateState = jest.spyOn(instance, 'updateState').mockReturnValue();
-    instance.handlePriceChange('minPrice')({
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    instance.setPrice('min')({
       target: {
         value: 'a',
       },
     });
-    expect(updateState).toHaveBeenCalledWith(
-      {
-        minPrice: '',
-        maxPrice: '5',
-      },
-      false,
-    );
-    updateState.mockRestore();
+    instance.updateState();
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      maxPrice: '5.00',
+    });
+    pushRoute.mockRestore();
   });
 
   it('should not display an error with valid price values', () => {
@@ -236,6 +183,29 @@ describe('Price Range Filter', () => {
         .last()
         .props().hasError,
     ).toEqual(true);
+  });
+
+  it('should submit data for fetch onBlur', () => {
+    const wrapper = setup({});
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    const first = wrapper.find(TextInput).first();
+    const last = wrapper.find(TextInput).last();
+    first.simulate('focus');
+    first.simulate('change', { target: { value: '5' } });
+    expect(pushRoute).not.toHaveBeenCalled();
+    first.simulate('blur');
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      minPrice: '5.00',
+    });
+    last.simulate('focus');
+    last.simulate('change', { target: { value: '20' } });
+    last.simulate('blur');
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      minPrice: '5.00',
+      maxPrice: '20.00',
+    });
   });
 
   it('should not display an error when min price is not set', () => {

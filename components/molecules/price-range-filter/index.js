@@ -3,6 +3,7 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import { Router } from 'lib/routes';
 import { type RouterType } from 'lib/types/router';
+import { stripNonNumbersWithDot } from 'lib/common/strings';
 import TextInput from 'components/atoms/forms/text-input';
 import FilterContainer from 'components/atoms/filter-container';
 import { Wrapper, Seperator, ErrorMessage } from './styles';
@@ -14,125 +15,107 @@ type Event = {
 };
 
 type State = {
-  minPrice: string,
-  maxPrice: string,
+  min: string,
+  max: string,
 };
 
 type Props = {
   router: RouterType,
 };
 
-class PriceRangeFilter extends React.Component<Props> {
-  componentDidMount() {
-    this.formatValues(true);
-  }
-
-  getState = () => {
-    const {
-      router: { query },
-    } = this.props;
-    return {
-      minPrice: query.minPrice || '',
-      maxPrice: query.maxPrice || '',
-    };
+class PriceRangeFilter extends React.Component<Props, State> {
+  state = {
+    min: this.props.router.query.minPrice || '',
+    max: this.props.router.query.maxPrice || '',
   };
 
-  updateState = (state: State, onMount: boolean) => {
-    const { minPrice, maxPrice } = state;
-    const { router } = this.props;
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps !== this.props) {
+      // eslint-disable-next-line
+      return this.setState({
+        min: this.props.router.query.minPrice || '',
+        max: this.props.router.query.maxPrice || '',
+      });
+    }
+    return null;
+  }
 
+  format = (price: string) =>
+    parseFloat(price)
+      .toFixed(2)
+      .toString();
+
+  updateState = () => {
+    const { min, max } = this.state;
+    const { router } = this.props;
+    const formattedMin = min ? this.format(min) : '';
+    const formattedMax = max ? this.format(max) : '';
     const nextParams = {
       ...router.query,
-      minPrice,
-      maxPrice,
+      minPrice: formattedMin,
+      maxPrice: formattedMax,
     };
 
-    if (!minPrice) delete nextParams.minPrice;
-    if (!maxPrice) delete nextParams.maxPrice;
-    if (!onMount) delete nextParams.page;
+    if (!min) delete nextParams.minPrice;
+    if (!max) delete nextParams.maxPrice;
+    if (!router.query.page) delete nextParams.page;
 
-    Router.pushRoute('marketplace', nextParams);
+    this.setState({
+      min: formattedMin,
+      max: formattedMax,
+    });
+    return Router.pushRoute('marketplace', nextParams);
+  };
+
+  setPrice = (type: string) => (e: Event) => {
+    const value = stripNonNumbersWithDot(e.target.value);
+    return type === 'min'
+      ? this.setState({ min: value })
+      : this.setState({ max: value });
   };
 
   checkError = () => {
-    const { minPrice, maxPrice } = this.getState();
-
-    if (minPrice === '' || maxPrice === '') return false;
-    return +minPrice > +maxPrice;
-  };
-
-  formatValues = (onMount: boolean) => {
-    const { minPrice, maxPrice } = this.getState();
-
-    this.updateState(
-      {
-        minPrice: minPrice ? parseFloat(minPrice).toFixed(2) : '',
-        maxPrice: maxPrice ? parseFloat(maxPrice).toFixed(2) : '',
-      },
-      onMount || false,
-    );
-  };
-
-  handlePriceChange = (type: string) => (e: Event) => {
-    let value = +e.target.value;
-
-    if (value <= 0 || Number.isNaN(value)) value = '';
-
-    this.updateState(
-      {
-        ...this.getState(),
-        [type]: value.toString(),
-      },
-      false,
-    );
+    const { min, max } = this.state;
+    if (min === '' || max === '') return false;
+    return +min > +max;
   };
 
   getLabel = () => {
-    const { minPrice, maxPrice } = this.getState();
-
+    const { min, max } = this.state;
     const hasError = this.checkError();
     if (hasError) return 'Invalid price range';
-
-    if (!maxPrice && !minPrice) return 'Any';
-
+    if (!max && !min) return 'Any';
     const noTrailingZeros = number => number.toString().replace('.00', '');
-
-    const minLabel = minPrice ? `$${noTrailingZeros(minPrice)}` : 'Any';
-    const maxLabel = maxPrice ? `$${noTrailingZeros(maxPrice)}` : 'Any';
-
+    const minLabel = min ? `$${noTrailingZeros(min)}` : 'Any';
+    const maxLabel = max ? `$${noTrailingZeros(max)}` : 'Any';
     return `${minLabel} to ${maxLabel}`;
   };
 
   render() {
-    const { minPrice, maxPrice } = this.getState();
-
+    const { min, max } = this.state;
     return (
       <FilterContainer title="Price Range" filters={this.getLabel()}>
         <Wrapper>
           <TextInput
-            onBlur={this.formatValues}
             name="minimum"
-            type="number"
+            type="text"
             placeholder="$0.00"
-            value={minPrice}
-            onChange={this.handlePriceChange('minPrice')}
-            hasError={Number.isNaN(Number(minPrice)) || this.checkError()}
-            errorMessage={
-              Number.isNaN(Number(minPrice)) ? 'Must be a Number' : ''
-            }
+            value={min}
+            onChange={this.setPrice('min')}
+            onBlur={() => this.updateState()}
+            hasError={Number.isNaN(Number(min)) || this.checkError()}
+            errorMessage={Number.isNaN(Number(min)) ? 'Must be a Number' : ''}
           />
           <Seperator>-</Seperator>
           <TextInput
-            onBlur={this.formatValues}
             name="maximum"
-            type="number"
+            type="text"
             placeholder="$0.00"
-            value={maxPrice}
-            onChange={this.handlePriceChange('maxPrice')}
-            hasError={Number.isNaN(Number(maxPrice)) || this.checkError()}
-            errorMessage={
-              Number.isNaN(Number(maxPrice)) ? 'Must be a Number' : ''
-            }
+            value={max}
+            onChange={this.setPrice('max')}
+            onBlur={() => this.updateState()}
+            hasError={Number.isNaN(Number(max)) || this.checkError()}
+            errorMessage={Number.isNaN(Number(max)) ? 'Must be a Number' : ''}
           />
         </Wrapper>
         {this.checkError() ? (
