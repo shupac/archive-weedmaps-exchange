@@ -1,23 +1,38 @@
 import styled from 'styled-components';
+import { WmTheme } from '@ghostgroup/ui';
 import theme from 'lib/styles/theme';
 import { rem } from 'polished';
 
+const { border, state, background, icon, text, shadow } = WmTheme.style;
+
+export const ErrorMessage = styled.div`
+  border: 1px solid ${border.error};
+  border-radius: 3px;
+  background-color: ${theme.colors.bg.error};
+  color: ${state.danger};
+  font-size: ${rem(14)};
+  padding: 8px 19px;
+  margin-bottom: 8px;
+  :last-of-type {
+    margin-bottom: 0;
+  }
+`;
+ErrorMessage.displayName = 'ErrorMessage';
+
 export const OrderSummaryWrapper = styled.div`
-  height: 319px;
   width: 352px;
   border-radius: 3px;
-  background-color: ${theme.colors.white};
-  box-shadow: 0 1px 3px 0 ${theme.colors.shadow.light};
-  font-family: ${theme.text.proximaNovaFont};
-  color: ${theme.palette.darkBlue1};
+  background-color: ${background.light};
+  box-shadow: 0 1px 3px 0 ${shadow};
+  color: ${text.normal};
 `;
 
 export const OrderSummaryHeader = styled.div`
   height: 54px;
   width: 100%;
-  border: 1px solid ${theme.palette.lightGrey1};
+  border: 1px solid ${icon.inverted};
   border-radius: 3px 3px 0 0;
-  background-color: ${theme.palette.lightGrey4};
+  background-color: ${background.secondary};
   display: flex;
   align-items: center;
   padding-left: 25px;
@@ -27,6 +42,7 @@ export const OrderSummaryHeader = styled.div`
 
 export const OrderSummaryDetailsWrapper = styled.div`
   margin: 24px;
+  padding-bottom: 16px;
   > button:last-of-type {
     margin-top: 16px;
   }
@@ -52,5 +68,5 @@ export const OrderTotalDetail = styled.div`
   }
   margin: 16px 0;
   padding-top: 16px;
-  border-top: 1px solid ${theme.palette.lightGrey1};
+  border-top: 1px solid ${icon.inverted};
 `;
