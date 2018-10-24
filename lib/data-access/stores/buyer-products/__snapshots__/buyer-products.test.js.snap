@@ -3,73 +3,17 @@
 exports[`BuyerProducts Store can fetch category products and set data 1`] = `
 Array [
   Object {
+    "buyerProducts": Array [],
     "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",
     "name": "Concentrates",
     "position": 1,
-    "products": Array [
-      Object {
-        "id": "4e12ea30-ccd8-455e-841b-1e4b0c7ac799",
-        "maxPrice": 3.2,
-        "minPrice": 2.3,
-        "unit": "gram",
-      },
-      Object {
-        "id": "dac7d79a-3383-498e-a251-84b4d70e5c68",
-        "maxPrice": 3.2,
-        "minPrice": 2.3,
-        "unit": "gram",
-      },
-      Object {
-        "id": "5cd4463d-52bf-4b18-84f4-e3b378fbc989",
-        "maxPrice": 3.2,
-        "minPrice": 2.3,
-        "unit": "gram",
-      },
-      Object {
-        "id": "7e0fb515-f87b-4d07-82fb-d2168aa859dc",
-        "maxPrice": 3.2,
-        "minPrice": 2.3,
-        "unit": "gram",
-      },
-      Object {
-        "id": "0e2894ce-c638-4e53-87a8-dc8ea7db0c06",
-        "maxPrice": 3.2,
-        "minPrice": 2.3,
-        "unit": "gram",
-      },
-      Object {
-        "id": "9eee5973-4f82-4759-904d-9617378f0868",
-        "maxPrice": 3.2,
-        "minPrice": 2.3,
-        "unit": "gram",
-      },
-    ],
     "slug": "concentrates",
   },
   Object {
+    "buyerProducts": Array [],
     "id": "e306a27d-5076-4074-ab7a-21f6485ad4bb",
     "name": "Edibles",
     "position": 3,
-    "products": Array [
-      Object {
-        "id": "05f56e24-5842-4d0a-a4f0-ad18a41e2f0b",
-        "maxPrice": 3.2,
-        "minPrice": 2.3,
-        "unit": "gram",
-      },
-      Object {
-        "id": "5265e476-1324-4cf2-825b-4d7902ea7f41",
-        "maxPrice": 3.2,
-        "minPrice": 2.3,
-        "unit": "gram",
-      },
-      Object {
-        "id": "2f3ac24c-6528-4fef-94e8-ec43820c2c76",
-        "maxPrice": 3.2,
-        "minPrice": 2.3,
-        "unit": "gram",
-      },
-    ],
     "slug": "edibles",
   },
 ]
@@ -237,16 +181,14 @@ Array [
 exports[`BuyerProducts Store can return the category products view 1`] = `
 Array [
   Object {
-    "avatarImageUrl": "",
-    "iconImageUrl": "",
     "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",
     "name": "Concentrates",
+    "products": Array [],
   },
   Object {
-    "avatarImageUrl": "",
-    "iconImageUrl": "",
     "id": "e306a27d-5076-4074-ab7a-21f6485ad4bb",
     "name": "Edibles",
+    "products": Array [],
   },
 ]
 `;

@@ -22,13 +22,23 @@ type Props = {
   store: StoreType,
 };
 
+type State = {
+  mounted: boolean,
+};
+
 const DEFAULT_PAGE_SIZE = 96;
 
-class Catalog extends Component<Props> {
+class Catalog extends Component<Props, State> {
   prevRoute = null; // needed to detect route change
+
+  state = {
+    mounted: false,
+  };
 
   componentDidMount() {
     this.fetchFiltersData();
+    // eslint-disable-next-line
+    this.setState({ mounted: true });
   }
 
   componentDidUpdate() {
@@ -36,6 +46,12 @@ class Catalog extends Component<Props> {
       this.searchProducts();
       this.prevRoute = this.props.router.asPath;
     }
+  }
+
+  componentWillUnmount() {
+    const { buyerProducts } = this.props.store;
+
+    buyerProducts.setSearchResultsData([]);
   }
 
   fetchFiltersData = () => {
@@ -125,12 +141,16 @@ class Catalog extends Component<Props> {
     );
   }
 
+  gotoProduct = (productId: string) =>
+    Router.push(`/buyer/marketplace/catalog/product/${productId}`);
+
   renderProducts() {
     const { router, store } = this.props;
+    const { mounted } = this.state;
 
     // no search or filter, show carousels
     if (router.asPath === '/buyer/marketplace/catalog')
-      return <CategoryCarousels />;
+      return <CategoryCarousels gotoProduct={this.gotoProduct} />;
 
     // show search results
     const {
@@ -139,7 +159,7 @@ class Catalog extends Component<Props> {
       searchResultsTotalItems,
     } = store.buyerProducts;
 
-    if (searchResultsLoading) {
+    if (!mounted || searchResultsLoading) {
       return (
         <NoResults>
           <Icons.Spinner fill={theme.style.icon.dark} />
@@ -159,9 +179,6 @@ class Catalog extends Component<Props> {
       );
     }
 
-    const gotoProduct = productId =>
-      Router.push(`/buyer/marketplace/catalog/product/${productId}`);
-
     const page = router.query.page || 1;
     const pageSize = router.query.page_size || DEFAULT_PAGE_SIZE;
 
@@ -178,7 +195,7 @@ class Catalog extends Component<Props> {
               key={product.id}
               {...product}
               width="100%"
-              onClick={() => gotoProduct(product.id)}
+              onClick={() => this.gotoProduct(product.id)}
             />
           ))}
         </Products>

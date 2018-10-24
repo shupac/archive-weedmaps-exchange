@@ -4,8 +4,10 @@ import { inject, observer } from 'mobx-react';
 import CatalogCarousel from 'components/molecules/carousel';
 import ProductCard from 'components/molecules/product-card';
 import { type CategoryProductsType } from 'models/category-products';
-import { mockProduct } from 'mocks/search-results';
 import styled from 'styled-components';
+import { Icons } from '@ghostgroup/ui';
+import theme from 'lib/styles/theme';
+import { NoResults } from './styles';
 
 const CatalogWrapper = styled.div``;
 
@@ -16,26 +18,23 @@ class CategoryCarousels extends Component<CategoryProductsType> {
     buyerProducts.getCategoryProducts('64d05017-4339-4cda-9e57-0da061bf6b00');
   }
 
-  getProductCards = () =>
-    [1, 2, 3, 4, 5, 6].map(item => (
-      <ProductCard
-        key={item}
-        id={mockProduct.id}
-        brand={mockProduct.brand}
-        name={mockProduct.name}
-        priceUnit={mockProduct.unit}
-        minPrice={mockProduct.minPrice}
-        maxPrice={mockProduct.maxPrice}
-        imageUrl={mockProduct.imageUrl}
-        category={mockProduct.category}
-        outOfStock={mockProduct.inStock}
-      />
-    ));
+  componentWillUnmount() {
+    const { buyerProducts } = this.props.store;
+
+    buyerProducts.setCategoryProductsData([]);
+  }
 
   render() {
-    const { store } = this.props;
-    const { categoryProducts } = store.buyerProducts;
-    // TODO: WMX-453 Remove test array and replace with categoryProducts.products when available
+    const { store, gotoProduct } = this.props;
+    const { categoryProductsLoading, categoryProducts } = store.buyerProducts;
+
+    if (categoryProductsLoading) {
+      return (
+        <NoResults>
+          <Icons.Spinner fill={theme.style.icon.dark} />
+        </NoResults>
+      );
+    }
 
     return (
       <CatalogWrapper>
@@ -45,7 +44,13 @@ class CategoryCarousels extends Component<CategoryProductsType> {
             title={category.name}
             cardMargin={16}
           >
-            {this.getProductCards()}
+            {category.products.map(product => (
+              <ProductCard
+                key={product.id}
+                {...product}
+                onClick={() => gotoProduct(product.id)}
+              />
+            ))}
           </CatalogCarousel>
         ))}
       </CatalogWrapper>

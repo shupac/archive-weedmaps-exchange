@@ -22,6 +22,7 @@ const mockStore = {
     searchResults: [mockProduct],
     searchResultsLoading: false,
     searchCatalog: jest.fn(),
+    setSearchResultsData: jest.fn(),
   },
 };
 
@@ -37,7 +38,7 @@ function setup({ store, query, asPath }) {
   const mockRouter = { query, asPath };
 
   const component = <Catalog store={store} router={mockRouter} />;
-  const wrapper = shallow(component);
+  const wrapper = shallow(component, { disableLifecycleMethods: true });
 
   return wrapper;
 }
@@ -57,7 +58,9 @@ describe('Marketplace Catalog', () => {
   });
 
   it('should fetch categories and brands filter data', () => {
-    setup({ store: mockStore });
+    const wrapper = setup({ store: mockStore });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
     expect(mockStore.buyerSettings.getDepartments).toHaveBeenCalled();
     expect(mockStore.buyerSettings.getBrands).toHaveBeenCalled();
   });
@@ -160,6 +163,8 @@ describe('Marketplace Catalog', () => {
 
   it('should render the products grid', () => {
     const wrapper = setup({ store: mockStore });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
     expect(wrapper.find(CategoryCarousels).exists()).toEqual(false);
     expect(wrapper.find(Products).exists()).toEqual(true);
     expect(wrapper.find(NoResults).exists()).toEqual(false);
@@ -169,10 +174,13 @@ describe('Marketplace Catalog', () => {
     const thisStore = {
       ...mockStore,
       buyerProducts: {
+        ...mockStore.buyerProducts,
         searchResults: [],
       },
     };
     const wrapper = setup({ store: thisStore });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
     expect(wrapper.find(CategoryCarousels).exists()).toEqual(false);
     expect(wrapper.find(Products).exists()).toEqual(false);
     expect(
@@ -186,6 +194,9 @@ describe('Marketplace Catalog', () => {
 
   it('should go to the product detail page when card is clicked', () => {
     const wrapper = setup({ store: mockStore });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
+
     const push = jest.spyOn(Router, 'push').mockReturnValue();
     wrapper.find(ProductCard).simulate('click');
     expect(push).toHaveBeenCalledWith(
@@ -198,10 +209,16 @@ describe('Marketplace Catalog', () => {
     const thisStore = {
       ...mockStore,
       buyerProducts: {
+        ...mockStore.buyerProducts,
         searchResultsLoading: true,
       },
     };
     const wrapper = setup({ store: thisStore });
+    const instance = wrapper.instance();
+    expect(wrapper.find(Icons.Spinner).exists()).toEqual(true);
+
+    instance.componentDidMount();
+
     expect(wrapper.find(CategoryCarousels).exists()).toEqual(false);
     expect(wrapper.find(Products).exists()).toEqual(false);
     expect(wrapper.find(Icons.Spinner).exists()).toEqual(true);
@@ -211,6 +228,7 @@ describe('Marketplace Catalog', () => {
     const thisStore = {
       ...mockStore,
       buyerProducts: {
+        ...mockStore.buyerProducts,
         searchResults: [1, 2, 3].map(() => mockProduct),
         searchResultsTotalItems: 10,
       },
@@ -220,6 +238,8 @@ describe('Marketplace Catalog', () => {
       page_size: 3,
     };
     const wrapper = setup({ store: thisStore, query: thisQuery });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
     expect(wrapper.find(PagingControls).exists()).toEqual(true);
   });
 
@@ -227,6 +247,7 @@ describe('Marketplace Catalog', () => {
     const thisStore = {
       ...mockStore,
       buyerProducts: {
+        ...mockStore.buyerProducts,
         searchResults: [1, 2, 3].map(() => mockProduct),
         searchResultsTotalItems: 3,
       },
@@ -236,6 +257,8 @@ describe('Marketplace Catalog', () => {
       page_size: 10,
     };
     const wrapper = setup({ store: thisStore, query: thisQuery });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
     expect(wrapper.find(PagingControls).exists()).toEqual(false);
   });
 
@@ -243,6 +266,7 @@ describe('Marketplace Catalog', () => {
     const thisStore = {
       ...mockStore,
       buyerProducts: {
+        ...mockStore.buyerProducts,
         searchResults: [1, 2, 3].map(() => mockProduct),
         searchResultsTotalItems: 3,
       },
@@ -252,6 +276,9 @@ describe('Marketplace Catalog', () => {
       page_size: 10,
     };
     const wrapper = setup({ store: thisStore, query: thisQuery });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
+
     expect(
       wrapper
         .find(Pagination)
@@ -264,6 +291,7 @@ describe('Marketplace Catalog', () => {
     const thisStore = {
       ...mockStore,
       buyerProducts: {
+        ...mockStore.buyerProducts,
         searchResults: [1].map(() => mockProduct),
         searchResultsTotalItems: 9,
       },
@@ -273,11 +301,23 @@ describe('Marketplace Catalog', () => {
       page_size: 4,
     };
     const wrapper = setup({ store: thisStore, query: thisQuery });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
+
     expect(
       wrapper
         .find(Pagination)
         .dive()
         .text(),
     ).toEqual('Showing 9 of 9 Products<PagingControls />');
+  });
+
+  it('should reset store on unmount', () => {
+    const wrapper = setup({ store: mockStore });
+    const instance = wrapper.instance();
+    instance.componentWillUnmount();
+
+    const { setSearchResultsData } = mockStore.buyerProducts;
+    expect(setSearchResultsData).toHaveBeenCalledWith([]);
   });
 });
