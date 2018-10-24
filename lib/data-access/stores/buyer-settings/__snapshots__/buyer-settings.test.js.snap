@@ -159,7 +159,94 @@ Array [
 ]
 `;
 
-exports[`BuyerSettings Store can fetch data from locations endpoint 1`] = `Array []`;
+exports[`BuyerSettings Store can fetch data from locations endpoint 1`] = `
+Array [
+  Object {
+    "active": true,
+    "address": Object {
+      "city": "Irvine",
+      "country": "us",
+      "id": "b393b3e0-0814-4352-aa63-95a4d07fe1af",
+      "latitude": 33.6618199,
+      "longitude": -117.7597545,
+      "postalCode": "92618",
+      "streetAddress": "55 Discovery",
+      "territory": "CA",
+    },
+    "contactName": "Andre Smithh",
+    "deliveryInstructions": "TEST.",
+    "email": "asciametta@aol.com",
+    "id": "6039ad85-7be7-45ce-a5f9-3e802eeba1e5",
+    "licenses": Array [
+      Object {
+        "id": "e5ae232c-9ae7-4e81-b6f6-67bd5562706f",
+        "licenseType": "medical",
+        "number": "THX1138",
+      },
+    ],
+    "name": "Andrew's Cryb",
+    "phoneNumber": "(303) 555-5555",
+    "source": "weedmaps",
+  },
+  Object {
+    "active": false,
+    "address": Object {
+      "city": "Irvine",
+      "country": "us",
+      "id": "3cdf8df1-4a9d-43cc-9aac-2548eb08dc58",
+      "latitude": 33.66517839999999,
+      "longitude": -117.756439,
+      "postalCode": "92618",
+      "streetAddress": "44 Discovery",
+      "territory": "CA",
+    },
+    "contactName": "Joe Smith",
+    "deliveryInstructions": "Knock four times.",
+    "email": "joesmith@aol.com",
+    "id": "7f98075f-a924-4606-a817-b6f99a61f289",
+    "licenses": Array [
+      Object {
+        "id": "6a102cdd-e21b-46ef-b4e7-55cfcb6e3bcb",
+        "licenseType": "medical",
+        "number": "THX1138",
+      },
+    ],
+    "name": "Test Location",
+    "phoneNumber": "(303) 555-5555",
+    "source": "exchange",
+  },
+]
+`;
+
+exports[`BuyerSettings Store can fetch data from locations endpoint 2`] = `
+Object {
+  "active": true,
+  "address": Object {
+    "city": "Irvine",
+    "country": "us",
+    "id": "b393b3e0-0814-4352-aa63-95a4d07fe1af",
+    "latitude": 33.6618199,
+    "longitude": -117.7597545,
+    "postalCode": "92618",
+    "streetAddress": "55 Discovery",
+    "territory": "CA",
+  },
+  "contactName": "Andre Smithh",
+  "deliveryInstructions": "TEST.",
+  "email": "asciametta@aol.com",
+  "id": "6039ad85-7be7-45ce-a5f9-3e802eeba1e5",
+  "licenses": Array [
+    Object {
+      "id": "e5ae232c-9ae7-4e81-b6f6-67bd5562706f",
+      "licenseType": "medical",
+      "number": "THX1138",
+    },
+  ],
+  "name": "Andrew's Cryb",
+  "phoneNumber": "(303) 555-5555",
+  "source": "weedmaps",
+}
+`;
 
 exports[`BuyerSettings Store should return availabilities 1`] = `
 Array [

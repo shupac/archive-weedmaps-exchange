@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import { reaction } from 'mobx';
 import { type StoreType } from 'lib/types/store';
 import { type LocationType } from 'lib/data-access/models/location';
 import { MapPin } from 'components/atoms/icons';
@@ -11,9 +12,20 @@ type Props = {
 };
 
 export class LocationSelector extends Component<Props> {
-  componentDidMount() {
-    const { buyerSettings } = this.props.store;
-    buyerSettings.getLocations();
+  dispose = reaction(
+    () => {
+      const { buyerSettings } = this.props.store;
+      return buyerSettings.activeLocation;
+    },
+    location => {
+      const { buyerSettings } = this.props.store;
+      // Observe change to active location and patch the back end
+      buyerSettings.syncActiveLocation(location.id);
+    },
+  );
+
+  componentWillUnmount() {
+    this.dispose();
   }
 
   /**

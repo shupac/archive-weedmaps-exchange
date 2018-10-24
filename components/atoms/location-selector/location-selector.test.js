@@ -7,7 +7,7 @@ import { LocationSelector } from './';
 function setup() {
   const mockStore = {
     buyerSettings: BuyerSettings.create(
-      {},
+      { locations: mockLocations },
       { client: { fetch: jest.fn().mockReturnValue(mockLocations) } },
     ),
   };
@@ -17,18 +17,11 @@ function setup() {
 }
 
 describe('Location Selector', () => {
-  describe('when mounts', () => {
-    it('should fetch locations from the store  ', () => {
-      const { wrapper, mockStore } = setup();
-      const mockGetLocations = jest.spyOn(
-        mockStore.buyerSettings,
-        'getLocations',
-      );
-      const instance = wrapper.instance();
-      instance.componentDidMount();
-      // Check to see that the action to fetch locations is fired
-      expect(mockGetLocations).toHaveBeenCalled();
-    });
+  it('disposes of the reaction when unmounting', () => {
+    const { wrapper } = setup();
+    const dispose = jest.spyOn(wrapper.instance(), 'dispose');
+    wrapper.unmount();
+    expect(dispose).toHaveBeenCalled();
   });
 
   it('should handle a selection change', () => {
@@ -44,5 +37,16 @@ describe('Location Selector', () => {
     const instance = wrapper.instance();
     instance.handleSelectChange(selection);
     expect(mockUpdateActiveLocation).toHaveBeenCalledWith(selection.value);
+  });
+
+  it('will sync data with server when active location changes ', () => {
+    const { mockStore } = setup();
+    const mocksyncActiveLocation = jest
+      .spyOn(mockStore.buyerSettings, 'syncActiveLocation')
+      .mockReturnValue();
+    mockStore.buyerSettings.setActiveLocation(
+      '7f98075f-a924-4606-a817-b6f99a61f289',
+    );
+    expect(mocksyncActiveLocation).toHaveBeenCalled();
   });
 });
