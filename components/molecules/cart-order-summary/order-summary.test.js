@@ -42,6 +42,6 @@ describe('Order Summary', () => {
         .find('span')
         .text(),
     ).toEqual('$10.00');
-    expect(component.find('ErrorMessage').length).toEqual(3);
+    expect(component.find('ErrorMessage').length).toEqual(4);
   });
 });
