@@ -152,9 +152,26 @@ describe('Marketplace Catalog', () => {
   });
 
   it('should render the category carousels', () => {
+    const thisQuery = {
+      tab: 'catalog',
+    };
     const wrapper = setup({
       store: mockStore,
-      asPath: '/buyer/marketplace/catalog',
+      query: thisQuery,
+    });
+    expect(wrapper.find(CategoryCarousels).exists()).toEqual(true);
+    expect(wrapper.find(Products).exists()).toEqual(false);
+    expect(wrapper.find(NoResults).exists()).toEqual(false);
+  });
+
+  it('should render the category carousels with extra query params', () => {
+    const thisQuery = {
+      tab: 'catalog',
+      foo: 'bar',
+    };
+    const wrapper = setup({
+      store: mockStore,
+      query: thisQuery,
     });
     expect(wrapper.find(CategoryCarousels).exists()).toEqual(true);
     expect(wrapper.find(Products).exists()).toEqual(false);
@@ -234,6 +251,7 @@ describe('Marketplace Catalog', () => {
       },
     };
     const thisQuery = {
+      search: 'e',
       page: 2,
       page_size: 3,
     };
@@ -272,6 +290,7 @@ describe('Marketplace Catalog', () => {
       },
     };
     const thisQuery = {
+      search: 'e',
       page: 1,
       page_size: 10,
     };
@@ -297,6 +316,7 @@ describe('Marketplace Catalog', () => {
       },
     };
     const thisQuery = {
+      search: 'e',
       page: 3,
       page_size: 4,
     };

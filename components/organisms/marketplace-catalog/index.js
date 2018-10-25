@@ -26,6 +26,15 @@ type State = {
   mounted: boolean,
 };
 
+const queryParams = [
+  'categories',
+  'brands',
+  'availability',
+  'minPrice',
+  'maxPrice',
+  'search',
+];
+
 const DEFAULT_PAGE_SIZE = 96;
 
 class Catalog extends Component<Props, State> {
@@ -75,9 +84,9 @@ class Catalog extends Component<Props, State> {
   clearAll = () => {
     const { router } = this.props;
     const { search } = router.query;
-    const queryParams = { tab: 'catalog', search };
-    if (!search) delete queryParams.search;
-    Router.pushRoute('marketplace', queryParams);
+    const query = { tab: 'catalog', search };
+    if (!search) delete query.search;
+    Router.pushRoute('marketplace', query);
   };
 
   getCategories = () => {
@@ -149,8 +158,10 @@ class Catalog extends Component<Props, State> {
     const { mounted } = this.state;
 
     // no search or filter, show carousels
-    if (router.asPath === '/buyer/marketplace/catalog')
-      return <CategoryCarousels gotoProduct={this.gotoProduct} />;
+    const hasQuery = Object.keys(router.query).filter(param =>
+      queryParams.includes(param),
+    ).length;
+    if (!hasQuery) return <CategoryCarousels gotoProduct={this.gotoProduct} />;
 
     // show search results
     const {

@@ -128,6 +128,67 @@ describe('SearchBar', () => {
     });
   });
 
+  it('should include searchable query params', () => {
+    const thisProps = {
+      ...props,
+      router: {
+        ...props.router,
+        query: {
+          search: '',
+          categories: 'indica',
+          brands: 'brand1/brand2',
+          availability: 'inStock',
+          minPrice: '2.00',
+          maxPrice: '5.00',
+        },
+      },
+    };
+    const wrapper = shallow(<SearchBar {...thisProps} />, {
+      disableLifecycleMethods: true,
+    });
+
+    const instance = wrapper.instance();
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    instance.state = {
+      searchValue: 'orange',
+      categorySelected: {
+        value: 'concentrate',
+        text: 'Concentrate',
+      },
+    };
+    instance.handleSearch();
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      categories: 'concentrate',
+      search: 'orange',
+      brands: 'brand1/brand2',
+      availability: 'inStock',
+      minPrice: '2.00',
+      maxPrice: '5.00',
+    });
+  });
+
+  it('should exclude non searchable query params', () => {
+    const thisProps = {
+      ...props,
+      router: {
+        ...props.router,
+        asPath: 'buyer/marketplace/catalog?foo=bar',
+      },
+    };
+    const wrapper = shallow(<SearchBar {...thisProps} />, {
+      disableLifecycleMethods: true,
+    });
+
+    const instance = wrapper.instance();
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    instance.handleSearch();
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      categories: 'indica',
+      tab: 'catalog',
+    });
+  });
+
   it('should handle input and category change', () => {
     const instance = component.instance();
     instance.state = {

@@ -69,6 +69,20 @@ describe('Price Range Filter', () => {
     pushRoute.mockRestore();
   });
 
+  it('should keep the page query param', () => {
+    const wrapper = setup({ minPrice: '2', maxPrice: '5', page: 2 });
+    const instance = wrapper.instance();
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    instance.setPrice('min')({ target: { value: '' } });
+    instance.setPrice('max')({ target: { value: '' } });
+    instance.updateState();
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      page: 2,
+    });
+    pushRoute.mockRestore();
+  });
+
   it('should format prices to 2 decimal places', () => {
     const wrapper = setup({ minPrice: '2', maxPrice: '5.1' });
     const instance = wrapper.instance();
@@ -206,6 +220,31 @@ describe('Price Range Filter', () => {
       minPrice: '5.00',
       maxPrice: '20.00',
     });
+    pushRoute.mockRestore();
+  });
+
+  it('should update state on Enter key', () => {
+    const wrapper = setup({});
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    const first = wrapper.find(TextInput).first();
+    const last = wrapper.find(TextInput).last();
+    first.simulate('focus');
+    first.simulate('change', { target: { value: '5' } });
+    expect(pushRoute).not.toHaveBeenCalled();
+    first.simulate('keypress', { key: 'Enter' });
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      minPrice: '5.00',
+    });
+    last.simulate('focus');
+    last.simulate('change', { target: { value: '20' } });
+    last.simulate('keypress', { key: 'Enter' });
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      minPrice: '5.00',
+      maxPrice: '20.00',
+    });
+    pushRoute.mockRestore();
   });
 
   it('should not display an error when min price is not set', () => {
@@ -257,5 +296,34 @@ describe('Price Range Filter', () => {
     const wrapper = setup({ minPrice: '2', maxPrice: '1' });
     const label = wrapper.find(FilterContainer).props().filters;
     expect(label).toEqual('Invalid price range');
+  });
+
+  it('should update internal state when props change', () => {
+    const query = { minPrice: '2', maxPrice: '5' };
+    const wrapper = setup(query);
+    const instance = wrapper.instance();
+    const setState = jest.spyOn(instance, 'setState').mockReturnValue();
+    const nextProps = { router: { query: {} } };
+    const thisProps = { router: { query } };
+    wrapper.setProps(nextProps);
+    instance.componentDidUpdate(thisProps);
+    expect(setState).toHaveBeenCalledWith({
+      min: '',
+      max: '',
+    });
+    setState.mockRestore();
+  });
+
+  it('should not update internal state when props are the same', () => {
+    const query = { minPrice: '2', maxPrice: '5' };
+    const wrapper = setup(query);
+    const instance = wrapper.instance();
+    const setState = jest.spyOn(instance, 'setState').mockReturnValue();
+    const nextProps = { router: { query } };
+    const thisProps = { router: { query } };
+    wrapper.setProps(nextProps);
+    instance.componentDidUpdate(thisProps);
+    expect(setState).not.toHaveBeenCalled();
+    setState.mockRestore();
   });
 });

@@ -38,6 +38,15 @@ const allOption = {
   text: 'All',
 };
 
+const queryParams = [
+  'categories',
+  'brands',
+  'availability',
+  'minPrice',
+  'maxPrice',
+  'search',
+];
+
 class SearchBar extends Component<Props, State> {
   static displayName = 'SearchBar';
 
@@ -101,9 +110,13 @@ class SearchBar extends Component<Props, State> {
 
   handleSearch = () => {
     const { showCategory, router } = this.props;
-    const { query: existingQuery } = router;
+    const { query } = router;
 
     const { searchValue, categorySelected } = this.state;
+
+    const existingQuery = Object.keys(query)
+      .filter(param => queryParams.includes(param))
+      .reduce((acc, key) => ({ ...acc, [key]: query[key] }), {});
 
     const nextParams = {
       ...existingQuery,
