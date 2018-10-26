@@ -11,7 +11,6 @@ import ProductPhotos from 'components/molecules/product-photos';
 import LicenseList from 'components/molecules/license-list';
 import ProductVariants from 'components/molecules/product-variants';
 import Breadcrumbs from 'components/molecules/breadcrumbs';
-import ALERT_STATUS from 'components/molecules/toast-manager/constants';
 import { GridLayout, MainPanel } from './styles';
 
 type Props = {
@@ -21,11 +20,6 @@ type Props = {
     buyerCart: BuyerCartType,
   },
   productId: string,
-};
-
-type QuantityTotals = {
-  quantityTotal: number,
-  dollarTotal: number,
 };
 
 export class ProductDetails extends Component<Props> {
@@ -59,20 +53,8 @@ export class ProductDetails extends Component<Props> {
     return [baseCrumb, ...crumbTrail];
   };
 
-  handleCartSuccess = ({ quantityTotal, dollarTotal }: QuantityTotals) => {
-    const { uiStore, buyerProducts } = this.props.store;
-
-    uiStore.notifyToast({
-      title: `You added ${buyerProducts.productDetails.name} `,
-      body: `${quantityTotal} units | ${dollarTotal}`,
-      link: { label: 'VIEW CART', route: '/buyer/marketplace/catalog' },
-      status: ALERT_STATUS.SUCCESS,
-      autoDismiss: 4000,
-    });
-  };
-
   render() {
-    const { buyerProducts, buyerCart } = this.props.store;
+    const { buyerProducts } = this.props.store;
     return (
       <Fragment>
         <SearchBar />
@@ -96,9 +78,7 @@ export class ProductDetails extends Component<Props> {
             <ProductDescription productDetail={buyerProducts.productDetails} />
             <ProductVariants
               variants={buyerProducts.productVariants}
-              handleCartSuccess={this.handleCartSuccess}
-              mockAddToCart={buyerCart.mockAddToCart}
-              // @TODO: Replace with working action
+              productName={buyerProducts.productDetails.name}
             />
           </MainPanel>
         </GridLayout>

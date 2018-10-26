@@ -51,6 +51,7 @@ export const TableRow = styled.div`
   font-size: ${rem(14)};
   color: ${text.normal};
 `;
+TableRow.displayName = 'TableRow';
 
 export const RowItem = styled.p`
   margin: 0;

@@ -1,12 +1,14 @@
 // @flow
 import React, { Component } from 'react';
+import { inject } from 'mobx-react';
+import { type CartErrorType } from 'lib/data-access/models/cart';
 import { Formik, Form } from 'formik';
 import type { FormikActions } from 'formik';
 import { formatDollars } from 'lib/common/strings';
 import { Cart } from 'components/atoms/icons/cart';
+import { type StoreType } from 'lib/types/store';
 import { WmTheme, Icons } from '@ghostgroup/ui';
 import type { VariantType } from 'lib/data-access/models/variant';
-
 import {
   TableHead,
   TableWrap,
@@ -15,6 +17,7 @@ import {
   ActionButton,
 } from './styles';
 import VariantRow from './variant-row';
+import ALERT_STATUS from '../toast-manager/constants';
 
 type FormValueType = {
   [key: string]: number | '',
@@ -22,8 +25,7 @@ type FormValueType = {
 
 type Props = {
   variants: VariantType[],
-  handleCartSuccess: ({ quantityTotal: number, dollarTotal: number }) => void,
-  mockAddToCart: () => void,
+  store: StoreType,
 };
 
 const tableHead = [
@@ -35,6 +37,8 @@ const tableHead = [
 ];
 
 export class ProductVariants extends Component<Props> {
+  static displayName = 'ProductVariants';
+
   calculateTotal = (formVals: FormValueType) => {
     const { variants } = this.props;
     const total = variants.reduce((acc, item) => {
@@ -81,22 +85,46 @@ export class ProductVariants extends Component<Props> {
     return errors;
   };
 
+  transformFormValues = (values: FormValueType) => {
+    const entries = Object.entries(values);
+    const stripped = entries.filter(item => typeof item[1] === 'number');
+    return stripped.map(item => ({
+      variant_id: item[0],
+      quantity: item[1],
+    }));
+  };
+
   handleSubmit = async (
     values: FormValueType,
     { setSubmitting }: FormikActions,
   ) => {
-    const { handleCartSuccess, mockAddToCart } = this.props;
-    await mockAddToCart();
+    const { buyerCart } = this.props.store;
+    const formatted = this.transformFormValues(values);
+    // $FlowFixMe
+    const { cartErrors } = await buyerCart.addCartItems(formatted);
+    this.notifyCartAddSuccess(cartErrors);
     setSubmitting(false);
-    const toastContent = {
-      quantityTotal: this.calculateQuantity(values),
-      dollarTotal: this.calculateTotal(values),
-    };
-    handleCartSuccess(toastContent);
   };
+
+  notifyCartAddSuccess(errors: CartErrorType[]) {
+    const { uiStore, buyerProducts } = this.props.store;
+
+    const alertContent = {
+      title: `You added ${buyerProducts.productDetails.name} to you cart`,
+      link: { label: 'VIEW CART', route: '/buyer/cart' },
+      status: ALERT_STATUS.SUCCESS,
+      autoDismiss: 4000,
+    };
+    if (errors.length > 0) {
+      alertContent.title = `There were some issues with your request. Please see below`;
+      alertContent.status = ALERT_STATUS.ERROR;
+    }
+    uiStore.notifyToast(alertContent);
+  }
 
   render() {
     const { variants } = this.props;
+
     return (
       <TableWrap>
         <TableHead>
@@ -169,4 +197,4 @@ export class ProductVariants extends Component<Props> {
   }
 }
 
-export default ProductVariants;
+export default inject('store')(ProductVariants);

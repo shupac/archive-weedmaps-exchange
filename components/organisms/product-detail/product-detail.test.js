@@ -18,6 +18,7 @@ const props = {
     buyerCart: mockCartStore,
   },
   productId: '7e0fb515-f87b-4d07-82fb-d2168aa859dc',
+  variants: {},
 };
 
 describe('Product Detail Page', () => {
@@ -75,11 +76,6 @@ describe('Product Detail Page', () => {
     const tree = shallow(<ProductDetails {...props} />);
     const description = tree.find('ProductDescription');
     expect(description.exists()).toEqual(true);
-  });
-  it('should render product variants', () => {
-    const tree = shallow(<ProductDetails {...props} />);
-    const productVariants = tree.find('ProductVariants');
-    expect(productVariants.exists()).toEqual(true);
   });
   it('should render brand licenses', () => {
     const tree = shallow(<ProductDetails {...props} />);

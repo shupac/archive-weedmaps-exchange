@@ -18,6 +18,7 @@ export const getStatusBorder = status => {
 
 export const NotificationCard = styled(NotificationCardBase)`
   border-left: ${({ status }) => getStatusBorder(status)};
+  padding-right: 30px;
 `;
 NotificationCard.displayName = 'NotificationCard';
 
@@ -32,5 +33,6 @@ NotificationLink.displayName = 'NotificationLink';
 export const NotificationList = styled.div`
   ul {
     z-index: 100;
+    min-height: 100px;
   }
 `;
