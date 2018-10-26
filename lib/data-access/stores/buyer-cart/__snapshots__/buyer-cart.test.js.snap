@@ -4,6 +4,9 @@ exports[`Buyer Cart Store can fetch buyer from cart endpoint and set data 1`] = 
 Object {
   "brands": Array [
     Object {
+      "avatarImage": Object {
+        "id": "1234",
+      },
       "deliveryEta": Object {
         "etaMax": 3,
         "etaMaxUnit": "day",
