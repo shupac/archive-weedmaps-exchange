@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ProductDescription from './';
+import ProductDescription, { getPrice } from './';
 import { Brand, Description, PricingTitle, Title } from './styles';
 
 const product = {
@@ -13,6 +13,18 @@ const product = {
   description: 'hello',
   category: 'Indica',
 };
+
+describe('Get Price', () => {
+  it('should return a price range', () => {
+    const price = getPrice(150, 300);
+    expect(price).toEqual('$150 - $300');
+  });
+
+  it('should return a single price', () => {
+    const price = getPrice(150, 150);
+    expect(price).toEqual('$150');
+  });
+});
 
 describe('ProductDescription', () => {
   it('should render the product description', () => {
@@ -42,6 +54,7 @@ describe('ProductDescription', () => {
         .text(),
     ).toEqual('hello');
   });
+
   it('should render with noproduct description', () => {
     const component = shallow(<ProductDescription {...product} />);
     expect(

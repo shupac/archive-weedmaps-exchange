@@ -13,7 +13,7 @@ import {
   Product,
   OutOfStock,
 } from './styles';
-import ProductCard from './';
+import ProductCard, { getPrice } from './';
 
 const product = {
   id: '123',
@@ -26,6 +26,18 @@ const product = {
     'https://drh2acu5z204m.cloudfront.net/items/2V0X0y2a1i101k2N1Z32/Image%202018-07-25%20at%201.48.53%20PM.png?X-CloudApp-Visitor-Id=3106914&v=f0996046',
   category: 'Indica',
 };
+
+describe('Get Price', () => {
+  it('should return a price range', () => {
+    const price = getPrice(150, 300);
+    expect(price).toEqual('$150-$300');
+  });
+
+  it('should return a single price', () => {
+    const price = getPrice(150, 150);
+    expect(price).toEqual('$150');
+  });
+});
 
 describe('Product Card', () => {
   it('should render the product card', () => {

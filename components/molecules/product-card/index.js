@@ -21,12 +21,17 @@ type Props = {
   brand: string,
   name: string,
   priceUnit: string,
-  minPrice?: number,
-  maxPrice?: number,
+  minPrice: number,
+  maxPrice: number,
   category: string,
   outOfStock?: boolean,
   width?: string,
   onClick?: () => void,
+};
+
+export const getPrice = (minPrice: number, maxPrice: number) => {
+  if (minPrice === maxPrice) return `$${minPrice}`;
+  return `$${minPrice}-$${maxPrice}`;
 };
 
 const ProductCard = ({
@@ -59,11 +64,7 @@ const ProductCard = ({
         <PriceUnit>price / {priceUnit}</PriceUnit>
 
         <Row>
-          <Price>
-            ${minPrice}
-            -$
-            {maxPrice}
-          </Price>
+          <Price>{getPrice(minPrice, maxPrice)}</Price>
           <Category>{category}</Category>
         </Row>
       </Info>
