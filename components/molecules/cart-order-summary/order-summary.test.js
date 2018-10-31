@@ -16,19 +16,19 @@ describe('Order Summary', () => {
         .find('[data-test-id="subtotal"]')
         .find('span')
         .text(),
-    ).toEqual('$93,890.00');
+    ).toEqual('$108,000.00');
     expect(
       component
         .find('[data-test-id="shipping-fee"]')
         .find('span')
         .text(),
-    ).toEqual('--');
+    ).toEqual('$100.00');
     expect(
       component
         .find('[data-test-id="order-total"]')
         .find('span')
         .text(),
-    ).toEqual('$93,890.00');
+    ).toEqual('$108,100.00');
   });
   it('should render error message', () => {
     props = {
