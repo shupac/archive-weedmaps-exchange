@@ -20,6 +20,7 @@ export const Products = styled.div`
 
 export const NoResults = styled.div`
   width: 100%;
+  padding-top: 80px;
   text-align: center;
 `;
 

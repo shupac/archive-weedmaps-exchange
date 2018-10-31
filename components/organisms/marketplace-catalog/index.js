@@ -181,6 +181,10 @@ class Catalog extends Component<Props, State> {
     if (!searchResults.length) {
       return (
         <NoResults>
+          <img
+            src="/static/images/no_results_found.png"
+            alt="No Results Found"
+          />
           <h2>No Results Found</h2>
           <p>
             Try adjusting your search or filters to find what you&apos;re
