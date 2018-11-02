@@ -223,6 +223,17 @@ describe('Price Range Filter', () => {
     pushRoute.mockRestore();
   });
 
+  it('should not submit data for fetch onBlur if min > max', () => {
+    const wrapper = setup({ minPrice: '50.00' });
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    const last = wrapper.find(TextInput).last();
+    last.simulate('focus');
+    last.simulate('change', { target: { value: '20' } });
+    last.simulate('blur');
+    expect(pushRoute).not.toHaveBeenCalled();
+    pushRoute.mockRestore();
+  });
+
   it('should update state on Enter key', () => {
     const wrapper = setup({});
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
@@ -320,9 +331,8 @@ describe('Price Range Filter', () => {
     const instance = wrapper.instance();
     const setState = jest.spyOn(instance, 'setState').mockReturnValue();
     const nextProps = { router: { query } };
-    const thisProps = { router: { query } };
     wrapper.setProps(nextProps);
-    instance.componentDidUpdate(thisProps);
+    instance.componentDidUpdate(nextProps);
     expect(setState).not.toHaveBeenCalled();
     setState.mockRestore();
   });

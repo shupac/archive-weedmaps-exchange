@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import { Component } from 'react';
 import { withRouter } from 'next/router';
 import { Router } from 'lib/routes';
 import { type RouterType } from 'lib/types/router';
@@ -23,14 +23,14 @@ type Props = {
   router: RouterType,
 };
 
-class PriceRangeFilter extends React.Component<Props, State> {
+class PriceRangeFilter extends Component<Props, State> {
   state = {
     min: this.props.router.query.minPrice || '',
     max: this.props.router.query.maxPrice || '',
   };
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps.router.query !== this.props.router.query) {
+    if (prevProps.router !== this.props.router) {
       const { minPrice, maxPrice } = this.props.router.query;
       // eslint-disable-next-line
       this.setState({
@@ -62,11 +62,10 @@ class PriceRangeFilter extends React.Component<Props, State> {
     if (!max || !Number(max)) delete nextParams.maxPrice;
     if (!router.query.page) delete nextParams.page;
 
-    this.setState({
-      min: formattedMin,
-      max: formattedMax,
+    this.setState({ min: formattedMin, max: formattedMax }, () => {
+      if (this.checkError(formattedMin)(formattedMax)) return null;
+      return Router.pushRoute('marketplace', nextParams);
     });
-    return Router.pushRoute('marketplace', nextParams);
   };
 
   setPrice = (type: string) => (e: Event) => {
@@ -76,15 +75,14 @@ class PriceRangeFilter extends React.Component<Props, State> {
       : this.setState({ max: value });
   };
 
-  checkError = () => {
-    const { min, max } = this.state;
+  checkError = (min: string) => (max: string) => {
     if (min === '' || max === '') return false;
     return +min > +max;
   };
 
   getLabel = () => {
     const { min, max } = this.state;
-    const hasError = this.checkError();
+    const hasError = this.checkError(min)(max);
 
     if (hasError) return 'Invalid price range';
     if (!max && !min) return 'Any';
@@ -110,7 +108,7 @@ class PriceRangeFilter extends React.Component<Props, State> {
             onChange={this.setPrice('min')}
             onBlur={this.updateState}
             onKeyPress={({ key }) => key === 'Enter' && this.updateState()}
-            hasError={Number.isNaN(Number(min)) || this.checkError()}
+            hasError={Number.isNaN(Number(min)) || this.checkError(min)(max)}
             errorMessage={Number.isNaN(Number(min)) ? 'Must be a Number' : ''}
           />
           <Seperator>-</Seperator>
@@ -122,11 +120,11 @@ class PriceRangeFilter extends React.Component<Props, State> {
             onChange={this.setPrice('max')}
             onBlur={this.updateState}
             onKeyPress={({ key }) => key === 'Enter' && this.updateState()}
-            hasError={Number.isNaN(Number(max)) || this.checkError()}
+            hasError={Number.isNaN(Number(max)) || this.checkError(min)(max)}
             errorMessage={Number.isNaN(Number(max)) ? 'Must be a Number' : ''}
           />
         </Wrapper>
-        {this.checkError() ? (
+        {this.checkError(min)(max) ? (
           <ErrorMessage>Min Price must be lower than Max Price</ErrorMessage>
         ) : (
           ''
