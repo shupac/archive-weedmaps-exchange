@@ -4,6 +4,7 @@ import { Router } from 'lib/routes';
 import { mockCategories, mockMappedCategories } from 'lib/mocks/categories';
 import { mockBrands } from 'lib/mocks/brands';
 import { mockProduct } from 'lib/mocks/search-results';
+import EmptyState from 'components/atoms/empty-state';
 import ProductCard from 'components/molecules/product-card';
 import { Icons } from '@ghostgroup/ui';
 import PagingControls from 'components/molecules/paging-controls';
@@ -200,13 +201,7 @@ describe('Marketplace Catalog', () => {
     instance.componentDidMount();
     expect(wrapper.find(CategoryCarousels).exists()).toEqual(false);
     expect(wrapper.find(Products).exists()).toEqual(false);
-    expect(
-      wrapper
-        .find(NoResults)
-        .dive()
-        .text()
-        .includes('No Results Found'),
-    ).toEqual(true);
+    expect(wrapper.find(EmptyState).exists()).toEqual(true);
   });
 
   it('should go to the product detail page when card is clicked', () => {

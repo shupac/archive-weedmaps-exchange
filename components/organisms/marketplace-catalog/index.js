@@ -10,6 +10,7 @@ import PriceRangeFilter from 'components/molecules/price-range-filter';
 import SearchBar from 'components/molecules/search-bar';
 import ProductCard from 'components/molecules/product-card';
 import PagingControls from 'components/molecules/paging-controls';
+import EmptyState from 'components/atoms/empty-state';
 import { Icons } from '@ghostgroup/ui';
 import theme from 'lib/styles/theme';
 import { type RouterType } from 'lib/types/router';
@@ -180,17 +181,12 @@ class Catalog extends Component<Props, State> {
 
     if (!searchResults.length) {
       return (
-        <NoResults>
-          <img
-            src="/static/images/no_results_found.png"
-            alt="No Results Found"
-          />
-          <h2>No Results Found</h2>
-          <p>
-            Try adjusting your search or filters to find what you&apos;re
-            looking for.
-          </p>
-        </NoResults>
+        <EmptyState
+          image="no_results_found"
+          title="No Results Found"
+          body="Try adjusting your search or filters to find what you&apos;re
+            looking for."
+        />
       );
     }
 
