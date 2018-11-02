@@ -5,6 +5,7 @@ import { WmTheme } from '@ghostgroup/ui';
 import TextInput from 'components/atoms/forms/text-input';
 import { mockVariants } from 'lib/mocks/product-details';
 import { ProductVariants } from './index';
+import VariantRow from './variant-row';
 import { TableWrap } from './styles';
 
 function setup(cartResp) {
@@ -148,6 +149,34 @@ describe('Product Variants', () => {
         .find('span')
         .text(),
     ).toEqual('N/A');
+  });
+  describe('when there are cartErrors', () => {
+    it('will render inline error alert', () => {
+      const variant = {
+        id: '82244edd-60a6-4c0d-8984-9570b720c204',
+        name: '50 Units',
+        size: 50,
+        unit: 'unit',
+        price: 50,
+        amount: 499,
+        inStock: true,
+      };
+      const cartError = {
+        itemId: 'a4844a49-7f92-4e2f-be6d-60bb072a4447',
+        error: 'quantity_unavailable',
+      };
+      const component = shallow(
+        <VariantRow
+          variant={variant}
+          error={false}
+          fieldValue={3}
+          handleChange={jest.fn()}
+          resetField={jest.fn()}
+          cartError={cartError}
+        />,
+      );
+      expect(component.find('QuantityAlert').exists()).toEqual(true);
+    });
   });
   describe('can calculate', () => {
     it('the total price', () => {

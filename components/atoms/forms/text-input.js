@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { type CartErrorType } from 'lib/data-access/models/cart';
 import { StyledInput, InputError, InputWrap } from './styles';
 
 export const TextInput = ({
@@ -7,7 +8,7 @@ export const TextInput = ({
   errorMessage,
   ...props
 }: {
-  hasError: boolean,
+  hasError: boolean | CartErrorType,
   errorMessage: string,
   height?: number,
 }) => (

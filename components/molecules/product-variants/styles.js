@@ -114,6 +114,7 @@ export const QuantityAlert = styled.div`
   font-size: ${rem(14)};
   color: ${border.error};
 `;
+QuantityAlert.displayName = 'QuantityAlert';
 
 export const ResetLink = styled.a`
   margin-left: 5px;

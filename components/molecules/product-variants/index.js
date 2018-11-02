@@ -28,6 +28,10 @@ type Props = {
   store: StoreType,
 };
 
+type State = {
+  cartErrors: any,
+};
+
 const tableHead = [
   'variant',
   'unit price',
@@ -36,8 +40,12 @@ const tableHead = [
   'subtotal',
 ];
 
-export class ProductVariants extends Component<Props> {
+export class ProductVariants extends Component<Props, State> {
   static displayName = 'ProductVariants';
+
+  state = {
+    cartErrors: [],
+  };
 
   calculateTotal = (formVals: FormValueType) => {
     const { variants } = this.props;
@@ -102,6 +110,9 @@ export class ProductVariants extends Component<Props> {
     const formatted = this.transformFormValues(values);
     // $FlowFixMe
     const { cartErrors } = await buyerCart.addCartItems(formatted);
+    this.setState({
+      cartErrors,
+    });
     this.notifyCartAddSuccess(cartErrors);
     setSubmitting(false);
   };
@@ -124,6 +135,7 @@ export class ProductVariants extends Component<Props> {
 
   render() {
     const { variants } = this.props;
+    const { cartErrors } = this.state;
 
     return (
       <TableWrap>
@@ -161,6 +173,7 @@ export class ProductVariants extends Component<Props> {
                     error={errors[item.id] && errors[item.id]}
                     resetField={setFieldValue}
                     fieldValue={values[item.id]}
+                    cartError={cartErrors.find(err => err.itemId === item.id)}
                   />
                 ))}
                 <TotalsRow>
