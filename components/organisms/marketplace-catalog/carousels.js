@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import { reaction } from 'mobx';
 import CatalogCarousel from 'components/molecules/carousel';
 import ProductCard from 'components/molecules/product-card';
 import { type CategoryProductsType } from 'models/category-products';
@@ -12,16 +13,27 @@ import { NoResults } from './styles';
 const CatalogWrapper = styled.div``;
 
 class CategoryCarousels extends Component<CategoryProductsType> {
+  dispose = reaction(
+    () => {
+      const { authStore } = this.props.store;
+      return authStore.selectedLocation;
+    },
+    () => {
+      const { buyerProducts } = this.props.store;
+      buyerProducts.getCategoryProducts();
+    },
+    { name: 'Refetch Category Products on location change' },
+  );
+
   componentDidMount() {
     const { buyerProducts } = this.props.store;
-
-    buyerProducts.getCategoryProducts('64d05017-4339-4cda-9e57-0da061bf6b00');
+    buyerProducts.getCategoryProducts();
   }
 
   componentWillUnmount() {
     const { buyerProducts } = this.props.store;
-
     buyerProducts.setCategoryProductsData([]);
+    this.dispose();
   }
 
   render() {

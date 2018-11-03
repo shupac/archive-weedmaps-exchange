@@ -28,25 +28,11 @@ describe('Address Manager', () => {
         addresses={mockItems}
         selectedAddress={mockItems[2]}
         onSelectAddress={mockSelectAddress}
-        addNewAddress={mockAddAddress}
       />,
     );
     expect(component.exists()).toEqual(true);
     expect(component.find(AddButton).exists()).toEqual(true);
     expect(component.find(AddressDropdown).exists()).toEqual(true);
-  });
-
-  it('should trigger addNewAddress if addButton is clicked', () => {
-    const component = shallow(
-      <AddressManager
-        addresses={mockItems}
-        selectedAddress={mockItems[2]}
-        onSelectAddress={mockSelectAddress}
-        addNewAddress={mockAddAddress}
-      />,
-    );
-    component.find(AddButton).simulate('click');
-    expect(mockAddAddress).toHaveBeenCalled();
   });
 
   it('should trigger onSelectAddress if a dropdown item has been selected', () => {
@@ -64,6 +50,6 @@ describe('Address Manager', () => {
     dropdown.simulate('click');
     dropdown.simulate('change', mockItems[0]);
     expect(mockSelectAddress).toHaveBeenCalled();
-    expect(mockSelectAddress).toHaveBeenCalledWith(mockItems[0]);
+    expect(mockSelectAddress).toHaveBeenCalledWith(mockItems[0].value);
   });
 });

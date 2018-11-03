@@ -63,7 +63,9 @@ export class TopNav extends Component<Props> {
               <span>{pathName === 'cart' ? 'shopping cart' : pathName}</span>
             </NavContent>
           )}
-          {!excludeLocationSelector.includes(pathName) && <LocationSelector />}
+          <LocationSelector
+            isHidden={excludeLocationSelector.includes(pathName)}
+          />
         </LeftContainer>
         <RightContainer>
           <Notification />

@@ -17,16 +17,14 @@ type AddressObject = {
 
 type Props = {
   addresses: AddressObject[],
-  selectedAddress: AddressObject,
+  selectedAddress: AddressObject | null,
   onSelectAddress: (address: AddressObject) => void,
-  addNewAddress: () => void,
 };
 
 const AddressManager = ({
   addresses,
   selectedAddress,
   onSelectAddress,
-  addNewAddress,
 }: Props) => {
   const addressText = item => ({ text: truncate(item.text, 25), ...item });
 
@@ -37,14 +35,14 @@ const AddressManager = ({
       <AddressManagerBody>
         <AddressDropdown
           dropdownLabel="addressDropdown"
-          onChange={address => onSelectAddress(address)}
+          onChange={address => onSelectAddress(address.value)}
           placeholder="Select Address"
           initialSelection={selectedAddress}
           itemToString={addressText}
           items={addresses}
           searchable={false}
         />
-        <AddButton onClick={addNewAddress}>Add New Address</AddButton>
+        <AddButton>Add New Address</AddButton>
       </AddressManagerBody>
     </AddressManagerWrapper>
   );

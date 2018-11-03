@@ -17,13 +17,6 @@ function setup() {
 }
 
 describe('Location Selector', () => {
-  it('disposes of the reaction when unmounting', () => {
-    const { wrapper } = setup();
-    const dispose = jest.spyOn(wrapper.instance(), 'dispose');
-    wrapper.unmount();
-    expect(dispose).toHaveBeenCalled();
-  });
-
   it('should handle a selection change', () => {
     const { wrapper, mockStore } = setup();
     const selection = {
@@ -38,7 +31,12 @@ describe('Location Selector', () => {
     instance.handleSelectChange(selection);
     expect(mockUpdateActiveLocation).toHaveBeenCalledWith(selection.value);
   });
-
+  it('disposes of the reaction when unmounting', () => {
+    const { wrapper } = setup();
+    const dispose = jest.spyOn(wrapper.instance(), 'dispose');
+    wrapper.unmount();
+    expect(dispose).toHaveBeenCalled();
+  });
   it('will sync data with server when active location changes ', () => {
     const { mockStore } = setup();
     const mocksyncActiveLocation = jest

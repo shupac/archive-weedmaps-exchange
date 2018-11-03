@@ -3,6 +3,7 @@
 exports[`Auth Store actions will update the state of the model 1`] = `
 Object {
   "isLoading": true,
+  "selectedLocation": "",
   "user": Object {
     "email": "weedmaps@weedmaps.com",
     "roles": Array [
@@ -19,6 +20,7 @@ Object {
 exports[`Auth Store can create an instance of a model 1`] = `
 Object {
   "isLoading": false,
+  "selectedLocation": "",
   "user": Object {
     "email": "",
     "roles": Array [],

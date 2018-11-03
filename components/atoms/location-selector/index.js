@@ -9,6 +9,7 @@ import { SelectWrapper, Select } from './styles';
 
 type Props = {
   store: StoreType,
+  isHidden: boolean,
 };
 
 export class LocationSelector extends Component<Props> {
@@ -19,9 +20,9 @@ export class LocationSelector extends Component<Props> {
     },
     location => {
       const { buyerSettings } = this.props.store;
-      // Observe change to active location and patch the back end
       buyerSettings.syncActiveLocation(location.id);
     },
+    { name: 'syncActiveLocation on location change' },
   );
 
   componentWillUnmount() {
@@ -64,8 +65,11 @@ export class LocationSelector extends Component<Props> {
   };
 
   render() {
+    const { isHidden } = this.props;
     const { buyerSettings } = this.props.store;
     const { locations, activeLocation } = buyerSettings;
+
+    if (isHidden) return null;
 
     return (
       <SelectWrapper>

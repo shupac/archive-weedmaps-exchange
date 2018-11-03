@@ -9,10 +9,14 @@ const { Item, SelectButton } = SelectStyles;
 export const AddButton = styled(ButtonWhite)`
   height: 40px;
   box-shadow: none;
+  min-width: 180px;
+  width: 180px;
+  font-size: ${rem(14)};
+  letter-spacing: normal;
 `;
 
 export const AddressDropdown = styled(Select)`
-  width: 525px;
+  width: 100%;
   margin-right: 16px;
   ${SelectButton} {
     line-height: ${rem(24)};
@@ -56,15 +60,13 @@ export const AddressManagerHeader = styled.div`
 `;
 
 export const AddressManagerBody = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0px 24px 24px 24px;
+  padding: 0px 24px 24px 24px;
   > select {
-    flex: 3;
-  }
-  > button {
-    flex: 1;
+    flex-grow: 2;
   }
 `;
 

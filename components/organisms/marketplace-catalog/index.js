@@ -1,6 +1,7 @@
 // @flow
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'next/router';
+import { reaction } from 'mobx';
 import { Router } from 'lib/routes';
 import { inject, observer } from 'mobx-react';
 import FilterPanel from 'components/molecules/filter-panel';
@@ -45,6 +46,18 @@ class Catalog extends Component<Props, State> {
     mounted: false,
   };
 
+  dispose = reaction(
+    () => {
+      const { authStore } = this.props.store;
+      return authStore.selectedLocation;
+    },
+    () => {
+      this.searchProducts();
+      this.fetchFiltersData();
+    },
+    { name: 'Search and fetch filters data' },
+  );
+
   componentDidMount() {
     this.fetchFiltersData();
     // eslint-disable-next-line
@@ -60,8 +73,8 @@ class Catalog extends Component<Props, State> {
 
   componentWillUnmount() {
     const { buyerProducts } = this.props.store;
-
     buyerProducts.setSearchResultsData([]);
+    this.dispose();
   }
 
   fetchFiltersData = () => {

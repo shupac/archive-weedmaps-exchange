@@ -47,3 +47,18 @@ BrowseProductButton.displayName = 'BrowseProductButton';
 export const CartWrapper = styled.div`
   margin-left: 16px;
 `;
+
+export const CartLayout = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(600px, 1fr) 352px;
+  grid-column-gap: 16px;
+`;
+
+export const CartMain = styled.div`
+  // CartMain styles
+`;
+
+export const CartSidebar = styled.div`
+  // CartSidebar styles
+`;

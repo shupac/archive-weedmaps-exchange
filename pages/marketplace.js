@@ -16,7 +16,6 @@ import Subheader from 'components/atoms/subheader';
 import DiscoverTab from 'components/organisms/marketplace-discover';
 import CatalogTab from 'components/organisms/marketplace-catalog';
 import ProductDetail from 'components/organisms/product-detail';
-
 import { type StoreType } from 'lib/types/store';
 
 const tabs = [
