@@ -1,6 +1,7 @@
 // @flow
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
+import { reaction } from 'mobx';
 import { Icons } from '@ghostgroup/ui';
 import theme from 'lib/styles/theme';
 import SearchBar from 'components/molecules/search-bar';
@@ -23,9 +24,30 @@ export class Discover extends Component<Props, State> {
     mounted: false,
   };
 
+  dispose = reaction(
+    () => {
+      const { authStore } = this.props.store;
+      return authStore.selectedLocation;
+    },
+    () => {
+      this.fetchDepartmentData();
+    },
+    { name: 'Fetch department data' },
+  );
+
   componentDidMount() {
+    this.fetchDepartmentData();
     // eslint-disable-next-line
     this.setState({ mounted: true });
+  }
+
+  componentWillUnmount() {
+    this.dispose();
+  }
+
+  fetchDepartmentData() {
+    const { buyerSettings } = this.props.store;
+    buyerSettings.getDepartments();
   }
 
   renderFullState = (departments: DepartmentType[]) => (

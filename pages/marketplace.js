@@ -35,10 +35,6 @@ type Props = {
 };
 
 export class Marketplace extends Component<Props> {
-  componentDidMount() {
-    this.props.store.buyerSettings.getDepartments();
-  }
-
   render() {
     const { url } = this.props;
     const { pathname } = url;

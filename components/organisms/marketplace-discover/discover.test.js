@@ -51,6 +51,21 @@ describe('Marketplace Discover', () => {
     expect(catCard.exists()).toEqual(true);
   });
 
+  it('should fetch department data on mount', () => {
+    const wrapper = setup({ store: mockStore });
+    const instance = wrapper.instance();
+    instance.fetchDepartmentData = jest.fn();
+    instance.componentDidMount();
+    expect(instance.fetchDepartmentData).toHaveBeenCalled();
+  });
+
+  it('disposes of the reaction when unmounting', () => {
+    const wrapper = setup({ store: mockStore });
+    const dispose = jest.spyOn(wrapper.instance(), 'dispose');
+    wrapper.unmount();
+    expect(dispose).toHaveBeenCalled();
+  });
+
   it('should render the searchbar', () => {
     const wrapper = setup({ store: mockStore });
     const instance = wrapper.instance();
