@@ -1,20 +1,38 @@
-import React from 'react';
+import { Component } from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean, text } from '@storybook/addon-knobs/react';
+import { withKnobs } from '@storybook/addon-knobs/react';
+import centered from '@storybook/addon-centered';
+import { mockProducts } from 'lib/mocks/product-card';
 import ProductCard from './';
+
+type Props = {
+  products: any,
+};
+
+class Wrapper extends Component<Props> {
+  render() {
+    const { products } = this.props;
+    return (
+      <div style={{ display: 'flex' }}>
+        {products.map(product => (
+          <ProductCard
+            onClick={() => console.log('clicked', product)}
+            key={product.id}
+            id={product.id}
+            brand={product.brand}
+            name={product.name}
+            imageUrl={product.img}
+            category={product.category}
+            priceRanges={product.priceRanges}
+            outOfStock={product.outOfStock}
+          />
+        ))}
+      </div>
+    );
+  }
+}
 
 export default storiesOf('ProductCard', module)
   .addDecorator(withKnobs)
-  .add('Default', () => (
-    <ProductCard
-      id="123"
-      brand={text('Brand Name', 'West Coast Cure')}
-      name={text('Product Name', 'Strawberry Pineapple Kush OG')}
-      priceUnit="g"
-      minPrice={8.95}
-      maxPrice={10.95}
-      imageUrl="https://drh2acu5z204m.cloudfront.net/items/2V0X0y2a1i101k2N1Z32/Image%202018-07-25%20at%201.48.53%20PM.png?X-CloudApp-Visitor-Id=3106914&v=f0996046"
-      category="Indica"
-      outOfStock={boolean('Out of Stock', false)}
-    />
-  ));
+  .addDecorator(centered)
+  .add('Default', () => <Wrapper products={mockProducts} />);

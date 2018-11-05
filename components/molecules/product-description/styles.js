@@ -11,6 +11,7 @@ export const Header = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-start;
   margin-bottom: 8px;
 `;
 
@@ -20,26 +21,40 @@ export const Title = styled.span`
   font-weight: 600;
   font-size: ${rem(24)};
   line-height: ${rem(24)};
+  margin-bottom: 6px;
 `;
 
-export const PricingWrapper = styled.div``;
+export const Row = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
 
-export const PricingTitle = styled.span`
-  margin: 8px;
-  font-size: ${rem(20)};
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+`;
+
+export const Price = styled.span`
+  font-size: ${rem(16)};
   font-weight: 600;
+  line-height: ${rem(24)};
+  margin-right: 3px;
 `;
 
-export const PricingUnit = styled.span`
+export const Unit = styled.span`
+  align-self: center;
   color: ${theme.colors.gullGray};
-  font-size: ${rem(14)};
-  line-height: ${rem(16)};
+  font-size: ${rem(12)};
+  line-height: ${rem(24)};
+  text-align: right;
 `;
 
 export const Brand = styled.span`
   color: ${theme.colors.oxfordBlue};
   font-size: ${rem(14)};
-  line-height: ${rem(16)};
+  line-height: ${rem(24)};
 `;
 
 export const Description = styled.p`

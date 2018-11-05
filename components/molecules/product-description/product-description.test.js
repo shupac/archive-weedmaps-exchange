@@ -1,34 +1,27 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ProductDescription, { getPrice } from './';
-import { Brand, Description, PricingTitle, Title } from './styles';
+import ProductDescription from './';
+import { Brand, Description, Price, Title } from './styles';
 
 const product = {
   id: '123',
   brand: 'West Coast Cure',
   name: 'Strawberry Pineapple Kush OG',
-  priceUnit: 'g',
-  minPrice: 8.95,
-  maxPrice: 10.95,
+  priceRanges: [
+    {
+      priceUnit: 'gram',
+      minPrice: 8.95,
+      maxPrice: 10.95,
+    },
+  ],
   description: 'hello',
   category: 'Indica',
 };
 
-describe('Get Price', () => {
-  it('should return a price range', () => {
-    const price = getPrice(150, 300);
-    expect(price).toEqual('$150 - $300');
-  });
-
-  it('should return a single price', () => {
-    const price = getPrice(150, 150);
-    expect(price).toEqual('$150');
-  });
-});
-
 describe('ProductDescription', () => {
   it('should render the product description', () => {
     const component = shallow(<ProductDescription productDetail={product} />);
+    console.log(component.find(Price).debug());
     expect(
       component
         .find(Title)
@@ -37,10 +30,10 @@ describe('ProductDescription', () => {
     ).toEqual('Strawberry Pineapple Kush OG');
     expect(
       component
-        .find(PricingTitle)
+        .find(Price)
         .dive()
         .text(),
-    ).toEqual('$8.95 - $10.95');
+    ).toEqual('$8.95-$10.95');
     expect(
       component
         .find(Brand)

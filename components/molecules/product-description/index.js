@@ -2,24 +2,21 @@
 import React, { Fragment } from 'react';
 import type { ProductDetail } from 'lib/types/products';
 import { clearTags } from 'lib/common/strings';
+import { getPrice, getUnit } from 'components/molecules/product-card';
 import {
   DescriptionWrapper,
+  Column,
   Brand,
   Description,
   Header,
-  PricingTitle,
-  PricingUnit,
-  PricingWrapper,
+  Row,
+  Price,
+  Unit,
   Title,
 } from './styles';
 
 type Props = {
   productDetail: ProductDetail,
-};
-
-export const getPrice = (minPrice: number, maxPrice: number) => {
-  if (minPrice === maxPrice) return `$${minPrice}`;
-  return `$${minPrice} - $${maxPrice}`;
 };
 
 const ProductDescription = ({ productDetail }: Props) => {
@@ -33,18 +30,26 @@ const ProductDescription = ({ productDetail }: Props) => {
     );
   }
 
-  const { name, brand, description, minPrice, maxPrice } = productDetail;
+  const { name, brand, description, priceRanges } = productDetail;
 
   return (
     <DescriptionWrapper>
       <Header>
-        <Title>{name}</Title>
-        <PricingWrapper>
-          <PricingTitle>{getPrice(minPrice, maxPrice)}</PricingTitle>
-          <PricingUnit>price / g</PricingUnit>
-        </PricingWrapper>
+        <Column>
+          <Title>{name}</Title>
+          <Brand>{brand}</Brand>
+        </Column>
+        <Column>
+          {priceRanges &&
+            priceRanges.map(prices => (
+              <Row>
+                <Price>{getPrice(prices.minPrice, prices.maxPrice)}</Price>
+                <Unit>/ {getUnit(prices.unit)}</Unit>
+              </Row>
+            ))}
+        </Column>
       </Header>
-      <Brand>{brand}</Brand>
+
       <Description>{clearTags(description)}</Description>
     </DescriptionWrapper>
   );

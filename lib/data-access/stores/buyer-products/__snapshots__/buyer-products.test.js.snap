@@ -22,8 +22,13 @@ Array [
 exports[`BuyerProducts Store can fetch product details and set data 1`] = `
 Object {
   "id": "5cd4463d-52bf-4b18-84f4-e3b378fbc989",
-  "maxPrice": 20,
-  "minPrice": 10,
+  "priceRanges": Array [
+    Object {
+      "maxPrice": 20,
+      "minPrice": 10,
+      "unit": "gram",
+    },
+  ],
   "product": Object {
     "avatarImage": Object {
       "id": "41c06b6d-099c-48c4-82c6-015d3b8dcc3e",
@@ -89,7 +94,6 @@ Object {
       },
     ],
   },
-  "unit": "gram",
 }
 `;
 
@@ -106,8 +110,13 @@ exports[`BuyerProducts Store can fetch product search and set data 1`] = `
 Array [
   Object {
     "id": "5cd4463d-52bf-4b18-84f4-e3b378fbc989",
-    "maxPrice": 20,
-    "minPrice": 10,
+    "priceRanges": Array [
+      Object {
+        "maxPrice": 20,
+        "minPrice": 10,
+        "unit": "gram",
+      },
+    ],
     "product": Object {
       "avatarImage": Object {
         "id": "41c06b6d-099c-48c4-82c6-015d3b8dcc3e",
@@ -173,7 +182,6 @@ Array [
         },
       ],
     },
-    "unit": "gram",
   },
 ]
 `;
@@ -227,10 +235,14 @@ Object {
       "number": "420710",
     },
   ],
-  "maxPrice": 20,
-  "minPrice": 10,
   "name": "NUG RUN Injector, Indica",
-  "priceUnit": "gram",
+  "priceRanges": Array [
+    Object {
+      "maxPrice": 20,
+      "minPrice": 10,
+      "unit": "gram",
+    },
+  ],
 }
 `;
 
@@ -255,11 +267,15 @@ Array [
     "category": "Concentrates",
     "id": "5cd4463d-52bf-4b18-84f4-e3b378fbc989",
     "imageUrl": "https://images.weedmaps.com/products/000/023/221/avatar/medium/gfarmsalab_nug-run-indica_2.jpg?development=1",
-    "maxPrice": 20,
-    "minPrice": 10,
     "name": "NUG RUN Injector, Indica",
     "outOfStock": false,
-    "priceUnit": "gram",
+    "priceRanges": Array [
+      Object {
+        "maxPrice": 20,
+        "minPrice": 10,
+        "unit": "gram",
+      },
+    ],
   },
 ]
 `;

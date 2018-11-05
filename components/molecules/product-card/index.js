@@ -1,18 +1,17 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 import Shiitake from 'shiitake';
-
+import { PriceRangeType } from 'lib/data-access/models/product';
 import {
   CardWrapper,
   Product,
   ImageWrapper,
   Info,
-  Brand,
+  Grouped,
   Name,
   PriceUnit,
   Row,
   Price,
-  Category,
   OutOfStock,
 } from './styles.js';
 
@@ -20,9 +19,7 @@ type Props = {
   imageUrl: string,
   brand: string,
   name: string,
-  priceUnit: string,
-  minPrice: number,
-  maxPrice: number,
+  priceRanges: PriceRangeType[],
   category: string,
   outOfStock?: boolean,
   width?: string,
@@ -34,44 +31,58 @@ export const getPrice = (minPrice: number, maxPrice: number) => {
   return `$${minPrice}-$${maxPrice}`;
 };
 
-const ProductCard = ({
-  imageUrl,
-  brand,
-  name,
-  priceUnit,
-  minPrice,
-  maxPrice,
-  category,
-  outOfStock = false,
-  width,
-  onClick,
-}: Props) => (
-  <CardWrapper width={width} onClick={onClick}>
-    <Product outOfStock={outOfStock}>
-      <ImageWrapper>
-        <img src={imageUrl} alt={name} />
-      </ImageWrapper>
+export const getUnit = (unit: string) => {
+  const ounces = ['fluid_ounce', 'liter', 'gallon'];
+  if (ounces.includes(unit)) return 'oz';
+  if (unit === 'gram') return 'g';
+  return unit;
+};
 
-      <Info>
-        <Brand>
-          <Shiitake lines={1}>{brand}</Shiitake>
-        </Brand>
+class ProductCard extends Component<Props> {
+  static defaultProps = {
+    outOfStock: false,
+  };
 
-        <Name>
-          <Shiitake lines={2}>{name}</Shiitake>
-        </Name>
+  render() {
+    const {
+      imageUrl,
+      brand,
+      name,
+      priceRanges,
+      category,
+      outOfStock,
+      width,
+      onClick,
+    } = this.props;
 
-        <PriceUnit>price / {priceUnit}</PriceUnit>
-
-        <Row>
-          <Price>{getPrice(minPrice, maxPrice)}</Price>
-          <Category>{category}</Category>
-        </Row>
-      </Info>
-    </Product>
-
-    {outOfStock && <OutOfStock>Out of Stock</OutOfStock>}
-  </CardWrapper>
-);
+    return (
+      <CardWrapper width={width} onClick={onClick}>
+        <Product outOfStock={outOfStock}>
+          <ImageWrapper>
+            <img src={imageUrl} alt={name} />
+          </ImageWrapper>
+          <Info>
+            <Row>
+              <Grouped>
+                <Shiitake lines={1}>{`${category} | ${brand}`}</Shiitake>
+              </Grouped>
+            </Row>
+            <Name>
+              <Shiitake lines={2}>{name}</Shiitake>
+            </Name>
+            {priceRanges &&
+              priceRanges.map(({ minPrice, maxPrice, unit }) => (
+                <Row>
+                  <Price>{getPrice(minPrice, maxPrice)}</Price>
+                  <PriceUnit>/{getUnit(unit)}</PriceUnit>
+                </Row>
+              ))}
+          </Info>
+        </Product>
+        {outOfStock && <OutOfStock>Out of Stock</OutOfStock>}
+      </CardWrapper>
+    );
+  }
+}
 
 export default ProductCard;
