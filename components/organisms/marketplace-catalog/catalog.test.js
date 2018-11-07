@@ -1,7 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
-import { mockCategories, mockMappedCategories } from 'lib/mocks/categories';
+import {
+  mockCategories,
+  mockMappedCategories,
+  mockEmptyCategories,
+} from 'lib/mocks/categories';
 import { mockBrands } from 'lib/mocks/brands';
 import { mockProduct } from 'lib/mocks/search-results';
 import EmptyState from 'components/atoms/empty-state';
@@ -21,6 +25,21 @@ const mockStore = {
   },
   buyerProducts: {
     searchResults: [mockProduct],
+    searchResultsLoading: false,
+    searchCatalog: jest.fn(),
+    setSearchResultsData: jest.fn(),
+  },
+};
+
+const mockEmptyStore = {
+  buyerSettings: {
+    getDepartments: jest.fn(),
+    getBrands: jest.fn(),
+    departments: mockEmptyCategories,
+    brands: [],
+  },
+  buyerProducts: {
+    searchResults: [],
     searchResultsLoading: false,
     searchCatalog: jest.fn(),
     setSearchResultsData: jest.fn(),
@@ -334,5 +353,14 @@ describe('Marketplace Catalog', () => {
 
     const { setSearchResultsData } = mockStore.buyerProducts;
     expect(setSearchResultsData).toHaveBeenCalledWith([]);
+  });
+
+  describe('Empty Catalog', () => {
+    it('should display no products available', () => {
+      const wrapper = setup({ store: mockEmptyStore });
+      const instance = wrapper.instance();
+      instance.componentDidMount();
+      expect(wrapper.find(EmptyState).exists()).toEqual(true);
+    });
   });
 });

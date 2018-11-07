@@ -105,7 +105,6 @@ class Catalog extends Component<Props, State> {
 
   getCategories = () => {
     const { departments } = this.props.store.buyerSettings;
-
     return departments.map(parent => ({
       parent: {
         id: parent.id,
@@ -157,8 +156,15 @@ class Catalog extends Component<Props, State> {
 
         <Content>
           <SearchBar showCategory={false} />
-
-          {this.renderProducts()}
+          {!this.getCategories().length ? (
+            <EmptyState
+              image="no_products_available"
+              title="No Products Available"
+              body="There are currently no products available, please try again later."
+            />
+          ) : (
+            this.renderProducts()
+          )}
         </Content>
       </Wrapper>
     );
@@ -197,7 +203,7 @@ class Catalog extends Component<Props, State> {
         <EmptyState
           image="no_results_found"
           title="No Results Found"
-          body="Try adjusting your search or filters to find what you&apos;re
+          body="Try adjusting your search or filters to find what you&quot;re
             looking for."
         />
       );
