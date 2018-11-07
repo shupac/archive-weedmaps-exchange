@@ -5,6 +5,7 @@ import AuthConnector from 'components/containers/auth-connector';
 import provide from 'lib/data-access/stores/provider';
 import ShowIfRoute from 'components/atoms/show-if-route';
 import BuyerCart from 'components/organisms/buyer-cart';
+import CartConfirmation from 'components/organisms/cart-confirmation';
 import { PageContent, PageLayout } from 'components/layouts/page-layout';
 
 type Props = {
@@ -23,6 +24,10 @@ export class Cart extends Component<Props> {
         <PageContent>
           <ShowIfRoute match="/buyer/cart">
             <BuyerCart />
+          </ShowIfRoute>
+
+          <ShowIfRoute match="/buyer/cart/confirmation(.*)">
+            <CartConfirmation orderId={url.query.orderId} />
           </ShowIfRoute>
         </PageContent>
       </PageLayout>

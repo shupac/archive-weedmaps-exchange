@@ -30,7 +30,7 @@ export const OrderSummaryWrapper = styled.div`
 export const OrderSummaryHeader = styled.div`
   height: 54px;
   width: 100%;
-  border: 1px solid ${icon.inverted};
+  border-bottom: 1px solid ${icon.inverted};
   border-radius: 3px 3px 0 0;
   background-color: ${background.secondary};
   display: flex;
@@ -42,6 +42,7 @@ export const OrderSummaryHeader = styled.div`
 
 export const OrderSummaryDetailsWrapper = styled.div`
   margin: 24px;
+  margin-bottom: 16px;
   padding-bottom: 16px;
   > button:last-of-type {
     margin-top: 16px;
@@ -69,4 +70,8 @@ export const OrderTotalDetail = styled.div`
   margin: 16px 0;
   padding-top: 16px;
   border-top: 1px solid ${icon.inverted};
+`;
+
+export const Asterisk = styled.div`
+  font-size: ${rem(14)};
 `;

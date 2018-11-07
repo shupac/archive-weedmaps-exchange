@@ -45,7 +45,7 @@ export const BrowseProductButton = styled.button`
 BrowseProductButton.displayName = 'BrowseProductButton';
 
 export const CartWrapper = styled.div`
-  margin-left: 16px;
+  padding: 0 16px 24px;
 `;
 
 export const CartLayout = styled.div`
