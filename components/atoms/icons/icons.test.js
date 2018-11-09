@@ -50,6 +50,8 @@ import {
   BigArrow,
   Plus,
   Info,
+  IncreaseQuantity,
+  DecreaseQuantity,
 } from './';
 
 describe('Icons', () => {
@@ -115,6 +117,16 @@ describe('Icons', () => {
 
   it('Desktop', () => {
     const tree = shallow(<Desktop />);
+    expect(tree.exists()).toEqual(true);
+  });
+
+  it('IncreaseQuantity', () => {
+    const tree = shallow(<IncreaseQuantity />);
+    expect(tree.exists()).toEqual(true);
+  });
+
+  it('DecreaseQuantity', () => {
+    const tree = shallow(<DecreaseQuantity />);
     expect(tree.exists()).toEqual(true);
   });
 

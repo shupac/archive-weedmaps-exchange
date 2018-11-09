@@ -10,10 +10,15 @@ type Props = {
 
 export const ErrorIcon = ({
   fill = theme.colors.red,
-  width = '20',
-  height = '18',
+  width = '20px',
+  height = '18px',
 }: Props) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 20 18"
+  >
     <defs>
       <path
         id="a"

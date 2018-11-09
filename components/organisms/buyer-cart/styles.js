@@ -45,14 +45,16 @@ export const BrowseProductButton = styled.button`
 BrowseProductButton.displayName = 'BrowseProductButton';
 
 export const CartWrapper = styled.div`
-  padding: 0 16px 24px;
+  //margin-left: 16px;
+  padding: 0 16px;
 `;
 
 export const CartLayout = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(600px, 1fr) 352px;
+  grid-template-columns: minmax(700px, 1fr) 352px;
   grid-column-gap: 16px;
+  padding-bottom: 16px;
 `;
 
 export const CartMain = styled.div`

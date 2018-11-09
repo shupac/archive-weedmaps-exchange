@@ -4,8 +4,12 @@ import { inject, observer } from 'mobx-react';
 import { reaction } from 'mobx';
 import { type StoreType } from 'lib/types/store';
 import { concatAddy } from 'lib/common/strings';
+import uniqueKey from 'lib/common/unique-key';
+import Loader from 'components/atoms/loader';
 import EmptyCartPage from 'components/organisms/buyer-cart/empty-cart';
 import Breadcrumbs from 'components/molecules/breadcrumbs/index';
+import CartOrderSummary from 'components/molecules/cart-order-summary';
+import ShipmentCard from 'components/molecules/shipment-card';
 import AddressManager from 'components/molecules/address-manager';
 import { CartWrapper, CartLayout, CartMain, CartSidebar } from './styles';
 
@@ -33,6 +37,10 @@ export class BuyerCart extends Component<Props> {
   render() {
     const { buyerCart } = this.props.store;
 
+    if (buyerCart.loadingCart) {
+      return <Loader />;
+    }
+
     if (buyerCart.cartItemCount < 1) {
       return <EmptyCartPage />;
     }
@@ -46,8 +54,25 @@ export class BuyerCart extends Component<Props> {
             activeLabel="Shopping Cart"
           />
           <CartLayout>
-            <CartMain>{this.renderAddressManager()}</CartMain>
-            <CartSidebar />
+            <CartMain>
+              {this.renderAddressManager()}
+              {buyerCart.cartItemsByBrand &&
+                buyerCart.cartItemsByBrand.map((item, idx) => (
+                  <ShipmentCard
+                    cartItem={item}
+                    key={uniqueKey()}
+                    index={idx}
+                    count={buyerCart.cartItemsByBrand.length}
+                  />
+                ))}
+            </CartMain>
+            <CartSidebar>
+              <CartOrderSummary
+                cart={buyerCart.cart}
+                onSubmit={buyerCart.checkoutCart}
+                quantity={buyerCart.cart.items.length}
+              />
+            </CartSidebar>
           </CartLayout>
         </CartWrapper>
       </Fragment>

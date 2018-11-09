@@ -43,3 +43,5 @@ export { default as Info } from './info';
 export { default as WM } from './wm';
 export { default as Bookmark } from './bookmark';
 export { default as MapPin } from './map-pin';
+export { default as DecreaseQuantity } from './decrease-quantity';
+export { default as IncreaseQuantity } from './increase-quantity';

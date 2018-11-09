@@ -1,6 +1,7 @@
 // @flow
 import React, { Fragment } from 'react';
 import { formatDollars } from 'lib/common/strings';
+import uniqby from 'lodash.uniqby';
 import errorDictionary from 'lib/common/cart-errors';
 import { ButtonPrimary, ButtonWhiteNoHover } from 'components/atoms/button';
 import { type CartType } from 'lib/data-access/models/cart';
@@ -24,6 +25,7 @@ type Props = {
 const CartOrderSummary = ({ cart, quantity, onSubmit }: Props) => {
   const { total, subtotal, shippingFee, items, cartErrors } = cart;
   quantity = quantity || items.reduce((acc, value) => acc + value.amount, 0);
+  const uniqErrors = uniqby(cartErrors, 'error');
 
   return (
     <Fragment>
@@ -45,7 +47,7 @@ const CartOrderSummary = ({ cart, quantity, onSubmit }: Props) => {
           {onSubmit && (
             <Fragment>
               {cartErrors.length > 0 ? (
-                cartErrors.map(cartError => (
+                uniqErrors.map(cartError => (
                   <ErrorMessage key={uniqueKey()}>
                     {errorDictionary[cartError.error]}
                   </ErrorMessage>

@@ -44,4 +44,47 @@ describe('Order Summary', () => {
     ).toEqual('$10.00');
     expect(component.find('ErrorMessage').length).toEqual(4);
   });
+  it('should render out the error message', () => {
+    props = {
+      cart: mockErrorCart,
+      onSubmit: jest.fn(),
+    };
+    const component = shallow(<CartOrderSummary {...props} />);
+    expect(
+      component
+        .find('ErrorMessage')
+        .first()
+        .dive()
+        .text(),
+    ).toEqual(
+      'Seller has a minimum order amount. Please update your cart to continue.',
+    );
+    expect(
+      component
+        .find('ErrorMessage')
+        .at(1)
+        .dive()
+        .text(),
+    ).toEqual(
+      'Some items in your cart no longer have your quantity available. Please update your cart to continue.',
+    );
+    expect(
+      component
+        .find('ErrorMessage')
+        .at(2)
+        .dive()
+        .text(),
+    ).toEqual(
+      'Some items in your cart are not available. Please update your cart to continue.',
+    );
+    expect(
+      component
+        .find('ErrorMessage')
+        .last()
+        .dive()
+        .text(),
+    ).toEqual(
+      'Some items in your cart are not available. Please update your cart to continue.',
+    );
+  });
 });
