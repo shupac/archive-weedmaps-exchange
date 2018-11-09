@@ -17,22 +17,22 @@ describe('Top Nav Notification', () => {
     const tree = shallow(<Notification store={mockStore} />);
     expect(tree.exists()).toEqual(true);
   });
-  // it('Notification with count', () => {
-  //   const { mockStore } = setup();
-  //   const tree = shallow(<Notification store={mockStore} />).dive();
-  //   expect(tree.exists()).toEqual(true);
-  //   expect(
-  //     tree
-  //       .dive()
-  //       .find(NotificationCount)
-  //       .dive()
-  //       .text(),
-  //   ).toEqual('2');
-  //   expect(
-  //     tree
-  //       .dive()
-  //       .find(NotificationWrapper)
-  //       .dive(),
-  //   ).toHaveStyleRule('transform: scale(1)');
-  // });
+  it('Notification with count', () => {
+    const { mockStore } = setup();
+    const tree = shallow(<Notification store={mockStore} />).dive();
+    expect(tree.exists()).toEqual(true);
+    expect(
+      tree
+        .dive()
+        .find(NotificationCount)
+        .dive()
+        .text(),
+    ).toEqual('2');
+    expect(
+      tree
+        .dive()
+        .find(NotificationWrapper)
+        .dive(),
+    ).toHaveStyleRule('transform: scale(1)');
+  });
 });
