@@ -1,9 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import Menu from 'components/molecules/top-nav-menu';
-
-// import Heading from 'components/molecules/top-nav-heading';
-import { Cart, Settings } from 'components/atoms/icons';
+import { Cart, Settings, Papers } from 'components/atoms/icons';
 import Notification from 'components/molecules/top-nav-notification';
 import LocationSelector from 'components/atoms/location-selector';
 import theme from 'lib/styles/theme';
@@ -37,6 +35,17 @@ const NavIcon = {
       fill={theme.colors.primary}
     />
   ),
+  orders: (
+    <Papers
+      size={{ width: '24px', height: '24px' }}
+      fill={theme.colors.primary}
+    />
+  ),
+};
+
+const headerForPath = {
+  cart: 'shopping cart',
+  orders: 'purchase orders',
 };
 
 // Add any pathname that will exclude the Location Selector into the array
@@ -60,7 +69,7 @@ export class TopNav extends Component<Props> {
           {pathName && (
             <NavContent>
               <div>{NavIcon[pathName]}</div>
-              <span>{pathName === 'cart' ? 'shopping cart' : pathName}</span>
+              <span>{headerForPath[pathName] || pathName}</span>
             </NavContent>
           )}
           <LocationSelector

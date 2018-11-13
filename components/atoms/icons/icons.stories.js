@@ -34,6 +34,7 @@ import { Cart } from './cart';
 import { Info } from './info';
 import IncreaseQuantity from './increase-quantity';
 import { DecreaseQuantity } from './decrease-quantity';
+import { BackArrow } from './back-arrow';
 
 export default storiesOf('Icons', module)
   .addDecorator(GlobalStyleDecorator)
@@ -42,6 +43,7 @@ export default storiesOf('Icons', module)
   .add('ArrowLeft', () => <ArrowLeft />)
   .add('ArrowRight', () => <ArrowRight />)
   .add('ArrowUp', () => <ArrowUp />)
+  .add('BackArrow', () => <BackArrow />)
   .add('Bell', () => <Bell size={{ width: '24px', height: '20px' }} />)
   .add('Bookmark', () => <Bookmark />)
   .add('Brands', () => <Brands />)

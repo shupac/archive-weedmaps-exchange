@@ -23,14 +23,12 @@ export const buyerData = [
     },
   },
   {
-    name: 'Orders',
+    name: 'Purchase Orders',
     icon: sizeIcon(Papers),
-    route: '/buyer/orders',
+    route: {
+      name: 'orders',
+    },
   },
-  // {
-  //   name: 'Admin',
-  //   icon: sizeIcon(WM),
-  // },
 ];
 
 export const sellerData = [
