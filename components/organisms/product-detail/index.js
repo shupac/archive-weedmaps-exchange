@@ -1,38 +1,52 @@
 // @flow
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
+import { reaction } from 'mobx';
 import find from 'lodash.find';
-import { type UIStoreType } from 'lib/data-access/stores/ui';
-import { type BuyerProductsType } from 'lib/data-access/stores/buyer-products';
-import { type BuyerCartType } from 'lib/data-access/stores/buyer-cart';
+import { type StoreType } from 'lib/types/store';
 import SearchBar from 'components/molecules/search-bar';
+import EmptyState from 'components/atoms/empty-state';
 import ProductDescription from 'components/molecules/product-description';
 import ProductPhotos from 'components/molecules/product-photos';
 import LicenseList from 'components/molecules/license-list';
 import ProductVariants from 'components/molecules/product-variants';
 import Breadcrumbs from 'components/molecules/breadcrumbs';
+
 import { GridLayout, MainPanel } from './styles';
 
 type Props = {
-  store: {
-    buyerProducts: BuyerProductsType,
-    uiStore: UIStoreType,
-    buyerCart: BuyerCartType,
-  },
+  store: StoreType,
   productId: string,
 };
 
 export class ProductDetails extends Component<Props> {
+  dispose = reaction(
+    () => {
+      const { authStore } = this.props.store;
+      return authStore.selectedLocation;
+    },
+    () => {
+      this.getProductDetails();
+    },
+    { name: 'Fetch product detail data' },
+  );
   componentDidMount() {
-    const { productId } = this.props;
-
-    const { buyerProducts } = this.props.store;
-    // productIdQuery = 7e0fb515-f87b-4d07-82fb-d2168aa859dc
-    buyerProducts.getProductDetails(productId);
+    this.getProductDetails();
   }
+
+  componentWillUnmount() {
+    this.dispose();
+  }
+
+  getProductDetails = () => {
+    const { productId } = this.props;
+    const { buyerProducts } = this.props.store;
+    buyerProducts.getProductDetails(productId);
+  };
 
   changeFeaturePhoto = (photoId: string) => {
     const { buyerProducts } = this.props.store;
+
     const clickedPhoto = find(buyerProducts.productDetails.galleryImages, {
       id: photoId,
     });
@@ -55,6 +69,18 @@ export class ProductDetails extends Component<Props> {
 
   render() {
     const { buyerProducts } = this.props.store;
+
+    if (!buyerProducts.productDetailsSuccess) {
+      return (
+        <EmptyState
+          image="no_products_available"
+          title="Product Not Found"
+          body="Try changing your location or searching again."
+          route="/buyer/marketplace/discover"
+          buttonLabel="Browse Products"
+        />
+      );
+    }
     return (
       <Fragment>
         <SearchBar />

@@ -40,6 +40,26 @@ describe('empty-state', () => {
     ).toEqual('No Products Available');
   });
 
+  it('should render a button and route', () => {
+    const component = shallow(
+      <EmptyState
+        image="no_products_available"
+        title="No Products Available"
+        body="There are currently no products available, please try again later."
+        route="/catalog"
+        buttonLabel="Button Label"
+      />,
+    );
+
+    expect(
+      component
+        .dive()
+        .find('BrowseProductButton')
+        .dive()
+        .text(),
+    ).toEqual('Button Label');
+  });
+
   it('should render a body with instructions', () => {
     const component = shallow(
       <EmptyState

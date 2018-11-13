@@ -5,10 +5,16 @@ import { rem } from 'polished';
 const { text } = WmTheme.style;
 
 export const NoResults = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 80px;
   width: 100%;
   text-align: center;
   color: ${text.normal};
+  > img {
+    align-self: center;
+  }
 `;
 
 export const NoResultsTitle = styled.h2`

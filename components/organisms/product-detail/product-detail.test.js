@@ -3,23 +3,31 @@ import { shallow } from 'enzyme';
 import { mockProducts } from 'lib/mocks/search-results';
 import BuyerProducts from 'lib/data-access/stores/buyer-products';
 import BuyerCart from 'lib/data-access/stores/buyer-cart';
+import AuthStore from 'lib/data-access/stores/auth';
 import { ProductDetails } from './';
 
 const mockStore = BuyerProducts.create(
   {},
-  { client: { fetch: jest.fn().mockReturnValue(mockProducts[0]) } },
+  { client: { fetch: jest.fn().mockReturnValue({ data: mockProducts[0] }) } },
 );
-
 const mockCartStore = BuyerCart.create({ mockAddToCart: jest.fn() }, {});
+const mockAuthStore = AuthStore.create({ selectedLocation: 'Irvine' });
 
 const props = {
   store: {
     buyerProducts: mockStore,
     buyerCart: mockCartStore,
+    authStore: mockAuthStore,
   },
   productId: '7e0fb515-f87b-4d07-82fb-d2168aa859dc',
   variants: {},
 };
+
+function setup() {
+  const component = <ProductDetails {...props} />;
+  const wrapper = shallow(component, { disableLifecycleMethods: true });
+  return { wrapper };
+}
 
 describe('Product Detail Page', () => {
   describe('when mounts', () => {
@@ -61,25 +69,48 @@ describe('Product Detail Page', () => {
       },
     ]);
   });
-
   it('should render a breadcrumb', () => {
-    const tree = shallow(<ProductDetails {...props} />);
-    const breadCrumb = tree.find('Breadcrumbs');
+    const { wrapper } = setup();
+    const breadCrumb = wrapper.find('Breadcrumbs');
     expect(breadCrumb.exists()).toEqual(true);
   });
   it('should render a product photo gallery', () => {
-    const tree = shallow(<ProductDetails {...props} />);
-    const photos = tree.find('ProductPhotos');
+    const { wrapper } = setup();
+    const photos = wrapper.find('ProductPhotos');
     expect(photos.exists()).toEqual(true);
   });
+  it('should set featured product photo', async () => {
+    const { wrapper } = setup();
+    const instance = wrapper.instance();
+    await instance.componentDidMount();
+    const setFeaturedProductPhoto = jest.spyOn(
+      props.store.buyerProducts,
+      'setFeaturedProductPhoto',
+    );
+    instance.changeFeaturePhoto('1608ec15-013e-4a77-9cb9-27cc232a6640');
+    expect(setFeaturedProductPhoto).toHaveBeenCalled();
+  });
   it('should render a product description', () => {
-    const tree = shallow(<ProductDetails {...props} />);
-    const description = tree.find('ProductDescription');
+    const { wrapper } = setup();
+    const description = wrapper.find('ProductDescription');
     expect(description.exists()).toEqual(true);
   });
   it('should render brand licenses', () => {
-    const tree = shallow(<ProductDetails {...props} />);
-    const licenseList = tree.find('LicenseList');
+    const { wrapper } = setup();
+    const licenseList = wrapper.find('LicenseList');
     expect(licenseList.exists()).toEqual(true);
+  });
+  it('should fetch product detail data on mount', () => {
+    const { wrapper } = setup();
+    const instance = wrapper.instance();
+    instance.getProductDetails = jest.fn();
+    instance.componentDidMount();
+    expect(instance.getProductDetails).toHaveBeenCalled();
+  });
+  it('disposes of the reaction when unmounting', () => {
+    const { wrapper } = setup();
+    const dispose = jest.spyOn(wrapper.instance(), 'dispose');
+    wrapper.unmount();
+    expect(dispose).toHaveBeenCalled();
   });
 });
