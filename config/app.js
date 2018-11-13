@@ -24,7 +24,7 @@ module.exports = {
   acceptance: {
     envName: 'acceptance',
     apiGatewayUrl: 'https://api-g-acceptance.internal-weedmaps.com',
-    siteUrl: 'https://exchange-fe-acceptance.internal-weedmaps.com',
+    siteUrl: 'https://exchange-acceptance.internal-weedmaps.com',
     coreBaseUrl: 'https://acceptance.internal-weedmaps.com',
     apiRootPath: '/exchange/v1',
     cookieDomain: '.internal-weedmaps.com',
@@ -33,20 +33,11 @@ module.exports = {
   staging: {
     envName: 'staging',
     apiGatewayUrl: 'https://api-g-staging.internal-weedmaps.com',
-    siteUrl: 'https://exchange-fe-staging.internal-weedmaps.com',
+    siteUrl: 'https://exchange-staging.internal-weedmaps.com',
     coreBaseUrl: 'https://staging.internal-weedmaps.com',
     apiRootPath: '/exchange/v1',
     cookieDomain: '.internal-weedmaps.com',
     uatCookie: '_wm_uat_staging',
-  },
-  performance: {
-    envName: 'performance',
-    apiGatewayUrl: 'https://api-g-performance.internal-weedmaps.com',
-    siteUrl: 'https://exchange-fe-performance.internal-weedmaps.com',
-    coreBaseUrl: 'https://performance.internal-weedmaps.com',
-    apiRootPath: '/exchange/v1',
-    cookieDomain: '.internal-weedmaps.com',
-    uatCookie: '_wm_uat_performance',
   },
   production: {
     envName: 'production',
