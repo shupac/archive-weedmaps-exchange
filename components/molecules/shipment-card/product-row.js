@@ -38,6 +38,9 @@ export class ProductRow extends Component<Props> {
   quantity = this.props.item.amount;
 
   @observable
+  desiredQuantity = this.props.item.amount;
+
+  @observable
   showUpdateLink = false;
 
   @computed
@@ -49,10 +52,9 @@ export class ProductRow extends Component<Props> {
   );
 
   dispose = reaction(
-    () => this.quantity,
-    quantity => {
-      const { item } = this.props;
-      if (quantity !== item.amount) {
+    () => this.desiredQuantity,
+    desiredQuantity => {
+      if (desiredQuantity !== this.quantity) {
         this.showUpdateLink = true;
       } else {
         this.showUpdateLink = false;
@@ -60,8 +62,9 @@ export class ProductRow extends Component<Props> {
     },
   );
 
+  @action
   handleChange = ({ target }: { target: HTMLInputElement }) => {
-    this.onQuantityChange(target.value);
+    this.desiredQuantity = target.value;
   };
 
   onUpdate = (quantity: number) => {
@@ -75,8 +78,8 @@ export class ProductRow extends Component<Props> {
   };
 
   @action
-  onQuantityChange = (quantity: string) => {
-    this.quantity = Number(quantity);
+  onQuantityChange = (quantity: number) => {
+    this.quantity = quantity;
   };
 
   componentWillUnmount() {
@@ -116,7 +119,7 @@ export class ProductRow extends Component<Props> {
         </p>
         <QuantityWrapper outOfStock={outOfStock}>
           <QuantityButton
-            onClick={() => this.onUpdate(this.quantity - 1)}
+            onClick={() => this.onUpdate(Math.max(1, this.quantity - 1))}
             disabled={this.quantity <= 0}
           >
             <DecreaseQuantity />
@@ -124,11 +127,13 @@ export class ProductRow extends Component<Props> {
 
           <QuantityInput
             type="number"
-            value={this.quantity}
+            value={this.desiredQuantity}
             onChange={this.handleChange}
           />
           {this.showUpdateLink && (
-            <UpdateLink onClick={() => this.onUpdate(this.quantity)}>
+            <UpdateLink
+              onClick={() => this.onUpdate(parseInt(this.desiredQuantity, 10))}
+            >
               UPDATE
             </UpdateLink>
           )}
