@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { number } from 'prop-types';
 
 export class ErrorPage extends Component {
   static displayName = 'ErrorPage';
@@ -7,10 +6,6 @@ export class ErrorPage extends Component {
   static defaultProps = {
     statusCode: null,
   };
-
-  // static propTypes = {
-  //   statusCode: number,
-  // };
 
   static async getInitialProps(props) {
     const initialProps = {};
@@ -31,7 +26,6 @@ export class ErrorPage extends Component {
   }
 
   render() {
-    // const { statusCode } = this.props;
     return <h1>ERROR</h1>;
   }
 }

@@ -8,7 +8,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: [`Admin (${process.env.DEPLOY_ENVIRONMENT})`],
+  app_name: [`Exchange FE (${process.env.DEPLOY_ENVIRONMENT})`],
   /**
    * Your New Relic license key.
    */

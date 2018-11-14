@@ -35,7 +35,7 @@ export const AuthConnectorWrapper = ComponentToCompose => {
     static displayName = `${AuthConnectorWrapper.displayName}(${displayName})`;
 
     static async getInitialProps(props, store) {
-      const { authStore } = store;
+      const { authStore, buyerCart, buyerSettings } = store;
 
       let initialProps = {};
 
@@ -47,6 +47,13 @@ export const AuthConnectorWrapper = ComponentToCompose => {
         try {
           logger.debug('Fetching user!');
           await authStore.fetchUser();
+          if (authStore.loggedIn) {
+            // fetch cart and locations
+            const promises = [];
+            promises.push(buyerCart.fetchCart());
+            promises.push(buyerSettings.getLocations());
+            await Promise.all(promises);
+          }
         } catch (e) {
           logger.debug('Fetching user FAIL');
           return resolveUnauthenticatedRedirect(props, store);
