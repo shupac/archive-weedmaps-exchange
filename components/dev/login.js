@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { apiGatewayUrl, siteUrl } from 'config';
+import { siteUrl } from 'config';
 import { getEnv } from 'mobx-state-tree';
-import axios from 'axios';
 import { redirectTo } from 'lib/common/redirect-unauthenticated-user';
 
 const FormCenterParent = styled.div`
@@ -43,30 +42,11 @@ export default class DevLoginForm extends Component {
   };
 
   onSubmit = async event => {
-    const { username, password } = this.state;
+    event.preventDefault();
     const { store } = this.props;
     const sdk = getEnv(store).wmSdk;
-    const { auth: authModule } = sdk.user;
-
-    event.preventDefault();
-    const result = await axios({
-      method: 'POST',
-      url: `${apiGatewayUrl}/auth/token`,
-      data: {
-        grant_type: 'password',
-        scope: 'user',
-        username,
-        password,
-      },
-    });
-    const { data } = result;
-    console.log('authModule ', authModule);
-
-    authModule.updateTokens({
-      accessToken: data.access_token,
-      refreshToken: data.refresh_token,
-    });
-    authModule.flush();
+    await sdk.auth.login(this.state);
+    sdk.request.storage.setTokens(sdk.request.tokens);
     redirectTo({}, `${siteUrl}/buyer/marketplace/catalog`);
   };
 
