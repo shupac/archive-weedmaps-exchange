@@ -15,6 +15,7 @@ services:
       - DEPLOY_ENVIRONMENT=${DEPLOY_ENVIRONMENT}
       - SHA=${sha}
       - NPM_TOKEN=${NPM_TOKEN}
+      - HONEYBADGER_API_KEY=${HONEYBADGER_API_KEY}
   storybook:
     build:
       context: ./
