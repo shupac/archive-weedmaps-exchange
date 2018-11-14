@@ -12,12 +12,11 @@ import SearchBar from 'components/molecules/search-bar';
 import ProductCard from 'components/molecules/product-card';
 import PagingControls from 'components/molecules/paging-controls';
 import EmptyState from 'components/atoms/empty-state';
-import { Icons } from '@ghostgroup/ui';
-import theme from 'lib/styles/theme';
+import Loader, { LoaderWrapper } from 'components/atoms/loader';
 import { type RouterType } from 'lib/types/router';
 import { type StoreType } from 'lib/types/store';
 import CategoryCarousels from './carousels';
-import { Wrapper, Content, Products, NoResults, Pagination } from './styles';
+import { Wrapper, Content, Products, Pagination } from './styles';
 
 type Props = {
   router: RouterType,
@@ -192,9 +191,9 @@ class Catalog extends Component<Props, State> {
 
     if (!mounted || searchResultsLoading) {
       return (
-        <NoResults>
-          <Icons.Spinner fill={theme.style.icon.dark} />
-        </NoResults>
+        <LoaderWrapper>
+          <Loader />
+        </LoaderWrapper>
       );
     }
 

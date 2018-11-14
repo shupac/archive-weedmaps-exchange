@@ -1,11 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { mockCategories, mockEmptyCategories } from 'lib/mocks/categories';
-import { Icons } from '@ghostgroup/ui';
+import Loader from 'components/atoms/loader';
 import SearchBar from 'components/molecules/search-bar';
 import EmptyState from 'components/atoms/empty-state';
 import { Discover } from './';
-import { NoResults } from './styles';
 
 const mockStore = {
   buyerSettings: {
@@ -76,22 +75,14 @@ describe('Marketplace Discover', () => {
 
   it('should remain loading if the component is not mounted', () => {
     const wrapper = setup({ store: mockStore });
-    const loading = wrapper
-      .find(NoResults)
-      .dive()
-      .find(Icons.Spinner);
-    expect(loading.exists()).toEqual(true);
+    expect(wrapper.find(Loader).exists()).toEqual(true);
   });
 
   it('should remain loading if the departments is still loading', () => {
     const wrapper = setup({ store: mockLoadingStore });
     const instance = wrapper.instance();
     instance.componentDidMount();
-    const loading = wrapper
-      .find(NoResults)
-      .dive()
-      .find(Icons.Spinner);
-    expect(loading.exists()).toEqual(true);
+    expect(wrapper.find(Loader).exists()).toEqual(true);
   });
 
   describe('if categories are empty', () => {

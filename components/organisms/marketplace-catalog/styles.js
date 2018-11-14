@@ -18,12 +18,6 @@ export const Products = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(217px, 1fr));
 `;
 
-export const NoResults = styled.div`
-  width: 100%;
-  padding-top: 80px;
-  text-align: center;
-`;
-
 export const Pagination = styled.div`
   margin: 16px 0;
   display: flex;

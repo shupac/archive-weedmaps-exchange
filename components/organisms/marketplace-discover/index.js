@@ -2,14 +2,12 @@
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import { reaction } from 'mobx';
-import { Icons } from '@ghostgroup/ui';
-import theme from 'lib/styles/theme';
 import SearchBar from 'components/molecules/search-bar';
 import CategoryCard from 'components/molecules/category-card';
 import CatalogCarousel from 'components/molecules/carousel';
 import EmptyState from 'components/atoms/empty-state';
+import Loader, { LoaderWrapper } from 'components/atoms/loader';
 import { type DepartmentType } from 'models/department';
-import { NoResults } from './styles';
 
 type Props = {
   store: any,
@@ -68,11 +66,12 @@ export class Discover extends Component<Props, State> {
     const { store } = this.props;
     const { departments, departmentsLoading } = store.buyerSettings;
     const { mounted } = this.state;
+
     if (!mounted || departmentsLoading) {
       return (
-        <NoResults>
-          <Icons.Spinner fill={theme.style.icon.dark} />
-        </NoResults>
+        <LoaderWrapper>
+          <Loader />
+        </LoaderWrapper>
       );
     }
 

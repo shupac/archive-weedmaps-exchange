@@ -6,8 +6,7 @@ import { type StoreType } from 'lib/types/store';
 import { type PurchaseOrderType } from 'models/purchase-order';
 import Breadcrumbs from 'components/molecules/breadcrumbs/index';
 import OrderSummary from 'components/molecules/cart-order-summary';
-import { Icons } from '@ghostgroup/ui';
-import theme from 'lib/styles/theme';
+import Loader from 'components/atoms/loader';
 import {
   CartWrapper,
   CartLayout,
@@ -41,7 +40,7 @@ class CartConfirmation extends Component<Props> {
   render() {
     const { cartOrder } = this.props.store.buyerCart;
 
-    if (!cartOrder) return <Icons.Spinner fill={theme.style.icon.dark} />;
+    if (!cartOrder) return <Loader />;
 
     return (
       <CartWrapper>

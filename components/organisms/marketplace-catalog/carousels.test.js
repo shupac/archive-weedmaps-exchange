@@ -3,7 +3,8 @@ import { shallow } from 'enzyme';
 import { mockCategoryProducts } from 'mocks/category-products';
 import CatalogCarousel from 'components/molecules/carousel';
 import ProductCard from 'components/molecules/product-card';
-import { Icons } from '@ghostgroup/ui';
+import Loader from 'components/atoms/loader';
+
 import { CategoryCarousels } from './carousels';
 
 const mockStore = {
@@ -67,7 +68,7 @@ describe('CategoryCarousels', () => {
       },
     };
     const wrapper = setup({ store: thisStore });
-    expect(wrapper.find(Icons.Spinner).exists()).toEqual(true);
+    expect(wrapper.find(Loader).exists()).toEqual(true);
   });
 
   it('should reset store on unmount', () => {

@@ -10,11 +10,11 @@ import { mockBrands } from 'lib/mocks/brands';
 import { mockProduct } from 'lib/mocks/search-results';
 import EmptyState from 'components/atoms/empty-state';
 import ProductCard from 'components/molecules/product-card';
-import { Icons } from '@ghostgroup/ui';
+import Loader from 'components/atoms/loader';
 import PagingControls from 'components/molecules/paging-controls';
 import { Catalog } from './';
 import CategoryCarousels from './carousels';
-import { Products, NoResults, Pagination } from './styles';
+import { Products, Pagination } from './styles';
 
 const mockStore = {
   buyerSettings: {
@@ -181,7 +181,6 @@ describe('Marketplace Catalog', () => {
     });
     expect(wrapper.find(CategoryCarousels).exists()).toEqual(true);
     expect(wrapper.find(Products).exists()).toEqual(false);
-    expect(wrapper.find(NoResults).exists()).toEqual(false);
   });
 
   it('should render the category carousels with extra query params', () => {
@@ -195,7 +194,6 @@ describe('Marketplace Catalog', () => {
     });
     expect(wrapper.find(CategoryCarousels).exists()).toEqual(true);
     expect(wrapper.find(Products).exists()).toEqual(false);
-    expect(wrapper.find(NoResults).exists()).toEqual(false);
   });
 
   it('should render the products grid', () => {
@@ -204,7 +202,6 @@ describe('Marketplace Catalog', () => {
     instance.componentDidMount();
     expect(wrapper.find(CategoryCarousels).exists()).toEqual(false);
     expect(wrapper.find(Products).exists()).toEqual(true);
-    expect(wrapper.find(NoResults).exists()).toEqual(false);
   });
 
   it('should render no results', () => {
@@ -246,13 +243,13 @@ describe('Marketplace Catalog', () => {
     };
     const wrapper = setup({ store: thisStore });
     const instance = wrapper.instance();
-    expect(wrapper.find(Icons.Spinner).exists()).toEqual(true);
+    expect(wrapper.find(Loader).exists()).toEqual(true);
 
     instance.componentDidMount();
 
     expect(wrapper.find(CategoryCarousels).exists()).toEqual(false);
     expect(wrapper.find(Products).exists()).toEqual(false);
-    expect(wrapper.find(Icons.Spinner).exists()).toEqual(true);
+    expect(wrapper.find(Loader).exists()).toEqual(true);
   });
 
   it('should display pagination when product count is greater than page size', () => {

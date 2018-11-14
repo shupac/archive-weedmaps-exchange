@@ -16,11 +16,18 @@ const LoaderWrap = styled.div`
 
 type Props = {
   loaderText?: string,
+  size?: string,
 };
 
-export const Loader = ({ loaderText }: Props) => (
+export const LoaderWrapper = styled.div`
+  margin-top: 80px;
+  width: 100%;
+  text-align: center;
+`;
+
+export const Loader = ({ loaderText, size = '48px' }: Props) => (
   <LoaderWrap>
-    <Icons.Spinner size="70px" fill={icon.dark} />
+    <Icons.Spinner size={size} fill={icon.dark} />
     {loaderText && <p>{loaderText}</p>}
   </LoaderWrap>
 );
