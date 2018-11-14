@@ -84,8 +84,10 @@ class Catalog extends Component<Props, State> {
   };
 
   searchProducts = () => {
-    const { router } = this.props;
+    const { router, store } = this.props;
     const { query } = router;
+
+    if (!store.authStore.selectedLocation) return;
 
     this.props.store.buyerProducts.searchCatalog({
       page_size: DEFAULT_PAGE_SIZE,
@@ -155,15 +157,7 @@ class Catalog extends Component<Props, State> {
 
         <Content>
           <SearchBar showCategory={false} />
-          {!this.getCategories().length ? (
-            <EmptyState
-              image="no_products_available"
-              title="No Products Available"
-              body="There are currently no products available, please try again later."
-            />
-          ) : (
-            this.renderProducts()
-          )}
+          {this.renderProducts()}
         </Content>
       </Wrapper>
     );
@@ -189,7 +183,7 @@ class Catalog extends Component<Props, State> {
       searchResultsTotalItems,
     } = store.buyerProducts;
 
-    if (!mounted || searchResultsLoading) {
+    if (!store.authStore.selectedLocation || !mounted || searchResultsLoading) {
       return (
         <LoaderWrapper>
           <Loader />

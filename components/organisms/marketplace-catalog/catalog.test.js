@@ -29,6 +29,9 @@ const mockStore = {
     searchCatalog: jest.fn(),
     setSearchResultsData: jest.fn(),
   },
+  authStore: {
+    selectedLocation: true,
+  },
 };
 
 const mockEmptyStore = {
@@ -43,6 +46,9 @@ const mockEmptyStore = {
     searchResultsLoading: false,
     searchCatalog: jest.fn(),
     setSearchResultsData: jest.fn(),
+  },
+  authStore: {
+    selectedLocation: true,
   },
 };
 
@@ -351,13 +357,13 @@ describe('Marketplace Catalog', () => {
     const { setSearchResultsData } = mockStore.buyerProducts;
     expect(setSearchResultsData).toHaveBeenCalledWith([]);
   });
+});
 
-  describe('Empty Catalog', () => {
-    it('should display no products available', () => {
-      const wrapper = setup({ store: mockEmptyStore });
-      const instance = wrapper.instance();
-      instance.componentDidMount();
-      expect(wrapper.find(EmptyState).exists()).toEqual(true);
-    });
+describe('Empty Catalog', () => {
+  it('should display no products available', () => {
+    const wrapper = setup({ store: mockEmptyStore });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
+    expect(wrapper.find(EmptyState).exists()).toEqual(true);
   });
 });
