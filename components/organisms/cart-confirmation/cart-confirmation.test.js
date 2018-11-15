@@ -1,20 +1,33 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
-import { createRootStore } from 'lib/data-access/stores';
 import Breadcrumbs from 'components/molecules/breadcrumbs/index';
 import OrderSummary from 'components/molecules/cart-order-summary';
+import Loader from 'components/atoms/loader';
 import BuyerCart from 'lib/data-access/stores/buyer-cart';
 import mockCartOrder from 'lib/mocks/cart-order';
 import { CartConfirmation } from './';
 import { POWrapper, POButton } from './styles';
 
-function setup() {
-  const mockBuyerCartStore = BuyerCart.create({ cartOrder: mockCartOrder });
-  const mockStore = createRootStore({ buyerCart: mockBuyerCartStore });
+function setup(orderId) {
+  const mockFetchClient = {
+    fetch: jest.fn().mockReturnValue(Promise.resolve({ data: mockCartOrder })),
+  };
 
-  const component = <CartConfirmation store={mockStore} />;
-  const wrapper = shallow(component);
+  const mockBuyerCartStore = BuyerCart.create(
+    {
+      cartOrderData: mockCartOrder,
+    },
+    {
+      client: mockFetchClient,
+    },
+  );
+
+  const mockStore = { buyerCart: mockBuyerCartStore };
+  const component = <CartConfirmation store={mockStore} orderId={orderId} />;
+  const wrapper = shallow(component, {
+    disableLifecycleMethods: true,
+  });
   return { wrapper, mockStore };
 }
 
@@ -24,9 +37,28 @@ describe('Cart Confirmation Page', () => {
     expect(wrapper.find(Breadcrumbs).exists()).toEqual(true);
   });
 
+  it('should render loader if no order data', () => {
+    const mockBuyerCartStore = BuyerCart.create();
+    const mockStore = { buyerCart: mockBuyerCartStore };
+    const component = <CartConfirmation store={mockStore} />;
+    const wrapper = shallow(component, {
+      disableLifecycleMethods: true,
+    });
+    expect(wrapper.find(Loader).exists()).toEqual(true);
+  });
+
+  it('should fetch order on mount', () => {
+    const { wrapper, mockStore } = setup(mockCartOrder.id);
+    const fetchCartOrder = jest.spyOn(mockStore.buyerCart, 'fetchCartOrder');
+    const instance = wrapper.instance();
+    instance.componentDidMount();
+    expect(fetchCartOrder).toHaveBeenCalledWith(mockCartOrder.id);
+    fetchCartOrder.mockRestore();
+  });
+
   it('should render the purchase orders', () => {
     const { wrapper } = setup();
-    expect(wrapper.find(POWrapper).length).toEqual(2);
+    expect(wrapper.find(POWrapper).length).toEqual(3);
   });
 
   it('should render the order summary', () => {
@@ -41,11 +73,17 @@ describe('Cart Confirmation Page', () => {
     const viewPO = jest.spyOn(instance, 'viewPO');
     const pushRoute = jest.spyOn(Router, 'push').mockReturnValue();
     viewButton.simulate('click');
-    expect(viewPO).toHaveBeenCalledWith('4087d1a1-0b91-4aa4-a479-c8d241b3d69a');
+    expect(viewPO).toHaveBeenCalledWith('b97329d4-a7ae-4c7a-ab5e-4de8aec22f50');
     expect(pushRoute).toHaveBeenCalledWith(
-      '/buyer/orders/4087d1a1-0b91-4aa4-a479-c8d241b3d69a',
+      '/buyer/orders/b97329d4-a7ae-4c7a-ab5e-4de8aec22f50',
     );
     viewPO.mockRestore();
     pushRoute.mockRestore();
+  });
+
+  it('should not render seller address if unavailable', () => {
+    const { wrapper } = setup();
+    const instance = wrapper.instance();
+    expect(instance.renderSellerAddress(null)).toEqual(null);
   });
 });

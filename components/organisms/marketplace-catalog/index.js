@@ -87,9 +87,7 @@ class Catalog extends Component<Props, State> {
     const { router, store } = this.props;
     const { query } = router;
 
-    if (!store.authStore.selectedLocation) return;
-
-    this.props.store.buyerProducts.searchCatalog({
+    store.buyerProducts.searchCatalog({
       page_size: DEFAULT_PAGE_SIZE,
       page: 1,
       ...query,
@@ -183,7 +181,7 @@ class Catalog extends Component<Props, State> {
       searchResultsTotalItems,
     } = store.buyerProducts;
 
-    if (!store.authStore.selectedLocation || !mounted || searchResultsLoading) {
+    if (!mounted || searchResultsLoading) {
       return (
         <LoaderWrapper>
           <Loader />

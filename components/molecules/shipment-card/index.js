@@ -21,7 +21,7 @@ type Props = {
   store: StoreType,
   count?: number,
   index: ?number,
-  cartItem: CartItemType[],
+  cartItems: CartItemType[],
 };
 
 export class ShipmentCard extends Component<Props> {
@@ -47,14 +47,14 @@ export class ShipmentCard extends Component<Props> {
   };
 
   render() {
-    const { cartItem, index, store, count } = this.props;
+    const { cartItems, index, store, count } = this.props;
     const { buyerCart } = store;
 
     return (
       <Table>
         <VendorCartHeader>
           Shipment {index + 1} of {count}:
-          <span>{cartItem && cartItem[0].variant.product.brand.name}</span>
+          <span>{cartItems && cartItems[0].brandName}</span>
         </VendorCartHeader>
         <TableBody>
           <ColLabel align="left">product</ColLabel>
@@ -62,13 +62,13 @@ export class ShipmentCard extends Component<Props> {
           <ColLabel>quantity</ColLabel>
           <ColLabelRight>subtotal</ColLabelRight>
           <Border style={{ marginTop: 0 }} />
-          {cartItem &&
-            cartItem.map(row => (
+          {cartItems &&
+            cartItems.map(cartItem => (
               <ProductRow
-                key={row.id}
-                item={row}
+                key={cartItem.id}
+                item={cartItem}
                 setRowSubtotals={this.setRowSubtotals}
-                cartError={buyerCart.cartErrorsByItemId[row.id]}
+                cartError={buyerCart.cartErrorsByItemId[cartItem.id]}
               />
             ))}
         </TableBody>

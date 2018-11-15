@@ -20,6 +20,7 @@ import {
   POWrapper,
   POHeader,
   POButton,
+  SellerAddress,
 } from './styles';
 
 type Props = {
@@ -78,33 +79,49 @@ class CartConfirmation extends Component<Props> {
   renderPurchaseOrders = (purchaseOrders: PurchaseOrderType[]) =>
     purchaseOrders.map((po, index) => {
       const { id, sellerData } = po;
-      const { name, phone, email, location } = sellerData;
       const {
-        street_address: streetAddress,
-        city,
-        territory,
-        postal_code: postalCode,
-        country,
-      } = JSON.parse(location.address);
+        sellerName,
+        sellerPhone,
+        sellerEmail,
+        sellerAddress,
+      } = sellerData;
 
       return (
         <POWrapper key={id}>
           <POHeader>
-            Shipment {index + 1}: {name}
+            Shipment {index + 1}: {sellerName}
           </POHeader>
-          <div>{streetAddress}</div>
-          <div>
-            {city}, {territory} {postalCode}
-          </div>
-          <div>{country}</div>
-          <div>Phone: {phone}</div>
-          <div>Email: {email}</div>
+          {this.renderSellerAddress(sellerAddress)}
+          <div>Phone: {sellerPhone}</div>
+          <div>Email: {sellerEmail}</div>
           <POButton onClick={() => this.viewPO(id)}>
             View Purchase Order
           </POButton>
         </POWrapper>
       );
     });
+
+  renderSellerAddress = (addressString: string) => {
+    if (!addressString) return null;
+
+    const {
+      street_address: streetAddress,
+      city,
+      territory,
+      postal_code: postalCode,
+      country,
+    } = JSON.parse(addressString);
+
+    return (
+      <SellerAddress>
+        <div>{streetAddress}</div>
+        <div>
+          {city}, {territory} {postalCode}
+        </div>
+        <div>{country}</div>
+      </SellerAddress>
+    );
+  };
 }
 
 export default inject('store')(observer(CartConfirmation));

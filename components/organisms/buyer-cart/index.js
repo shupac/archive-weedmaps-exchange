@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { reaction } from 'mobx';
 import { type StoreType } from 'lib/types/store';
 import { concatAddy } from 'lib/common/strings';
-import uniqueKey from 'lib/common/unique-key';
+import unique from 'lib/common/unique-key';
 import Loader from 'components/atoms/loader';
 import EmptyCartPage from 'components/organisms/buyer-cart/empty-cart';
 import Breadcrumbs from 'components/molecules/breadcrumbs/index';
@@ -32,18 +32,29 @@ export class BuyerCart extends Component<Props> {
 
   componentWillUnmount() {
     this.dispose();
+    this.props.store.buyerCart.setCartSubmittingStatus(false);
   }
 
   render() {
     const { buyerCart } = this.props.store;
 
-    if (buyerCart.loadingCart) {
+    const {
+      loadingCart,
+      submittingCart,
+      cartItemCount,
+      cartItemsByBrand,
+      cart,
+      checkoutCart,
+    } = buyerCart;
+
+    if (loadingCart && !submittingCart) {
       return <Loader />;
     }
 
-    if (buyerCart.cartItemCount < 1) {
+    if (!cartItemCount) {
       return <EmptyCartPage />;
     }
+
     return (
       <Fragment>
         <CartWrapper>
@@ -56,21 +67,22 @@ export class BuyerCart extends Component<Props> {
           <CartLayout>
             <CartMain>
               {this.renderAddressManager()}
-              {buyerCart.cartItemsByBrand &&
-                buyerCart.cartItemsByBrand.map((item, idx) => (
+              {cartItemsByBrand &&
+                cartItemsByBrand.map((brandItems, idx) => (
                   <ShipmentCard
-                    cartItem={item}
-                    key={uniqueKey()}
+                    key={unique()}
+                    cartItems={brandItems}
                     index={idx}
-                    count={buyerCart.cartItemsByBrand.length}
+                    count={cartItemsByBrand.length}
                   />
                 ))}
             </CartMain>
             <CartSidebar>
               <CartOrderSummary
-                cart={buyerCart.cart}
-                onSubmit={buyerCart.checkoutCart}
-                quantity={buyerCart.cart.items.length}
+                cart={cart}
+                onSubmit={checkoutCart}
+                quantity={cart.items.length}
+                isLoading={submittingCart}
               />
             </CartSidebar>
           </CartLayout>

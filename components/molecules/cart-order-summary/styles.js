@@ -44,7 +44,7 @@ export const OrderSummaryDetailsWrapper = styled.div`
   margin: 24px;
   margin-bottom: 16px;
   padding-bottom: 16px;
-  > button:last-of-type {
+  > a {
     margin-top: 16px;
   }
 `;
@@ -70,6 +70,10 @@ export const OrderTotalDetail = styled.div`
   margin: 16px 0;
   padding-top: 16px;
   border-top: 1px solid ${icon.inverted};
+`;
+
+export const ContinueWrapper = styled.div`
+  margin-top: 16px;
 `;
 
 export const Asterisk = styled.div`

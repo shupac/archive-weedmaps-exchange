@@ -5,6 +5,12 @@ import { ButtonPrimary } from 'components/atoms/button';
 
 const { text, background, icon } = WmTheme.style;
 
+export const LoaderWrapper = styled.div`
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+`;
+
 export const OrderWrapper = styled.div`
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
   border-radius: 3px;
@@ -48,3 +54,5 @@ export const POButton = styled(ButtonPrimary)`
   font-size: ${rem(14)};
   margin-top: 24px;
 `;
+
+export const SellerAddress = styled.div``;

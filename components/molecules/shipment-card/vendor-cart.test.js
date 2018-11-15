@@ -1,29 +1,35 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import BuyerCart from 'lib/data-access/stores/buyer-cart';
 import { mockErrorCart } from 'lib/mocks/cart';
 import ShipmentCard from './';
 import ProductRow from './product-row';
 
 function setup() {
-  const mockStore = {
-    buyerCart: {
-      cartItemCount: 2,
-      cartErrors: [...mockErrorCart.cartErrors],
-      updateCartItem: jest.fn(),
-      cartErrorsByItemId: {
-        'd054b34f-428e-4583-a2a4-27f4e5aea6f3': 'minimum_purchase',
-      },
-    },
+  const mockFetchClient = {
+    fetch: jest.fn(),
   };
+
+  const mockBuyerCartStore = BuyerCart.create(
+    {
+      cart: mockErrorCart,
+    },
+    {
+      client: mockFetchClient,
+    },
+  );
+
+  const mockStore = { buyerCart: mockBuyerCartStore };
+
   const props = {
     count: 3,
     index: 0,
-    cartItem: mockErrorCart.items,
+    cartItems: mockBuyerCartStore.cart.items,
   };
   const productProps = {
     setRowSubtotals: jest.fn(),
-    item: mockErrorCart.items[0],
-    cartError: mockErrorCart.cartErrors[0],
+    item: mockBuyerCartStore.cart.items[0],
+    cartError: mockBuyerCartStore.cart.cartErrors[0],
   };
   const productRowWrapper = shallow(
     <ProductRow store={mockStore} {...productProps} />,

@@ -1,9 +1,11 @@
 // @flow
 import React, { Fragment } from 'react';
+import Link from 'next/link';
 import { formatDollars } from 'lib/common/strings';
 import uniqby from 'lodash.uniqby';
 import errorDictionary from 'lib/common/cart-errors';
-import { ButtonPrimary, ButtonWhiteNoHover } from 'components/atoms/button';
+import { ButtonWhiteNoHover } from 'components/atoms/button';
+import LoadingButton from 'components/atoms/loading-button';
 import { type CartType } from 'lib/data-access/models/cart';
 import uniqueKey from 'lib/common/unique-key';
 import {
@@ -13,6 +15,7 @@ import {
   OrderSummaryHeader,
   OrderTotalDetail,
   ErrorMessage,
+  ContinueWrapper,
   Asterisk,
 } from './styles';
 
@@ -20,9 +23,10 @@ type Props = {
   cart: CartType,
   onSubmit?: () => void,
   quantity?: number,
+  isLoading?: boolean,
 };
 
-const CartOrderSummary = ({ cart, quantity, onSubmit }: Props) => {
+const CartOrderSummary = ({ cart, quantity, onSubmit, isLoading }: Props) => {
   const { total, subtotal, shippingFee, items, cartErrors } = cart;
   quantity = quantity || items.reduce((acc, value) => acc + value.amount, 0);
   const uniqErrors = uniqby(cartErrors, 'error');
@@ -53,9 +57,25 @@ const CartOrderSummary = ({ cart, quantity, onSubmit }: Props) => {
                   </ErrorMessage>
                 ))
               ) : (
-                <ButtonPrimary onClick={onSubmit}>Submit Order</ButtonPrimary>
+                <LoadingButton
+                  onClick={onSubmit}
+                  isLoading={isLoading || false}
+                  loadingText="Submitting"
+                  size={{
+                    width: '100%',
+                    height: '40px',
+                  }}
+                >
+                  Submit Order
+                </LoadingButton>
               )}
-              <ButtonWhiteNoHover>Continue Shopping</ButtonWhiteNoHover>
+              <ContinueWrapper>
+                <Link href="/buyer/marketplace/discover">
+                  <a>
+                    <ButtonWhiteNoHover>Continue Shopping</ButtonWhiteNoHover>
+                  </a>
+                </Link>
+              </ContinueWrapper>
             </Fragment>
           )}
         </OrderSummaryDetailsWrapper>
