@@ -6,16 +6,16 @@ import AlertDanger from './styles';
 
 type Props = {
   errorType: CartErrorType,
-  removeHandler: number => void,
-  changeHandler: number => void,
+  onResetQuantity: number => void,
+  onUpdate: number => void,
   availableAmount: number,
 };
 
 export const CartError = ({
   errorType,
   availableAmount,
-  changeHandler,
-  removeHandler,
+  onResetQuantity,
+  onUpdate,
 }: Props) => (
   <AlertDanger>
     <ErrorIcon width="16px" height="14px" />
@@ -23,11 +23,11 @@ export const CartError = ({
     {errorType === 'quantity_unavailable' && (
       <Fragment>
         {availableAmount}
-        <a onClick={() => changeHandler(availableAmount)}>Reset Quantity</a>
+        <a onClick={() => onResetQuantity(availableAmount)}>Reset Quantity</a>
       </Fragment>
     )}
     {errorType === 'location_unavailable' && (
-      <a onClick={() => removeHandler(0)}>Remove</a>
+      <a onClick={() => onUpdate(0)}>Remove</a>
     )}
   </AlertDanger>
 );

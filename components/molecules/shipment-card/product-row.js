@@ -82,6 +82,11 @@ export class ProductRow extends Component<Props> {
     this.quantity = quantity;
   };
 
+  @action
+  onResetQuantity = (quantity: number) => {
+    this.desiredQuantity = quantity;
+  };
+
   componentWillUnmount() {
     this.unset();
     this.dispose();
@@ -130,13 +135,16 @@ export class ProductRow extends Component<Props> {
             value={this.desiredQuantity}
             onChange={this.handleChange}
           />
-          {this.desiredQuantity !== '' && this.showUpdateLink && (
-            <UpdateLink
-              onClick={() => this.onUpdate(parseInt(this.desiredQuantity, 10))}
-            >
-              UPDATE
-            </UpdateLink>
-          )}
+          {this.desiredQuantity !== '' &&
+            this.showUpdateLink && (
+              <UpdateLink
+                onClick={() =>
+                  this.onUpdate(parseInt(this.desiredQuantity, 10))
+                }
+              >
+                UPDATE
+              </UpdateLink>
+            )}
 
           <QuantityButton onClick={() => this.onUpdate(this.quantity + 1)}>
             <IncreaseQuantity />
@@ -150,9 +158,9 @@ export class ProductRow extends Component<Props> {
           <CartError
             errorType={cartError.error}
             // @TODO: pass in variant amount once available
-            availableAmount={12}
-            changeHandler={this.onQuantityChange}
-            removeHandler={this.onUpdate}
+            availableAmount={5}
+            onResetQuantity={this.onResetQuantity}
+            onUpdate={this.onUpdate}
           />
         )}
         <Border />

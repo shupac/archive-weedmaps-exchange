@@ -11,7 +11,7 @@ const AlertDanger = styled.div`
   border-radius: 3px;
   background-color: ${theme.colors.bg.error};
   margin: 16px 16px 0 16px;
-  grid-column: 1/4;
+  grid-column: 1/2;
   padding: 8px 16px;
   font-size: ${rem(14)};
   color: ${state.danger};
