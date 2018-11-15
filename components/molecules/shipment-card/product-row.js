@@ -54,7 +54,7 @@ export class ProductRow extends Component<Props> {
   dispose = reaction(
     () => this.desiredQuantity,
     desiredQuantity => {
-      if (desiredQuantity !== this.quantity) {
+      if (Number(desiredQuantity) !== this.quantity) {
         this.showUpdateLink = true;
       } else {
         this.showUpdateLink = false;
@@ -120,7 +120,7 @@ export class ProductRow extends Component<Props> {
         <QuantityWrapper outOfStock={outOfStock}>
           <QuantityButton
             onClick={() => this.onUpdate(Math.max(1, this.quantity - 1))}
-            disabled={this.quantity <= 0}
+            disabled={this.quantity <= 1}
           >
             <DecreaseQuantity />
           </QuantityButton>
@@ -130,7 +130,7 @@ export class ProductRow extends Component<Props> {
             value={this.desiredQuantity}
             onChange={this.handleChange}
           />
-          {this.showUpdateLink && (
+          {this.desiredQuantity !== '' && this.showUpdateLink && (
             <UpdateLink
               onClick={() => this.onUpdate(parseInt(this.desiredQuantity, 10))}
             >
