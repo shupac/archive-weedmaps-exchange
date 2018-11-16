@@ -26,7 +26,7 @@ export const buyerData = [
     name: 'Purchase Orders',
     icon: sizeIcon(Papers),
     route: {
-      name: 'orders',
+      name: 'buyerOrders',
     },
   },
 ];

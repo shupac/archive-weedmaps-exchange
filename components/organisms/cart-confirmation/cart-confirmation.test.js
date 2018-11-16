@@ -71,12 +71,11 @@ describe('Cart Confirmation Page', () => {
     const instance = wrapper.instance();
     const viewButton = wrapper.find(POButton).first();
     const viewPO = jest.spyOn(instance, 'viewPO');
-    const pushRoute = jest.spyOn(Router, 'push').mockReturnValue();
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     viewButton.simulate('click');
-    expect(viewPO).toHaveBeenCalledWith('b97329d4-a7ae-4c7a-ab5e-4de8aec22f50');
-    expect(pushRoute).toHaveBeenCalledWith(
-      '/buyer/orders/b97329d4-a7ae-4c7a-ab5e-4de8aec22f50',
-    );
+    const orderId = 'b97329d4-a7ae-4c7a-ab5e-4de8aec22f50';
+    expect(viewPO).toHaveBeenCalledWith(orderId);
+    expect(pushRoute).toHaveBeenCalledWith('buyerOrder', { orderId });
     viewPO.mockRestore();
     pushRoute.mockRestore();
   });

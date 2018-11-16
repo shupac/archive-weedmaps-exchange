@@ -35,7 +35,7 @@ class CartConfirmation extends Component<Props> {
   }
 
   viewPO = (id: string) => {
-    Router.push(`/buyer/orders/${id}`);
+    Router.pushRoute('buyerOrder', { orderId: id });
   };
 
   render() {
