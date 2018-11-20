@@ -6,6 +6,7 @@ Object {
   "id": "32647882-a91a-49cd-b06a-b86192c0d0fb",
   "items": Array [
     Object {
+      "allocation": undefined,
       "amount": 100,
       "id": "8ec23207-a194-4b82-be11-a1cb7392c6cf",
       "price": 1000,
@@ -41,6 +42,7 @@ Object {
       },
     },
     Object {
+      "allocation": undefined,
       "amount": 2,
       "id": "fb7d8304-dfff-438f-8a80-013e5e9674c5",
       "price": 4000,

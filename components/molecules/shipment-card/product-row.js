@@ -157,8 +157,7 @@ export class ProductRow extends Component<Props> {
         {cartError && (
           <CartError
             errorType={cartError.error}
-            // @TODO: pass in variant amount once available
-            availableAmount={5}
+            availableAmount={item.allocatedAmount}
             onResetQuantity={this.onResetQuantity}
             onUpdate={this.onUpdate}
           />

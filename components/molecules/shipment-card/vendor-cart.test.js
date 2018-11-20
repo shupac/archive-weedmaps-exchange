@@ -130,7 +130,7 @@ describe('ProductRow', () => {
     const { productRowWrapper } = setup();
     expect(productRowWrapper.find('CartError').exists()).toEqual(true);
     expect(productRowWrapper.find('CartError').props().availableAmount).toEqual(
-      5,
+      null,
     );
   });
   it('should handle when component unmounts', () => {
