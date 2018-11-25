@@ -10,7 +10,7 @@ const statusColor = {
   in_progress: colors.amethyst,
   not_started: colors.havelockBlue,
   returned: colors.buttercup,
-  cancelled: colors.red,
+  canceled: colors.red,
   completed: colors.fountainBlue,
 };
 
@@ -18,7 +18,7 @@ const statusName = {
   in_progress: 'in progress',
   not_started: 'not started',
   returned: 'ready',
-  cancelled: 'cancelled',
+  canceled: 'canceled',
   completed: 'completed',
 };
 

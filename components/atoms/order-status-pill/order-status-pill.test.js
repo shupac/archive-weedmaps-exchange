@@ -7,7 +7,7 @@ import StatusPill from './';
 
 describe('Styled Link', () => {
   it('should render the status pill', () => {
-    const component = <StatusPill status="cancelled" />;
+    const component = <StatusPill status="canceled" />;
     const wrapper = shallow(component);
     expect(wrapper.exists()).toEqual(true);
     const pill = renderer.create(component);

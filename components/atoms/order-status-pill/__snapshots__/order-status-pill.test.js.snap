@@ -28,6 +28,6 @@ exports[`Styled Link should render the status pill 1`] = `
 <div
   className="c0"
 >
-  cancelled
+  canceled
 </div>
 `;
