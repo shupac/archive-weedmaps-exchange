@@ -69,7 +69,7 @@ export const HeaderButtons = styled.div`
 const gridColumnsBody = css`
   display: grid;
   color: ${text.normal};
-  grid-template-columns: 2fr 1fr 1fr 1fr 90px;
+  grid-template-columns: 2fr 1fr 1fr 1fr 110px;
   grid-column-gap: 8px;
 `;
 
@@ -88,7 +88,7 @@ export const ProductsLabels = styled.div`
     padding-left: 16px;
   }
   > :last-child {
-    justify-content: flex-end;
+    text-align: right;
   }
 `;
 
