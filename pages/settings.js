@@ -3,13 +3,13 @@ import React, { Component, Fragment } from 'react';
 import { inject } from 'mobx-react';
 import { Tabs } from '@ghostgroup/ui';
 import TabButton from 'components/atoms/tab-button';
+import { ButtonPrimary } from 'components/atoms/button';
 import { Link } from 'lib/routes';
 import { type StoreType } from 'lib/types/store';
 import AuthConnector from 'components/containers/auth-connector';
 import provide from 'lib/data-access/stores/provider';
 import Subheader from 'components/atoms/subheader';
 import ShowIfRoute from 'components/atoms/show-if-route';
-import LocationModal from 'components/molecules/location-modal';
 import Locations from 'components/organisms/settings-locations';
 import Profile from 'components/organisms/settings-profile';
 import {
@@ -19,7 +19,7 @@ import {
 } from 'components/layouts/page-layout';
 
 type Props = {
-  store?: StoreType,
+  store: StoreType,
   url: any,
 };
 
@@ -38,10 +38,9 @@ export class Settings extends Component<Props> {
   static displayName = 'Settings';
 
   render() {
-    const { url } = this.props;
-    const { query, pathname } = url;
-    const { tab } = query;
-    console.log('this is the store', this.props.store);
+    const { url, store } = this.props;
+    const { pathname, query } = url;
+    const { uiStore } = store;
 
     return (
       <PageLayout pathname={pathname}>
@@ -50,7 +49,7 @@ export class Settings extends Component<Props> {
             <Fragment>
               <Tabs>
                 {tabs.map(({ path, label }) => (
-                  <TabButton key={label} isSelected={path === url.query.tab}>
+                  <TabButton key={label} isSelected={path === query.tab}>
                     <Link route="settings" params={{ tab: path }}>
                       <a>{label}</a>
                     </Link>
@@ -58,7 +57,19 @@ export class Settings extends Component<Props> {
                 ))}
               </Tabs>
             </Fragment>
-            {tab === 'locations' && <LocationModal />}
+            {query.tab !== 'locations' ? (
+              false
+            ) : (
+              <ButtonPrimary
+                onClick={() => {
+                  uiStore.setLocationId(null);
+                  return uiStore.onOpenModal();
+                }}
+                width={161}
+              >
+                New Location
+              </ButtonPrimary>
+            )}
           </Subheader>
           <TabContent>
             <ShowIfRoute match="/buyer/settings/profile">

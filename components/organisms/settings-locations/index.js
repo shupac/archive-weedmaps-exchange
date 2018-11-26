@@ -2,9 +2,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
-import AddressSuggestions from 'components/molecules/address-suggestion';
 import { type StoreType } from 'lib/types/store';
 import LocationCard from 'components/molecules/location-card';
+import LocationModal from 'components/molecules/location-modal';
 import { LocationsWrapper, LocationCardWrapper } from './styles';
 
 type Props = {
@@ -17,9 +17,20 @@ class Locations extends Component<Props> {
     buyerSettings.getLocations();
   }
   render() {
-    const { locations } = this.props.store.buyerSettings;
+    const { buyerSettings, uiStore } = this.props.store;
+    const { locations } = buyerSettings;
+    const location =
+      uiStore.locationId !== null
+        ? locations.filter(x => x.id === uiStore.locationId)[0]
+        : undefined;
     return (
       <LocationsWrapper>
+        {uiStore.modalIsOpen && (
+          <LocationModal
+            header={uiStore.locationId ? 'Edit Location' : 'Add Location'}
+            location={location}
+          />
+        )}
         {locations.map(locationCard => {
           const {
             name,
@@ -41,11 +52,15 @@ class Locations extends Component<Props> {
                 contactName={contactName}
                 phone={phoneNumber}
                 email={email}
+                onDelete={() => buyerSettings.deleteLocation(id)}
+                onEdit={() => {
+                  uiStore.setLocationId(id);
+                  return uiStore.onOpenModal();
+                }}
               />
             </LocationCardWrapper>
           );
         })}
-        <AddressSuggestions />
       </LocationsWrapper>
     );
   }

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { reaction } from 'mobx';
-import type { StoreType } from 'lib/types/store';
+import { type StoreType } from 'lib/types/store';
 import {
   AddressSuggestionInput,
   GoogleBadge,
@@ -13,17 +13,15 @@ import {
 
 type Props = {
   store: StoreType,
+  id: string,
+  name: string,
+  onBlur: (event: any) => void,
+  onChange: (event: any) => void,
+  type: string,
+  error: boolean,
 };
 
-type State = {
-  isAddressCommitted: boolean,
-};
-
-class AddressSuggestions extends Component<Props, State> {
-  state = {
-    isAddressCommitted: false,
-  };
-
+class AddressSuggestions extends Component<Props> {
   dispose = reaction(
     () => {
       const { addressSuggestions } = this.props.store;
@@ -42,33 +40,39 @@ class AddressSuggestions extends Component<Props, State> {
 
   onAddressQuery = event => {
     const { addressSuggestions } = this.props.store;
-    this.setState({ isAddressCommitted: false });
+    addressSuggestions.setAddressCommitted(false);
     if (!event.target.value.length) {
       addressSuggestions.clearAddressSuggestions();
       addressSuggestions.getAddressSuggestions(event.target.value);
     }
     addressSuggestions.setQuery(event.target.value);
+    this.props.onChange(event);
   };
 
-  onAddressSuggestion = suggestion => async () => {
+  onAddressSuggestion = suggestion => () => {
     const { addressSuggestions } = this.props.store;
     addressSuggestions.setQuery(suggestion.address);
-    this.setState({ isAddressCommitted: true });
+    addressSuggestions.setAddressCommitted(true);
   };
 
   render() {
-    const { isAddressCommitted } = this.state;
+    const { error, name, type, onBlur, id, store } = this.props;
     const {
       suggestedAddresses,
       addressInput,
-    } = this.props.store.addressSuggestions;
+      isAddressCommitted,
+    } = store.addressSuggestions;
     return (
       <AddressSuggestionWrapper>
         <AddressSuggestionInput
+          data-test-id={id}
+          type={type}
           placeholder="Enter address"
-          name="addressQuery"
+          name={name}
           value={addressInput}
           onChange={this.onAddressQuery}
+          onBlur={onBlur}
+          error={error}
         />
         {!isAddressCommitted &&
           suggestedAddresses &&

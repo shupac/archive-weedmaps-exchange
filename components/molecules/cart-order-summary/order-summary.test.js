@@ -75,16 +75,7 @@ describe('Order Summary', () => {
         .dive()
         .text(),
     ).toEqual(
-      'Some items in your cart are not available. Please update your cart to continue.',
-    );
-    expect(
-      component
-        .find('ErrorMessage')
-        .last()
-        .dive()
-        .text(),
-    ).toEqual(
-      'Some items in your cart are not available. Please update your cart to continue.',
+      'Some items in your cart are no longer in stock. Please update your cart to continue.',
     );
   });
 });

@@ -193,10 +193,10 @@
   dependencies:
     react-resize-detector "^1.1.0"
 
-"@ghostgroup/wm-sdk-js@~5.0.0":
-  version "5.0.0"
-  resolved "https://registry.npmjs.org/@ghostgroup/wm-sdk-js/-/wm-sdk-js-5.0.0.tgz#6d6e86bfb321689f1ad4e0aaa61dc945ba2b9e7e"
-  integrity sha512-ny+NC2CGvQm7MwQvARtH/kuFISGhe+WdTpA6iW0b8GR56GjBbFWKLKOSGjPtjDp+ERy1E26h3WvCqhIvaUlywg==
+"@ghostgroup/wm-sdk-js@~5.2.1":
+  version "5.2.1"
+  resolved "https://registry.npmjs.org/@ghostgroup/wm-sdk-js/-/wm-sdk-js-5.2.1.tgz#4e26125a8b67e721f86f9a56cc54c010b541676e"
+  integrity sha512-//OZj+TdjO7E0QR/SaBh4c3ixE3ndE7sNwqlXkGwymDlOvNWy8neWleqILOUa8egix81OwPRIRufPog6AJMxdw==
   dependencies:
     cookie "^0.3.1"
     isomorphic-unfetch "^2.1.1"
@@ -7172,10 +7172,10 @@ jest-snapshot@^23.5.0:
     pretty-format "^23.5.0"
     semver "^5.5.0"
 
-jest-styled-components@next:
-  version "6.0.0-1"
-  resolved "https://registry.npmjs.org/jest-styled-components/-/jest-styled-components-6.0.0-1.tgz#253034ec6c1668f5c49fa169b379c551a080cfe2"
-  integrity sha512-9KJy6HvVWDdUXhSm4dEsDLJ00imAr0VJ6/mmtGgll3tbHIB5A2o/0jic7IT2O3eZPPZeIRNajKRlQLzJz8847g==
+jest-styled-components@~6.0.0:
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/jest-styled-components/-/jest-styled-components-6.0.1.tgz#deafc785a1559ed4e1d8c85e5558f919764cafa3"
+  integrity sha512-2W39o4plAA9FLmzug1GDMXUjDlbOYQ/Ai4xsCudyzDcQ1N6GaoGp7rnyjzGWlaTZsEOL2gSQ5Xxq180ySRyT1w==
   dependencies:
     css "^2.2.1"
 

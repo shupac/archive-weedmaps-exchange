@@ -5,7 +5,7 @@ import theme from 'lib/styles/theme';
 const InputStyles = css`
   font-size: ${rem(14)};
   font-weight: 300;
-  width: 100%;
+  width: ${props => props.width || '100%'};
   height: ${props => props.height || 40}px;
   border: 1px ${theme.style.state.secondaryCompanion} solid;
   border-radius: 3px;

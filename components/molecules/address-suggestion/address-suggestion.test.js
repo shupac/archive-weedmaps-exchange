@@ -11,7 +11,11 @@ const store = {
     setQuery: jest.fn(),
     clearAddressSuggestions: jest.fn(),
     getAddressSuggestions: jest.fn(),
+    setAddressCommitted: jest.fn(),
   },
+};
+const props = {
+  onChange: jest.fn(),
 };
 describe('AddressSuggestion', () => {
   it('renders the correct content', () => {
@@ -19,7 +23,9 @@ describe('AddressSuggestion', () => {
     expect(component.find(SuggestionListItem).length).toEqual(5);
   });
   it('should handle the onAddressQuery with query supplied', () => {
-    const component = shallow(<AddressSuggestions store={store} />).dive();
+    const component = shallow(
+      <AddressSuggestions store={store} {...props} />,
+    ).dive();
     component
       .find(AddressSuggestionInput)
       .dive()
@@ -35,7 +41,9 @@ describe('AddressSuggestion', () => {
     );
   });
   it('should handle the onAddressQuery with NO query supplied', () => {
-    const component = shallow(<AddressSuggestions store={store} />).dive();
+    const component = shallow(
+      <AddressSuggestions store={store} {...props} />,
+    ).dive();
     component
       .find(AddressSuggestionInput)
       .dive()
@@ -52,8 +60,9 @@ describe('AddressSuggestion', () => {
     );
   });
   it('should handle the onAddressSuggestion', () => {
-    const component = shallow(<AddressSuggestions store={store} />).dive();
-    const setState = jest.spyOn(component.instance(), 'setState');
+    const component = shallow(
+      <AddressSuggestions store={store} {...props} />,
+    ).dive();
     component
       .find(SuggestionListItem)
       .first()
@@ -61,7 +70,6 @@ describe('AddressSuggestion', () => {
     expect(store.addressSuggestions.setQuery).toHaveBeenCalledWith(
       '41 Discovery Park Boulevard, Seattle, WA, USA',
     );
-    expect(setState).toHaveBeenCalledWith({ isAddressCommitted: true });
   });
   it('should test the lifecycle componentWillUnMount', () => {
     const component = shallow(<AddressSuggestions store={store} />).dive();

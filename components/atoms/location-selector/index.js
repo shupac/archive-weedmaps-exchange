@@ -77,6 +77,7 @@ export class LocationSelector extends Component<Props> {
         <Select
           items={this.setLocationOptions(locations)}
           selectedItem={this.setActiveSelection(activeLocation)}
+          itemToString={item => item.text}
           onChange={this.handleSelectChange}
           placeholder="Loading locations.."
         />

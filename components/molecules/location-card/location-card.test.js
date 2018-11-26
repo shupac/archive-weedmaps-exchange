@@ -66,36 +66,40 @@ describe('Location Card', () => {
     ).toHaveStyleRule('width : 100%');
   });
   it('should handle the handleDelete method', () => {
+    const props = {
+      onDelete: jest.fn(),
+      isPrimary: false,
+    };
     const component = shallow(
       <LocationCard
         locationTitle={mockLocationCardData.data.locationTitle}
         locationAddress={mockLocationCardData.data.locationAddress}
         locationContact={mockLocationCardData.data.locationContact}
-        isPrimary={false}
+        {...props}
       />,
     );
-    const handleDelete = jest.spyOn(component.instance(), 'handleDelete');
-    component.instance().forceUpdate();
     component
       .find(LocationCardButton)
       .last()
       .simulate('click');
-    expect(handleDelete).toHaveBeenCalled();
+    expect(props.onDelete).toHaveBeenCalled();
   });
   it('should handle the handleEdit method', () => {
+    const props = {
+      onEdit: jest.fn(),
+    };
     const component = shallow(
       <LocationCard
         locationTitle={mockLocationCardData.data.locationTitle}
         locationAddress={mockLocationCardData.data.locationAddress}
         locationContact={mockLocationCardData.data.locationContact}
+        {...props}
       />,
     );
-    const handleEdit = jest.spyOn(component.instance(), 'handleEdit');
-    component.instance().forceUpdate();
     component
       .find(LocationCardButton)
       .first()
       .simulate('click');
-    expect(handleEdit).toHaveBeenCalled();
+    expect(props.onEdit).toHaveBeenCalled();
   });
 });

@@ -93,20 +93,20 @@ ButtonGradient.displayName = 'ButtonGradient';
 
 export const ButtonWhite = styled(uiButton)`
   ${ButtonBase};
-  width: 100%;
+  width: ${props => (props.w ? rem(props.w) : '100%')};
   background: ${theme.style.state.secondary};
   border: 1px solid ${theme.style.border.default};
   box-shadow: 0 1px 3px 0 ${theme.style.shadow};
   :hover {
     background: ${theme.style.background.secondary};
-    border: 1px solid ${theme.style.state.primary};
+    border: 1px solid ${theme.style.state.secondary};
   }
 `;
 ButtonWhite.displayName = 'ButtonWhite';
 
 export const ButtonWhiteNoHover = styled(uiButton)`
   ${ButtonBase};
-  width: 100%;
+  width: ${props => (props.w ? rem(props.w) : '100%')};
   background: ${theme.style.state.secondary};
   border: 1px solid ${theme.style.border.default};
 `;

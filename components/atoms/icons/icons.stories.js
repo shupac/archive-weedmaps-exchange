@@ -32,6 +32,7 @@ import { Bookmark } from './bookmark';
 import { ErrorIcon } from './error';
 import { Cart } from './cart';
 import { Info } from './info';
+import { Trashcan } from './trashcan';
 import IncreaseQuantity from './increase-quantity';
 import { DecreaseQuantity } from './decrease-quantity';
 import { BackArrow } from './back-arrow';
@@ -77,6 +78,7 @@ export default storiesOf('Icons', module)
   .add('WmLogoMini', () => <WmLogoMini width="33px" height="19px" />)
   .add('Spinner', () => <Spinner />)
   .add('Caret', () => <Caret />)
+  .add('Trashcan', () => <Trashcan />)
   .add('IncreaseQuantity', () => <IncreaseQuantity />)
   .add('DecreaseQuantity', () => <DecreaseQuantity />)
   .add('Plus', () => <Plus />);

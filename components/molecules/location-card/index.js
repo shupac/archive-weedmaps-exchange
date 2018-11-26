@@ -31,18 +31,13 @@ type Props = {
   phone: string,
   email: string,
   isPrimary: boolean,
+  onEdit: () => void,
+  onDelete: () => void,
 };
 
 export default class LocationCard extends Component<Props> {
   static defaultProps = {
     isPrimary: true,
-  };
-
-  handleDelete = () => {
-    console.log('clicked on delete');
-  };
-  handleEdit = () => {
-    console.log('clicked on edit');
   };
 
   render() {
@@ -95,11 +90,11 @@ export default class LocationCard extends Component<Props> {
           {email && <ContactLine>Email: {email}</ContactLine>}
         </LocationCardContact>
         <ButtonWrapper>
-          <LocationCardButton isPrimary={isPrimary} onClick={this.handleEdit}>
+          <LocationCardButton isPrimary={isPrimary} onClick={this.props.onEdit}>
             Edit
           </LocationCardButton>
           {!isPrimary && (
-            <LocationCardButton onClick={this.handleDelete}>
+            <LocationCardButton onClick={this.props.onDelete}>
               Delete
             </LocationCardButton>
           )}

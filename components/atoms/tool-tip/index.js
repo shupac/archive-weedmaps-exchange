@@ -27,13 +27,15 @@ export default class Tooltip extends Component<Props, State> {
   };
 
   render() {
-    const { children, message } = this.props;
+    const { children, message, height, width } = this.props;
     const { hover } = this.state;
 
     return (
       <Fragment>
         <TooltipStyle hover={hover}>
-          <SpeechBubble>{message}</SpeechBubble>
+          <SpeechBubble height={height} width={width}>
+            {message}
+          </SpeechBubble>
         </TooltipStyle>
         {/* eslint-disable-next-line */}
         <div onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>

@@ -8,6 +8,8 @@ export const ModalContainer = styled.div`
   position: relative;
   pointer-events: auto;
   min-width: 200px;
+  max-height: 1000px;
+  overflow-y: scroll;
 `;
 
 export const CloseButton = styled.a`

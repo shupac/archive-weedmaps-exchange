@@ -1,19 +1,46 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ButtonPrimary } from 'components/atoms/button';
-import LocationModal from './';
+import { LICENSE_TYPES } from 'lib/common/constants';
+import { mockSuggestedAddresses } from 'lib/mocks/address-suggestion';
+import ModalWithHeader from 'components/molecules/modal-with-header';
+import { ModalWrapper as AddLocationModal } from './';
 
-const mockStore = {
+const defaultLocation = {
+  name: '',
+  address: '',
+  instructions: '',
+  contact: '',
+  phone: '',
+  email: '',
+  licenses: [],
+};
+
+const store = {
   uiStore: {
-    onOpenModal: jest.fn(),
+    modalIsOpen: true,
+    onCloseModal: jest.fn(),
+  },
+  addressSuggestions: {
+    suggestedAddresses: mockSuggestedAddresses,
+    addressInput: '',
+    setQuery: jest.fn(),
+    clearAddressSuggestions: jest.fn(),
+    getAddressSuggestions: jest.fn(),
+    setAddressCommitted: jest.fn(),
   },
 };
 
-describe('LocationModal', () => {
+describe('AddLocationModal', () => {
   it('should render the location modal', () => {
-    const component = shallow(<LocationModal store={mockStore} />).dive();
-    expect(component.find(ButtonPrimary).exists()).toEqual(true);
-    component.find(ButtonPrimary).simulate('click');
-    expect(mockStore.uiStore.onOpenModal).toHaveBeenCalled();
+    const component = (
+      <AddLocationModal
+        location={defaultLocation}
+        licenseTypes={LICENSE_TYPES}
+        store={store}
+      />
+    );
+    const wrapper = shallow(component);
+    expect(wrapper.exists()).toEqual(true);
+    expect(wrapper.find(ModalWithHeader).exists()).toEqual(true);
   });
 });
