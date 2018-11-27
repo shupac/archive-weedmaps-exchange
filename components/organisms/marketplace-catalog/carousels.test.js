@@ -4,6 +4,7 @@ import { mockCategoryProducts } from 'mocks/category-products';
 import CatalogCarousel from 'components/molecules/carousel';
 import ProductCard from 'components/molecules/product-card';
 import Loader from 'components/atoms/loader';
+import EmptyState from 'components/atoms/empty-state';
 
 import { CategoryCarousels } from './carousels';
 
@@ -22,18 +23,24 @@ function setup({ store }) {
   const component = (
     <CategoryCarousels store={store} gotoProduct={mockGotoProduct} />
   );
-  const wrapper = shallow(component);
+  const wrapper = shallow(component, {
+    disableLifecycleMethods: true,
+  });
   return wrapper;
 }
 
 describe('CategoryCarousels', () => {
   it('should fetch products on mount', () => {
-    setup({ store: mockStore });
+    const wrapper = setup({ store: mockStore });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
     expect(mockStore.buyerProducts.getCategoryProducts).toHaveBeenCalled();
   });
 
   it('should render the CategoryCarousel', () => {
     const wrapper = setup({ store: mockStore });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
     expect(
       wrapper
         .find(CatalogCarousel)
@@ -50,6 +57,8 @@ describe('CategoryCarousels', () => {
 
   it('should go to the product detail page when card is clicked', () => {
     const wrapper = setup({ store: mockStore });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
     wrapper
       .find(ProductCard)
       .first()
@@ -68,6 +77,8 @@ describe('CategoryCarousels', () => {
       },
     };
     const wrapper = setup({ store: thisStore });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
     expect(wrapper.find(Loader).exists()).toEqual(true);
   });
 
@@ -78,5 +89,19 @@ describe('CategoryCarousels', () => {
 
     const { setCategoryProductsData } = mockStore.buyerProducts;
     expect(setCategoryProductsData).toHaveBeenCalledWith([]);
+  });
+
+  it('should render the empty state', () => {
+    const thisStore = {
+      ...mockStore,
+      buyerProducts: {
+        ...mockStore.buyerProducts,
+        categoryProducts: [],
+      },
+    };
+    const wrapper = setup({ store: thisStore });
+    const instance = wrapper.instance();
+    instance.componentDidMount();
+    expect(wrapper.find(EmptyState).exists()).toEqual(true);
   });
 });

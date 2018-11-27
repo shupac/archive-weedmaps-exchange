@@ -2,15 +2,24 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { reaction } from 'mobx';
+import styled from 'styled-components';
 import CatalogCarousel from 'components/molecules/carousel';
 import ProductCard from 'components/molecules/product-card';
 import { type CategoryProductsType } from 'models/category-products';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
-import styled from 'styled-components';
+import EmptyState from 'components/atoms/empty-state';
 
 const CatalogWrapper = styled.div``;
 
-class CategoryCarousels extends Component<CategoryProductsType> {
+type State = {
+  mounted: boolean,
+};
+
+class CategoryCarousels extends Component<CategoryProductsType, State> {
+  state = {
+    mounted: false,
+  };
+
   dispose = reaction(
     () => {
       const { authStore } = this.props.store;
@@ -26,6 +35,8 @@ class CategoryCarousels extends Component<CategoryProductsType> {
   componentDidMount() {
     const { buyerProducts } = this.props.store;
     buyerProducts.getCategoryProducts();
+    // eslint-disable-next-line
+    this.setState({ mounted: true });
   }
 
   componentWillUnmount() {
@@ -36,13 +47,24 @@ class CategoryCarousels extends Component<CategoryProductsType> {
 
   render() {
     const { store, gotoProduct } = this.props;
+    const { mounted } = this.state;
     const { categoryProductsLoading, categoryProducts } = store.buyerProducts;
 
-    if (categoryProductsLoading) {
+    if (!mounted || categoryProductsLoading) {
       return (
         <LoaderWrapper>
           <Loader />
         </LoaderWrapper>
+      );
+    }
+
+    if (!categoryProducts.length) {
+      return (
+        <EmptyState
+          image="no_products_available"
+          title="No Products Available"
+          body="There are currently no products available, please try again later."
+        />
       );
     }
 
