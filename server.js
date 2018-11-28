@@ -87,6 +87,13 @@ const afterPrepare = () => {
   expressApp.get('/static/config.js', configMiddleware);
   // content-security-policy
   csp.extend(expressApp, policy);
+
+  if (config.envName === 'development') {
+    // login proxy only for local dev
+    const loginProxyMiddleware = require('@ghostgroup/wm-express-login-proxy');
+    expressApp.use('/login', loginProxyMiddleware);
+  }
+
   // setup handlers
   expressApp
     .use(Honeybadger.requestHandler)

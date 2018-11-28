@@ -19,7 +19,7 @@ module.exports = {
     siteUrl: 'http://localhost:1620',
     apiRootPath: '/exchange/v1',
     cookieDomain: 'localhost',
-    uatCookie: '_wm_uat_development',
+    uatCookie: '_wm_uat_acceptance',
   },
   acceptance: {
     envName: 'acceptance',

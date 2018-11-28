@@ -9,7 +9,6 @@ describe('AuthConnector', () => {
     const redirect = require('lib/common/redirect-unauthenticated-user');
     observer.mockImplementation(PageComponent => PageComponent);
     inject.mockImplementation(stores => PageComponent => PageComponent);
-    jest.spyOn(redirect, 'redirectByName').mockReturnValue();
     jest.spyOn(redirect, 'redirectUnauthenticatedUser').mockReturnValue();
   });
 

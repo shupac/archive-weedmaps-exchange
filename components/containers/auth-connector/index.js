@@ -1,19 +1,7 @@
 import React, { Component } from 'react';
-import {
-  redirectByName,
-  redirectUnauthenticatedUser,
-} from 'lib/common/redirect-unauthenticated-user';
+import { redirectUnauthenticatedUser } from 'lib/common/redirect-unauthenticated-user';
 
 function resolveUnauthenticatedRedirect(props, stores) {
-  if (process.env.NODE_ENV === 'development') {
-    logger.debug('In DEV mode! Showing Dev Login Page');
-    return {
-      statusCode: 401,
-      redirected: redirectByName(props, 'dev-login', {
-        login: 'login',
-      }),
-    };
-  }
   return {
     statusCode: 401,
     redirected: redirectUnauthenticatedUser(props, stores),
@@ -39,7 +27,7 @@ export const AuthConnectorWrapper = ComponentToCompose => {
 
       let initialProps = {};
 
-      logger.debug('Checking if we are authenticated (hasTokens?)');
+      logger.debug('Checking if we are authenticated');
 
       // Check user status
       if (authStore.isAuthenticated) {
@@ -55,7 +43,7 @@ export const AuthConnectorWrapper = ComponentToCompose => {
             await Promise.all(promises);
           }
         } catch (e) {
-          logger.debug('Fetching user FAIL');
+          logger.debug('Fetching user FAIL', e);
           return resolveUnauthenticatedRedirect(props, store);
         }
       } else {
