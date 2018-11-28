@@ -148,7 +148,7 @@ class Catalog extends Component<Props, State> {
             paramKey="brands"
             title="Brands"
             defaultLabel="All Brands"
-            options={brands}
+            options={brands.toJSON()}
           />
           <PriceRangeFilter />
         </FilterPanel>

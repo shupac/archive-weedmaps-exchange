@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { observable } from 'mobx';
 import { Router } from 'lib/routes';
 import {
   mockCategories,
@@ -21,7 +22,7 @@ const mockStore = {
     getDepartments: jest.fn(),
     getBrands: jest.fn(),
     departments: mockCategories,
-    brands: mockBrands,
+    brands: observable(mockBrands),
   },
   buyerProducts: {
     searchResults: [mockProduct],
@@ -39,7 +40,7 @@ const mockEmptyStore = {
     getDepartments: jest.fn(),
     getBrands: jest.fn(),
     departments: mockEmptyCategories,
-    brands: [],
+    brands: observable([]),
   },
   buyerProducts: {
     searchResults: [],
