@@ -510,16 +510,16 @@ const CalendarStyles = styled.div`
   }
   .DayPickerNavigation_button__horizontal {
     border-radius: ${rem(3)};
-    padding: ${rem(6)} ${rem(9)};
-    top: ${rem(10)};
+    padding: 6px 16px;
+    top: 8px;
     position: absolute;
     z-index: 10;
   }
   .DayPickerNavigation_leftButton__horizontal {
-    left: ${rem(22)};
+    left: 16px;
   }
   .DayPickerNavigation_rightButton__horizontal {
-    right: ${rem(22)};
+    right: 16px;
   }
   .DayPickerNavigation_button__vertical {
     display: inline-block;
@@ -735,6 +735,7 @@ const CalendarStyles = styled.div`
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px;
+    color: ${text.normal};
   }
   .DateRangePickerInput_arrow_svg {
     vertical-align: middle;
@@ -783,6 +784,7 @@ const CalendarStyles = styled.div`
   .DateRangePickerInput_calendarIcon {
     background: 0 0;
     border: 0;
+    padding-right: 8px;
     color: inherit;
     font: inherit;
     line-height: normal;
@@ -825,7 +827,7 @@ const CalendarStyles = styled.div`
     width: 100%;
     max-width: 80px;
     &::placeholder {
-      color: ${icon.dark};
+      color: ${icon.light};
     }
   }
   .DateInput_input__small {
