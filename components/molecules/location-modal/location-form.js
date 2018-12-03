@@ -92,8 +92,9 @@ export const FormTemplate = ({
           placeholder="Location name"
           error={errors.name && touched.name}
         />
-        {errors.name &&
-          touched.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+        {errors.name && touched.name && (
+          <ErrorMessage>{errors.name}</ErrorMessage>
+        )}
         <LabelName>Address</LabelName>
         <AddressSuggestions
           id="form-address"
@@ -105,8 +106,9 @@ export const FormTemplate = ({
           placeholder="Address"
           error={errors.address && touched.address}
         />
-        {errors.address &&
-          touched.address && <ErrorMessage>{errors.address}</ErrorMessage>}
+        {errors.address && touched.address && (
+          <ErrorMessage>{errors.address}</ErrorMessage>
+        )}
         <LabelName>Delivery Instructions</LabelName>
         <FormTextArea
           data-test-id="form-instructions"
@@ -128,10 +130,9 @@ export const FormTemplate = ({
           placeholder="Contact Name"
           error={errors.contactName && touched.contactName}
         />
-        {errors.contactName &&
-          touched.contactName && (
-            <ErrorMessage>{errors.contactName}</ErrorMessage>
-          )}
+        {errors.contactName && touched.contactName && (
+          <ErrorMessage>{errors.contactName}</ErrorMessage>
+        )}
         <FormDivide>
           <LabelOnTop>
             <LabelName>Contact Phone</LabelName>
@@ -148,10 +149,9 @@ export const FormTemplate = ({
               placeholder="Enter Phone"
               error={errors.phoneNumber && touched.phoneNumber}
             />
-            {errors.phoneNumber &&
-              touched.phoneNumber && (
-                <ErrorMessage>{errors.phoneNumber}</ErrorMessage>
-              )}
+            {errors.phoneNumber && touched.phoneNumber && (
+              <ErrorMessage>{errors.phoneNumber}</ErrorMessage>
+            )}
           </LabelOnTop>
           <LabelOnTop>
             <LabelName>Contact Email</LabelName>
@@ -165,8 +165,9 @@ export const FormTemplate = ({
               placeholder="Enter Email"
               error={errors.email && touched.email}
             />
-            {errors.email &&
-              touched.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+            {errors.email && touched.email && (
+              <ErrorMessage>{errors.email}</ErrorMessage>
+            )}
           </LabelOnTop>
         </FormDivide>
         <FieldArray

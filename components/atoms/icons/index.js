@@ -46,3 +46,4 @@ export { default as MapPin } from './map-pin';
 export { default as DecreaseQuantity } from './decrease-quantity';
 export { default as IncreaseQuantity } from './increase-quantity';
 export { default as BackArrow } from './back-arrow';
+export { default as Dots } from './dots';

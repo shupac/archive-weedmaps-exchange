@@ -135,16 +135,13 @@ export class ProductRow extends Component<Props> {
             value={this.desiredQuantity}
             onChange={this.handleChange}
           />
-          {this.desiredQuantity !== '' &&
-            this.showUpdateLink && (
-              <UpdateLink
-                onClick={() =>
-                  this.onUpdate(parseInt(this.desiredQuantity, 10))
-                }
-              >
-                UPDATE
-              </UpdateLink>
-            )}
+          {this.desiredQuantity !== '' && this.showUpdateLink && (
+            <UpdateLink
+              onClick={() => this.onUpdate(parseInt(this.desiredQuantity, 10))}
+            >
+              UPDATE
+            </UpdateLink>
+          )}
 
           <QuantityButton onClick={() => this.onUpdate(this.quantity + 1)}>
             <IncreaseQuantity />

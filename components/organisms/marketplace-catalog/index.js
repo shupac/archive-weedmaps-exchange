@@ -194,8 +194,8 @@ class Catalog extends Component<Props, State> {
         <EmptyState
           image="no_results_found"
           title="No Results Found"
-          body="Try adjusting your search or filters to find what you&quot;re
-            looking for."
+          body='Try adjusting your search or filters to find what you"re
+            looking for.'
         />
       );
     }

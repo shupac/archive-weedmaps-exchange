@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 import { WmTheme } from '@ghostgroup/ui';

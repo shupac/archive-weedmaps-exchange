@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Buyer Orders Store can fetch all purchase orders and set data 1`] = `Array []`;
+
 exports[`Buyer Orders Store can fetch purchase order and set data 1`] = `
 Object {
   "buyerData": Object {

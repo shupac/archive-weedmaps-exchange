@@ -1,9 +1,8 @@
-import styled, { css } from 'styled-components';
-import { rem } from 'polished';
-import theme from 'lib/styles/theme';
-import { WmTheme, Icons } from '@ghostgroup/ui';
+import styled from 'styled-components';
 
-const { background, border, text, icon } = WmTheme.style;
+import { WmTheme } from '@ghostgroup/ui';
+
+const { icon } = WmTheme.style;
 
 export const Layout = styled.div`
   display: grid;

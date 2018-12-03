@@ -17,14 +17,13 @@ const EmptyState = ({ image, title, body, route, buttonLabel }: Props) => (
     <img src={`/static/images/${image}.png`} alt={title} />
     <NoResultsTitle>{title}</NoResultsTitle>
     <NoResultsInstructions>{body}</NoResultsInstructions>
-    {route &&
-      buttonLabel && (
-        <Link href={route}>
-          <a>
-            <BrowseProductButton>{buttonLabel}</BrowseProductButton>
-          </a>
-        </Link>
-      )}
+    {route && buttonLabel && (
+      <Link href={route}>
+        <a>
+          <BrowseProductButton>{buttonLabel}</BrowseProductButton>
+        </a>
+      </Link>
+    )}
   </NoResults>
 );
 
