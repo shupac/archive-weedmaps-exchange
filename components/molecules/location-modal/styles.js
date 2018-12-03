@@ -33,6 +33,12 @@ export const TrashcanBorder = styled.div`
   border-radius: 3px;
   border: 1px solid ${WmTheme.style.border.default};
   cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  svg {
+    fill: ${WmTheme.style.icon.dark};
+  }
 `;
 
 export const LicenseNumberWrapper = styled.div`
@@ -40,11 +46,12 @@ export const LicenseNumberWrapper = styled.div`
   height: 40px;
 `;
 
-export const SelectLocation = styled(Select)`
+export const SelectLicenseType = styled(Select)`
   width: 297px;
   ${SelectButton} {
     line-height: ${rem(24)};
     padding: 9px 48px 9px 16px;
+    font-weight: 400;
   }
   ${Item} {
     font-family: ${theme.text.proximaNovaFont};
@@ -80,6 +87,8 @@ export const FormTextArea = styled.textarea`
 
 export const ErrorMessage = styled.div`
   color: ${theme.colors.red};
+  font-size: ${rem(12)};
+  margin-top: 8px;
   margin-bottom: 16px;
 `;
 
@@ -131,7 +140,7 @@ export const AddLicense = styled.div`
 `;
 
 export const AddLicenseButton = styled.button`
-  margin: 25px 0px;
+  margin: 16px 0px 25px;
   padding: none;
   border: none;
   display: flex;

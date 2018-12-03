@@ -21,7 +21,7 @@ import {
   AddLicenseButton,
   LabelName,
   LabelOnTop,
-  SelectLocation,
+  SelectLicenseType,
   TrashcanBorder,
   ErrorMessage,
   LicenseNumberWrapper,
@@ -185,7 +185,7 @@ export const FormTemplate = ({
                     >
                       <LabelOnTop>
                         <LabelName>License Type</LabelName>
-                        <SelectLocation
+                        <SelectLicenseType
                           data-test-id={`form-${index}-type`}
                           key={license.id ? license.id : index}
                           name={`license.${index}.licenseType`}
