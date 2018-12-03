@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { LICENSE_TYPES } from 'lib/common/constants';
 import { mockSuggestedAddresses } from 'lib/mocks/address-suggestion';
-import ModalWithHeader from 'components/molecules/modal-with-header';
-import { ModalWrapper as AddLocationModal } from './';
+import Modal from 'components/atoms/modal';
+import UiStore from 'lib/data-access/stores/ui';
+import BuyerSettings from 'lib/data-access/stores/buyer-settings';
+import { LocationModal } from './';
 
 const defaultLocation = {
   name: '',
@@ -16,10 +17,11 @@ const defaultLocation = {
 };
 
 const store = {
-  uiStore: {
+  uiStore: UiStore.create({
     modalIsOpen: true,
-    onCloseModal: jest.fn(),
-  },
+    closeModal: jest.fn(),
+  }),
+  buyerSettings: BuyerSettings.create(),
   addressSuggestions: {
     suggestedAddresses: mockSuggestedAddresses,
     addressInput: '',
@@ -30,17 +32,13 @@ const store = {
   },
 };
 
-describe('AddLocationModal', () => {
+describe('LocationModal', () => {
   it('should render the location modal', () => {
     const component = (
-      <AddLocationModal
-        location={defaultLocation}
-        licenseTypes={LICENSE_TYPES}
-        store={store}
-      />
+      <LocationModal location={defaultLocation} store={store} />
     );
     const wrapper = shallow(component);
     expect(wrapper.exists()).toEqual(true);
-    expect(wrapper.find(ModalWithHeader).exists()).toEqual(true);
+    expect(wrapper.find(Modal).exists()).toEqual(true);
   });
 });

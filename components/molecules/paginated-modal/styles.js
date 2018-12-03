@@ -1,16 +1,27 @@
 import styled from 'styled-components';
-import { rem } from 'polished';
 
-const PagingWrapper = styled.div`
+export const ContentWrapper = styled.div``;
+
+export const PagingWrapper = styled.div`
   position: absolute;
-  top: 50%;
   width: 100%;
+  height: 50px;
+  transform: translateY(-50%);
+  top: 50%;
+  display: flex;
+  align-items: center;
+
+  > div {
+    display: flex;
+    align-items: center;
+  }
+
   .rightArrow,
   .leftArrow {
     display: block;
     position: absolute;
-    width: ${rem(50)};
-    height: ${rem(50)};
+    width: 24px;
+    height: 24px;
     cursor: pointer;
   }
   .rightArrow {
@@ -22,5 +33,3 @@ const PagingWrapper = styled.div`
 `;
 
 PagingWrapper.DisplayName = 'PagingWrapper';
-
-export default PagingWrapper;

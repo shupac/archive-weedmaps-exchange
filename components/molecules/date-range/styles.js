@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 import { WmTheme } from '@ghostgroup/ui';
 
 const { icon } = WmTheme.style;

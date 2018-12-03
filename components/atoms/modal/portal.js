@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 type Props = {
   children: Node,
   keyDownHandler?: (event: KeyboardEvent) => void,
-  mouseDownHandler?: () => void,
+  mouseDownHandler?: (event: MouseEvent) => void,
 };
 class Portal extends React.Component<Props> {
   modalRoot: HTMLDivElement;

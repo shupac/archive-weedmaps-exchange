@@ -2,99 +2,82 @@
 import React from 'react';
 import { type StoreType } from 'lib/types/store';
 import { inject, observer } from 'mobx-react';
-import styled from 'styled-components';
-import { ModalBody } from 'components/molecules/modal-with-header/styles';
-import { type LocationType } from 'lib/types/locations';
-import { type LocationValueType } from 'lib/data-access/models/location';
-import { LICENSE_TYPES } from 'lib/common/constants';
-import ModalWithHeader from 'components/molecules/modal-with-header';
+import {
+  createNewLocation,
+  type LocationType,
+  type LocationValueType,
+} from 'models/location';
+import Modal from 'components/atoms/modal';
 import LocationForm from './location-form';
+import { LocationModalWrapper } from './styles';
 
 type Props = {
   store: StoreType,
   location: LocationType,
-  licenseTypes: string[],
   header: string,
 };
 
-const LocationModalWrapper = styled.div`
-  overflow-x: hidden;
-  width: 100%;
-`;
-
-class ModalWrapper extends React.Component<Props> {
-  static defaultProps = {
-    location: {
-      name: '',
-      address: '',
-      deliveryInstructions: '',
-      contactName: '',
-      phoneNumber: '',
-      email: '',
-      licenses: [],
-    },
-    licenseTypes: LICENSE_TYPES,
-  };
-
+class LocationModal extends React.Component<Props> {
   componentDidMount() {
-    const { addressSuggestions } = this.props.store;
-    const {
-      city,
-      country,
-      streetAddress,
-      territory,
-    } = this.props.location.address;
+    const { addressSuggestions, buyerSettings } = this.props.store;
+    const { editingLocation } = buyerSettings;
+
+    if (!editingLocation) {
+      addressSuggestions.setQuery('');
+      addressSuggestions.setAddressCommitted(false);
+      return;
+    }
+
+    const { city, country, streetAddress, territory } = editingLocation.address;
+
     if (streetAddress) {
       addressSuggestions.setQuery(
         `${streetAddress}, ${city}, ${territory}, ${country.toUpperCase()}`,
       );
-      addressSuggestions.setAddressCommitted(true);
     } else {
       addressSuggestions.setQuery('');
-      addressSuggestions.setAddressCommitted(true);
     }
+    addressSuggestions.setAddressCommitted(true);
   }
 
-  // $FlowFixMe
-  onSubmit = (values): { values: LocationValueType } => {
+  onSubmit = (location: LocationValueType) => {
     const { buyerSettings, uiStore } = this.props.store;
-    if (!values.id) {
-      const newLicenses = values.licenses.map(item => ({
+
+    if (!location.id) {
+      const newLicenses = location.licenses.map(item => ({
         license_type: item.licenseType,
         number: item.number,
       }));
-      delete values.id;
-      values.licenses = newLicenses;
-      buyerSettings.createNewLocation(values);
+
+      delete location.id;
+      location.licenses = newLicenses;
+
+      buyerSettings.createNewLocation(location);
     } else {
-      buyerSettings.patchLocation(values);
+      buyerSettings.patchLocation(location);
     }
-    uiStore.onCloseModal();
+    uiStore.closeModal();
   };
 
   render() {
-    const { store, location, licenseTypes, header } = this.props;
+    const { store } = this.props;
+    const { editingLocation } = store.buyerSettings;
+
+    const header = editingLocation ? 'Edit Location' : 'Add Location';
+
     return (
-      <ModalWithHeader
-        store={store}
-        header={header}
-        width="644px"
-        height="56px"
-      >
-        <ModalBody width="610px">
-          <LocationModalWrapper>
-            <LocationForm
-              location={location}
-              licenseTypes={licenseTypes}
-              onSubmit={this.onSubmit}
-            />
-          </LocationModalWrapper>
-        </ModalBody>
-      </ModalWithHeader>
+      <Modal header={header} width="644px">
+        <LocationModalWrapper>
+          <LocationForm
+            location={editingLocation || createNewLocation()}
+            onSubmit={this.onSubmit}
+          />
+        </LocationModalWrapper>
+      </Modal>
     );
   }
 }
 
-const LocationModal = inject('store')(observer(ModalWrapper));
-export default LocationModal;
-export { ModalWrapper };
+const LocationModalWithStore = inject('store')(observer(LocationModal));
+export default LocationModalWithStore;
+export { LocationModal };

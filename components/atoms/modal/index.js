@@ -1,108 +1,108 @@
 // @flow
 /* globals document window */
-import { Component } from 'react';
-import { isServer } from 'lib/common/universal-helpers';
+import * as React from 'react';
 import { type StoreType } from 'lib/types/store';
 import { inject, observer } from 'mobx-react';
 import Transition from 'react-transition-group/Transition';
 import { Icons } from '@ghostgroup/ui';
 import theme from 'lib/styles/theme';
-import { CloseButton, ModalContainer } from './styled-components';
 import Portal from './portal';
-
-const valueOfIsServer = isServer();
+import {
+  CloseButton,
+  ModalContainer,
+  ModalHeader,
+  ModalContent,
+} from './styles';
 
 type Props = {
   children: Node,
   store: StoreType,
   keyDownHandler?: (event: KeyboardEvent) => void,
-  mouseDownHandler?: () => void,
+  mouseDownHandler?: (event: MouseEvent) => void,
+  header?: string,
 };
-export class ModalTemplate extends Component<Props> {
-  nodeRef: Node;
+
+class Modal extends React.Component<Props> {
+  nodeRef: ?HTMLDivElement;
 
   lockBgScroll = (lock: boolean) => {
-    if (!isServer() && document.body && document.body.classList) {
-      if (lock) {
-        // $FlowFixMe
-        document.body.classList.add('modal-open');
-      } else {
-        // $FlowFixMe
-        document.body.classList.remove('modal-open');
-      }
+    if (lock) {
+      // $FlowFixMe
+      document.body.classList.add('modal-open');
+    } else {
+      // $FlowFixMe
+      document.body.classList.remove('modal-open');
     }
   };
 
   onKeyDown = (event: KeyboardEvent) => {
     const { keyDownHandler, store } = this.props;
-    const { onCloseModal } = store.uiStore;
+    const { closeModal } = store.uiStore;
 
-    if (keyDownHandler) {
-      if (event.keyCode === 27) {
-        keyDownHandler(event);
-        return onCloseModal();
-      }
-      return keyDownHandler(event);
-    }
-    if (event.keyCode === 27) {
-      return onCloseModal();
-    }
-    return null;
+    if (keyDownHandler) keyDownHandler(event);
+    if (event.keyCode === 27) closeModal();
   };
 
   onMouseDown = (event: MouseEvent) => {
-    const { mouseDownHandler } = this.props;
-    const { uiStore } = this.props.store;
-    if (this.nodeRef === event.target) {
-      if (mouseDownHandler) {
-        mouseDownHandler();
-      }
-      return uiStore.onCloseModal();
-    }
-    return null;
+    const { mouseDownHandler, store } = this.props;
+    const { closeModal } = store.uiStore;
+
+    if (mouseDownHandler) mouseDownHandler(event);
+    if (event.target === this.nodeRef) closeModal();
   };
 
   componentDidUpdate(prevProps: Props) {
     const { uiStore: newStore } = this.props.store;
     const { uiStore: oldStore } = prevProps.store;
-    if (newStore.modalIsOpen !== oldStore.modalIsOpen) {
-      this.lockBgScroll(newStore.modalIsOpen);
+
+    if (newStore.activeModal !== oldStore.activeModal) {
+      this.lockBgScroll(!!newStore.activeModal);
     }
   }
 
   componentWillUnmount() {
-    const { onCloseModal } = this.props.store.uiStore;
+    const { closeModal } = this.props.store.uiStore;
     this.lockBgScroll(false);
-    onCloseModal();
+    closeModal();
   }
 
-  setRef = (node: Node) => {
+  setRef = (node: ?HTMLDivElement) => {
     this.nodeRef = node;
   };
 
   render() {
-    const { children, store } = this.props;
-    const { uiStore } = store;
-    const { modalIsOpen, onCloseModal } = uiStore;
-    if (valueOfIsServer) return null;
+    const { store, header, children } = this.props;
+    const { activeModal, closeModal } = store.uiStore;
+
     return (
       <Portal
         keyDownHandler={e => this.onKeyDown(e)}
         mouseDownHandler={e => this.onMouseDown(e)}
       >
-        <Transition in={modalIsOpen} timeout={300} appear>
+        <Transition in={!!activeModal} timeout={300} appear>
           {status => (
             <div className={`modal-overlay ${status}`} ref={this.setRef}>
-              <ModalContainer>
-                <CloseButton onClick={onCloseModal}>
-                  <Icons.Close
-                    theme={{
-                      colors: { border: theme.colors.textInput },
+              {this.nodeRef && (
+                <ModalContainer>
+                  <CloseButton onClick={closeModal}>
+                    <Icons.Close
+                      theme={{
+                        colors: { border: theme.colors.textInput },
+                      }}
+                    />
+                  </CloseButton>
+
+                  {header && <ModalHeader>{header}</ModalHeader>}
+
+                  <ModalContent
+                    style={{
+                      maxHeight: this.nodeRef.clientHeight - 106,
                     }}
-                  />
-                </CloseButton>
-                {children}
-              </ModalContainer>
+                  >
+                    {children}
+                  </ModalContent>
+                </ModalContainer>
+              )}
             </div>
           )}
         </Transition>
@@ -111,5 +111,5 @@ export class ModalTemplate extends Component<Props> {
   }
 }
 
-const Modal = inject('store')(observer(ModalTemplate));
-export default Modal;
+export default inject('store')(observer(Modal));
+export { Modal };

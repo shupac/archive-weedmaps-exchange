@@ -16,22 +16,16 @@ class Locations extends Component<Props> {
     const { buyerSettings } = this.props.store;
     buyerSettings.getLocations();
   }
+
   render() {
     const { buyerSettings, uiStore } = this.props.store;
     const { locations } = buyerSettings;
-    const location =
-      uiStore.locationId !== null
-        ? locations.filter(x => x.id === uiStore.locationId)[0]
-        : undefined;
+
     return (
       <LocationsWrapper>
-        {uiStore.modalIsOpen && (
-          <LocationModal
-            header={uiStore.locationId ? 'Edit Location' : 'Add Location'}
-            location={location}
-          />
-        )}
-        {locations.map(locationCard => {
+        {uiStore.activeModal === 'locationModal' && <LocationModal />}
+
+        {locations.map(location => {
           const {
             name,
             address,
@@ -41,7 +35,8 @@ class Locations extends Component<Props> {
             phoneNumber,
             email,
             id,
-          } = locationCard;
+          } = location;
+
           return (
             <LocationCardWrapper key={id}>
               <LocationCard
@@ -54,8 +49,8 @@ class Locations extends Component<Props> {
                 email={email}
                 onDelete={() => buyerSettings.deleteLocation(id)}
                 onEdit={() => {
-                  uiStore.setLocationId(id);
-                  return uiStore.onOpenModal();
+                  buyerSettings.setEditingLocationId(id);
+                  return uiStore.openModal('locationModal');
                 }}
               />
             </LocationCardWrapper>

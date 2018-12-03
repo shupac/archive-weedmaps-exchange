@@ -8,8 +8,7 @@ export const ModalContainer = styled.div`
   position: relative;
   pointer-events: auto;
   min-width: 200px;
-  max-height: 1000px;
-  overflow-y: scroll;
+  color: ${theme.style.text.normal};
 `;
 
 export const CloseButton = styled.a`
@@ -17,20 +16,19 @@ export const CloseButton = styled.a`
   cursor: pointer;
   top: 16px;
   right: 16px;
+  fill: ${theme.style.icon.dark};
+  z-index: 2;
 `;
 
-export const ModalBackdrop = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-`;
-
-export const ModalHeader = styled.h4`
+export const ModalHeader = styled.div`
   border-bottom: 1px solid ${theme.style.icon.inverted};
-  padding: ${rem(16)};
+  padding: 16px;
+  font-size: ${rem(20)};
+  font-weight: 600;
   margin: 0;
   user-select: none;
 `;
-export const ModalOverlay = styled.div`
-  padding: 60px;
+
+export const ModalContent = styled.div`
+  overflow: auto;
 `;

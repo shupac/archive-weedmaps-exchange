@@ -1,117 +1,141 @@
 /* eslint-disable import/first */
 /* globals document window */
-jest.mock('./portal');
-jest.mock('lib/common/universal-helpers');
 import React from 'react';
-import { shallow } from 'enzyme';
-import { ThemeProvider } from 'styled-components';
-import { Provider } from 'mobx-react';
-import theme from 'lib/styles/theme';
-import { ModalTemplate } from './';
-import * as universalHelpers from 'lib/common/universal-helpers';
+import { shallow, mount } from 'enzyme';
+import UiStore from 'lib/data-access/stores/ui';
+import { Modal } from './';
+import { ModalHeader } from './styles';
+
+function setup() {
+  const mockUiStore = UiStore.create();
+  const mockStore = { uiStore: mockUiStore };
+  const component = <Modal store={mockStore} />;
+  const wrapper = shallow(component, {
+    disableLifecycleMethods: true,
+  });
+  return { wrapper, mockStore };
+}
 
 describe('Modal', () => {
-  let stores = {};
-  let page;
-  beforeEach(() => {
-    jest.spyOn(universalHelpers, 'isServer').mockReturnValue(false);
-    page = new ModalTemplate({ ...stores });
-  });
-
   it('should render a modal ', () => {
-    jest.spyOn(universalHelpers, 'isServer').mockReturnValue(false);
-    const tree = shallow(
-      <ThemeProvider theme={theme}>
-        <Provider modal={{ showModalMap: new Map() }}>
-          <ModalTemplate
-            modal={{ showModalMap: new Map() }}
-            modalHandle="modal"
-          >
-            MODAL
-          </ModalTemplate>
-        </Provider>
-      </ThemeProvider>,
-    );
-    expect(tree.exists()).toEqual(true);
-  });
-
-  it('should be able to not render modal ', () => {
-    jest.spyOn(universalHelpers, 'isServer').mockReturnValue(true);
-    const tree = shallow(
-      <ThemeProvider theme={theme}>
-        <Provider modal={{ showModalMap: new Map() }}>
-          <ModalTemplate
-            modal={{ showModalMap: new Map() }}
-            modalHandle="modal"
-          >
-            MODAL
-          </ModalTemplate>
-        </Provider>
-      </ThemeProvider>,
-    );
-    expect(tree.exists()).toEqual(true);
+    const { wrapper } = setup();
+    expect(wrapper.exists()).toEqual(true);
   });
 
   it('should be able to lock scrolling ', () => {
-    page.lockBgScroll(true);
+    const { wrapper } = setup();
+    const instance = wrapper.instance();
+    instance.lockBgScroll(true);
     const doc = [...document.body.classList];
     expect(doc[0]).toEqual('modal-open');
   });
 
   it('should be able to unlock scrolling ', () => {
-    page.lockBgScroll(false);
+    const { wrapper } = setup();
+    const instance = wrapper.instance();
+    instance.lockBgScroll(false);
     const doc = [...document.body.classList];
     expect(doc[0]).toBe(undefined);
   });
 
-  describe('when page is loading', () => {
-    let oldProps;
-    let props;
-    beforeEach(() => {
-      jest.spyOn(universalHelpers, 'isServer').mockReturnValue(false);
-      const newShowModalMap = new Map();
-      newShowModalMap.set('modal', true);
+  it('should reset modal state when unmounts ', () => {
+    const { wrapper, mockStore } = setup();
+    const instance = wrapper.instance();
+    const closeModal = jest.spyOn(mockStore.uiStore, 'closeModal');
+    instance.componentWillUnmount();
+    expect(closeModal).toHaveBeenCalled();
+    closeModal.mockRestore();
+  });
 
-      stores = {
-        modal: {
-          onClosePress: jest.fn(),
-        },
-      };
-      props = {
-        store: {
-          uiStore: {
-            onCloseModal: jest.fn(),
-            modalIsOpen: jest.fn().mockReturnValue(true),
-          },
-        },
-        showOnMount: true,
-        modalHandle: 'modal',
-      };
-      oldProps = {
-        store: {
-          uiStore: {
-            onCloseModal: jest.fn(),
-            modalIsOpen: jest.fn().mockReturnValue(false),
-          },
-        },
-        modalHandle: 'modal',
-      };
-      page = new ModalTemplate({ ...stores });
-    });
+  it('should set the ref node', () => {
+    const { wrapper } = setup();
+    const instance = wrapper.instance();
+    instance.setRef('node');
+    expect(instance.nodeRef).toEqual('node');
+  });
 
-    it('should reset modal state when unmounts ', () => {
-      page = new ModalTemplate({ ...stores, ...props });
-      page.componentWillUnmount();
-      expect(props.store.uiStore.onCloseModal).toHaveBeenCalled();
+  it('should handle keydown events', () => {
+    const mockUiStore = UiStore.create();
+    const mockStore = { uiStore: mockUiStore };
+    const keyDownHandler = jest.fn();
+    const component = (
+      <Modal store={mockStore} keyDownHandler={keyDownHandler} />
+    );
+    const wrapper = mount(component, {
+      disableLifecycleMethods: true,
     });
+    const instance = wrapper.instance();
+    const onKeyDown = jest.spyOn(instance, 'onKeyDown');
+    const keydownEvent = document.createEvent('Event');
+    keydownEvent.initEvent('keydown', true, true);
+    document.dispatchEvent(keydownEvent);
+    expect(onKeyDown).toHaveBeenCalled();
+    expect(keyDownHandler).toHaveBeenCalled();
+    onKeyDown.mockRestore();
+  });
 
-    it('will lock the background if has new props', async () => {
-      page = new ModalTemplate({ ...stores, ...props });
-      const lockBackgroundScroll = jest.spyOn(page, 'lockBgScroll');
-      page.componentDidUpdate(oldProps);
-      expect(lockBackgroundScroll).toHaveBeenCalledWith(
-        props.store.uiStore.modalIsOpen,
-      );
+  it('should handle mousedown events', () => {
+    const mockUiStore = UiStore.create();
+    const mockStore = { uiStore: mockUiStore };
+    const mouseDownHandler = jest.fn();
+    const component = (
+      <Modal store={mockStore} mouseDownHandler={mouseDownHandler} />
+    );
+    const wrapper = mount(component, {
+      disableLifecycleMethods: true,
     });
+    const instance = wrapper.instance();
+    instance.nodeRef = document;
+    const onMouseDown = jest.spyOn(instance, 'onMouseDown');
+    const mousedownEvent = document.createEvent('Event');
+    mousedownEvent.initEvent('mousedown', true, true);
+    document.dispatchEvent(mousedownEvent);
+    expect(onMouseDown).toHaveBeenCalled();
+    expect(mouseDownHandler).toHaveBeenCalled();
+    onMouseDown.mockRestore();
+  });
+
+  it('should close modal on escape key', () => {
+    const { wrapper, mockStore } = setup();
+    const instance = wrapper.instance();
+    const closeModal = jest.spyOn(mockStore.uiStore, 'closeModal');
+    instance.onKeyDown({ keyCode: 27 });
+    expect(closeModal).toHaveBeenCalled();
+    closeModal.mockRestore();
+  });
+
+  it('will lock the background if has new props', async () => {
+    const { wrapper } = setup();
+    const instance = wrapper.instance();
+    const lockBackgroundScroll = jest.spyOn(instance, 'lockBgScroll');
+    const prevUiStore = UiStore.create({ activeModal: 'foo' });
+    const store = { uiStore: prevUiStore };
+    instance.componentDidUpdate({ store });
+    expect(lockBackgroundScroll).toHaveBeenCalled();
+    lockBackgroundScroll.mockRestore();
+  });
+
+  it('will not lock the background if props have not changed', async () => {
+    const mockUiStore = UiStore.create({ activeModal: 'foo' });
+    const mockStore = { uiStore: mockUiStore };
+    const component = <Modal store={mockStore} />;
+    const wrapper = mount(component, {
+      disableLifecycleMethods: true,
+    });
+    const instance = wrapper.instance();
+    const lockBackgroundScroll = jest.spyOn(instance, 'lockBgScroll');
+    instance.componentDidUpdate({ store: mockStore });
+    expect(lockBackgroundScroll).not.toHaveBeenCalled();
+    lockBackgroundScroll.mockRestore();
+  });
+
+  it('will render the header if defined', () => {
+    const mockUiStore = UiStore.create({ activeModal: 'foo' });
+    const mockStore = { uiStore: mockUiStore };
+    const component = <Modal store={mockStore} header="bar" />;
+    const wrapper = mount(component, {
+      disableLifecycleMethods: true,
+    });
+    expect(wrapper.find(ModalHeader).exists()).toEqual(true);
   });
 });

@@ -6,6 +6,11 @@ import { ButtonPrimary, ButtonWhiteNoHover } from 'components/atoms/button';
 
 const { SelectButton, Item } = SelectStyles;
 
+export const LocationModalWrapper = styled.div`
+  width: 644px;
+  padding: 24px;
+`;
+
 export const AddButton = styled(ButtonPrimary)`
   width: 138px;
 `;
@@ -14,10 +19,7 @@ export const CancelButton = styled(ButtonWhiteNoHover)`
   width: 138px;
 `;
 
-export const LicenseTypeWrapper = styled.div`
-  overflow-y: scroll;
-  max-height: 250px;
-`;
+export const LicenseTypeWrapper = styled.div``;
 
 export const LabelName = styled.label`
   display: block;

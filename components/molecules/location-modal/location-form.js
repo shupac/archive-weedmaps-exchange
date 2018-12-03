@@ -8,6 +8,7 @@ import Trashcan from 'components/atoms/icons/trashcan';
 import AddressSuggestions from 'components/molecules/address-suggestion';
 import { Plus } from 'components/atoms/icons/plus';
 import { normalizePhoneNumber, stripNonNumbers } from 'lib/common/strings';
+import { LICENSE_TYPES } from 'lib/common/constants';
 import {
   AddButton,
   CancelButton,
@@ -37,7 +38,6 @@ type Props = {
   handleBlur: () => void,
   dirty: boolean,
   isSubmitting: boolean,
-  licenseTypes: string[],
 };
 
 export const FormTemplate = ({
@@ -48,7 +48,6 @@ export const FormTemplate = ({
   handleReset,
   handleBlur,
   dirty,
-  licenseTypes,
   isSubmitting,
   store,
 }: Props) => {
@@ -71,7 +70,7 @@ export const FormTemplate = ({
     licenseReq &&
     !isSubmitting;
 
-  const remainingLicenses = licenseTypes.filter(
+  const remainingLicenses = LICENSE_TYPES.filter(
     option =>
       licenses.filter(license => license.licenseType === option).length === 0,
   );
@@ -267,7 +266,7 @@ export const FormTemplate = ({
             type="button"
             onClick={x => {
               handleReset(x);
-              return uiStore.onCloseModal();
+              return uiStore.closeModal();
             }}
           >
             Cancel
