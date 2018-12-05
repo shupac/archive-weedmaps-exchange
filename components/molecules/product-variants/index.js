@@ -94,8 +94,12 @@ export class ProductVariants extends Component<Props, State> {
   };
 
   transformFormValues = (values: FormValueType) => {
+    const { variants } = this.props;
     const entries = Object.entries(values);
-    const stripped = entries.filter(item => typeof item[1] === 'number');
+    const variantIds = new Set(variants.map(variant => variant.id));
+    const stripped = entries.filter(
+      item => variantIds.has(item[0]) && typeof item[1] === 'number',
+    );
     return stripped.map(item => ({
       variant_id: item[0],
       quantity: item[1],

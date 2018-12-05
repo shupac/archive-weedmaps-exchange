@@ -254,6 +254,26 @@ describe('Product Variants', () => {
         },
       ]);
     });
+    it('filters nonexistent form values for the API', () => {
+      const component = new ProductVariants({
+        variants: mockVariants,
+      });
+      const transformed = component.transformFormValues({
+        'cb429ae1-cb29-46b8-adcc-1eb234dc266b': 5,
+        '888c600e-0d09-4acf-95ae-90c28ad3552c': 8,
+        '630580e0-c20b-48fc-8ea1-e03abe831b05': 12,
+      });
+      expect(transformed).toEqual([
+        {
+          variant_id: 'cb429ae1-cb29-46b8-adcc-1eb234dc266b',
+          quantity: 5,
+        },
+        {
+          variant_id: '630580e0-c20b-48fc-8ea1-e03abe831b05',
+          quantity: 12,
+        },
+      ]);
+    });
     it('can handle when there are no cart errors ', () => {
       const { component, mockStore } = setup({ cartErrors: [] });
       const instance = component.instance();
