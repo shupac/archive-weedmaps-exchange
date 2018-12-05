@@ -27,7 +27,7 @@ const headerStyle = css`
 export const Table = styled.div`
   ${gridColumns};
   position: relative;
-  padding: 0 16px;
+  padding: 0 24px;
   color: ${text.normal};
   background-color: ${state.light};
   border: 1px solid ${icon.inverted};

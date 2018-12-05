@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
+import { STATUS_TYPES } from 'lib/common/constants';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 
@@ -12,14 +13,6 @@ const statusColor = {
   returned: colors.buttercup,
   canceled: colors.red,
   completed: colors.fountainBlue,
-};
-
-const statusName = {
-  in_progress: 'in progress',
-  not_started: 'not started',
-  returned: 'ready',
-  canceled: 'canceled',
-  completed: 'completed',
 };
 
 const Pill = styled.div`
@@ -42,7 +35,7 @@ type Props = {
 };
 
 const StatusPill = ({ status }: Props) => (
-  <Pill status={status}>{statusName[status]}</Pill>
+  <Pill status={status}>{STATUS_TYPES[status].text}</Pill>
 );
 
 export default StatusPill;

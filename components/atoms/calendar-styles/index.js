@@ -181,10 +181,11 @@ const CalendarStyles = styled.div`
     display: block;
   }
   .DateRangePicker_picker {
-    z-index: 1;
+    z-index: 5;
     background-color: #fff;
     position: absolute;
     overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
   }
   .DateRangePicker_picker__rtl {
     direction: rtl;

@@ -1,27 +1,43 @@
+// @flow
 import React, { Component } from 'react';
 import 'react-dates/initialize';
+import moment from 'moment';
 import { DateRangePicker } from 'react-dates';
 import uniqueKey from 'lib/common/unique-key';
 import CalendarStyles from 'components/atoms/calendar-styles';
 import { ChevronLeft, ChevronRight } from 'components/atoms/icons';
 
-export class DateRange extends Component {
+type DateRangeType = {
+  startDate: moment,
+  endDate: moment,
+};
+
+type Props = {
+  setDateRange: DateRangeType => void,
+  dateRange: DateRangeType,
+};
+
+type State = {
+  focusedInput: boolean,
+};
+
+export class DateRange extends Component<Props, State> {
   state = {
-    startDate: null,
-    endDate: null,
     focusedInput: false,
   };
 
   render() {
+    const { dateRange } = this.props;
+
     return (
       <CalendarStyles focusedInput={this.state.focusedInput}>
         <DateRangePicker
-          startDate={this.state.startDate}
+          startDate={dateRange.startDate}
           startDateId={uniqueKey()}
-          endDate={this.state.endDate}
+          endDate={dateRange.endDate}
           endDateId={uniqueKey()}
           onDatesChange={({ startDate, endDate }) =>
-            this.setState({ startDate, endDate })
+            this.props.setDateRange({ startDate, endDate })
           }
           focusedInput={this.state.focusedInput}
           onFocusChange={focusedInput => this.setState({ focusedInput })}

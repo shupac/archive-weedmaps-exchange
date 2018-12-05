@@ -16,6 +16,7 @@ type State = {
 
 type Props = {
   store: StoreType,
+  setSort: string => void,
 };
 
 export class OrdersTable extends Component<Props, State> {
@@ -24,23 +25,14 @@ export class OrdersTable extends Component<Props, State> {
     sortDirection: '-',
   };
 
-  componentDidMount() {
-    const { store } = this.props;
-    store.buyerOrders.fetchPurchaseOrders({
-      sort: '-date_ordered',
-    });
-  }
-
   onSort = key => {
-    const { store } = this.props;
+    const { setSort } = this.props;
     const { sortDirection, activeSort } = this.state;
     let newSortDirection = sortDirection;
     if (activeSort === key) {
       newSortDirection = sortDirection === '' ? '-' : '';
     }
-    store.buyerOrders.fetchPurchaseOrders({
-      sort: `${sortDirection}${key}`,
-    });
+    setSort(`${sortDirection}${key}`);
     this.setState({ activeSort: key, sortDirection: newSortDirection });
   };
 

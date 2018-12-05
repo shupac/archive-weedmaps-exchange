@@ -14,14 +14,14 @@ function setup() {
   const mockStore = {
     buyerOrders: BuyerOrdersStore.create(
       {
-        ordersData: mockPurchaseOrders,
+        ordersList: mockPurchaseOrders,
       },
       {
         client: mockFetchClient,
       },
     ),
   };
-  const component = <OrdersTable store={mockStore} />;
+  const component = <OrdersTable store={mockStore} setSort={jest.fn()} />;
   const wrapper = shallow(component, {
     disableLifecycleMethods: true,
   });
@@ -33,18 +33,7 @@ describe('OrdersTable', () => {
     const { wrapper } = setup();
     expect(wrapper.exists()).toEqual(true);
   });
-  it('should fetch purchase orders on mount ', () => {
-    const { wrapper, mockStore } = setup();
-    const instance = wrapper.instance();
-    const fetchPurchaseOrders = jest.spyOn(
-      mockStore.buyerOrders,
-      'fetchPurchaseOrders',
-    );
-    instance.componentDidMount();
-    expect(fetchPurchaseOrders).toHaveBeenCalledWith({
-      sort: '-date_ordered',
-    });
-  });
+
   it('should sort on order id ', () => {
     const { wrapper } = setup();
     const mockOnSort = jest.spyOn(wrapper.instance(), 'onSort');
