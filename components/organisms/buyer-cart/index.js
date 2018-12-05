@@ -6,6 +6,7 @@ import { type StoreType } from 'lib/types/store';
 import { concatAddy } from 'lib/common/strings';
 import unique from 'lib/common/unique-key';
 import Loader from 'components/atoms/loader';
+import LocationModal from 'components/molecules/location-modal';
 import EmptyCartPage from 'components/organisms/buyer-cart/empty-cart';
 import Breadcrumbs from 'components/molecules/breadcrumbs/index';
 import CartOrderSummary from 'components/molecules/cart-order-summary';
@@ -36,7 +37,7 @@ export class BuyerCart extends Component<Props> {
   }
 
   render() {
-    const { buyerCart } = this.props.store;
+    const { buyerCart, uiStore } = this.props.store;
 
     const {
       loadingCart,
@@ -67,6 +68,7 @@ export class BuyerCart extends Component<Props> {
           <CartLayout>
             <CartMain>
               {this.renderAddressManager()}
+              {uiStore.activeModal === 'cartModal' && <LocationModal />}
               {cartItemsByBrand &&
                 cartItemsByBrand.map((brandItems, idx) => (
                   <ShipmentCard

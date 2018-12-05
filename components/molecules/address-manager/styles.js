@@ -14,6 +14,7 @@ export const AddButton = styled(ButtonWhite)`
   font-size: ${rem(14)};
   letter-spacing: normal;
 `;
+AddButton.displayName = 'AddButton';
 
 export const AddressDropdown = styled(Select)`
   width: 100%;

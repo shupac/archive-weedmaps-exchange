@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
 import { truncate } from 'lib/common/strings';
+import { inject, observer } from 'mobx-react';
+import { type StoreType } from 'lib/types/store';
 import {
   AddButton,
   AddressManagerWrapper,
@@ -19,14 +21,17 @@ type Props = {
   addresses: AddressObject[],
   selectedAddress: AddressObject | null,
   onSelectAddress: (address: AddressObject) => void,
+  store: StoreType,
 };
 
 const AddressManager = ({
   addresses,
   selectedAddress,
   onSelectAddress,
+  store,
 }: Props) => {
   const addressText = item => ({ text: truncate(item.text, 25), ...item });
+  const { uiStore } = store;
 
   return (
     <AddressManagerWrapper>
@@ -42,9 +47,15 @@ const AddressManager = ({
           items={addresses}
           searchable={false}
         />
-        <AddButton>Add New Address</AddButton>
+        <AddButton
+          onClick={() => {
+            uiStore.openModal('cartModal');
+          }}
+        >
+          Add New Address
+        </AddButton>
       </AddressManagerBody>
     </AddressManagerWrapper>
   );
 };
-export default AddressManager;
+export default inject('store')(observer(AddressManager));
