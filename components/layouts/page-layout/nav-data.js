@@ -20,6 +20,7 @@ export const buyerData = [
       params: {
         tab: 'discover',
       },
+      path: '/marketplace',
     },
   },
   {
@@ -27,6 +28,7 @@ export const buyerData = [
     icon: sizeIcon(Papers),
     route: {
       name: 'buyerOrders',
+      path: '/buyer-orders',
     },
   },
 ];
@@ -57,6 +59,7 @@ export const buyerFooterData = [
       params: {
         tab: 'profile',
       },
+      path: '/settings',
     },
   },
   {

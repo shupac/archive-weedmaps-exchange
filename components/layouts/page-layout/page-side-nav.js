@@ -60,7 +60,7 @@ class SideNavComponent extends React.Component<Props> {
         key={name}
         name={name}
         icon={icon}
-        isActive={route && `/${route.name}` === router.route}
+        isActive={route && route.path === router.route}
         onClick={() => route && Router.pushRoute(route.name, route.params)}
       />
     ));
@@ -68,3 +68,4 @@ class SideNavComponent extends React.Component<Props> {
 }
 
 export default withRouter(SideNavComponent);
+export { SideNavComponent };
