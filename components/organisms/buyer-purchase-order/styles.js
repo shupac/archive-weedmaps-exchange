@@ -13,6 +13,13 @@ export const PurchaseOrderWrapper = styled.div`
   box-shadow: ${shadow};
   min-width: 1000px;
   height: 100%;
+
+  @media print {
+    background: white;
+    max-width: 100%;
+    min-width: 100%;
+    border: unset;
+  }
 `;
 
 export const OrderHeader = styled.div`
@@ -25,6 +32,15 @@ export const OrderHeader = styled.div`
   color: ${text.normal};
   background: ${background.secondary};
   border-bottom: 1px solid ${border.default};
+
+  @media print {
+    margin-left: -16px;
+    padding-left: -16px;
+    border-bottom: none;
+    svg {
+      display: none;
+    }
+  }
 `;
 
 export const OrderInfo = styled.div`
@@ -53,6 +69,25 @@ export const OrderInfo = styled.div`
     vertical-align: top;
     max-width: 400px;
   }
+
+  @media print {
+    thead {
+      color: ${WmTheme.style.text.normal};
+    }
+    th {
+      vertical-align: text-top;
+      &:last-of-type {
+        display: none;
+      }
+    }
+    td {
+      color: ${WmTheme.style.text.normal};
+      vertical-align: text-top;
+      &:last-of-type {
+        display: none;
+      }
+    }
+  }
 `;
 
 export const HeaderButtons = styled.div`
@@ -65,6 +100,10 @@ export const HeaderButtons = styled.div`
   }
   button:last-of-type {
     margin-right: 0;
+  }
+
+  @media print {
+    display: none;
   }
 `;
 
@@ -92,6 +131,11 @@ export const ProductsLabels = styled.div`
   > :last-child {
     text-align: right;
   }
+
+  @media print {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
 `;
 
 export const ProductRowWrapper = styled.div`
@@ -101,6 +145,10 @@ export const ProductRowWrapper = styled.div`
   font-size: ${rem(14)};
   padding-right: 32px;
   align-items: center;
+
+  @media print {
+    height: 75px;
+  }
 `;
 
 export const ProductWrapper = styled.div`
@@ -133,6 +181,10 @@ export const ProductPhoto = styled.div`
   background-size: cover;
   background-position: center center;
   margin-right: 8px;
+
+  @media print {
+    display: none;
+  }
 `;
 
 export const Subtotal = styled.div`
@@ -146,6 +198,12 @@ export const Totals = styled.div`
   margin-bottom: 16px;
   padding: 24px 0;
   border-bottom: 1px solid ${border.default};
+
+  @media print {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    border-bottom: none;
+  }
 `;
 
 export const TotalsRow = styled.div`

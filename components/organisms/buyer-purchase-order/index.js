@@ -109,7 +109,9 @@ class BuyerPurchaseOrder extends Component<Props> {
             Purchase Order: {formatOrderId(orderId)}
           </span>
           <HeaderButtons>
-            <ButtonWhiteNoHover>View or print</ButtonWhiteNoHover>
+            <ButtonWhiteNoHover onClick={() => window.print()}>
+              View or print
+            </ButtonWhiteNoHover>
             {cancelable && (
               <ButtonWhiteNoHover onClick={() => this.openCancelModal()}>
                 Cancel order

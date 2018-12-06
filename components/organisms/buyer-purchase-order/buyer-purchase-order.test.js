@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import BuyerOrdersStore from 'lib/data-access/stores/buyer-orders';
 import UiStore from 'lib/data-access/stores/ui';
+import { ButtonWhiteNoHover } from 'components/atoms/button';
 import mockPurchaseOrder from 'mocks/purchase-order';
 import Loader from 'components/atoms/loader';
-import { ButtonWhiteNoHover } from 'components/atoms/button';
 import { BuyerPurchaseOrder } from './';
 import { OrderHeader } from './styles';
 
@@ -64,6 +64,16 @@ describe('Buyer Purchase Order Page', () => {
     const { wrapper, mockStore } = setup();
     mockStore.buyerOrders.setOrderData(undefined);
     expect(wrapper.find(Loader).exists()).toEqual(true);
+  });
+
+  it('should handle the print', () => {
+    const { wrapper } = setup();
+    const print = jest.spyOn(window, 'print');
+    wrapper
+      .find(ButtonWhiteNoHover)
+      .first()
+      .simulate('click');
+    expect(print).toHaveBeenCalled();
   });
 
   it('should show Reason for Cancellation if status is cancelled', () => {

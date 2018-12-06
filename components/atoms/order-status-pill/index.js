@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { STATUS_TYPES } from 'lib/common/constants';
+import { WmTheme } from '@ghostgroup/ui';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 
@@ -28,6 +29,12 @@ const Pill = styled.div`
   font-size: ${rem(12)};
   font-weight: 600;
   text-transform: uppercase;
+
+  @media print {
+    border: none;
+    color: ${WmTheme.style.text.normal};
+    justify-content: flex-start;
+  }
 `;
 
 type Props = {

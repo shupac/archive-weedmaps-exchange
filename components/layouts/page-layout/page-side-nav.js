@@ -19,6 +19,10 @@ import {
 const { SideNavHeader, SideNavFooter } = SideNavLayout;
 const Wrapper = styled.div`
   align-self: stretch;
+
+  @media print {
+    display: none;
+  }
 `;
 
 type Props = {

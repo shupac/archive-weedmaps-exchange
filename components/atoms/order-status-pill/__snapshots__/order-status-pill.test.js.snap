@@ -25,6 +25,17 @@ exports[`Styled Link should render the status pill 1`] = `
   text-transform: uppercase;
 }
 
+@media print {
+  .c0 {
+    border: none;
+    color: #354052;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+  }
+}
+
 <div
   className="c0"
 >
