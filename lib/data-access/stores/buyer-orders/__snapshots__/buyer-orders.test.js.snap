@@ -2,7 +2,7 @@
 
 exports[`Buyer Orders Store can fetch all purchase orders and set data 1`] = `Array []`;
 
-exports[`Buyer Orders Store can fetch purchase order and set data 1`] = `
+exports[`Buyer Orders Store purhase order detail can fetch purchase order and set data 1`] = `
 Object {
   "buyerData": Object {
     "buyerAddress": "{\\"territory\\":\\"CA\\",\\"street_address\\":\\"55 Discovery\\",\\"region\\":{\\"name\\":\\"South OC Brands\\",\\"id\\":\\"64d05017-4339-4cda-9e57-0da061bf6b00\\"},\\"postal_code\\":\\"92618\\",\\"country\\":\\"us\\",\\"city\\":\\"Irvine\\"}",

@@ -10,6 +10,8 @@ import Loader from 'components/atoms/loader';
 import { formatOrderId, formatCurrency } from 'lib/common/strings';
 import { formatDate } from 'lib/common/date';
 import { type StoreType } from 'lib/types/store';
+import { STATUS_TYPES } from 'lib/common/constants';
+import CancelOrderModal from './cancel-order-modal';
 import ProductRow from './product-row';
 import {
   PurchaseOrderWrapper,
@@ -31,15 +33,38 @@ type Props = {
 
 class BuyerPurchaseOrder extends Component<Props> {
   componentDidMount() {
+    this.fetchOrder();
+  }
+
+  fetchOrder = () => {
+    const { orderId, store } = this.props;
+    store.buyerOrders.fetchOrder(orderId);
+  };
+
+  openCancelModal = () => {
+    this.props.store.uiStore.openModal('cancelOrder');
+    this.fetchOrder();
+  };
+
+  submitCancelOrder = async (reason: string) => {
     const { orderId, store } = this.props;
 
-    store.buyerOrders.fetchOrder(orderId);
-  }
+    const success = await store.buyerOrders.updateOrderStatus(
+      orderId,
+      'canceled',
+      reason,
+    );
+
+    if (success) store.uiStore.closeModal();
+  };
 
   render() {
     const { orderId, store } = this.props;
 
-    const { orderData } = store.buyerOrders;
+    const { buyerOrders, uiStore } = store;
+
+    const { orderData } = buyerOrders;
+    const { activeModal, closeModal } = uiStore;
 
     if (!orderData) return <Loader />;
 
@@ -72,6 +97,8 @@ class BuyerPurchaseOrder extends Component<Props> {
 
     const brandLink = `/buyer/marketplace/catalog?brands=${sellerId}`;
 
+    const { text: statusText, cancelable } = STATUS_TYPES[status];
+
     return (
       <PurchaseOrderWrapper>
         <OrderHeader>
@@ -83,7 +110,11 @@ class BuyerPurchaseOrder extends Component<Props> {
           </span>
           <HeaderButtons>
             <ButtonWhiteNoHover>View or print</ButtonWhiteNoHover>
-            <ButtonWhiteNoHover>Cancel order</ButtonWhiteNoHover>
+            {cancelable && (
+              <ButtonWhiteNoHover onClick={() => this.openCancelModal()}>
+                Cancel order
+              </ButtonWhiteNoHover>
+            )}
             <ButtonPrimary>Reorder</ButtonPrimary>
           </HeaderButtons>
         </OrderHeader>
@@ -97,9 +128,7 @@ class BuyerPurchaseOrder extends Component<Props> {
                 <th>Shipping Address</th>
                 <th>Expected Shipping Date</th>
                 <th>Status</th>
-                {status === 'cancelled' ? (
-                  <th>Reason for Cancellation</th>
-                ) : null}
+                {status === 'canceled' && <th>Reason for Cancellation</th>}
               </tr>
             </thead>
             <tbody>
@@ -114,7 +143,7 @@ class BuyerPurchaseOrder extends Component<Props> {
                 <td>
                   <StatusPill status={status} />
                 </td>
-                {status === 'cancelled' ? <td>{statusReason}</td> : null}
+                {status === 'canceled' && <td>{statusReason}</td>}
               </tr>
             </tbody>
           </table>
@@ -154,6 +183,16 @@ class BuyerPurchaseOrder extends Component<Props> {
             <Subtotal>{formatCurrency(total)}</Subtotal>
           </TotalsRow>
         </Totals>
+
+        {activeModal === 'cancelOrder' && (
+          <CancelOrderModal
+            status={statusText}
+            cancelable={cancelable}
+            onClose={closeModal}
+            onSubmit={this.submitCancelOrder}
+            store={store}
+          />
+        )}
       </PurchaseOrderWrapper>
     );
   }

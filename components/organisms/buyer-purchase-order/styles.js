@@ -3,7 +3,7 @@ import { rem } from 'polished';
 import { WmTheme } from '@ghostgroup/ui';
 import Theme from 'lib/styles/theme';
 
-const { background, text, border, shadow } = WmTheme.style;
+const { background, text, border, shadow, state } = WmTheme.style;
 
 export const PurchaseOrderWrapper = styled.div`
   margin: 16px;
@@ -50,6 +50,8 @@ export const OrderInfo = styled.div`
 
   td {
     padding-right: 48px;
+    vertical-align: top;
+    max-width: 400px;
   }
 `;
 
@@ -166,4 +168,32 @@ export const TotalLabel = styled.div`
 export const TotalDivider = styled.div`
   grid-column: 4/-1;
   border-bottom: 1px solid ${border.default};
+`;
+
+export const CancelModalWrapper = styled.div`
+  width: 620px;
+  padding: 24px;
+  font-size: ${rem(14)};
+`;
+
+export const ButtonRow = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+
+  > button {
+    width: auto;
+    min-width: 132px;
+    margin-right: 16px;
+  }
+
+  > :last-child {
+    margin-right: 0;
+  }
+`;
+
+export const ErrorText = styled.small`
+  margin-top: 8px;
+  font-size: ${rem(12)};
+  color: ${state.danger};
 `;
