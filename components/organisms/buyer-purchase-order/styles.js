@@ -75,17 +75,23 @@ export const OrderInfo = styled.div`
       color: ${WmTheme.style.text.normal};
     }
     th {
-      vertical-align: text-top;
       &:last-of-type {
         display: none;
       }
+      &:nth-last-child(2) {
+        display: none;
+      }
+      vertical-align: text-top;
     }
     td {
-      color: ${WmTheme.style.text.normal};
-      vertical-align: text-top;
       &:last-of-type {
         display: none;
       }
+      &:nth-last-child(2) {
+        display: none;
+      }
+      color: ${WmTheme.style.text.normal};
+      vertical-align: text-top;
     }
   }
 `;
