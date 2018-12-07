@@ -50,6 +50,17 @@ describe('ShipmentCart', () => {
         .text(),
     ).toEqual('Shipment 1 of 3:THClear Co');
   });
+  it('should show inline error in the shipment cart', () => {
+    const { shipmentWrapper } = setup();
+    expect(
+      shipmentWrapper
+        .find('ErrorMessage')
+        .dive()
+        .text(),
+    ).toEqual(
+      '<ErrorIcon /> THClear Co has a minimum order amount of $10,000.00.',
+    );
+  });
 });
 
 describe('ProductRow', () => {

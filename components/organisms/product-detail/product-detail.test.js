@@ -32,6 +32,26 @@ function setup() {
 describe('Product Detail Page', () => {
   describe('when mounts', () => {
     let component;
+    it('should render a breadcrumb', () => {
+      const { wrapper } = setup();
+      const breadCrumb = wrapper.find('Breadcrumbs');
+      expect(breadCrumb.exists()).toEqual(true);
+    });
+    it('should render a product photo gallery', () => {
+      const { wrapper } = setup();
+      const photos = wrapper.find('ProductPhotos');
+      expect(photos.exists()).toEqual(true);
+    });
+    it('should render a product description', () => {
+      const { wrapper } = setup();
+      const description = wrapper.find('ProductDescription');
+      expect(description.exists()).toEqual(true);
+    });
+    it('should render brand licenses', () => {
+      const { wrapper } = setup();
+      const licenseList = wrapper.find('LicenseList');
+      expect(licenseList.exists()).toEqual(true);
+    });
     it('should call getProductDetails action in buyerProducts store  ', () => {
       component = new ProductDetails({ ...props });
       jest.spyOn(mockStore, 'getProductDetails');
@@ -69,16 +89,6 @@ describe('Product Detail Page', () => {
       },
     ]);
   });
-  it('should render a breadcrumb', () => {
-    const { wrapper } = setup();
-    const breadCrumb = wrapper.find('Breadcrumbs');
-    expect(breadCrumb.exists()).toEqual(true);
-  });
-  it('should render a product photo gallery', () => {
-    const { wrapper } = setup();
-    const photos = wrapper.find('ProductPhotos');
-    expect(photos.exists()).toEqual(true);
-  });
   it('should set featured product photo', async () => {
     const { wrapper } = setup();
     const instance = wrapper.instance();
@@ -89,16 +99,6 @@ describe('Product Detail Page', () => {
     );
     instance.changeFeaturePhoto('1608ec15-013e-4a77-9cb9-27cc232a6640');
     expect(setFeaturedProductPhoto).toHaveBeenCalled();
-  });
-  it('should render a product description', () => {
-    const { wrapper } = setup();
-    const description = wrapper.find('ProductDescription');
-    expect(description.exists()).toEqual(true);
-  });
-  it('should render brand licenses', () => {
-    const { wrapper } = setup();
-    const licenseList = wrapper.find('LicenseList');
-    expect(licenseList.exists()).toEqual(true);
   });
   it('should fetch product detail data on mount', () => {
     const { wrapper } = setup();

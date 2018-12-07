@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { WmTheme } from '@ghostgroup/ui';
 import { rem } from 'polished';
+import theme from 'lib/styles/theme';
 
 const { background, text, icon, border, state, shadow } = WmTheme.style;
 
@@ -180,3 +181,20 @@ export const UpdateLink = styled.a`
   cursor: pointer;
 `;
 UpdateLink.displayName = 'UpdateLink';
+
+export const ErrorMessage = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: left;
+  border: 1px solid ${border.error};
+  border-radius: 3px;
+  background-color: ${theme.colors.bg.error};
+  color: ${state.danger};
+  font-size: ${rem(14)};
+  padding: 8px 19px;
+  margin: 8px 0 8px 16px;
+  svg {
+    margin-right: 8px;
+  }
+`;
+ErrorMessage.displayName = 'ErrorMessage';
