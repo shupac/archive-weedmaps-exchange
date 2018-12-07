@@ -7,6 +7,8 @@ import { PageContent, PageLayout } from 'components/layouts/page-layout';
 import ShowIfRoute from 'components/atoms/show-if-route';
 import BuyerPurchaseOrders from 'components/organisms/buyer-purchase-orders';
 import BuyerPurchaseOrder from 'components/organisms/buyer-purchase-order';
+import CancelOrderModal from 'components/organisms/cancel-order-modal';
+
 import { type StoreType } from 'lib/types/store';
 
 type Props = {
@@ -28,6 +30,8 @@ export class Orders extends Component<Props> {
           <ShowIfRoute match="/buyer/orders/(.*)">
             <BuyerPurchaseOrder orderId={url.query.orderId} />
           </ShowIfRoute>
+
+          <CancelOrderModal />
         </PageContent>
       </PageLayout>
     );

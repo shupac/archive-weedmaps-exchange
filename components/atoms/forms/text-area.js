@@ -17,3 +17,4 @@ export const TextArea = ({ hasError, errorMessage, ...props }: Props) => (
 );
 
 export default TextArea;
+TextArea.displayName = 'TextArea';

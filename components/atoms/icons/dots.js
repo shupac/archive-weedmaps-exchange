@@ -8,6 +8,7 @@ type Props = {
   fill?: string,
   size?: number | string,
   direction: string,
+  onClick: () => void,
 };
 
 export const POSITION = {
@@ -19,6 +20,7 @@ export const Dots = ({
   fill = icon.light,
   size,
   direction = POSITION.vertical,
+  onClick,
 }: Props) => (
   <svg
     className="wm-icon wm-dots"
@@ -28,6 +30,7 @@ export const Dots = ({
     style={{
       transform: `rotate(${direction})`,
     }}
+    onClick={onClick}
   >
     <path
       fill={fill}
@@ -37,3 +40,4 @@ export const Dots = ({
 );
 
 export default Dots;
+Dots.displayName = 'Dots';

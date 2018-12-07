@@ -18,12 +18,12 @@ type Props = {
 };
 
 type State = {
-  focusedInput: boolean,
+  focusedInput: ?boolean,
 };
 
 export class DateRange extends Component<Props, State> {
   state = {
-    focusedInput: false,
+    focusedInput: null,
   };
 
   render() {

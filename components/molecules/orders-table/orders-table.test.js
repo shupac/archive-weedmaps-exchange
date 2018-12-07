@@ -1,7 +1,10 @@
+import * as MST from 'mobx-state-tree';
 import React from 'react';
 import { shallow } from 'enzyme';
 import mockPurchaseOrders from 'mocks/purchase-orders';
 import BuyerOrdersStore from 'lib/data-access/stores/buyer-orders';
+import UiStore from 'lib/data-access/stores/ui';
+import ContextMenu, { MenuItem } from 'components/molecules/context-menu';
 import { OrdersTable } from './';
 
 function setup() {
@@ -20,6 +23,7 @@ function setup() {
         client: mockFetchClient,
       },
     ),
+    uiStore: UiStore.create(),
   };
   const component = <OrdersTable store={mockStore} setSort={jest.fn()} />;
   const wrapper = shallow(component, {
@@ -82,5 +86,35 @@ describe('OrdersTable', () => {
     const sortButton = wrapper.find('SortButton').at(6);
     sortButton.simulate('click');
     expect(mockOnSort).toHaveBeenCalledWith('status');
+  });
+  it('should cancel order', () => {
+    const { wrapper, mockStore } = setup();
+    const instance = wrapper.instance();
+    const getParent = jest.spyOn(MST, 'getParent').mockReturnValue(mockStore);
+    const cancelOrder = jest.spyOn(instance, 'cancelOrder');
+    const openModal = jest.spyOn(mockStore.uiStore, 'openModal');
+    const contextMenus = wrapper.find(ContextMenu);
+    contextMenus
+      .first()
+      .find(MenuItem)
+      .first()
+      .simulate('click');
+    expect(cancelOrder).toHaveBeenCalledWith(mockPurchaseOrders[0].id);
+    expect(openModal).toHaveBeenCalled();
+    getParent.mockRestore();
+    openModal.mockRestore();
+  });
+  it('should handle  reorder', () => {
+    const { wrapper } = setup();
+    const instance = wrapper.instance();
+    const reorder = jest.spyOn(instance, 'reorder');
+    const contextMenus = wrapper.find(ContextMenu);
+    contextMenus
+      .first()
+      .find(MenuItem)
+      .last()
+      .simulate('click');
+    expect(reorder).toHaveBeenCalledWith(mockPurchaseOrders[0].id);
+    reorder.mockRestore();
   });
 });

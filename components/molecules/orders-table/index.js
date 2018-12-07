@@ -6,7 +6,8 @@ import { formatDollars } from 'lib/common/strings';
 import StatusPill from 'components/atoms/order-status-pill';
 import StyledLink from 'components/atoms/styled-link';
 import { SortButton } from 'components/atoms/sort-button';
-import { Dots } from 'components/atoms/icons';
+import ContextMenu, { MenuItem } from 'components/molecules/context-menu';
+import { STATUS_TYPES } from 'lib/common/constants';
 import { Table, HeadCol, Border, ActionHead } from './styles';
 
 type State = {
@@ -39,6 +40,14 @@ export class OrdersTable extends Component<Props, State> {
   get isPointedUp() {
     return this.state.sortDirection === '-';
   }
+
+  cancelOrder = (orderId: string) => {
+    const { buyerOrders } = this.props.store;
+
+    buyerOrders.cancelOrder(orderId);
+  };
+
+  reorder = (orderId: string) => orderId;
 
   render() {
     const { store } = this.props;
@@ -115,24 +124,37 @@ export class OrdersTable extends Component<Props, State> {
           <span />
         </Fragment>
 
-        {store.buyerOrders.ordersList.map(order => (
-          <Fragment key={order.id}>
-            <StyledLink href={`/buyer/orders/${order.id}`}>
-              {order.id.substring(0, 6).toUpperCase()}
-            </StyledLink>
-            <p>{formatDate(order.orderDate)}</p>
-            <p>{order.sellerData.sellerName}</p>
-            <p>{order.buyerData.buyerLocationName}</p>
-            <p>
-              {formatDate(order.expectedShipDateMin)}-
-              {formatDate(order.expectedShipDateMax)}
-            </p>
-            <p>{formatDollars(Number(order.total))}</p>
-            <StatusPill status={order.status} />
-            <Dots />
-            <Border />
-          </Fragment>
-        ))}
+        {store.buyerOrders.ordersList.map(order => {
+          const { cancelable } = STATUS_TYPES[order.status];
+
+          return (
+            <Fragment key={order.id}>
+              <StyledLink href={`/buyer/orders/${order.id}`}>
+                {order.id.substring(0, 6).toUpperCase()}
+              </StyledLink>
+              <p>{formatDate(order.orderDate)}</p>
+              <p>{order.sellerData.sellerName}</p>
+              <p>{order.buyerData.buyerLocationName}</p>
+              <p>
+                {formatDate(order.expectedShipDateMin)}-
+                {formatDate(order.expectedShipDateMax)}
+              </p>
+              <p>{formatDollars(Number(order.total))}</p>
+              <StatusPill status={order.status} />
+              <ContextMenu>
+                {cancelable && (
+                  <MenuItem onClick={() => this.cancelOrder(order.id)}>
+                    Cancel
+                  </MenuItem>
+                )}
+                <MenuItem onClick={() => this.reorder(order.id)}>
+                  Reorder
+                </MenuItem>
+              </ContextMenu>
+              <Border />
+            </Fragment>
+          );
+        })}
       </Table>
     );
   }

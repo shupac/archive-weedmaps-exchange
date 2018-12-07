@@ -15,7 +15,6 @@ type DateRange = {
 };
 
 type Props = {
-  orderId: string,
   store: StoreType,
 };
 
@@ -79,8 +78,9 @@ export class BuyerPurchaseOrders extends Component<Props> {
   }
 
   render() {
-    const { buyerOrders } = this.props.store;
-    const { totalEntries, pageSize, pageNumber } = buyerOrders.ordersListMeta;
+    const { ordersListMeta } = this.props.store.buyerOrders;
+
+    const { totalEntries, pageSize, pageNumber } = ordersListMeta;
 
     return (
       <PageWrapper>

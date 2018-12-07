@@ -1,8 +1,112 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Buyer Orders Store can fetch all purchase orders and set data 1`] = `Array []`;
+exports[`Buyer Orders Store can calculate PO sellers 1`] = `
+Array [
+  Object {
+    "text": "GfarmaLabs",
+    "value": undefined,
+  },
+  Object {
+    "text": "THClear Co",
+    "value": undefined,
+  },
+]
+`;
 
-exports[`Buyer Orders Store purhase order detail can fetch purchase order and set data 1`] = `
+exports[`Buyer Orders Store can fetch all purchase orders and set data 1`] = `
+Array [
+  Object {
+    "buyerData": Object {
+      "buyerAddress": "{\\"territory\\":\\"CA\\",\\"street_address\\":\\"41 Discovery\\",\\"region\\":{\\"name\\":\\"South OC Brands\\",\\"id\\":\\"64d05017-4339-4cda-9e57-0da061bf6b00\\"},\\"postal_code\\":\\"92618\\",\\"country\\":\\"us\\",\\"city\\":\\"Irvine\\"}",
+      "buyerDeliveryInstructions": "Delivery Instruction",
+      "buyerEmail": "joesmith@aol.com",
+      "buyerLicenses": Array [
+        Object {
+          "id": "6099e0b7-c7f9-4894-8df6-639469df8e5d",
+          "licenseType": "medical",
+          "number": "888888888",
+        },
+      ],
+      "buyerLocationName": "Sciametta Burweedos",
+      "buyerPhone": "5555555555",
+    },
+    "expectedShipDateMax": "2018-11-30T21:52:52.321156Z",
+    "expectedShipDateMin": "2018-11-28T21:52:52.321156Z",
+    "givenDeliveryEta": Object {
+      "etaMax": 3,
+      "etaMaxUnit": "day",
+      "etaMin": 1,
+      "etaMinUnit": "day",
+    },
+    "id": "3b4b09e2-4f0f-4c83-8b1c-2760f3af12f9",
+    "orderDate": "2018-11-27T21:52:52.332967Z",
+    "orderItems": Array [
+      Object {
+        "id": "eea69c02-9a58-40d5-9ea5-275c4059055e",
+      },
+    ],
+    "sellerData": Object {
+      "sellerAddress": "{\\"territory\\":\\"OR\\",\\"street_address\\":\\"120 Columbia Ave NE\\",\\"region\\":{\\"name\\":\\"Washington\\",\\"id\\":\\"bd457c68-fee7-485b-b3ab-c2daabba3e4f\\"},\\"postal_code\\":\\"97818\\",\\"country\\":\\"us\\",\\"city\\":\\"Boardman\\"}",
+      "sellerEmail": "test@test.com",
+      "sellerId": "2f4ddb82-3b67-4780-8ae4-7f27da36d813",
+      "sellerLicenses": Array [],
+      "sellerName": "GfarmaLabs",
+      "sellerPhone": "1112223333",
+    },
+    "shippingFee": "100.00",
+    "status": "not_started",
+    "statusReason": "",
+    "subtotal": "24900.00",
+    "total": "25000",
+  },
+  Object {
+    "buyerData": Object {
+      "buyerAddress": "{\\"territory\\":\\"CA\\",\\"street_address\\":\\"41 Discovery\\",\\"region\\":{\\"name\\":\\"South OC Brands\\",\\"id\\":\\"64d05017-4339-4cda-9e57-0da061bf6b00\\"},\\"postal_code\\":\\"92618\\",\\"country\\":\\"us\\",\\"city\\":\\"Irvine\\"}",
+      "buyerDeliveryInstructions": "Delivery Instruction",
+      "buyerEmail": "joesmith@aol.com",
+      "buyerLicenses": Array [
+        Object {
+          "id": "6099e0b7-c7f9-4894-8df6-639469df8e5d",
+          "licenseType": "medical",
+          "number": "888888888",
+        },
+      ],
+      "buyerLocationName": "Sciametta Burweedos",
+      "buyerPhone": "5555555555",
+    },
+    "expectedShipDateMax": "2018-11-30T20:27:02.297357Z",
+    "expectedShipDateMin": "2018-11-28T20:27:02.297357Z",
+    "givenDeliveryEta": Object {
+      "etaMax": 3,
+      "etaMaxUnit": "day",
+      "etaMin": 1,
+      "etaMinUnit": "day",
+    },
+    "id": "11690783-9715-4ec7-a184-f0b25638fb05",
+    "orderDate": "2018-11-27T20:27:02.311382Z",
+    "orderItems": Array [
+      Object {
+        "id": "87623787-bdbe-4ec1-8dba-b39e99d4d597",
+      },
+    ],
+    "sellerData": Object {
+      "sellerAddress": "{\\"territory\\":\\"OR\\",\\"street_address\\":\\"120 Columbia Ave NE\\",\\"region\\":{\\"name\\":\\"Washington\\",\\"id\\":\\"bd457c68-fee7-485b-b3ab-c2daabba3e4f\\"},\\"postal_code\\":\\"97818\\",\\"country\\":\\"us\\",\\"city\\":\\"Boardman\\"}",
+      "sellerEmail": "test@test.com",
+      "sellerId": "2f4ddb82-3b67-4780-8ae4-7f27da36d813",
+      "sellerLicenses": Array [],
+      "sellerName": "THClear Co",
+      "sellerPhone": "1112223333",
+    },
+    "shippingFee": "100.00",
+    "status": "canceled",
+    "statusReason": "Not needed",
+    "subtotal": "114900.00",
+    "total": "115000",
+  },
+]
+`;
+
+exports[`Buyer Orders Store can fetch purchase order and set data 1`] = `
 Object {
   "buyerData": Object {
     "buyerAddress": "{\\"territory\\":\\"CA\\",\\"street_address\\":\\"55 Discovery\\",\\"region\\":{\\"name\\":\\"South OC Brands\\",\\"id\\":\\"64d05017-4339-4cda-9e57-0da061bf6b00\\"},\\"postal_code\\":\\"92618\\",\\"country\\":\\"us\\",\\"city\\":\\"Irvine\\"}",

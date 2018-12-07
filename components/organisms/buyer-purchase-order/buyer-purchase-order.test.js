@@ -1,3 +1,4 @@
+import * as MST from 'mobx-state-tree';
 import React from 'react';
 import { shallow } from 'enzyme';
 import BuyerOrdersStore from 'lib/data-access/stores/buyer-orders';
@@ -76,7 +77,7 @@ describe('Buyer Purchase Order Page', () => {
     expect(print).toHaveBeenCalled();
   });
 
-  it('should show Reason for Cancellation if status is cancelled', () => {
+  it('should show Reason for Cancelation if status is canceled', () => {
     const { wrapper, mockStore } = setup();
     mockStore.buyerOrders.setOrderData({
       ...mockPurchaseOrder,
@@ -86,57 +87,23 @@ describe('Buyer Purchase Order Page', () => {
       .find('th')
       .last()
       .text();
-    expect(reasonLabel).toEqual('Reason for Cancellation');
+    expect(reasonLabel).toEqual('Reason for Cancelation');
   });
 
-  it('should call openCancelModal when cancel button is clicked', () => {
-    const { wrapper } = setup();
+  it('should handle cancel order', () => {
+    const { wrapper, mockStore } = setup();
     const instance = wrapper.instance();
-    const openCancelModal = jest.spyOn(instance, 'openCancelModal');
+    const getParent = jest.spyOn(MST, 'getParent').mockReturnValue(mockStore);
+    const cancelOrder = jest.spyOn(instance, 'cancelOrder');
+    const openModal = jest.spyOn(mockStore.uiStore, 'openModal');
     wrapper
       .find(ButtonWhiteNoHover)
       .at(1)
       .simulate('click');
-    expect(openCancelModal).toHaveBeenCalled();
-    openCancelModal.mockRestore();
-  });
-
-  it('should open the cancel order modal', () => {
-    const { wrapper, mockStore } = setup();
-    const openModal = jest.spyOn(mockStore.uiStore, 'openModal');
-    const instance = wrapper.instance();
-    instance.openCancelModal();
+    expect(cancelOrder).toHaveBeenCalled();
     expect(openModal).toHaveBeenCalled();
+    cancelOrder.mockRestore();
+    getParent.mockRestore();
     openModal.mockRestore();
-  });
-
-  it('should handle submit cancel order', async () => {
-    const { wrapper, mockStore } = setup();
-    const closeModal = jest.spyOn(mockStore.uiStore, 'closeModal');
-    const updateOrderStatus = jest
-      .spyOn(mockStore.buyerOrders, 'updateOrderStatus')
-      .mockReturnValue(Promise.resolve(true));
-    const instance = wrapper.instance();
-    await instance.submitCancelOrder('Test');
-    expect(updateOrderStatus).toHaveBeenCalledWith(
-      mockPurchaseOrder.id,
-      'canceled',
-      'Test',
-    );
-    expect(closeModal).toHaveBeenCalled();
-    closeModal.mockRestore();
-    updateOrderStatus.mockRestore();
-  });
-
-  it('should not close the modal if cancel unsuccessful', async () => {
-    const { wrapper, mockStore } = setup();
-    const closeModal = jest.spyOn(mockStore.uiStore, 'closeModal');
-    jest
-      .spyOn(mockStore.buyerOrders, 'updateOrderStatus')
-      .mockReturnValue(Promise.resolve(false));
-    const instance = wrapper.instance();
-    await instance.submitCancelOrder('Test');
-    expect(closeModal).not.toHaveBeenCalled();
-    closeModal.mockRestore();
   });
 });
