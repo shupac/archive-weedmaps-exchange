@@ -1,8 +1,6 @@
-import * as MST from 'mobx-state-tree';
 import React from 'react';
 import { shallow } from 'enzyme';
 import BuyerOrdersStore from 'lib/data-access/stores/buyer-orders';
-import UiStore from 'lib/data-access/stores/ui';
 import { ButtonWhiteNoHover } from 'components/atoms/button';
 import mockPurchaseOrder from 'mocks/purchase-order';
 import Loader from 'components/atoms/loader';
@@ -27,7 +25,6 @@ function setup() {
         client: mockFetchClient,
       },
     ),
-    uiStore: UiStore.create(),
   };
   const component = <BuyerPurchaseOrder store={mockStore} orderId={orderId} />;
   const wrapper = shallow(component, {
@@ -88,22 +85,5 @@ describe('Buyer Purchase Order Page', () => {
       .last()
       .text();
     expect(reasonLabel).toEqual('Reason for Cancelation');
-  });
-
-  it('should handle cancel order', () => {
-    const { wrapper, mockStore } = setup();
-    const instance = wrapper.instance();
-    const getParent = jest.spyOn(MST, 'getParent').mockReturnValue(mockStore);
-    const cancelOrder = jest.spyOn(instance, 'cancelOrder');
-    const openModal = jest.spyOn(mockStore.uiStore, 'openModal');
-    wrapper
-      .find(ButtonWhiteNoHover)
-      .at(1)
-      .simulate('click');
-    expect(cancelOrder).toHaveBeenCalled();
-    expect(openModal).toHaveBeenCalled();
-    cancelOrder.mockRestore();
-    getParent.mockRestore();
-    openModal.mockRestore();
   });
 });

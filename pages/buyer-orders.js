@@ -8,6 +8,7 @@ import ShowIfRoute from 'components/atoms/show-if-route';
 import BuyerPurchaseOrders from 'components/organisms/buyer-purchase-orders';
 import BuyerPurchaseOrder from 'components/organisms/buyer-purchase-order';
 import CancelOrderModal from 'components/organisms/cancel-order-modal';
+import { ALERT_STATUS } from 'lib/common/constants';
 
 import { type StoreType } from 'lib/types/store';
 
@@ -16,19 +17,63 @@ type Props = {
   url: any,
 };
 
-export class Orders extends Component<Props> {
+class BuyerOrdersPage extends Component<Props> {
+  cancelOrder = (orderId: string) => {
+    const { buyerOrders } = this.props.store;
+
+    buyerOrders.cancelOrder(orderId);
+  };
+
+  reorder = async (orderId: string) => {
+    const { buyerOrders, uiStore, buyerCart } = this.props.store;
+
+    const response = await buyerOrders.reorder(orderId);
+
+    let alertContent;
+
+    if (response) {
+      const { itemsAdded } = response;
+      alertContent = {
+        title: `You added ${itemsAdded} item${
+          itemsAdded === 1 ? '' : 's'
+        } to you cart`,
+        link: { label: 'VIEW CART', route: '/buyer/cart' },
+        status: ALERT_STATUS.SUCCESS,
+        autoDismiss: 4000,
+      };
+    } else {
+      alertContent = {
+        title: 'There were some issues with your request.',
+        status: ALERT_STATUS.ERROR,
+      };
+    }
+
+    uiStore.notifyToast(alertContent);
+    buyerCart.fetchCart();
+  };
+
   render() {
     const { url } = this.props;
-    const { pathname } = url;
+    const {
+      pathname,
+      query: { orderId },
+    } = url;
 
     return (
       <PageLayout pathname={pathname}>
         <PageContent>
           <ShowIfRoute match="/buyer/orders">
-            <BuyerPurchaseOrders />
+            <BuyerPurchaseOrders
+              onCancelOrder={this.cancelOrder}
+              onReorder={this.reorder}
+            />
           </ShowIfRoute>
           <ShowIfRoute match="/buyer/orders/(.*)">
-            <BuyerPurchaseOrder orderId={url.query.orderId} />
+            <BuyerPurchaseOrder
+              orderId={orderId}
+              onCancelOrder={() => this.cancelOrder(orderId)}
+              onReorder={() => this.reorder(orderId)}
+            />
           </ShowIfRoute>
 
           <CancelOrderModal />
@@ -38,4 +83,5 @@ export class Orders extends Component<Props> {
   }
 }
 
-export default provide(AuthConnector(inject('store')(Orders)));
+export default provide(AuthConnector(inject('store')(BuyerOrdersPage)));
+export { BuyerOrdersPage };

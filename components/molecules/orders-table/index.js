@@ -18,6 +18,8 @@ type State = {
 type Props = {
   store: StoreType,
   setSort: string => void,
+  onCancelOrder: string => void,
+  onReorder: string => void,
 };
 
 export class OrdersTable extends Component<Props, State> {
@@ -41,16 +43,8 @@ export class OrdersTable extends Component<Props, State> {
     return this.state.sortDirection === '-';
   }
 
-  cancelOrder = (orderId: string) => {
-    const { buyerOrders } = this.props.store;
-
-    buyerOrders.cancelOrder(orderId);
-  };
-
-  reorder = (orderId: string) => orderId;
-
   render() {
-    const { store } = this.props;
+    const { store, onCancelOrder, onReorder } = this.props;
     const { activeSort } = this.state;
 
     return (
@@ -143,13 +137,11 @@ export class OrdersTable extends Component<Props, State> {
               <StatusPill status={order.status} />
               <ContextMenu>
                 {cancelable && (
-                  <MenuItem onClick={() => this.cancelOrder(order.id)}>
+                  <MenuItem onClick={() => onCancelOrder(order.id)}>
                     Cancel
                   </MenuItem>
                 )}
-                <MenuItem onClick={() => this.reorder(order.id)}>
-                  Reorder
-                </MenuItem>
+                <MenuItem onClick={() => onReorder(order.id)}>Reorder</MenuItem>
               </ContextMenu>
               <Border />
             </Fragment>

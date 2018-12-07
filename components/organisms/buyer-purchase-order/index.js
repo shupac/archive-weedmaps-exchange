@@ -28,6 +28,8 @@ import {
 type Props = {
   orderId: string,
   store: StoreType,
+  onCancelOrder: string => void,
+  onReorder: string => void,
 };
 
 class BuyerPurchaseOrder extends Component<Props> {
@@ -36,14 +38,8 @@ class BuyerPurchaseOrder extends Component<Props> {
     store.buyerOrders.fetchOrder(orderId);
   }
 
-  cancelOrder = () => {
-    const { orderId, store } = this.props;
-
-    store.buyerOrders.cancelOrder(orderId);
-  };
-
   render() {
-    const { orderId, store } = this.props;
+    const { orderId, store, onCancelOrder, onReorder } = this.props;
     const { orderData } = store.buyerOrders;
 
     if (!orderData) return <Loader />;
@@ -93,11 +89,11 @@ class BuyerPurchaseOrder extends Component<Props> {
               View or print
             </ButtonWhiteNoHover>
             {cancelable && (
-              <ButtonWhiteNoHover onClick={() => this.cancelOrder()}>
+              <ButtonWhiteNoHover onClick={onCancelOrder}>
                 Cancel order
               </ButtonWhiteNoHover>
             )}
-            <ButtonPrimary>Reorder</ButtonPrimary>
+            <ButtonPrimary onClick={onReorder}>Reorder</ButtonPrimary>
           </HeaderButtons>
         </OrderHeader>
 

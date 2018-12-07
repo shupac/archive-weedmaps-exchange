@@ -9,6 +9,7 @@ import { Cart } from 'components/atoms/icons/cart';
 import { type StoreType } from 'lib/types/store';
 import { WmTheme, Icons } from '@ghostgroup/ui';
 import type { VariantType } from 'lib/data-access/models/variant';
+import { ALERT_STATUS } from 'lib/common/constants';
 import {
   TableHead,
   TableWrap,
@@ -17,7 +18,6 @@ import {
   ActionButton,
 } from './styles';
 import VariantRow from './variant-row';
-import ALERT_STATUS from '../toast-manager/constants';
 
 type FormValueType = {
   [key: string]: number | '',

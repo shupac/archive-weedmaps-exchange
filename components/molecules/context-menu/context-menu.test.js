@@ -10,11 +10,7 @@ function setup() {
     </ContextMenu>
   );
 
-  const wrapper = mount(component, {
-    // disableLifecycleMethods: true,
-  });
-
-  return wrapper;
+  return mount(component);
 }
 
 describe('ContextMenu', () => {

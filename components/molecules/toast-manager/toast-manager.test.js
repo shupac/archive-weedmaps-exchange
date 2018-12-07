@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import UiStore from 'lib/data-access/stores/ui';
+import { ALERT_STATUS } from 'lib/common/constants';
 import { getStatusBorder } from './styles';
-import ALERT_STATUS from './constants';
 import { ToastManager } from './';
 
 function setup() {

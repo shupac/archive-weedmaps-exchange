@@ -1,4 +1,3 @@
-import * as MST from 'mobx-state-tree';
 import React from 'react';
 import { shallow } from 'enzyme';
 import mockPurchaseOrders from 'mocks/purchase-orders';
@@ -7,7 +6,7 @@ import UiStore from 'lib/data-access/stores/ui';
 import ContextMenu, { MenuItem } from 'components/molecules/context-menu';
 import { OrdersTable } from './';
 
-function setup() {
+function setup(props) {
   const mockFetchClient = {
     fetch: jest
       .fn()
@@ -25,7 +24,9 @@ function setup() {
     ),
     uiStore: UiStore.create(),
   };
-  const component = <OrdersTable store={mockStore} setSort={jest.fn()} />;
+  const component = (
+    <OrdersTable {...props} store={mockStore} setSort={jest.fn()} />
+  );
   const wrapper = shallow(component, {
     disableLifecycleMethods: true,
   });
@@ -45,6 +46,7 @@ describe('OrdersTable', () => {
     sortButton.simulate('click');
     expect(mockOnSort).toHaveBeenCalledWith('order_id');
   });
+
   it('should sort on date ordered ', () => {
     const { wrapper } = setup();
     const mockOnSort = jest.spyOn(wrapper.instance(), 'onSort');
@@ -52,6 +54,7 @@ describe('OrdersTable', () => {
     sortButton.simulate('click');
     expect(mockOnSort).toHaveBeenCalledWith('date_ordered');
   });
+
   it('should sort on seller ', () => {
     const { wrapper } = setup();
     const mockOnSort = jest.spyOn(wrapper.instance(), 'onSort');
@@ -59,6 +62,7 @@ describe('OrdersTable', () => {
     sortButton.simulate('click');
     expect(mockOnSort).toHaveBeenCalledWith('brand_name');
   });
+
   it('should sort on shipping location ', () => {
     const { wrapper } = setup();
     const mockOnSort = jest.spyOn(wrapper.instance(), 'onSort');
@@ -66,6 +70,7 @@ describe('OrdersTable', () => {
     sortButton.simulate('click');
     expect(mockOnSort).toHaveBeenCalledWith('location');
   });
+
   it('should sort on expected ship date ', () => {
     const { wrapper } = setup();
     const mockOnSort = jest.spyOn(wrapper.instance(), 'onSort');
@@ -73,6 +78,7 @@ describe('OrdersTable', () => {
     sortButton.simulate('click');
     expect(mockOnSort).toHaveBeenCalledWith('expected_ship_date');
   });
+
   it('should sort on expected total ', () => {
     const { wrapper } = setup();
     const mockOnSort = jest.spyOn(wrapper.instance(), 'onSort');
@@ -80,6 +86,7 @@ describe('OrdersTable', () => {
     sortButton.simulate('click');
     expect(mockOnSort).toHaveBeenCalledWith('total');
   });
+
   it('should sort on status ', () => {
     const { wrapper } = setup();
     const mockOnSort = jest.spyOn(wrapper.instance(), 'onSort');
@@ -87,34 +94,28 @@ describe('OrdersTable', () => {
     sortButton.simulate('click');
     expect(mockOnSort).toHaveBeenCalledWith('status');
   });
+
   it('should cancel order', () => {
-    const { wrapper, mockStore } = setup();
-    const instance = wrapper.instance();
-    const getParent = jest.spyOn(MST, 'getParent').mockReturnValue(mockStore);
-    const cancelOrder = jest.spyOn(instance, 'cancelOrder');
-    const openModal = jest.spyOn(mockStore.uiStore, 'openModal');
+    const onCancelOrder = jest.fn();
+    const { wrapper } = setup({ onCancelOrder });
     const contextMenus = wrapper.find(ContextMenu);
     contextMenus
       .first()
       .find(MenuItem)
       .first()
       .simulate('click');
-    expect(cancelOrder).toHaveBeenCalledWith(mockPurchaseOrders[0].id);
-    expect(openModal).toHaveBeenCalled();
-    getParent.mockRestore();
-    openModal.mockRestore();
+    expect(onCancelOrder).toHaveBeenCalledWith(mockPurchaseOrders[0].id);
   });
-  it('should handle  reorder', () => {
-    const { wrapper } = setup();
-    const instance = wrapper.instance();
-    const reorder = jest.spyOn(instance, 'reorder');
+
+  it('should handle reorder', () => {
+    const onReorder = jest.fn();
+    const { wrapper } = setup({ onReorder });
     const contextMenus = wrapper.find(ContextMenu);
     contextMenus
       .first()
       .find(MenuItem)
       .last()
       .simulate('click');
-    expect(reorder).toHaveBeenCalledWith(mockPurchaseOrders[0].id);
-    reorder.mockRestore();
+    expect(onReorder).toHaveBeenCalledWith(mockPurchaseOrders[0].id);
   });
 });

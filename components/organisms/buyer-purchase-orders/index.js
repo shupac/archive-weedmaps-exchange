@@ -16,6 +16,8 @@ type DateRange = {
 
 type Props = {
   store: StoreType,
+  onCancelOrder: string => void,
+  onReorder: string => void,
 };
 
 export class BuyerPurchaseOrders extends Component<Props> {
@@ -78,7 +80,9 @@ export class BuyerPurchaseOrders extends Component<Props> {
   }
 
   render() {
-    const { ordersListMeta } = this.props.store.buyerOrders;
+    const { store, onCancelOrder, onReorder } = this.props;
+
+    const { ordersListMeta } = store.buyerOrders;
 
     const { totalEntries, pageSize, pageNumber } = ordersListMeta;
 
@@ -91,7 +95,11 @@ export class BuyerPurchaseOrders extends Component<Props> {
           setSearch={this.setSearch}
         />
         <TableWrapper>
-          <OrdersTable setSort={this.setSort} />
+          <OrdersTable
+            setSort={this.setSort}
+            onCancelOrder={onCancelOrder}
+            onReorder={onReorder}
+          />
 
           <Pagination>
             <p>
