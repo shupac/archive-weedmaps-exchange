@@ -3,25 +3,41 @@ import { shallow } from 'enzyme';
 import moment from 'moment';
 import mockPurchaseOrders from 'mocks/purchase-orders';
 import BuyerOrdersStore from 'lib/data-access/stores/buyer-orders';
+import EmptyState from 'components/atoms/empty-state';
+import Loader from 'components/atoms/loader';
 import { BuyerPurchaseOrders } from './';
+import { PageWrapper } from './styles';
 
-function setup() {
-  const mockFetchClient = {
-    fetch: jest
-      .fn()
-      .mockReturnValue(Promise.resolve({ data: mockPurchaseOrders })),
+function mockFetchClient(ordersList) {
+  return {
+    fetch: jest.fn().mockReturnValue(
+      Promise.resolve({
+        data: ordersList,
+        meta: { totalEntries: 2, pageCount: 1, pageSize: 25 },
+      }),
+    ),
   };
-  const mockStore = {
+}
+
+function createMockStore(orderLoading, ordersList) {
+  return {
     buyerOrders: BuyerOrdersStore.create(
       {
-        ordersData: mockPurchaseOrders,
+        ordersList,
+        orderLoading,
       },
       {
-        client: mockFetchClient,
+        client: mockFetchClient(ordersList),
       },
     ),
   };
-  const tree = shallow(<BuyerPurchaseOrders store={mockStore} />);
+}
+
+function setup(orderLoading = false, orderList = mockPurchaseOrders) {
+  const mockStore = createMockStore(orderLoading, orderList);
+  const tree = shallow(<BuyerPurchaseOrders store={mockStore} />, {
+    disableLifecycleMethods: true,
+  });
   const instance = tree.instance();
   return { tree, instance, mockStore };
 }
@@ -76,5 +92,24 @@ describe('Buyer Purchase Orders Page', () => {
     const dispose = jest.spyOn(instance, 'dispose');
     tree.unmount();
     expect(dispose).toHaveBeenCalled();
+  });
+  it('should render a loader if unmounted', () => {
+    const { tree } = setup();
+    expect(tree.find(Loader).exists()).toEqual(true);
+  });
+  it('should render a loader if loading', () => {
+    const { tree, instance } = setup(true);
+    instance.setState({ mounted: true });
+    expect(tree.find(Loader).exists()).toEqual(true);
+  });
+  it('should render the empty state', () => {
+    const { tree, instance } = setup(false, []);
+    instance.setState({ mounted: true });
+    expect(tree.find(EmptyState).exists()).toEqual(true);
+  });
+  it('should render the order list', () => {
+    const { tree, instance } = setup(false);
+    instance.setState({ mounted: true });
+    expect(tree.find(PageWrapper).exists()).toEqual(true);
   });
 });

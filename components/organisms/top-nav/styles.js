@@ -6,6 +6,7 @@ export const TopNavContainer = styled.div`
   display: flex;
   background-color: ${theme.colors.white};
   border-bottom: 1px solid ${theme.colors.smoke};
+
   @media print {
     display: none;
   }
