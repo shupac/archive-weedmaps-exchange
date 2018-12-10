@@ -5,11 +5,12 @@ import centered from '@storybook/addon-centered';
 import StatusPill from './';
 
 export const orderStatuses = [
-  'inProgress',
-  'notStarted',
+  'in_progress',
+  'not_started',
   'returned',
   'canceled',
   'completed',
+  'shipped',
 ];
 
 export default storiesOf('StatusPill', module)

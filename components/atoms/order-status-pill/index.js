@@ -6,7 +6,7 @@ import { WmTheme } from '@ghostgroup/ui';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 
-const { colors } = theme;
+const { colors, palette } = theme;
 
 const statusColor = {
   in_progress: colors.amethyst,
@@ -14,6 +14,7 @@ const statusColor = {
   returned: colors.buttercup,
   canceled: colors.red,
   completed: colors.fountainBlue,
+  shipped: palette.green,
 };
 
 const Pill = styled.div`
