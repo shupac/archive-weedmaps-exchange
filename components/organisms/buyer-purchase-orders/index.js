@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { observable, action, reaction, ObservableMap } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import moment from 'moment';
+import { getPaginationText } from 'lib/common/strings';
 import type { StoreType } from 'lib/types/store';
 import EmptyState from 'components/atoms/empty-state';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
@@ -53,7 +54,7 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
 
   @action
   setSearch = (searchQuery: string) => {
-    this.query.set('query', searchQuery);
+    this.query.set('purchase_order_query', searchQuery);
   };
 
   stringifyDate = (momentObj: ?moment) => {
@@ -80,10 +81,12 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
 
   componentDidMount() {
     const { store } = this.props;
+
     store.buyerOrders.fetchPurchaseOrders({
       sort: '-date_ordered',
     });
 
+    store.buyerOrders.fetchPOSellers();
     // eslint-disable-next-line
     this.setState({ mounted: true });
   }
@@ -98,6 +101,12 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
     const { buyerOrders } = store;
     const { orderLoading, ordersList } = buyerOrders;
     const { totalEntries, pageSize, pageNumber } = buyerOrders.ordersListMeta;
+    const paginationText = getPaginationText(
+      totalEntries,
+      pageSize,
+      pageNumber,
+      'Orders',
+    );
 
     if ((!mounted || orderLoading) && !this.query.size) {
       return (
@@ -126,6 +135,7 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
           setDateRange={this.setDateRange}
           dateRange={this.dateRange}
           setSearch={this.setSearch}
+          buyerOrdersStore={buyerOrders}
         />
         <TableWrapper>
           <OrdersTable
@@ -135,9 +145,7 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
           />
 
           <Pagination>
-            <p>
-              Showing {pageSize} of {totalEntries} Orders
-            </p>
+            <p>{paginationText}</p>
             <PagingControls
               pageCount={Math.ceil(totalEntries / pageSize)}
               currentPage={pageNumber && Number(pageNumber)}

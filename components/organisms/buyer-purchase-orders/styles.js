@@ -17,7 +17,7 @@ export const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
+  padding: 16px 24px;
   background-color: ${background.secondary};
   font-size: 14px;
   color: ${text.normal};

@@ -25,6 +25,9 @@ export const InputText = styled.input`
     font-size: ${rem(14)};
     font-style: italic;
   }
+  &:focus {
+    border-color: ${border.focused};
+  }
 `;
 InputText.displayName = 'InputText';
 

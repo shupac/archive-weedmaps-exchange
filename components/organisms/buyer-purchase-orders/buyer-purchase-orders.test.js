@@ -8,33 +8,21 @@ import Loader from 'components/atoms/loader';
 import { BuyerPurchaseOrders } from './';
 import { PageWrapper } from './styles';
 
-function mockFetchClient(ordersList) {
+function createMockStore(orderLoading) {
   return {
-    fetch: jest.fn().mockReturnValue(
-      Promise.resolve({
-        data: ordersList,
-        meta: { totalEntries: 2, pageCount: 1, pageSize: 25 },
-      }),
-    ),
+    buyerOrders: BuyerOrdersStore.create({
+      orderList: mockPurchaseOrders,
+      fetchPurchaseOrders: jest.fn(),
+      fetchPOSellers: jest.fn(),
+      ordersLocations: [],
+      ordersBrands: [],
+      orderLoading,
+    }),
   };
 }
 
-function createMockStore(orderLoading, ordersList) {
-  return {
-    buyerOrders: BuyerOrdersStore.create(
-      {
-        ordersList,
-        orderLoading,
-      },
-      {
-        client: mockFetchClient(ordersList),
-      },
-    ),
-  };
-}
-
-function setup(orderLoading = false, orderList = mockPurchaseOrders) {
-  const mockStore = createMockStore(orderLoading, orderList);
+function setup(orderLoading = false) {
+  const mockStore = createMockStore(orderLoading);
   const tree = shallow(<BuyerPurchaseOrders store={mockStore} />, {
     disableLifecycleMethods: true,
   });
@@ -47,10 +35,27 @@ describe('Buyer Purchase Orders Page', () => {
     const { tree } = setup();
     expect(tree.exists()).toEqual(true);
   });
+  it('should fetch POs on mount', () => {
+    const { instance, mockStore } = setup();
+    const fetchPurchaseOrders = jest.spyOn(
+      mockStore.buyerOrders,
+      'fetchPurchaseOrders',
+    );
+    const fetchPOSellers = jest.spyOn(mockStore.buyerOrders, 'fetchPOSellers');
+    instance.componentDidMount();
+
+    expect(fetchPurchaseOrders).toHaveBeenCalledWith({
+      sort: '-date_ordered',
+    });
+    expect(fetchPOSellers).toHaveBeenCalled();
+    expect(instance.state).toEqual({ mounted: true });
+  });
   it('should be able to set search query', () => {
     const { instance } = setup();
     instance.setSearch('black widow');
-    expect(instance.query.toJSON()).toEqual({ query: 'black widow' });
+    expect(instance.query.toJSON()).toEqual({
+      purchase_order_query: 'black widow',
+    });
   });
   it('should be able to set sort query', () => {
     const { instance } = setup();
@@ -103,13 +108,8 @@ describe('Buyer Purchase Orders Page', () => {
     expect(tree.find(Loader).exists()).toEqual(true);
   });
   it('should render the empty state', () => {
-    const { tree, instance } = setup(false, []);
-    instance.setState({ mounted: true });
-    expect(tree.find(EmptyState).exists()).toEqual(true);
-  });
-  it('should render the order list', () => {
     const { tree, instance } = setup(false);
     instance.setState({ mounted: true });
-    expect(tree.find(PageWrapper).exists()).toEqual(true);
+    expect(tree.find(EmptyState).exists()).toEqual(true);
   });
 });

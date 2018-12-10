@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { STATUS_TYPES } from 'lib/common/constants';
 import DateRange from 'components/molecules/date-range';
-import { ComboSelect } from '@ghostgroup/ui';
 import SearchBox from 'components/atoms/search-box';
-import FiltersRow from './styles';
+import { FiltersRow, ComboSelect } from './styles';
 
 export class OrdersFilters extends Component<Props, State> {
-  onStatusFilter = selections => {
+  onSelectBrands = selections => {
+    const { setFilter } = this.props;
+    const vals = selections.map(({ value }) => value);
+    setFilter('brand', vals);
+  };
+
+  onSelectLocations = selections => {
+    const { setFilter } = this.props;
+    const vals = selections.map(({ value }) => value);
+    setFilter('location', vals);
+  };
+
+  onSelectStatus = selections => {
     const { setFilter } = this.props;
     const vals = selections.map(({ value }) => value);
     setFilter('status', vals);
@@ -21,23 +32,34 @@ export class OrdersFilters extends Component<Props, State> {
   }
 
   render() {
-    const { setSearch } = this.props;
+    const { setSearch, dateRange, setDateRange, buyerOrdersStore } = this.props;
+    const { brandsFilterOptions, locationsFilterOptions } = buyerOrdersStore;
+
     return (
       <FiltersRow>
         <SearchBox onHandleSearch={setSearch} />
-        <DateRange
-          dateRange={this.props.dateRange}
-          setDateRange={this.props.setDateRange}
+        <DateRange dateRange={dateRange} setDateRange={setDateRange} />
+        <ComboSelect
+          items={brandsFilterOptions}
+          buttonId="BrandsFilter"
+          placeholder="All Brands"
+          onSelectionChange={this.onSelectBrands}
+        />
+        <ComboSelect
+          items={locationsFilterOptions}
+          buttonId="LocationFilter"
+          placeholder="All Locations"
+          onSelectionChange={this.onSelectLocations}
         />
         <ComboSelect
           items={this.statusOptions}
           buttonId="StatusFilter"
           placeholder="All Statuses"
-          onSelectionChange={this.onStatusFilter}
+          onSelectionChange={this.onSelectStatus}
         />
       </FiltersRow>
     );
   }
 }
 
-export default inject('store')(observer(OrdersFilters));
+export default observer(OrdersFilters);

@@ -1,18 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Buyer Orders Store can calculate PO sellers 1`] = `
-Array [
-  Object {
-    "text": "GfarmaLabs",
-    "value": undefined,
-  },
-  Object {
-    "text": "THClear Co",
-    "value": undefined,
-  },
-]
-`;
-
 exports[`Buyer Orders Store can fetch all purchase orders and set data 1`] = `
 Array [
   Object {
@@ -102,6 +89,24 @@ Array [
     "statusReason": "Not needed",
     "subtotal": "114900.00",
     "total": "115000",
+  },
+]
+`;
+
+exports[`Buyer Orders Store can fetch brands Filters 1`] = `
+Array [
+  Object {
+    "id": "d054b34f-428e-4583-a2a4-27f4e5aea6f3",
+    "label": "GfarmaLabs",
+  },
+]
+`;
+
+exports[`Buyer Orders Store can fetch locations Filters 1`] = `
+Array [
+  Object {
+    "id": "244a4623-009f-48de-b294-9d463b9973c6",
+    "label": "SF Location",
   },
 ]
 `;
