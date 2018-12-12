@@ -37,21 +37,25 @@ describe('Product Detail Page', () => {
       const breadCrumb = wrapper.find('Breadcrumbs');
       expect(breadCrumb.exists()).toEqual(true);
     });
+
     it('should render a product photo gallery', () => {
       const { wrapper } = setup();
       const photos = wrapper.find('ProductPhotos');
       expect(photos.exists()).toEqual(true);
     });
+
     it('should render a product description', () => {
       const { wrapper } = setup();
       const description = wrapper.find('ProductDescription');
       expect(description.exists()).toEqual(true);
     });
+
     it('should render brand licenses', () => {
       const { wrapper } = setup();
       const licenseList = wrapper.find('LicenseList');
       expect(licenseList.exists()).toEqual(true);
     });
+
     it('should call getProductDetails action in buyerProducts store  ', () => {
       component = new ProductDetails({ ...props });
       jest.spyOn(mockStore, 'getProductDetails');
@@ -62,6 +66,7 @@ describe('Product Detail Page', () => {
       ).toHaveBeenCalledWith('7e0fb515-f87b-4d07-82fb-d2168aa859dc');
     });
   });
+
   it('should be able to construct breadcrumb structure ', () => {
     const localProps = {
       store: {
@@ -89,17 +94,7 @@ describe('Product Detail Page', () => {
       },
     ]);
   });
-  it('should set featured product photo', async () => {
-    const { wrapper } = setup();
-    const instance = wrapper.instance();
-    await instance.componentDidMount();
-    const setFeaturedProductPhoto = jest.spyOn(
-      props.store.buyerProducts,
-      'setFeaturedProductPhoto',
-    );
-    instance.changeFeaturePhoto('1608ec15-013e-4a77-9cb9-27cc232a6640');
-    expect(setFeaturedProductPhoto).toHaveBeenCalled();
-  });
+
   it('should fetch product detail data on mount', () => {
     const { wrapper } = setup();
     const instance = wrapper.instance();
@@ -107,6 +102,7 @@ describe('Product Detail Page', () => {
     instance.componentDidMount();
     expect(instance.getProductDetails).toHaveBeenCalled();
   });
+
   it('disposes of the reaction when unmounting', () => {
     const { wrapper } = setup();
     const dispose = jest.spyOn(wrapper.instance(), 'dispose');

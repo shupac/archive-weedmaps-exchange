@@ -2,7 +2,6 @@
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import { reaction } from 'mobx';
-import find from 'lodash.find';
 import { type StoreType } from 'lib/types/store';
 import SearchBar from 'components/molecules/search-bar';
 import EmptyState from 'components/atoms/empty-state';
@@ -44,15 +43,6 @@ export class ProductDetails extends Component<Props> {
     buyerProducts.getProductDetails(productId);
   };
 
-  changeFeaturePhoto = (photoId: string) => {
-    const { buyerProducts } = this.props.store;
-
-    const clickedPhoto = find(buyerProducts.productDetails.galleryImages, {
-      id: photoId,
-    });
-    buyerProducts.setFeaturedProductPhoto(clickedPhoto);
-  };
-
   constructBreadcrumb = () => {
     const { buyerProducts } = this.props.store;
     const baseCrumb = {
@@ -92,8 +82,7 @@ export class ProductDetails extends Component<Props> {
           <div>
             <ProductPhotos
               productPhotos={buyerProducts.productDetails.galleryImages}
-              featuredProduct={buyerProducts.featuredProductPhoto}
-              changeFeaturePhoto={this.changeFeaturePhoto}
+              store={this.props.store}
             />
             <LicenseList
               brandName={buyerProducts.productDetails.brand}

@@ -22,6 +22,12 @@ export const FeaturedPhotoWrapper = styled.div`
 `;
 FeaturedPhotoWrapper.displayName = 'FeaturedPhoto';
 
+export const LightboxPhotoWrapper = styled(FeaturedPhotoWrapper)`
+  height: 85vh;
+  width: 85vh;
+`;
+LightboxPhotoWrapper.displayName = 'LightboxPhotoWrapper';
+
 export const MiniPhotoWrapper = styled.div`
   display: flex;
   margin-top: 8px;

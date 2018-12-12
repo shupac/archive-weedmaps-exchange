@@ -42,7 +42,7 @@ const ProductDescription = ({ productDetail }: Props) => {
         <Column>
           {priceRanges &&
             priceRanges.map(prices => (
-              <Row>
+              <Row key={`${prices.minPrice}:${prices.maxPrice}:${prices.unit}`}>
                 <Price>{getPrice(prices.minPrice, prices.maxPrice)}</Price>
                 <Unit>/ {getUnit(prices.unit)}</Unit>
               </Row>
