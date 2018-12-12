@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import BuyerOrdersStore from 'lib/data-access/stores/buyer-orders';
+import UiStore from 'lib/data-access/stores/ui';
 import { ButtonWhiteNoHover } from 'components/atoms/button';
 import mockPurchaseOrder from 'mocks/purchase-order';
 import Loader from 'components/atoms/loader';
@@ -25,6 +26,9 @@ function setup() {
         client: mockFetchClient,
       },
     ),
+    uiStore: UiStore.create({
+      activeModal: null,
+    }),
   };
   const component = <BuyerPurchaseOrder store={mockStore} orderId={orderId} />;
   const wrapper = shallow(component, {
@@ -85,5 +89,12 @@ describe('Buyer Purchase Order Page', () => {
       .last()
       .text();
     expect(reasonLabel).toEqual('Reason for Cancelation');
+  });
+
+  it('should open SellerDetailsModal when seller is clicked', () => {
+    const { wrapper, mockStore } = setup();
+    const openModal = jest.spyOn(mockStore.uiStore, 'openModal');
+    wrapper.find('StyledSellerName').simulate('click');
+    expect(openModal).toHaveBeenCalledWith('sellerDetailsModal');
   });
 });

@@ -11,6 +11,7 @@ import { formatOrderId, formatCurrency } from 'lib/common/strings';
 import { formatDate } from 'lib/common/date';
 import { type StoreType } from 'lib/types/store';
 import { STATUS_TYPES } from 'lib/common/constants';
+import SellerDetailsModal from './seller-details-modal';
 import ProductRow from './product-row';
 import {
   PurchaseOrderWrapper,
@@ -23,6 +24,7 @@ import {
   Subtotal,
   TotalLabel,
   TotalDivider,
+  StyledSellerName,
 } from './styles';
 
 type Props = {
@@ -69,9 +71,7 @@ class BuyerPurchaseOrder extends Component<Props> {
       expectedShipDateMax,
     )}`;
 
-    const { sellerId, sellerName } = sellerData;
-
-    const brandLink = `/buyer/marketplace/catalog?brands=${sellerId}`;
+    const { sellerName, sellerEmail, sellerPhone, sellerLicenses } = sellerData;
 
     const { cancelable } = STATUS_TYPES[status];
 
@@ -112,7 +112,21 @@ class BuyerPurchaseOrder extends Component<Props> {
             <tbody>
               <tr>
                 <td>
-                  <StyledLink href={brandLink}>{sellerName}</StyledLink>
+                  <StyledSellerName
+                    onClick={() =>
+                      store.uiStore.openModal('sellerDetailsModal')
+                    }
+                  >
+                    {sellerName}
+                  </StyledSellerName>
+                  {store.uiStore.activeModal === 'sellerDetailsModal' && (
+                    <SellerDetailsModal
+                      sellerName={sellerName}
+                      sellerEmail={sellerEmail}
+                      sellerPhone={sellerPhone}
+                      sellerLicenses={sellerLicenses}
+                    />
+                  )}
                 </td>
 
                 <td>{formatDate(orderDate)}</td>

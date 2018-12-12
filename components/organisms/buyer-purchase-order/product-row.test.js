@@ -2,6 +2,26 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import mockPurchaseOrder from 'mocks/purchase-order';
 import ProductRow from './product-row';
+import SellerDetailsModal from './seller-details-modal';
+
+function setup() {
+  const {
+    sellerName,
+    sellerPhone,
+    sellerEmail,
+    sellerLicenses,
+  } = mockPurchaseOrder.sellerData;
+  const modalComponent = (
+    <SellerDetailsModal
+      sellerName={sellerName}
+      sellerPhone={sellerPhone}
+      sellerEmail={sellerEmail}
+      sellerLicenses={sellerLicenses}
+    />
+  );
+  const wrapper = shallow(modalComponent);
+  return { wrapper };
+}
 
 describe('Buyer Purchase Order Page', () => {
   it('should render the component', () => {
@@ -19,5 +39,39 @@ describe('Buyer Purchase Order Page', () => {
     };
     const wrapper = shallow(<ProductRow item={orderItem} />);
     expect(wrapper.exists()).toEqual(true);
+  });
+});
+
+describe('Seller Details Modal', () => {
+  it('should render the components', () => {
+    const { wrapper } = setup();
+    expect(
+      wrapper
+        .find('DetailDescription')
+        .first()
+        .dive()
+        .text(),
+    ).toEqual('West Coast Cure');
+    expect(
+      wrapper
+        .find('DetailDescription')
+        .at(1)
+        .dive()
+        .text(),
+    ).toEqual('(111) 222-3333');
+    expect(
+      wrapper
+        .find('DetailDescription')
+        .at(2)
+        .dive()
+        .text(),
+    ).toEqual('test@test.com');
+    expect(
+      wrapper
+        .find('DetailDescription')
+        .last()
+        .dive()
+        .text(),
+    ).toEqual('N/A');
   });
 });

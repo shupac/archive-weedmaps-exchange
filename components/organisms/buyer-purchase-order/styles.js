@@ -3,7 +3,7 @@ import { rem } from 'polished';
 import { WmTheme } from '@ghostgroup/ui';
 import Theme from 'lib/styles/theme';
 
-const { background, text, border, shadow } = WmTheme.style;
+const { background, text, border, shadow, icon } = WmTheme.style;
 
 export const PurchaseOrderWrapper = styled.div`
   margin: 16px;
@@ -233,3 +233,38 @@ export const TotalDivider = styled.div`
   grid-column: 4/-1;
   border-bottom: 1px solid ${border.default};
 `;
+
+export const SellerDetailsWrapper = styled.div`
+  width: 620px;
+  min-height: 200px;
+  display: flex;
+  padding: 24px;
+  flex-direction: column;
+`;
+
+export const DetailsTitle = styled.div`
+  font-weight: 600;
+  font-size: ${rem(14)};
+  color: ${icon.light};
+`;
+
+export const DetailDescription = styled.div`
+  font-size: ${rem(14)};
+  color: ${text.normal};
+  margin-top: 7px;
+  margin-bottom: 20px;
+`;
+DetailDescription.displayName = 'DetailDescription';
+
+export const StyledSellerName = styled.div`
+  display: block;
+  text-decoration: none;
+  color: ${WmTheme.style.state.primary};
+  cursor: pointer;
+
+  @media print {
+    color: ${WmTheme.style.text.normal};
+    font-size: ${rem(14)};
+  }
+`;
+StyledSellerName.displayName = 'StyledSellerName';
