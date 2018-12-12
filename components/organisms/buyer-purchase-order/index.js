@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import { observable, reaction } from 'mobx';
 import at from 'lodash/at';
 import StyledLink from 'components/atoms/styled-link';
 import BackArrow from 'components/atoms/icons/back-arrow';
@@ -10,6 +11,7 @@ import Loader from 'components/atoms/loader';
 import { formatOrderId, formatCurrency } from 'lib/common/strings';
 import { formatDate } from 'lib/common/date';
 import { type StoreType } from 'lib/types/store';
+import { type PurchaseOrderType } from 'models/purchase-order';
 import { STATUS_TYPES } from 'lib/common/constants';
 import SellerDetailsModal from './seller-details-modal';
 import ProductRow from './product-row';
@@ -35,16 +37,36 @@ type Props = {
 };
 
 class BuyerPurchaseOrder extends Component<Props> {
+  @observable
+  orderData: ?PurchaseOrderType = null;
+
+  dispose = reaction(
+    () => {
+      const { uiStore, buyerOrders } = this.props.store;
+      const { activeModal, modalTransitioning } = uiStore;
+      const { orderData } = buyerOrders;
+
+      return { activeModal, modalTransitioning, orderData: { ...orderData } };
+    },
+    ({ activeModal, modalTransitioning, orderData }) => {
+      if (!activeModal && !modalTransitioning) this.orderData = orderData;
+    },
+    { name: 'Watch modal transition' },
+  );
+
   componentDidMount() {
     const { orderId, store } = this.props;
     store.buyerOrders.fetchOrder(orderId);
   }
 
-  render() {
-    const { orderId, store, onCancelOrder, onReorder } = this.props;
-    const { orderData } = store.buyerOrders;
+  componentWillUnmount() {
+    this.dispose();
+  }
 
-    if (!orderData) return <Loader />;
+  render() {
+    const { orderId, onCancelOrder, onReorder, store } = this.props;
+
+    if (!this.orderData) return <Loader />;
 
     const {
       orderDate,
@@ -58,7 +80,7 @@ class BuyerPurchaseOrder extends Component<Props> {
       subtotal,
       shippingFee,
       total,
-    } = orderData;
+    } = this.orderData;
 
     const address = at(JSON.parse(buyerData.buyerAddress), [
       'street_address',
@@ -179,5 +201,6 @@ class BuyerPurchaseOrder extends Component<Props> {
     );
   }
 }
+
 export default inject('store')(observer(BuyerPurchaseOrder));
 export { BuyerPurchaseOrder };

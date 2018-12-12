@@ -4,7 +4,8 @@ import { observable, action, reaction, ObservableMap } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import moment from 'moment';
 import { getPaginationText } from 'lib/common/strings';
-import type { StoreType } from 'lib/types/store';
+import { type StoreType } from 'lib/types/store';
+import { type PurchaseOrderType } from 'models/purchase-order';
 import EmptyState from 'components/atoms/empty-state';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
 import OrdersFilters from 'components/molecules/orders-filters';
@@ -36,6 +37,9 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
 
   @observable
   dateRange = {};
+
+  @observable
+  orders: PurchaseOrderType[] = [];
 
   @action
   setFilter = (column: string, filters: string) => {
@@ -70,13 +74,32 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
     this.setFilter('end_date', this.stringifyDate(dateRange.endDate));
   };
 
-  dispose = reaction(
+  disposeFetchOrders = reaction(
     () => this.query.toJSON(),
     query => {
       const { buyerOrders } = this.props.store;
+
       buyerOrders.fetchPurchaseOrders(query);
     },
     { name: 'Search and fetch filters data' },
+  );
+
+  disposeWatchModal = reaction(
+    () => {
+      const { uiStore, buyerOrders } = this.props.store;
+      const { activeModal, modalTransitioning } = uiStore;
+      const { ordersList } = buyerOrders;
+
+      return {
+        activeModal,
+        modalTransitioning,
+        orders: ordersList.map(o => o),
+      };
+    },
+    ({ activeModal, modalTransitioning, orders }) => {
+      if (!activeModal && !modalTransitioning) this.orders = orders;
+    },
+    { name: 'Watch modal transition' },
   );
 
   componentDidMount() {
@@ -92,14 +115,15 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
   }
 
   componentWillUnmount() {
-    this.dispose();
+    this.disposeFetchOrders();
+    this.disposeWatchModal();
   }
 
   render() {
     const { mounted } = this.state;
     const { store, onCancelOrder, onReorder } = this.props;
     const { buyerOrders } = store;
-    const { orderLoading, ordersList } = buyerOrders;
+    const { ordersLoading } = buyerOrders;
     const { totalEntries, pageSize, pageNumber } = buyerOrders.ordersListMeta;
     const paginationText = getPaginationText(
       totalEntries,
@@ -108,7 +132,7 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
       'Orders',
     );
 
-    if ((!mounted || orderLoading) && !this.query.size) {
+    if ((!mounted || ordersLoading) && !this.query.size) {
       return (
         <LoaderWrapper>
           <Loader />
@@ -116,7 +140,7 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
       );
     }
 
-    if (!ordersList.length && !this.query.size) {
+    if (!this.orders.length && !this.query.size) {
       return (
         <EmptyState
           image="no_orders_yet"
@@ -139,6 +163,7 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
         />
         <TableWrapper>
           <OrdersTable
+            orders={this.orders}
             setSort={this.setSort}
             onCancelOrder={onCancelOrder}
             onReorder={onReorder}

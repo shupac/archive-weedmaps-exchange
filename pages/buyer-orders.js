@@ -18,10 +18,11 @@ type Props = {
 };
 
 class BuyerOrdersPage extends Component<Props> {
-  cancelOrder = (orderId: string) => {
-    const { buyerOrders } = this.props.store;
+  cancelOrder = async (orderId: string) => {
+    const { buyerOrders, uiStore } = this.props.store;
 
-    buyerOrders.cancelOrder(orderId);
+    await buyerOrders.cancelOrder(orderId);
+    uiStore.openModal('cancelOrder');
   };
 
   reorder = async (orderId: string) => {

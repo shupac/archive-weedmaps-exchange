@@ -1,11 +1,12 @@
 // @flow
 import { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { observable, action } from 'mobx';
+import { observable, action, reaction } from 'mobx';
 import Modal from 'components/atoms/modal';
 import TextArea from 'components/atoms/forms/text-area';
 import { ButtonPrimary, ButtonWhiteNoHover } from 'components/atoms/button';
 import { type StoreType } from 'lib/types/store';
+import { type PurchaseOrderType } from 'models/purchase-order';
 import { STATUS_TYPES } from 'lib/common/constants';
 import { CancelModalWrapper, ButtonRow, ErrorText } from './styles';
 
@@ -17,29 +18,54 @@ class CancelOrderModal extends Component<Props> {
   @observable
   reason: string = '';
 
+  @observable
+  orderData: ?PurchaseOrderType = null;
+
   @action
   onChange = (reason: string) => {
     this.reason = reason;
   };
+
+  dispose = reaction(
+    () => {
+      const { uiStore, buyerOrders } = this.props.store;
+      const { activeModal, modalTransitioning } = uiStore;
+      const { orderData } = buyerOrders;
+
+      return { activeModal, modalTransitioning, orderData: { ...orderData } };
+    },
+    ({ activeModal, modalTransitioning, orderData }) => {
+      if (!activeModal && !modalTransitioning) this.orderData = orderData;
+    },
+    { name: 'Watch modal transition' },
+  );
 
   onClose = () => {
     this.props.store.buyerOrders.cancelOrder(null);
   };
 
   onSubmit = async (reason: string) => {
-    const { cancelOrderId, updateOrderStatus } = this.props.store.buyerOrders;
+    const {
+      store: { buyerOrders, uiStore },
+    } = this.props;
+    const { cancelOrderId, updateOrderStatus } = buyerOrders;
 
-    updateOrderStatus(cancelOrderId, 'canceled', reason);
+    const success = await updateOrderStatus(cancelOrderId, 'canceled', reason);
+    if (success) uiStore.closeModal();
   };
+
+  componentWillUnmount() {
+    this.dispose();
+  }
 
   render() {
     const { store } = this.props;
-    const { cancelOrderId, orderData } = store.buyerOrders;
+    const { cancelOrderId } = store.buyerOrders;
 
     if (!cancelOrderId) return null;
 
-    const { text, cancelable } = orderData
-      ? STATUS_TYPES[orderData.status]
+    const { text, cancelable } = this.orderData
+      ? STATUS_TYPES[this.orderData.status]
       : { text: '', cancelable: true };
 
     return (

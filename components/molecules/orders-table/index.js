@@ -1,6 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { inject, observer } from 'mobx-react';
-import { type StoreType } from 'lib/types/store';
 import { formatDate } from 'lib/common/date';
 import { formatDollars } from 'lib/common/strings';
 import StatusPill from 'components/atoms/order-status-pill';
@@ -8,6 +6,7 @@ import StyledLink from 'components/atoms/styled-link';
 import { SortButton } from 'components/atoms/sort-button';
 import ContextMenu, { MenuItem } from 'components/molecules/context-menu';
 import { STATUS_TYPES } from 'lib/common/constants';
+import { PurchaseOrderType } from 'models/purchase-order';
 import { Table, HeadCol, Border, ActionHead } from './styles';
 
 type State = {
@@ -16,7 +15,7 @@ type State = {
 };
 
 type Props = {
-  store: StoreType,
+  orders: PurchaseOrderType[],
   setSort: string => void,
   onCancelOrder: string => void,
   onReorder: string => void,
@@ -44,7 +43,7 @@ export class OrdersTable extends Component<Props, State> {
   }
 
   render() {
-    const { store, onCancelOrder, onReorder } = this.props;
+    const { orders, onCancelOrder, onReorder } = this.props;
     const { activeSort } = this.state;
 
     return (
@@ -118,7 +117,7 @@ export class OrdersTable extends Component<Props, State> {
           <span />
         </Fragment>
 
-        {store.buyerOrders.ordersList.map(order => {
+        {orders.map(order => {
           const { cancelable } = STATUS_TYPES[order.status];
 
           return (
@@ -152,4 +151,4 @@ export class OrdersTable extends Component<Props, State> {
   }
 }
 
-export default inject('store')(observer(OrdersTable));
+export default OrdersTable;

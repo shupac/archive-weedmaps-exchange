@@ -1,36 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import mockPurchaseOrders from 'mocks/purchase-orders';
-import BuyerOrdersStore from 'lib/data-access/stores/buyer-orders';
-import UiStore from 'lib/data-access/stores/ui';
 import ContextMenu, { MenuItem } from 'components/molecules/context-menu';
 import { OrdersTable } from './';
 
 function setup(props) {
-  const mockFetchClient = {
-    fetch: jest
-      .fn()
-      .mockReturnValue(Promise.resolve({ data: mockPurchaseOrders })),
-  };
-
-  const mockStore = {
-    buyerOrders: BuyerOrdersStore.create(
-      {
-        ordersList: mockPurchaseOrders,
-      },
-      {
-        client: mockFetchClient,
-      },
-    ),
-    uiStore: UiStore.create(),
-  };
   const component = (
-    <OrdersTable {...props} store={mockStore} setSort={jest.fn()} />
+    <OrdersTable orders={mockPurchaseOrders} setSort={jest.fn()} {...props} />
   );
   const wrapper = shallow(component, {
     disableLifecycleMethods: true,
   });
-  return { wrapper, mockStore };
+  return { wrapper };
 }
 
 describe('OrdersTable', () => {
@@ -93,6 +74,16 @@ describe('OrdersTable', () => {
     const sortButton = wrapper.find('SortButton').at(6);
     sortButton.simulate('click');
     expect(mockOnSort).toHaveBeenCalledWith('status');
+  });
+
+  it('should reverse sort', () => {
+    const { wrapper } = setup();
+    const instance = wrapper.instance();
+    instance.setState({ sortDirection: '' });
+    instance.onSort('test');
+    expect(instance.state.sortDirection).toEqual('');
+    instance.onSort('test');
+    expect(instance.state.sortDirection).toEqual('-');
   });
 
   it('should cancel order', () => {

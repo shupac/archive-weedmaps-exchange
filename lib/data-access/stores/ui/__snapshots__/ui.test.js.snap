@@ -4,6 +4,7 @@ exports[`UI Store can create an instance of a model 1`] = `
 Object {
   "activeModal": null,
   "isLoading": false,
+  "modalTransitioning": false,
   "notifications": Array [],
 }
 `;
