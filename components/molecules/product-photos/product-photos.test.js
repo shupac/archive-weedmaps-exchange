@@ -33,7 +33,7 @@ describe('Product Photos', () => {
   it('should render the feature and mini photos', () => {
     const { wrapper } = setup();
     expect(wrapper.find(FeaturedPhoto).length).toEqual(1);
-    expect(wrapper.find(MiniPhotos).length).toEqual(2);
+    expect(wrapper.find(MiniPhotos).length).toEqual(3);
   });
 
   it('should check if mini photo isFeatured is true', () => {
@@ -77,8 +77,6 @@ describe('Product Photos', () => {
   it('should render the PaginatedModal', () => {
     props.store.uiStore.activeModal = 'paginatedModal';
     const { wrapper } = setup();
-    console.log('wrapper ', wrapper.debug());
-
     expect(wrapper.find(PaginatedModal).exists()).toBe(true);
   });
 
@@ -95,6 +93,13 @@ describe('Product Photos', () => {
     expect(instance.lightBoxIndex).toEqual(1);
   });
 
+  it('should handle onPrevItem when at the first item', () => {
+    const { instance } = setup();
+    instance.setLightBoxIndex(0);
+    instance.onPrevItem();
+    expect(instance.lightBoxIndex).toEqual(2);
+  });
+
   it('should handle opening the modal', () => {
     const { instance } = setup();
     instance.onOpenLightbox();
@@ -105,8 +110,8 @@ describe('Product Photos', () => {
 
   it('should handle onNextItem', () => {
     const { instance } = setup();
-    instance.setLightBoxIndex(2);
+    instance.setLightBoxIndex(1);
     instance.onNextItem();
-    expect(instance.lightBoxIndex).toEqual(1);
+    expect(instance.lightBoxIndex).toEqual(2);
   });
 });

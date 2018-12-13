@@ -38,7 +38,12 @@ export class ProductPhotos extends Component<Props, State> {
   @action
   onPrevItem = () => {
     const { productPhotos } = this.props;
-    this.lightBoxIndex = (this.lightBoxIndex - 1) % productPhotos.length;
+    // Goto the end if we are at the first item
+    if (this.lightBoxIndex === 0) {
+      this.lightBoxIndex = productPhotos.length - 1;
+    } else {
+      this.lightBoxIndex = (this.lightBoxIndex - 1) % productPhotos.length;
+    }
   };
 
   @action
