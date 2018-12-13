@@ -5,13 +5,14 @@ import ContextMenu, { MenuItem } from 'components/molecules/context-menu';
 import { OrdersTable } from './';
 
 function setup(props) {
+  const setSort = jest.fn();
   const component = (
-    <OrdersTable orders={mockPurchaseOrders} setSort={jest.fn()} {...props} />
+    <OrdersTable orders={mockPurchaseOrders} setSort={setSort} {...props} />
   );
   const wrapper = shallow(component, {
     disableLifecycleMethods: true,
   });
-  return { wrapper };
+  return { wrapper, setSort };
 }
 
 describe('OrdersTable', () => {
@@ -77,13 +78,15 @@ describe('OrdersTable', () => {
   });
 
   it('should reverse sort', () => {
-    const { wrapper } = setup();
+    const { wrapper, setSort } = setup();
     const instance = wrapper.instance();
     instance.setState({ sortDirection: '' });
     instance.onSort('test');
     expect(instance.state.sortDirection).toEqual('');
+    expect(setSort).toHaveBeenCalledWith('test');
     instance.onSort('test');
     expect(instance.state.sortDirection).toEqual('-');
+    expect(setSort).toHaveBeenCalledWith('-test');
   });
 
   it('should cancel order', () => {

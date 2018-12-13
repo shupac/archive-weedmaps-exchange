@@ -31,10 +31,12 @@ export class OrdersTable extends Component<Props, State> {
     const { setSort } = this.props;
     const { sortDirection, activeSort } = this.state;
     let newSortDirection = sortDirection;
+
     if (activeSort === key) {
       newSortDirection = sortDirection === '' ? '-' : '';
     }
-    setSort(`${sortDirection}${key}`);
+
+    setSort(`${newSortDirection}${key}`);
     this.setState({ activeSort: key, sortDirection: newSortDirection });
   };
 
