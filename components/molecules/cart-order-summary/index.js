@@ -53,7 +53,8 @@ const CartOrderSummary = ({ cart, quantity, onSubmit, isLoading }: Props) => {
               {cartErrors.length > 0 ? (
                 uniqErrors.map(cartError => (
                   <ErrorMessage key={uniqueKey()}>
-                    {errorDictionary[cartError.error]}
+                    {errorDictionary[cartError.error] ||
+                      errorDictionary.general}
                   </ErrorMessage>
                 ))
               ) : (
