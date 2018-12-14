@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react';
 import { type StoreType } from 'lib/types/store';
 import LocationCard from 'components/molecules/location-card';
 import LocationModal from 'components/molecules/location-modal';
+import DeleteLocationModal from 'components/organisms/delete-location-modal';
 import { LocationsWrapper, LocationCardWrapper } from './styles';
 
 type Props = {
@@ -24,6 +25,7 @@ class Locations extends Component<Props> {
     return (
       <LocationsWrapper>
         {uiStore.activeModal === 'locationModal' && <LocationModal />}
+        {uiStore.activeModal === 'deleteLocation' && <DeleteLocationModal />}
 
         {locations.map(location => {
           const {
@@ -47,7 +49,10 @@ class Locations extends Component<Props> {
                 contactName={contactName}
                 phone={phoneNumber}
                 email={email}
-                onDelete={() => buyerSettings.deleteLocation(id)}
+                onDelete={() => {
+                  buyerSettings.setDeleteLocationId(id);
+                  return uiStore.openModal('deleteLocation');
+                }}
                 onEdit={() => {
                   buyerSettings.setEditingLocationId(id);
                   return uiStore.openModal('locationModal');

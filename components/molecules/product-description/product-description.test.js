@@ -21,7 +21,6 @@ const product = {
 describe('ProductDescription', () => {
   it('should render the product description', () => {
     const component = shallow(<ProductDescription productDetail={product} />);
-    console.log(component.find(Price).debug());
     expect(
       component
         .find(Title)
