@@ -201,19 +201,6 @@ Array [
 ]
 `;
 
-exports[`BuyerSettings Store should return availabilities 1`] = `
-Array [
-  Object {
-    "id": "inStock",
-    "name": "In Stock",
-  },
-  Object {
-    "id": "outOfStock",
-    "name": "Out of Stock",
-  },
-]
-`;
-
 exports[`BuyerSettings Store should transform departments data 1`] = `
 Array [
   Object {

@@ -40,6 +40,8 @@ function setup(brandsQuery) {
       options={mockOptions}
       title="Brands"
       defaultLabel="All Brands"
+      route="marketplace"
+      routeParams={{ tab: 'catalog' }}
     />
   );
   const wrapper = shallow(component);

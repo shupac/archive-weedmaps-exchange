@@ -6,27 +6,29 @@ import BuyerCart from 'lib/data-access/stores/buyer-cart';
 import AuthStore from 'lib/data-access/stores/auth';
 import { ProductDetails } from './';
 
-const mockStore = BuyerProducts.create(
-  {},
-  { client: { fetch: jest.fn().mockReturnValue({ data: mockProducts[0] }) } },
-);
-const mockCartStore = BuyerCart.create({ mockAddToCart: jest.fn() }, {});
-const mockAuthStore = AuthStore.create({ selectedLocation: 'Irvine' });
+function setup() {
+  const mockProductsStore = BuyerProducts.create(
+    {},
+    { client: { fetch: jest.fn().mockReturnValue({ data: mockProducts[0] }) } },
+  );
+  const mockCartStore = BuyerCart.create({ mockAddToCart: jest.fn() }, {});
+  const mockAuthStore = AuthStore.create({ selectedLocation: 'Irvine' });
 
-const props = {
-  store: {
-    buyerProducts: mockStore,
+  const mockStore = {
+    buyerProducts: mockProductsStore,
     buyerCart: mockCartStore,
     authStore: mockAuthStore,
-  },
-  productId: '7e0fb515-f87b-4d07-82fb-d2168aa859dc',
-  variants: {},
-};
+  };
 
-function setup() {
+  const props = {
+    store: mockStore,
+    productId: '7e0fb515-f87b-4d07-82fb-d2168aa859dc',
+    variants: {},
+  };
+
   const component = <ProductDetails {...props} />;
   const wrapper = shallow(component, { disableLifecycleMethods: true });
-  return { wrapper };
+  return { wrapper, mockStore, props };
 }
 
 describe('Product Detail Page', () => {
@@ -57,8 +59,9 @@ describe('Product Detail Page', () => {
     });
 
     it('should call getProductDetails action in buyerProducts store  ', () => {
+      const { props, mockStore } = setup();
       component = new ProductDetails({ ...props });
-      jest.spyOn(mockStore, 'getProductDetails');
+      jest.spyOn(mockStore.buyerProducts, 'getProductDetails');
 
       component.componentDidMount();
       expect(
@@ -68,6 +71,8 @@ describe('Product Detail Page', () => {
   });
 
   it('should be able to construct breadcrumb structure ', () => {
+    const { mockStore } = setup();
+
     const localProps = {
       store: {
         buyerProducts: {
@@ -78,6 +83,7 @@ describe('Product Detail Page', () => {
             },
           ],
         },
+        authStore: mockStore.authStore,
       },
     };
     const component = new ProductDetails({ ...localProps });
@@ -108,5 +114,22 @@ describe('Product Detail Page', () => {
     const dispose = jest.spyOn(wrapper.instance(), 'dispose');
     wrapper.unmount();
     expect(dispose).toHaveBeenCalled();
+  });
+
+  it('should refetch data when selected location changes', () => {
+    const { wrapper, mockStore } = setup();
+    const instance = wrapper.instance();
+    const getProductDetails = jest
+      .spyOn(instance, 'getProductDetails')
+      .mockReturnValue();
+    mockStore.authStore.setSelectedLocation('Home');
+    expect(getProductDetails).toHaveBeenCalled();
+    getProductDetails.mockRestore();
+  });
+
+  it('should render empty state', () => {
+    const { wrapper, mockStore } = setup();
+    mockStore.buyerProducts.setproductDetailsSuccess(false);
+    expect(wrapper.find('EmptyState').exists()).toEqual(true);
   });
 });

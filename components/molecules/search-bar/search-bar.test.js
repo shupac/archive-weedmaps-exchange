@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
+import { CATALOG_QUERY_PARAMS } from 'lib/common/constants';
 import { SearchBar } from './';
 import { SearchBarWrapper } from './styles';
 
@@ -23,6 +24,11 @@ const props = {
       categories: 'indica',
     },
   },
+  route: 'marketplace',
+  routeParams: {
+    tab: 'catalog',
+  },
+  queryParams: CATALOG_QUERY_PARAMS,
 };
 
 describe('SearchBar', () => {

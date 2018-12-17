@@ -20,6 +20,8 @@ type Props = {
   options: Option[],
   title: string,
   defaultLabel: string,
+  route: string,
+  routeParams: mixed,
 };
 
 class FilterSection extends React.Component<Props> {
@@ -53,7 +55,7 @@ class FilterSection extends React.Component<Props> {
   };
 
   onOptionStateChange = (option: Option) => {
-    const { paramKey, router } = this.props;
+    const { paramKey, router, route, routeParams } = this.props;
 
     const selectedOptions = this.getSelectedOptions();
     selectedOptions[option.id] = option.checked;
@@ -64,13 +66,14 @@ class FilterSection extends React.Component<Props> {
 
     const nextParams = {
       ...router.query,
+      ...routeParams,
       [paramKey]: nextOptions,
     };
 
     if (!nextOptions.length) delete nextParams[paramKey];
     delete nextParams.page;
 
-    Router.pushRoute('marketplace', nextParams);
+    Router.pushRoute(route, nextParams);
   };
 
   render() {

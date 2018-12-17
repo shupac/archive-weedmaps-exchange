@@ -26,6 +26,8 @@ type Props = {
   trees: Tree[],
   title: string,
   defaultLabel: string,
+  route: string,
+  routeParams: mixed,
 };
 
 class TreeFilterSection extends React.Component<Props> {
@@ -69,7 +71,7 @@ class TreeFilterSection extends React.Component<Props> {
   };
 
   onTreeStateChange = (tree: Tree) => {
-    const { paramKey, router } = this.props;
+    const { paramKey, router, route, routeParams } = this.props;
     const { parent, children } = tree;
 
     const selectedOptions = this.getSelectedOptions();
@@ -84,12 +86,13 @@ class TreeFilterSection extends React.Component<Props> {
 
     const nextParams = {
       ...router.query,
+      ...routeParams,
       [paramKey]: nextOptions,
     };
 
     if (!nextOptions.length) delete nextParams[paramKey];
 
-    Router.pushRoute('marketplace', nextParams);
+    Router.pushRoute(route, nextParams);
   };
 
   getTreeState = (tree: Tree) => {

@@ -73,6 +73,8 @@ function setup(categoriesQuery) {
       trees={mockTrees}
       title="Categories"
       defaultLabel="All Categories"
+      route="marketplace"
+      routeParams={{ tab: 'catalog' }}
     />
   );
   const wrapper = shallow(component);

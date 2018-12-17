@@ -27,4 +27,6 @@ const EmptyState = ({ image, title, body, route, buttonLabel }: Props) => (
   </NoResults>
 );
 
+EmptyState.displayName = 'EmptyState';
+
 export default EmptyState;

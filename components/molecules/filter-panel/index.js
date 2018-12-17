@@ -3,7 +3,7 @@ import React, { type Node } from 'react';
 import { Wrapper, Header, Title, Clear } from './styles';
 
 type Props = {
-  children: Node[],
+  children: Node | Node[],
   onClearAll: () => void,
 };
 

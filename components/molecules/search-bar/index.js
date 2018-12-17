@@ -21,6 +21,9 @@ type Props = {
   showCategory: boolean,
   store: StoreType,
   router: RouterType,
+  route: string,
+  routeParams: mixed,
+  queryParams: mixed,
 };
 
 type State = {
@@ -37,15 +40,6 @@ const allOption = {
   value: 'all',
   text: 'All',
 };
-
-const queryParams = [
-  'categories',
-  'brands',
-  'availability',
-  'minPrice',
-  'maxPrice',
-  'search',
-];
 
 class SearchBar extends Component<Props, State> {
   static displayName = 'SearchBar';
@@ -109,7 +103,13 @@ class SearchBar extends Component<Props, State> {
   };
 
   handleSearch = () => {
-    const { showCategory, router } = this.props;
+    const {
+      showCategory,
+      router,
+      queryParams,
+      route,
+      routeParams,
+    } = this.props;
     const { query } = router;
 
     const { searchValue, categorySelected } = this.state;
@@ -120,7 +120,7 @@ class SearchBar extends Component<Props, State> {
 
     const nextParams = {
       ...existingQuery,
-      tab: 'catalog',
+      ...routeParams,
       search: searchValue,
     };
 
@@ -132,7 +132,7 @@ class SearchBar extends Component<Props, State> {
     }
     delete nextParams.page;
 
-    Router.pushRoute('marketplace', nextParams);
+    Router.pushRoute(route, nextParams);
   };
 
   render() {

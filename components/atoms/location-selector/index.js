@@ -18,7 +18,7 @@ export class LocationSelector extends Component<Props> {
       const { buyerSettings } = this.props.store;
       return buyerSettings.activeLocation;
     },
-    location => {
+    (location: LocationType) => {
       const { buyerSettings } = this.props.store;
       buyerSettings.syncActiveLocation(location.id);
     },

@@ -8,6 +8,7 @@ import CatalogCarousel from 'components/molecules/carousel';
 import EmptyState from 'components/atoms/empty-state';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
 import { type DepartmentType } from 'models/department';
+import { CATALOG_QUERY_PARAMS } from 'lib/common/constants';
 
 type Props = {
   store: any,
@@ -77,7 +78,11 @@ export class Discover extends Component<Props, State> {
 
     return (
       <Fragment>
-        <SearchBar />
+        <SearchBar
+          route="marketplace"
+          routeParams={{ tab: 'catalog' }}
+          queryParams={CATALOG_QUERY_PARAMS}
+        />
         {departments.length !== 0 ? (
           this.renderFullState(departments)
         ) : (

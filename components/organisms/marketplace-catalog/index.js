@@ -15,6 +15,10 @@ import EmptyState from 'components/atoms/empty-state';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
 import { type RouterType } from 'lib/types/router';
 import { type StoreType } from 'lib/types/store';
+import {
+  AVAILABILITY_FILTERS,
+  CATALOG_QUERY_PARAMS,
+} from 'lib/common/constants';
 import CategoryCarousels from './carousels';
 import { Wrapper, Content, Products, Pagination } from './styles';
 
@@ -127,7 +131,7 @@ class Catalog extends Component<Props, State> {
 
   render() {
     const { store } = this.props;
-    const { availabilities, brands } = store.buyerSettings;
+    const { brands } = store.buyerSettings;
 
     return (
       <Wrapper>
@@ -136,25 +140,36 @@ class Catalog extends Component<Props, State> {
             paramKey="categories"
             title="Categories"
             defaultLabel="All Categories"
+            route="marketplace"
+            routeParams={{ tab: 'catalog' }}
             trees={this.getCategories()}
           />
           <FilterSection
             paramKey="availability"
             title="Availability"
             defaultLabel="All Availability"
-            options={availabilities}
+            route="marketplace"
+            routeParams={{ tab: 'catalog' }}
+            options={AVAILABILITY_FILTERS}
           />
           <FilterSection
             paramKey="brands"
             title="Brands"
             defaultLabel="All Brands"
+            route="marketplace"
+            routeParams={{ tab: 'catalog' }}
             options={brands.toJSON()}
           />
           <PriceRangeFilter />
         </FilterPanel>
 
         <Content>
-          <SearchBar showCategory={false} />
+          <SearchBar
+            showCategory={false}
+            route="marketplace"
+            routeParams={{ tab: 'catalog' }}
+            queryParams={CATALOG_QUERY_PARAMS}
+          />
           {this.renderProducts()}
         </Content>
       </Wrapper>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { observable } from 'mobx';
 import { mockCategories, mockEmptyCategories } from 'lib/mocks/categories';
 import Loader from 'components/atoms/loader';
 import SearchBar from 'components/molecules/search-bar';
@@ -12,6 +13,11 @@ const mockStore = {
     departmentsLoading: false,
     departments: mockCategories,
   },
+  authStore: observable({
+    selectedLocation: {
+      id: 1,
+    },
+  }),
 };
 
 const mockLoadingStore = {
@@ -20,6 +26,11 @@ const mockLoadingStore = {
     departmentsLoading: true,
     departments: mockCategories,
   },
+  authStore: {
+    selectedLocation: {
+      id: 1,
+    },
+  },
 };
 
 const mockEmptyStore = {
@@ -27,6 +38,11 @@ const mockEmptyStore = {
     getDepartments: jest.fn(),
     departmentsLoading: false,
     departments: mockEmptyCategories,
+  },
+  authStore: {
+    selectedLocation: {
+      id: 1,
+    },
   },
 };
 
@@ -83,6 +99,17 @@ describe('Marketplace Discover', () => {
     const instance = wrapper.instance();
     instance.componentDidMount();
     expect(wrapper.find(Loader).exists()).toEqual(true);
+  });
+
+  it('should refetch data when selected location changes', () => {
+    const wrapper = setup({ store: mockStore });
+    const instance = wrapper.instance();
+    const fetchDepartmentData = jest
+      .spyOn(instance, 'fetchDepartmentData')
+      .mockReturnValue();
+    mockStore.authStore.selectedLocation = { id: 2 };
+    expect(fetchDepartmentData).toHaveBeenCalled();
+    fetchDepartmentData.mockRestore();
   });
 
   describe('if categories are empty', () => {

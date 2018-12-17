@@ -30,9 +30,11 @@ const mockStore = {
     searchCatalog: jest.fn(),
     setSearchResultsData: jest.fn(),
   },
-  authStore: {
-    selectedLocation: true,
-  },
+  authStore: observable({
+    selectedLocation: {
+      id: 1,
+    },
+  }),
 };
 
 const mockEmptyStore = {
@@ -357,6 +359,22 @@ describe('Marketplace Catalog', () => {
 
     const { setSearchResultsData } = mockStore.buyerProducts;
     expect(setSearchResultsData).toHaveBeenCalledWith([]);
+  });
+
+  it('should refetch data on location change', () => {
+    const wrapper = setup({ store: mockStore });
+    const instance = wrapper.instance();
+    const searchProducts = jest
+      .spyOn(instance, 'searchProducts')
+      .mockReturnValue();
+    const fetchFiltersData = jest
+      .spyOn(instance, 'fetchFiltersData')
+      .mockReturnValue();
+    mockStore.authStore.selectedLocation = { id: 2 };
+    expect(searchProducts).toHaveBeenCalled();
+    expect(fetchFiltersData).toHaveBeenCalled();
+    searchProducts.mockRestore();
+    fetchFiltersData.mockRestore();
   });
 });
 

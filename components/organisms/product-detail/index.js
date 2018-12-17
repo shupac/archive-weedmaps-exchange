@@ -10,6 +10,7 @@ import ProductPhotos from 'components/molecules/product-photos';
 import LicenseList from 'components/molecules/license-list';
 import ProductVariants from 'components/molecules/product-variants';
 import Breadcrumbs from 'components/molecules/breadcrumbs';
+import { CATALOG_QUERY_PARAMS } from 'lib/common/constants';
 
 import { GridLayout, MainPanel } from './styles';
 
@@ -29,6 +30,7 @@ export class ProductDetails extends Component<Props> {
     },
     { name: 'Fetch product detail data' },
   );
+
   componentDidMount() {
     this.getProductDetails();
   }
@@ -73,7 +75,11 @@ export class ProductDetails extends Component<Props> {
     }
     return (
       <Fragment>
-        <SearchBar />
+        <SearchBar
+          route="marketplace"
+          routeParams={{ tab: 'catalog' }}
+          queryParams={CATALOG_QUERY_PARAMS}
+        />
         <Breadcrumbs
           links={this.constructBreadcrumb()}
           activeLabel={buyerProducts.productDetails.name}
