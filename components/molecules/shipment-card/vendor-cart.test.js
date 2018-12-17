@@ -5,7 +5,7 @@ import { mockErrorCart } from 'lib/mocks/cart';
 import ShipmentCard from './';
 import ProductRow from './product-row';
 
-function setup() {
+function setup(store: any) {
   const mockFetchClient = {
     fetch: jest.fn(),
   };
@@ -19,7 +19,7 @@ function setup() {
     },
   );
 
-  const mockStore = { buyerCart: mockBuyerCartStore };
+  const mockStore = { buyerCart: store || mockBuyerCartStore };
 
   const props = {
     count: 3,
@@ -50,6 +50,7 @@ describe('ShipmentCart', () => {
         .text(),
     ).toEqual('Shipment 1 of 3:THClear Co');
   });
+
   it('should show inline error in the shipment cart', () => {
     const { shipmentWrapper } = setup();
     expect(
@@ -95,6 +96,7 @@ describe('ProductRow', () => {
       'url(https://images-acceptance.internal-weedmaps.com/products/000/055/416/avatar/square/1508885935-bathbomb-LAVENDER.png)',
     );
   });
+
   it('should handle remove item', () => {
     const { productRowWrapper } = setup();
     const instance = productRowWrapper.instance();
@@ -102,6 +104,7 @@ describe('ProductRow', () => {
     productRowWrapper.find('RemoveItem').simulate('click');
     expect(onUpdate).toHaveBeenCalledWith(0);
   });
+
   it('should handle subtracting quantity', () => {
     const { productRowWrapper } = setup();
     const instance = productRowWrapper.instance();
@@ -113,6 +116,7 @@ describe('ProductRow', () => {
       .simulate('click');
     expect(onUpdate).toHaveBeenCalledWith(99);
   });
+
   it('should handle adding quantity', () => {
     const { productRowWrapper } = setup();
     const instance = productRowWrapper.instance();
@@ -124,6 +128,7 @@ describe('ProductRow', () => {
       .simulate('click');
     expect(onUpdate).toHaveBeenCalledWith(101);
   });
+
   it('should handle when you input quantity', () => {
     const { productRowWrapper } = setup();
     expect(productRowWrapper.find('UpdateLink').exists()).toEqual(false);
@@ -137,6 +142,7 @@ describe('ProductRow', () => {
     productRowWrapper.find('UpdateLink').simulate('click');
     expect(onUpdate).toHaveBeenCalledWith(10);
   });
+
   it('should render the CartError when there is an error', () => {
     const { productRowWrapper } = setup();
     expect(productRowWrapper.find('CartError').exists()).toEqual(true);
@@ -144,6 +150,7 @@ describe('ProductRow', () => {
       null,
     );
   });
+
   it('should handle when component unmounts', () => {
     const { productRowWrapper } = setup();
     const dispose = jest.spyOn(productRowWrapper.instance(), 'dispose');
@@ -151,5 +158,44 @@ describe('ProductRow', () => {
     productRowWrapper.unmount();
     expect(dispose).toHaveBeenCalled();
     expect(unset).toHaveBeenCalled();
+  });
+
+  describe('when there is an updated quantity available', () => {
+    let productRowWrapper;
+    beforeEach(() => {
+      const mockFetchClient = {
+        fetch: jest.fn(),
+      };
+      const mockBuyerCartStore = BuyerCart.create(
+        {
+          cart: {
+            ...mockErrorCart,
+            cartErrors: [
+              {
+                itemId: 'fd12602a-fd03-4bd1-bc75-cdcc2b1f5dcd',
+                error: 'quantity_unavailable',
+              },
+            ],
+          },
+        },
+        {
+          client: mockFetchClient,
+        },
+      );
+      // eslint-disable-next-line
+      productRowWrapper = setup(mockBuyerCartStore).productRowWrapper;
+    });
+
+    it('should call update when reset quantity is clicked', () => {
+      expect(productRowWrapper.find('CartError').exists()).toEqual(true);
+      const onUpdate = jest
+        .spyOn(productRowWrapper.instance(), 'onUpdate')
+        .mockReturnValue();
+      productRowWrapper
+        .find('CartError')
+        .props()
+        .onResetQuantity(100);
+      expect(onUpdate).toHaveBeenCalledWith(100);
+    });
   });
 });

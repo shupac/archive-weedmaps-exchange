@@ -82,9 +82,8 @@ export class ProductRow extends Component<Props> {
     this.quantity = quantity;
   };
 
-  @action
   onResetQuantity = (quantity: number) => {
-    this.desiredQuantity = quantity;
+    this.onUpdate(quantity);
   };
 
   componentWillUnmount() {
