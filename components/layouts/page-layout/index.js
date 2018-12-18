@@ -92,6 +92,7 @@ export class PageLayout extends React.Component<Props, State> {
       flexRow,
       pathname,
     } = this.props;
+
     const { collapse } = this.state;
 
     return (
@@ -106,7 +107,6 @@ export class PageLayout extends React.Component<Props, State> {
             <div>
               <TopNav
                 activeLink={activeLink}
-                // avatarUrl={get(user, 'avatar_url')}
                 onMenuClick={this.onMenuClick}
                 pathname={pathname}
               />

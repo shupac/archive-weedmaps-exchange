@@ -5,7 +5,7 @@ import theme from 'lib/styles/theme';
 import styled, { css } from 'styled-components';
 import { Button as uiButton } from '@ghostgroup/ui';
 /* eslint-disable no-unused-vars */
-const ButtonBase = css`
+export const ButtonBase = css`
   cursor: pointer;
   height: ${rem(40)};
   display: flex;

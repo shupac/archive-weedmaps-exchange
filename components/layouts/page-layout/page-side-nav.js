@@ -1,7 +1,8 @@
 import React from 'react';
+import { inject, observer } from 'mobx-react';
 import { Router } from 'lib/routes';
 import { withRouter } from 'next/router';
-// import urlConfig from 'lib/common/url-config';
+import { type StoreType } from 'lib/types/store';
 import styled from 'styled-components';
 
 // UI Components
@@ -10,9 +11,9 @@ import { SideNav, SideNavLayout, SideNavLink, AppHeader } from '@ghostgroup/ui';
 // Component Data
 import {
   buyerData,
-  // sellerData,
+  sellerData,
   buyerFooterData,
-  // sellerFooterData,
+  sellerFooterData,
 } from './nav-data';
 
 // Styled Components
@@ -26,6 +27,7 @@ const Wrapper = styled.div`
 `;
 
 type Props = {
+  store: StoreType,
   collapse: any,
   router: {
     route: string,
@@ -33,6 +35,22 @@ type Props = {
 };
 
 class SideNavComponent extends React.Component<Props> {
+  get mainNavLinks() {
+    const { activeContext } = this.props.store.authStore;
+
+    if (activeContext === 'buyer') {
+      return buyerData;
+    }
+    return sellerData;
+  }
+
+  get footerNavLinks() {
+    const { activeContext } = this.props.store.authStore;
+    if (activeContext === 'buyer') {
+      return buyerFooterData;
+    }
+    return sellerFooterData;
+  }
   render() {
     const { collapse } = this.props;
 
@@ -48,9 +66,11 @@ class SideNavComponent extends React.Component<Props> {
             />
           </SideNavHeader>
 
-          {this.renderNavLinks(buyerData)}
+          {this.renderNavLinks(this.mainNavLinks)}
 
-          <SideNavFooter>{this.renderNavLinks(buyerFooterData)}</SideNavFooter>
+          <SideNavFooter>
+            {this.renderNavLinks(this.footerNavLinks)}
+          </SideNavFooter>
         </SideNav>
       </Wrapper>
     );
@@ -71,5 +91,5 @@ class SideNavComponent extends React.Component<Props> {
   }
 }
 
-export default withRouter(SideNavComponent);
+export default withRouter(inject('store')(observer(SideNavComponent)));
 export { SideNavComponent };

@@ -2,43 +2,24 @@
 
 exports[`Auth Store actions will update the state of the model 1`] = `
 Object {
-  "isLoading": true,
   "selectedLocation": "",
-  "user": Object {
-    "email": "weedmaps@weedmaps.com",
-    "roles": Array [
-      "ops_manager",
-      "content_moderator",
-      "sales_manager",
-    ],
-    "slug": "kushagram",
-    "username": "weedmaps",
+  "wmProfile": Object {
+    "avatar_url": "https://images-acceptance.weedmaps.com/users/002/208/463/avatar/square_fill/1544743547-image-1653344458.jpg",
+    "email": "john+710@weedmaps.com",
+    "slug": "asciametta",
+    "username": "asciametta",
   },
-}
-`;
-
-exports[`Auth Store can create an instance of a model 1`] = `
-Object {
-  "isLoading": false,
-  "selectedLocation": "",
-  "user": Object {
-    "email": "",
-    "roles": Array [],
-    "slug": "",
-    "username": "",
+  "wmxUser": Object {
+    "email": "asciametta@weedmaps.com.eu",
+    "id": "4612b157-1ee9-46e8-9d9b-314e3b9eb80c",
+    "organization": Object {
+      "id": "2f4ddb82-3b67-4780-8ae4-7f27da36d813",
+    },
+    "preferences": Object {
+      "locationId": "6039ad85-7be7-45ce-a5f9-3e802eeba1e5",
+      "userContext": "buyer",
+    },
+    "wmUserId": 2208463,
   },
-}
-`;
-
-exports[`User Model can create an instance of a model 1`] = `
-Object {
-  "email": "weedmaps@weedmaps.com",
-  "roles": Array [
-    "ops_manager",
-    "content_moderator",
-    "sales_manager",
-  ],
-  "slug": "kushagram",
-  "username": "weedmaps",
 }
 `;

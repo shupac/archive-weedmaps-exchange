@@ -4,6 +4,7 @@ import Menu from 'components/molecules/top-nav-menu';
 import { Cart, Settings, Papers } from 'components/atoms/icons';
 import Notification from 'components/molecules/top-nav-notification';
 import LocationSelector from 'components/atoms/location-selector';
+import UserDropdown from 'components/molecules/top-nav-user-dropdown';
 import theme from 'lib/styles/theme';
 import {
   TopNavContainer,
@@ -78,6 +79,7 @@ export class TopNav extends Component<Props> {
         </LeftContainer>
         <RightContainer>
           <Notification />
+          <UserDropdown />
         </RightContainer>
       </TopNavContainer>
     );
