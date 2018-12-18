@@ -54,7 +54,7 @@ export const SearchClear = styled(InputButton)`
 SearchClear.displayName = 'SearchClear';
 
 export const SearchIcon = ({ isActive }: boolean) => (
-  <Search fill={isActive ? state.primary : border.default} size="16px" />
+  <Search fill={isActive ? state.primary : icon.dark} size="16px" />
 );
 
-export const CloseIcon = () => <Close fill={border.default} size="12px" />;
+export const CloseIcon = () => <Close fill={icon.dark} size="12px" />;
