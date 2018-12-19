@@ -1,16 +1,39 @@
+// @flow
 import React, { Component } from 'react';
-import { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
+import { type StoreType } from 'lib/types/store';
+import BuyerProfile from './buyer-profile-form';
 
-class Profile extends Component {
+type Props = {
+  store: StoreType,
+};
+
+class Profile extends Component<Props> {
+  onSubmit = organization => {
+    const { uiStore, authStore } = this.props.store;
+    const notification = {
+      title: 'Success Alert',
+      body: 'Profile was updated successfully.',
+      autoDismiss: 3000,
+      status: 'SUCCESS',
+    };
+    authStore.updateOrganization(organization);
+    uiStore.notifyToast(notification);
+  };
+
   render() {
+    const { org } = this.props.store.authStore;
+    console.log('organization data', org)
+    if (!org) return null;
     return (
       <div>
-        <span>Profile Page</span>
+        <BuyerProfile
+          organization={org}
+          onSubmit={this.onSubmit}
+        />
       </div>
     );
   }
 }
 
-export default withRouter(inject('store')(observer(Profile)));
-export { Profile };
+export default inject('store')(observer(Profile));

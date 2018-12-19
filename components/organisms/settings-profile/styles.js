@@ -5,11 +5,7 @@ import { rem } from 'polished';
 import { ButtonPrimary, ButtonWhiteNoHover } from 'components/atoms/button';
 
 const { SelectButton, Item } = SelectStyles;
-
-export const LocationModalWrapper = styled.div`
-  width: 644px;
-  padding: 24px;
-`;
+const { border, icon, text, background } = WmTheme.style;
 
 export const AddButton = styled(ButtonPrimary)`
   width: 138px;
@@ -19,19 +15,11 @@ export const CancelButton = styled(ButtonWhiteNoHover)`
   width: 138px;
 `;
 
-export const LicenseTypeWrapper = styled.div``;
-
 export const TrashcanBorder = styled.div`
   padding: 8px;
   border-radius: 3px;
-  border: 1px solid ${WmTheme.style.border.default};
+  border: 1px solid ${border.default};
   cursor: pointer;
-  display: flex;
-  align-items: center;
-
-  svg {
-    fill: ${WmTheme.style.icon.dark};
-  }
 `;
 
 export const LicenseNumberWrapper = styled.div`
@@ -39,12 +27,11 @@ export const LicenseNumberWrapper = styled.div`
   height: 40px;
 `;
 
-export const SelectLicenseType = styled(Select)`
+export const SelectLocation = styled(Select)`
   width: 297px;
   ${SelectButton} {
     line-height: ${rem(24)};
     padding: 9px 48px 9px 16px;
-    font-weight: 400;
   }
   ${Item} {
     font-family: ${theme.text.proximaNovaFont};
@@ -61,7 +48,35 @@ export const SelectLicenseType = styled(Select)`
 `;
 
 export const FormWrapper = styled.div`
+  border-radius: 3px;
+  border: 1px solid ${border.default};
+  box-shadow: 0 1px 0 0 ${icon.inverted};
   width: 100%;
+  height: 100%;
+`;
+
+export const FormHeader = styled.div`
+  color: ${text.normal};
+  border-bottom: 1px solid ${icon.inverted};
+  font-size: ${rem(22)};
+  padding: 16px 27px;
+`;
+
+export const FormCategory = styled.div`
+  font-size: ${rem(20)};
+  font-weight: 600;
+  border-bottom: 1px solid ${icon.inverted};
+  padding-bottom: 8px;
+  margin: 16px 0 24px 0;
+  :first-of-type {
+    margin-top: 0;
+  }
+`;
+
+export const FormBody = styled.div`
+  background-color: ${background.light};
+  padding: 24px;
+  height: 100%;
 `;
 
 export const FormTextArea = styled.textarea`
@@ -80,8 +95,6 @@ export const FormTextArea = styled.textarea`
 
 export const ErrorMessage = styled.div`
   color: ${theme.colors.red};
-  font-size: ${rem(12)};
-  margin-top: 8px;
   margin-bottom: 16px;
 `;
 
@@ -117,6 +130,11 @@ export const ButtonWrapper = styled.div`
   padding: 5px 5px;
 `;
 
+export const FormFooter = styled.div`
+  border-top: 1px solid ${icon.inverted};
+  padding: 16px;
+`;
+
 export const LabelOnTop = styled.div`
   display: flex;
   flex-direction: column;
@@ -133,8 +151,8 @@ export const AddLicense = styled.div`
 `;
 
 export const AddLicenseButton = styled.button`
-  margin: 16px 0px 25px;
-  padding: none;
+  margin: 25px 0;
+  padding: 0;
   border: none;
   display: flex;
   align-items: center;

@@ -2,13 +2,14 @@ import React, { Fragment } from 'react';
 import { withFormik, Form, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import { type StoreType } from 'lib/types/store';
+import { LICENSE_TYPES } from 'lib/common/constants';
 import { inject, observer } from 'mobx-react';
+import isEqual from 'lodash.isequal';
 import theme from 'lib/styles/theme';
 import Trashcan from 'components/atoms/icons/trashcan';
 import AddressSuggestions from 'components/molecules/address-suggestion';
 import { Plus } from 'components/atoms/icons/plus';
 import { normalizePhoneNumber, stripNonNumbers } from 'lib/common/strings';
-import { LICENSE_TYPES } from 'lib/common/constants';
 import RequiredAsteriskLabel from 'components/atoms/required-asterisk';
 import {
   AddButton,
@@ -16,21 +17,24 @@ import {
   FormInput,
   ButtonWrapper,
   FormDivide,
-  FormTextArea,
+  FormHeader,
+  FormBody,
   FormWrapper,
+  FormFooter,
+  FormCategory,
   AddLicense,
   AddLicenseButton,
   LabelOnTop,
-  SelectLicenseType,
+  SelectLocation,
   TrashcanBorder,
   ErrorMessage,
   LicenseNumberWrapper,
-  LicenseTypeWrapper,
 } from './styles';
 
 type Props = {
   store: StoreType,
   values: any,
+  initialValues: any,
   errors: any,
   touched: any,
   handleChange: () => void,
@@ -40,18 +44,19 @@ type Props = {
   isSubmitting: boolean,
 };
 
-export const FormTemplate = ({
+export const BuyerProfileForm = ({
   values,
   errors,
   touched,
+  isSubmitting,
+  store,
+  dirty,
   handleChange,
   handleReset,
   handleBlur,
-  dirty,
-  isSubmitting,
-  store,
+  initialValues,
 }: Props) => {
-  const { uiStore, addressSuggestions } = store;
+  const { addressSuggestions } = store;
   const { licenses } = values;
   const requiredKeys = [
     'name',
@@ -64,11 +69,11 @@ export const FormTemplate = ({
   const licenseReq = values.licenses.every(license => license.number);
 
   const saveEnabled =
-    addressSuggestions.isAddressCommitted &&
     dirty &&
     requiredKeys.every(key => values[key] && !errors[key]) &&
     licenseReq &&
-    !isSubmitting;
+    !isSubmitting &&
+    !isEqual(values, initialValues);
 
   const remainingLicenses = LICENSE_TYPES.filter(
     option =>
@@ -77,105 +82,101 @@ export const FormTemplate = ({
 
   const hasError = index => errors.licenses && errors.licenses[index];
 
+  addressSuggestions.setQuery(values.address);
+
   return (
     <FormWrapper>
-      <Form data-test-id="form">
-        <RequiredAsteriskLabel>Location Name</RequiredAsteriskLabel>
-        <FormInput
-          data-test-id="form-name"
-          type="text"
-          name="name"
-          value={values.name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="Location name"
-          error={errors.name && touched.name}
-        />
-        {errors.name && touched.name && (
-          <ErrorMessage>{errors.name}</ErrorMessage>
-        )}
-        <RequiredAsteriskLabel>Address</RequiredAsteriskLabel>
-        <AddressSuggestions
-          id="form-address"
-          type="text"
-          name="address"
-          value={values.address}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="Address"
-          error={errors.address && touched.address}
-        />
-        {errors.address && touched.address && (
-          <ErrorMessage>{errors.address}</ErrorMessage>
-        )}
-        <RequiredAsteriskLabel>Delivery Instructions</RequiredAsteriskLabel>
-        <FormTextArea
-          data-test-id="form-instructions"
-          type="text"
-          name="deliveryInstructions"
-          value={values.deliveryInstructions}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="Delivery instructions..."
-        />
-        <RequiredAsteriskLabel>Contact Name</RequiredAsteriskLabel>
-        <FormInput
-          data-test-id="form-contact"
-          type="text"
-          name="contactName"
-          value={values.contactName}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="Contact Name"
-          error={errors.contactName && touched.contactName}
-        />
-        {errors.contactName && touched.contactName && (
-          <ErrorMessage>{errors.contactName}</ErrorMessage>
-        )}
-        <FormDivide>
-          <LabelOnTop>
-            <RequiredAsteriskLabel>Contact Phone</RequiredAsteriskLabel>
-            <FormInput
-              data-test-id="form-phone"
-              type="text"
-              name="phoneNumber"
-              onChange={x => {
-                x.target.value = stripNonNumbers(x.target.value);
-                return handleChange(x);
-              }}
-              onBlur={handleBlur}
-              value={normalizePhoneNumber(values.phoneNumber)}
-              placeholder="Enter Phone"
-              error={errors.phoneNumber && touched.phoneNumber}
-            />
-            {errors.phoneNumber && touched.phoneNumber && (
-              <ErrorMessage>{errors.phoneNumber}</ErrorMessage>
-            )}
-          </LabelOnTop>
-          <LabelOnTop>
-            <RequiredAsteriskLabel>Contact Email</RequiredAsteriskLabel>
-            <FormInput
-              data-test-id="form-email"
-              type="text"
-              name="email"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.email}
-              placeholder="Enter Email"
-              error={errors.email && touched.email}
-            />
-            {errors.email && touched.email && (
-              <ErrorMessage>{errors.email}</ErrorMessage>
-            )}
-          </LabelOnTop>
-        </FormDivide>
-        <FieldArray
-          data-test-id="form-licenses"
-          name="licenses"
-          validateOnChange
-          render={({ push, replace, remove }) => (
-            <Fragment>
-              <LicenseTypeWrapper>
+      <Form>
+        <FormHeader>Profile</FormHeader>
+        <FormBody>
+          <FormCategory>Organization</FormCategory>
+          <RequiredAsteriskLabel>Name</RequiredAsteriskLabel>
+          <FormInput
+            data-test-id="form-name"
+            type="text"
+            name="name"
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Enter name"
+            error={errors.name && touched.name}
+          />
+          {errors.name && touched.name && (
+            <ErrorMessage>{errors.name}</ErrorMessage>
+          )}
+          <FormCategory>Contact Information</FormCategory>
+          <RequiredAsteriskLabel>Address</RequiredAsteriskLabel>
+          <AddressSuggestions
+            id="form-address"
+            type="text"
+            name="address"
+            value={values.address}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Enter Address"
+            error={errors.address && touched.address}
+          />
+          {errors.address && touched.address && (
+            <ErrorMessage>{errors.address}</ErrorMessage>
+          )}
+          <RequiredAsteriskLabel>Contact Name</RequiredAsteriskLabel>
+          <FormInput
+            data-test-id="form-contact"
+            type="text"
+            name="contactName"
+            value={values.contactName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Enter Contact Name"
+            error={errors.contactName && touched.contactName}
+          />
+          {errors.contactName && touched.contactName && (
+            <ErrorMessage>{errors.contactName}</ErrorMessage>
+          )}
+          <FormDivide>
+            <LabelOnTop>
+              <RequiredAsteriskLabel>Phone</RequiredAsteriskLabel>
+              <FormInput
+                data-test-id="form-phone"
+                type="text"
+                name="phoneNumber"
+                onChange={x => {
+                  x.target.value = stripNonNumbers(x.target.value);
+                  return handleChange(x);
+                }}
+                onBlur={handleBlur}
+                value={normalizePhoneNumber(values.phoneNumber)}
+                placeholder="Enter Phone"
+                error={errors.phoneNumber && touched.phoneNumber}
+              />
+              {errors.phoneNumber && touched.phoneNumber && (
+                <ErrorMessage>{errors.phoneNumber}</ErrorMessage>
+              )}
+            </LabelOnTop>
+            <LabelOnTop>
+              <RequiredAsteriskLabel>Email</RequiredAsteriskLabel>
+              <FormInput
+                data-test-id="form-email"
+                type="text"
+                name="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                placeholder="Enter Email"
+                error={errors.email && touched.email}
+              />
+              {errors.email && touched.email && (
+                <ErrorMessage>{errors.email}</ErrorMessage>
+              )}
+            </LabelOnTop>
+          </FormDivide>
+          <FormCategory>License Information</FormCategory>
+          <FieldArray
+            data-test-id="form-licenses"
+            name="licenses"
+            validateOnChange
+            render={({ push, replace, remove }) => (
+              <Fragment>
                 {values.licenses &&
                   values.licenses.length > 0 &&
                   values.licenses.map((license, index) => (
@@ -187,7 +188,7 @@ export const FormTemplate = ({
                         <RequiredAsteriskLabel required={false}>
                           License Type
                         </RequiredAsteriskLabel>
-                        <SelectLicenseType
+                        <SelectLocation
                           data-test-id={`form-${index}-type`}
                           key={license.id ? license.id : index}
                           name={`license.${index}.licenseType`}
@@ -246,43 +247,45 @@ export const FormTemplate = ({
                       </LabelOnTop>
                     </FormDivide>
                   ))}
-              </LicenseTypeWrapper>
-              <AddLicenseButton
-                data-test-id="button-add"
-                disabled={remainingLicenses.length === 0}
-                type="button"
-                onClick={() =>
-                  push({
-                    licenseType: remainingLicenses[0],
-                    number: '',
-                  })
-                }
-              >
-                <Plus fill={theme.colors.primary} />
-                <AddLicense>ADD NEW LICENSE</AddLicense>
-              </AddLicenseButton>
-            </Fragment>
-          )}
-        />
-        <ButtonWrapper>
-          <CancelButton
-            data-test-id="button-cancel"
-            type="button"
-            onClick={x => {
-              handleReset(x);
-              return uiStore.closeModal();
-            }}
-          >
-            Cancel
-          </CancelButton>
-          <AddButton
-            data-test-id="button-submit"
-            type="submit"
-            disabled={!saveEnabled}
-          >
-            Save
-          </AddButton>
-        </ButtonWrapper>
+                <AddLicenseButton
+                  data-test-id="button-add"
+                  disabled={remainingLicenses.length === 0}
+                  type="button"
+                  onClick={() =>
+                    push({
+                      licenseType: remainingLicenses[0],
+                      number: '',
+                    })
+                  }
+                >
+                  <Plus fill={theme.colors.primary} />
+                  <AddLicense>ADD NEW LICENSE</AddLicense>
+                </AddLicenseButton>
+              </Fragment>
+            )}
+          />
+        </FormBody>
+        <FormFooter>
+          <ButtonWrapper>
+            <CancelButton
+              data-test-id="button-cancel"
+              type="button"
+              onClick={x => {
+                handleReset(x);
+                addressSuggestions.clearAddressInput();
+              }}
+            >
+              Cancel
+            </CancelButton>
+            <AddButton
+              data-test-id="button-submit"
+              type="submit"
+              disabled={!saveEnabled}
+            >
+              Save
+            </AddButton>
+          </ButtonWrapper>
+        </FormFooter>
       </Form>
     </FormWrapper>
   );
@@ -294,7 +297,6 @@ const schema = Yup.object().shape({
     .max(155)
     .required('Location name is required.'),
   address: Yup.string().required('Address is required.'),
-  deliveryInstructions: Yup.string().max(255),
   contactName: Yup.string()
     .min(2, 'Name should be at least 2 characters')
     .max(50)
@@ -315,30 +317,28 @@ const schema = Yup.object().shape({
   ),
 });
 
-const LocationFormTemplate = withFormik({
-  mapPropsToValues({ location }) {
+const FormikWrapper = withFormik({
+  mapPropsToValues({ organization }) {
     const {
       id,
-      name,
-      address,
-      deliveryInstructions,
       contactName,
-      phoneNumber,
       email,
+      address,
+      name,
+      phoneNumber,
       licenses,
-    } = location;
+    } = organization;
 
     const addString = address
-      ? `${address.streetAddress}, ${address.city}, ${address.territory}, ${
-          address.country
-        }, ${address.postalCode}`
+      ? `${address.streetAddress}, ${address.city}, ${
+          address.territory
+        }, ${address.country.toUpperCase()}, ${address.postalCode}`
       : '';
 
     return {
       id: id || '',
       name: name || '',
       address: addString,
-      deliveryInstructions: deliveryInstructions || '',
       contactName: contactName || '',
       phoneNumber: phoneNumber || '',
       email: email || '',
@@ -346,12 +346,13 @@ const LocationFormTemplate = withFormik({
     };
   },
   validationSchema: schema,
-  handleSubmit: (values, { props, resetForm }) => {
+  handleSubmit: (values, { props, setSubmitting, resetForm }) => {
     props.onSubmit(values);
-    resetForm();
+    setSubmitting(false);
+    resetForm(values);
   },
-})(inject('store')(observer(FormTemplate)));
+})(inject('store')(observer(BuyerProfileForm)));
 
-const LocationForm = LocationFormTemplate;
+const BuyerProfile = FormikWrapper;
 
-export default LocationForm;
+export default BuyerProfile;

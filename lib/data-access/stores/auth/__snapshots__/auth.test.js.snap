@@ -2,6 +2,7 @@
 
 exports[`Auth Store actions will update the state of the model 1`] = `
 Object {
+  "org": undefined,
   "selectedLocation": "",
   "wmProfile": Object {
     "avatar_url": "https://images-acceptance.weedmaps.com/users/002/208/463/avatar/square_fill/1544743547-image-1653344458.jpg",
@@ -13,7 +14,26 @@ Object {
     "email": "asciametta@weedmaps.com.eu",
     "id": "4612b157-1ee9-46e8-9d9b-314e3b9eb80c",
     "organization": Object {
+      "address": Object {
+        "city": undefined,
+        "country": undefined,
+        "id": "4e0bb99c-0afb-4311-9cdc-8514d8f0a50c",
+        "latitude": undefined,
+        "longitude": undefined,
+        "postalCode": undefined,
+        "streetAddress": undefined,
+        "territory": undefined,
+      },
+      "brands": Array [],
+      "contactName": "Paul Ruescher",
+      "description": "Update description",
+      "email": "test@test.com",
       "id": "2f4ddb82-3b67-4780-8ae4-7f27da36d813",
+      "licenses": Array [],
+      "locations": Array [],
+      "name": "Some Org",
+      "organizationType": "seller",
+      "phoneNumber": "1112223333",
     },
     "preferences": Object {
       "locationId": "6039ad85-7be7-45ce-a5f9-3e802eeba1e5",
