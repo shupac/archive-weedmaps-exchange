@@ -23,14 +23,10 @@ class Profile extends Component<Props> {
 
   render() {
     const { org } = this.props.store.authStore;
-    console.log('organization data', org)
     if (!org) return null;
     return (
       <div>
-        <BuyerProfile
-          organization={org}
-          onSubmit={this.onSubmit}
-        />
+        <BuyerProfile organization={org} onSubmit={this.onSubmit} />
       </div>
     );
   }

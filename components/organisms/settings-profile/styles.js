@@ -56,6 +56,7 @@ export const FormWrapper = styled.div`
 `;
 
 export const FormHeader = styled.div`
+  background-color: ${background.secondary};
   color: ${text.normal};
   border-bottom: 1px solid ${icon.inverted};
   font-size: ${rem(22)};
@@ -131,6 +132,7 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const FormFooter = styled.div`
+  background-color: ${background.secondary};
   border-top: 1px solid ${icon.inverted};
   padding: 16px;
 `;
