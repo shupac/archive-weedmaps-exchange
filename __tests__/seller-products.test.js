@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import { SellerProductsPage } from './seller-products';
+import { SellerProductsPage } from 'pages/seller-products';
 
 function setup(props) {
   const mockStore = {};

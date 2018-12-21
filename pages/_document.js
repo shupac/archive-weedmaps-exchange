@@ -4,7 +4,6 @@ import Document, { Head, Main, NextScript } from 'next/document';
 import config from 'config';
 import 'lib/styles/global';
 import { ServerStyleSheet } from 'styled-components';
-import 'lib/common/logger';
 
 export class DealsAdminDocument extends Document {
   static async getInitialProps({ renderPage, req }) {

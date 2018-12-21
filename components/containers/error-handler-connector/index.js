@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ErrorPage from 'pages/_error';
 import { defaultPropsStatusCode, propTypesStatusCode } from 'lib/types/page';
+import logger from 'lib/common/logger';
 
 export const errorHandlerConnector = ComponentToCompose => {
   class ErrorHandler extends Component {

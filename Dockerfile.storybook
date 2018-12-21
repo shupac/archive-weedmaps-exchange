@@ -1,7 +1,7 @@
 # ***********************
 #      First Stage
 # ***********************
-FROM node:10.4.0-alpine
+FROM node:10.8.0-alpine
 
 # To build this DockerFile, you will need to provide the NPM_TOKEN env variable
 ARG NPM_TOKEN
@@ -27,14 +27,14 @@ WORKDIR /var/www/exchange-fe
 # Add files
 ADD . /var/www/exchange-fe
 # Build the app
-RUN yarn build-storybook
+RUN NODE_ENV=production yarn build-storybook
 
 ## ***********************
 ##      Second Stage
 ## ***********************
 
 # Now copy the build over
-FROM node:10.4.0-alpine
+FROM node:10.8.0-alpine
 RUN apk add --update --no-cache bash bind-tools
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 

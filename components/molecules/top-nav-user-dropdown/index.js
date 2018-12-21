@@ -3,7 +3,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Router } from 'lib/routes';
 import { withRouter } from 'next/router';
-import { coreBaseUrl } from 'config';
+import config from 'config';
 import { type StoreType } from 'lib/types/store';
 import { Avatar } from 'components/atoms/avatar';
 import { Arrow } from 'components/atoms/icons';
@@ -95,7 +95,9 @@ export class UserDropdown extends React.Component<Props, State> {
               </ToggleButton>
             </ToggleButtons>
             <Divider />
-            <LogoutButton href={`${coreBaseUrl}/logout`}>logout</LogoutButton>
+            <LogoutButton href={`${config.coreBaseUrl}/logout`}>
+              logout
+            </LogoutButton>
           </UserDropdownMenu>
         )}
       </UserDropdownContainer>

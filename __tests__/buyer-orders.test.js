@@ -4,7 +4,7 @@ import BuyerCart from 'lib/data-access/stores/buyer-cart';
 import UiStore from 'lib/data-access/stores/ui';
 import mockPurchaseOrders from 'lib/mocks/purchase-orders';
 import BuyerPurchaseOrder from 'components/organisms/buyer-purchase-order';
-import { BuyerOrdersPage } from './buyer-orders';
+import { BuyerOrdersPage } from 'pages/buyer-orders';
 
 function setup(props) {
   const mockStore = {

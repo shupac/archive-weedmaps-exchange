@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ButtonPrimary, ButtonWhiteNoHover } from 'components/atoms/button';
+import findByTestId from 'lib/jest/find-by-test-id';
 import { mockLocations } from 'lib/mocks/location';
 import { DeleteLocationModal } from './';
 
@@ -9,7 +9,7 @@ function setup() {
     buyerSettings: {
       locations: mockLocations,
       locationToDelete: mockLocations[0],
-      deleteLocation: jest.fn().mockReturnValue(Promise.resolve(true)),
+      deleteLocation: jest.fn().mockResolvedValue(true),
     },
     uiStore: {
       activeModal: 'deleteLocation',
@@ -31,15 +31,19 @@ describe('Delete Location Modal', () => {
 
   it('should close modal when cancel button clicked', () => {
     const { wrapper, store } = setup();
-    const cancelButton = wrapper.find(ButtonWhiteNoHover);
+    const cancelButton = findByTestId(wrapper, 'cancel-button');
     cancelButton.simulate('click');
     expect(store.uiStore.openModal).toHaveBeenCalled();
   });
-  it('should delete location on button submit ', async () => {
+
+  it('should delete location on button submit ', done => {
     const { wrapper, store } = setup();
-    const submitButton = wrapper.find(ButtonPrimary);
+    const submitButton = findByTestId(wrapper, 'delete-button');
     submitButton.simulate('click');
-    expect(await store.buyerSettings.deleteLocation).toHaveBeenCalled();
-    expect(store.uiStore.closeModal).toHaveBeenCalled();
+    expect(store.buyerSettings.deleteLocation).toHaveBeenCalled();
+    setTimeout(() => {
+      expect(store.uiStore.closeModal).toHaveBeenCalled();
+      done();
+    });
   });
 });

@@ -1,7 +1,7 @@
 # ***********************
 #      First Stage
 # ***********************
-FROM node:10.4.0-alpine
+FROM node:10.8.0-alpine
 
 # To build this DockerFile, you will need to provide the NPM_TOKEN env variable
 ARG NPM_TOKEN
@@ -49,8 +49,7 @@ RUN yarn install --production
 ## ***********************
 
 # Now copy the build over
-FROM node:10.4.0-alpine
-RUN yarn global add pm2
+FROM node:10.8.0-alpine
 RUN apk add --update --no-cache bash bind-tools
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
@@ -62,4 +61,4 @@ RUN chown -R appuser:appgroup .
 
 USER appuser
 
-CMD ["pm2-runtime", "process.yml"]
+CMD yarn start-pm2

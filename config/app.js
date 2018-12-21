@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   defaults: {
     sha: `${process.env.SHA || 'MISSING_SHA'}`,
   },
@@ -10,6 +10,8 @@ module.exports = {
     apiRootPath: '/exchange/v1',
     cookieDomain: '.weedmaps.com',
     uatCookie: '_wm_uat_test',
+    contentPolicyReportUri:
+      'https://api-g-acceptance.internal-weedmaps.com/policy/reports',
   },
   development: {
     envName: 'development',
@@ -18,6 +20,8 @@ module.exports = {
       'https://api-g-acceptance.internal-weedmaps.com',
     siteUrl: 'http://localhost:1620',
     coreBaseUrl: 'https://acceptance.internal-weedmaps.com',
+    contentPolicyReportUri:
+      'https://api-g-acceptance.internal-weedmaps.com/policy/reports',
     apiRootPath: '/exchange/v1',
     cookieDomain: 'localhost',
     uatCookie: '_wm_uat_acceptance',
@@ -30,6 +34,8 @@ module.exports = {
     apiRootPath: '/exchange/v1',
     cookieDomain: '.internal-weedmaps.com',
     uatCookie: '_wm_uat_acceptance',
+    contentPolicyReportUri:
+      'https://api-g-acceptance.internal-weedmaps.com/policy/reports',
   },
   staging: {
     envName: 'staging',
@@ -39,6 +45,8 @@ module.exports = {
     apiRootPath: '/exchange/v1',
     cookieDomain: '.internal-weedmaps.com',
     uatCookie: '_wm_uat_staging',
+    contentPolicyReportUri:
+      'https://api-g-staging.internal-weedmaps.com/policy/reports',
   },
   production: {
     envName: 'production',
@@ -48,5 +56,6 @@ module.exports = {
     apiRootPath: '/exchange/v1',
     cookieDomain: '.weedmaps.com',
     uatCookie: '_wm_uat',
+    contentPolicyReportUri: 'https://api-g.weedmaps.com/policy/reports',
   },
 };

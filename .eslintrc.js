@@ -9,6 +9,7 @@ module.exports = {
     'flowtype/use-flow-type': 1,
   },
   globals: {
+    IS_SERVER: true,
     Honeybadger: true,
     logger: true,
   },

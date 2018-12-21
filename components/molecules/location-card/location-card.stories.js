@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { mockLocation } from 'lib/mocks/location';
+import { mockLocations } from 'lib/mocks/location';
 import centered from '@storybook/addon-centered';
 import LocationCard from './';
 
@@ -8,23 +8,23 @@ export default storiesOf('LocationCard', module)
   .addDecorator(centered)
   .add('Default', () => (
     <LocationCard
-      locationTitle={mockLocation[0].name}
-      locationAddress={mockLocation[0].address}
-      deliveryInstruction={mockLocation[0].deliveryInstructions}
-      isPrimary={mockLocation[0].source === 'weedmaps'}
-      contactName={mockLocation[0].contactName}
-      phone={mockLocation[0].phoneNumber}
-      email={mockLocation[0].email}
+      locationTitle={mockLocations[0].name}
+      locationAddress={mockLocations[0].address}
+      deliveryInstruction={mockLocations[0].deliveryInstructions}
+      isPrimary={mockLocations[0].source === 'weedmaps'}
+      contactName={mockLocations[0].contactName}
+      phone={mockLocations[0].phoneNumber}
+      email={mockLocations[0].email}
     />
   ))
   .add('NonPrimary', () => (
     <LocationCard
-      locationTitle={mockLocation[0].name}
-      locationAddress={mockLocation[0].address}
-      deliveryInstruction={mockLocation[0].deliveryInstructions}
+      locationTitle={mockLocations[0].name}
+      locationAddress={mockLocations[0].address}
+      deliveryInstruction={mockLocations[0].deliveryInstructions}
       isPrimary={false}
-      contactName={mockLocation[0].contactName}
-      phone={mockLocation[0].phoneNumber}
-      email={mockLocation[0].email}
+      contactName={mockLocations[0].contactName}
+      phone={mockLocations[0].phoneNumber}
+      email={mockLocations[0].email}
     />
   ));

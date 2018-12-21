@@ -1,5 +1,6 @@
-const config = require('./app');
-const logger = require('../lib/common/logger');
+import config from './app';
+
+let exportConfig;
 
 if (
   !(typeof window !== 'undefined' && window.document) ||
@@ -14,8 +15,9 @@ if (
   }
 
   const builtConfig = Object.assign({}, config.defaults, config[configEnv]);
-  logger.info(`Admin loaded with ${configEnv} config settings`);
-  module.exports = builtConfig;
+  exportConfig = builtConfig;
 } else {
-  module.exports = window.config; // use the runtime config
+  exportConfig = window.config; // use the runtime config
 }
+
+export default exportConfig;

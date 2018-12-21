@@ -9,22 +9,19 @@
     "js-lint": "./node_modules/.bin/eslint ./lib ./components ./pages",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "format": "eslint --fix ./lib ./components ./pages",
-    "test": "NODE_ENV=test LOG_LEVEL=WARN jest --coverage --no-cache",
-    "test:nocover": "NODE_ENV=test LOG_LEVEL=WARN jest --no-cache",
-    "test:serial": "NODE_ENV=test LOG_LEVEL=WARN jest --coverage --no-cache --bail --logHeapUsage --runInBand",
-    "test-update": "NODE_ENV=test LOG_LEVEL=WARN jest --updateSnapshot",
-    "test:debug": "NODE_ENV=test LOG_LEVEL=DEBUG node --inspect-brk ./node_modules/.bin/jest -i --env jest-environment-node-debug",
-    "build": "if [ ! -d build ]; then mkdir -p build; fi && next build",
-    "analyze": "NODE_ENV=production npm run build && webpack-bundle-analyzer build/.next/stats.json",
-    "start": "node ./server.js",
+    "test": "moonshot jest",
+    "test:serial": "moonshot jest --coverage --no-cache --bail --logHeapUsage --runInBand",
+    "dev": "moonshot dev",
+    "build": "moonshot build",
+    "start": "moonshot run",
+    "start-pm2": "moonshot pm2",
     "debug": "LOG_LEVEL=DEBUG node --inspect ./server.js",
     "storybook": "NODE_ENV=test start-storybook -s . -p 6006",
     "build-storybook": "build-storybook",
     "docker:build": "docker-compose build",
     "docker:up": "docker-compose up",
-    "generate-buildid": "rm -f build/.next/BUILD_ID && hash-files -f '[\"build/.next/**\",\"build/.next/build-stats.json\"]' >> build/.next/BUILD_ID",
-    "clean-build": "rm -rf ./build",
-    "test-bundlesize": "NODE_ENV=production npm run build && bundlesize"
+    "test-bundlesize": "NODE_ENV=production yarn build && bundlesize",
+    "bundle-analyzer": "BUNDLE_ANALYZE=both yarn build"
   },
   "bundlesize": [
     {
@@ -34,7 +31,6 @@
   ],
   "lint-staged": {
     "*.js": [
-      "npx glow focus-check",
       "eslint --fix",
       "git add"
     ]
@@ -46,56 +42,15 @@
   "bugs": {
     "url": "https://github.com/GhostGroup/exchange-fe/issues"
   },
-  "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/lib/jest/custom-matchers.js",
-    "setupFiles": [
-      "<rootDir>/lib/jest/jsdom-polyfills.js",
-      "<rootDir>/lib/jest/configure-enzyme.js",
-      "<rootDir>/__mocks__/local-storage.js"
-    ],
-    "modulePathIgnorePatterns": [
-      "<rootDir>/build",
-      "<rootDir>/lib/routes/__mocks__/index.js"
-    ],
-    "collectCoverageFrom": [
-      "pages/**/*.js",
-      "!<rootDir>/pages/login.js",
-      "stores/**/*.js",
-      "components/**/!(*.stories|dist).js",
-      "!lib/jest/**/*.js",
-      "lib/**/*.js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/node_modules/",
-      "dist/",
-      "components/dev/"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json"
-    ],
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
-    },
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ]
-  },
   "homepage": "https://github.com/GhostGroup/admin#readme",
   "dependencies": {
+    "@ghostgroup/create-moonshot-app": "0.0.1-alpha-8",
     "@ghostgroup/grid-styled": "~4.0.0",
-    "@ghostgroup/next-routes": "1.5.1-beta",
     "@ghostgroup/ui": "^19.0.2",
     "@ghostgroup/wm-express-login-proxy": "^1.0.0",
     "@ghostgroup/wm-sdk-js": "~5.2.2",
-    "@zeit/next-bundle-analyzer": "^0.1.1",
-    "babel-eslint": "^8.2.6",
-    "babel-plugin-module-resolver": "~2.7.1",
     "chalk": "^2.4.1",
     "date-fns": "^1.29.0",
-    "dotenv": "~4.0.0",
-    "dotenv-webpack": "^1.5.7",
     "downshift": "~1.25.0",
     "express": "^4.16.3",
     "express-csp": "^0.1.3",
@@ -121,16 +76,12 @@
     "mobx-react": "^5.2.5",
     "mobx-state-tree": "^3.2.3",
     "moment": "^2.22.2",
-    "newrelic": "^4.1.4",
-    "next": "^5.1.0",
     "nprogress": "~0.2.0",
     "polished": "^1.9.3",
     "prop-types": "^15.6.2",
     "query-string": "^6.2.0",
-    "react": "^16.6.3",
     "react-dates": "^18.2.2",
-    "react-dom": "^16.6.3",
-    "react-howler": "^3.7.2",
+    "react-howler": "^3.7.3",
     "react-pose": "^3.1.0",
     "react-resize-detector": "^2.3.0",
     "react-storybook-decorator-background": "^1.0.5",
@@ -143,36 +94,22 @@
     "shortid": "^2.2.8",
     "slugify": "~1.2.1",
     "styled-components": "^3.3.3",
-    "universal-webpack": "^0.6.5",
-    "webpack": "3.11.0",
-    "webpack-bundle-analyzer": "^2.12.0",
-    "webpack-shell-plugin": "^0.5.0",
     "yup": "^0.26.6"
   },
   "devDependencies": {
     "@ghostgroup/danger-plugins": "^1.2.0",
     "@ghostgroup/eslint-config": "^1.0.2",
     "@ghostgroup/eslint-config-react": "^1.0.1",
-    "@storybook/addon-actions": "^3.4.2",
-    "@storybook/addon-backgrounds": "^3.4.2",
-    "@storybook/addon-centered": "^3.4.2",
-    "@storybook/addon-knobs": "^3.4.2",
-    "@storybook/react": "^3.4.2",
-    "babel-jest": "^23.4.0",
-    "babel-plugin-js-logger": "^1.0.17",
-    "babel-plugin-styled-components": "~1.5.1",
-    "babel-plugin-transform-class-properties": "6.24.1",
-    "babel-plugin-transform-decorators-legacy": "^1.3.5",
-    "babel-plugin-transform-object-rest-spread": "~6.26.0",
-    "babel-preset-es2015": "~6.24.1",
-    "babel-preset-flow": "^6.23.0",
-    "bundlesize": "^0.17.0",
+    "@storybook/addon-a11y": "~4.1.3",
+    "@storybook/addon-actions": "~4.1.3",
+    "@storybook/addon-backgrounds": "~4.1.3",
+    "@storybook/addon-centered": "~4.1.3",
+    "@storybook/addon-knobs": "~4.1.3",
+    "@storybook/addon-viewport": "~4.1.3",
+    "@storybook/react": "~4.1.3",
     "danger": "^3.7.20",
     "danger-plugin-flow": "^1.4.0",
     "danger-plugin-jira-issue": "^1.3.0",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.0.1",
-    "enzyme-to-json": "^3.3.4",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "~16.1.0",
     "eslint-config-prettier": "^2.9.0",
@@ -184,9 +121,6 @@
     "flow-bin": "^0.69.0",
     "flow-typed": "^2.5.1",
     "husky": "~0.14.3",
-    "jest-cli": "^23.4.1",
-    "jest-environment-node-debug": "~2.0.0",
-    "jest-styled-components": "~6.0.0",
     "lint-staged": "~4.3.0",
     "nock": "^9.2.5",
     "prettier": "^1.13.7",

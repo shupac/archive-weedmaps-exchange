@@ -34,10 +34,15 @@ export class DeleteLocationModal extends Component<Props> {
           </p>
 
           <ButtonRow>
-            <ButtonWhiteNoHover onClick={() => openModal('')}>
+            <ButtonWhiteNoHover
+              data-test-id="cancel-button"
+              onClick={() => openModal('')}
+            >
               Cancel
             </ButtonWhiteNoHover>
-            <ButtonPrimary onClick={this.onSubmit}>Delete</ButtonPrimary>
+            <ButtonPrimary data-test-id="delete-button" onClick={this.onSubmit}>
+              Delete
+            </ButtonPrimary>
           </ButtonRow>
         </ModalContentWrapper>
       </Modal>

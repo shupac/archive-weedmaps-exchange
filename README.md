@@ -19,9 +19,8 @@ Exchange is a [Next.js](https://github.com/zeit/next.js) powered Server-rendered
 
 You can view the application in acceptance at the follow URLs (VPN required)
 
-//@TODO: Update links
-* Storybook: https://storybook.admin.acceptance-us-west2.weedmaps.com/
-* Application: https://admin-acceptance.weedmaps.com/
+* Storybook: http://exchange-fe-storybook-acceptance.internal-weedmaps.com/
+* Application: https://exchange-acceptance.internal-weedmaps.com/
 * UI Library: https://ui.weedmaps.com
 
 ## Installation
@@ -38,7 +37,7 @@ You can view the application in acceptance at the follow URLs (VPN required)
 
 ## Run
 
-Execute `npm run start`, then hit [http://localhost:1620/](http://localhost:1620/)
+Execute `yarn dev`, then hit [http://localhost:1620/](http://localhost:1620/)
 
 You will also need to paste the contents of `example.cookie` into the value for the `mwm.userAccessToken` cookie, using your browser's Dev Tools.
 
@@ -51,7 +50,7 @@ We are using prettier as a plugin for eslint, so prettier format diffs show as a
 To run eslint manually:
 
 ```
-npm run lint
+yarn lint
 ```
 
 ### Flow
@@ -59,7 +58,7 @@ npm run lint
 To run Flow checks manually:
 
 ```
-npx glow
+yarn flow check
 ```
 
 ### Precommit & Lint-Staged
@@ -92,19 +91,19 @@ __tests__
 All the tests:
 
 ```
-npm run test
+yarn test
 ```
 
 Single test:
 
 ```
-npm run test -- path/to/file.js
+yarn test path/to/file.js
 ```
 
 Update snapshots:
 
 ```
-npm run test -- -u
+yarn test -u
 ```
 
 ### Code Coverage
@@ -114,14 +113,14 @@ Running the tests generates a new coverage report in the `coverage` folder
 ## Analyze Bundle Size
 
 Webpack bundle analyzer is available by running
-`npm run analyze`. This will generate a production build and run the bundle size analyzer
+`yarn bundle-analyzer`. This will generate a production build and run the bundle size analyzer
 web tool.
 
 ## Storybook
 
 ### Viewing Stories
 
-To view the Storybook, simply run `npm run storybook`.
+To view the Storybook, simply run `yarn storybook`.
 
 ### Writing new Stories
 
@@ -137,7 +136,7 @@ components/button
 
 ## Docker
 
-Admin is configured to run in a Docker container, but most developers just use `npm run start` above.
+Exchange FE is configured to run in a Docker container, but most developers just use `yarn dev` above.
 
 To run the application in Docker:
 
@@ -146,10 +145,6 @@ To run the application in Docker:
 * Run
   ```
   LOG_LEVEL=DEBUG DEPLOY_ENVIRONMENT=acceptance docker-compose up --build
-  ```
-* Execute `docker-compose ps` to get the port `admin-web` is pointing to. e.g.
-  ```
-  admin-web_1   /bin/sh -c service nginx start   Up      443/tcp, 0.0.0.0:80->80/tcp
   ```
 * Visit - `http://localhost`
 * Visit - `http://localhost:6006` to see the storybook server

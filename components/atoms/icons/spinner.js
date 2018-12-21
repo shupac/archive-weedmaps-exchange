@@ -3,7 +3,7 @@ import React from 'react';
 import { string } from 'prop-types';
 import theme from 'lib/styles/theme';
 
-const Spinner = ({ size, stroke }) => (
+export const Spinner = ({ size, stroke }) => (
   <svg width={size} height={size} viewBox="0 0 32 32">
     <circle
       role="presentation"

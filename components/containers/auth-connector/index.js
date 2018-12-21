@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { redirectUnauthenticatedUser } from 'lib/common/redirect-unauthenticated-user';
+import logger from 'lib/common/logger';
 
 function resolveUnauthenticatedRedirect(props, stores) {
   return {
