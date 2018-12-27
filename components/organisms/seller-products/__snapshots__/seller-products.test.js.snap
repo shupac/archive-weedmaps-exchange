@@ -1,0 +1,468 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Seller Products Page should show pagination 1`] = `
+<styles__SellerProductsWrapper>
+  <FilterPanel
+    onClearAll={[Function]}
+  >
+    <withRouter(TreeFilterSection)
+      defaultLabel="All Categories"
+      paramKey="categories"
+      route="sellerProducts"
+      title="Categories"
+      trees={
+        Array [
+          Object {
+            "children": Array [
+              Object {
+                "id": "c922a456-146e-4293-955b-bb517d3063ac",
+                "name": "Sauce",
+              },
+              Object {
+                "id": "b7295924-975c-4e0c-bb18-250d4b233a35",
+                "name": "Live Resin",
+              },
+              Object {
+                "id": "2e6d3214-fac6-45a8-9786-6dbda76a6a33",
+                "name": "Hash Oil",
+              },
+              Object {
+                "id": "89af476a-0f1e-4158-9781-ac3109f3c96c",
+                "name": "Solventless",
+              },
+              Object {
+                "id": "0128b3c7-54d6-4b27-812d-718fc8ab4b4a",
+                "name": "Ice Hash",
+              },
+              Object {
+                "id": "68ea1a1c-9a5c-44a8-b97e-daceb020c284",
+                "name": "Dry Sift",
+              },
+              Object {
+                "id": "5e9573a9-a0b2-4b7e-b345-ce750ba62a41",
+                "name": "Apparel",
+              },
+              Object {
+                "id": "bfae7a36-f12f-4faf-9a63-1d4e9b60d9be",
+                "name": "Rosin",
+              },
+              Object {
+                "id": "20eef949-8169-4a80-a80e-8482a393e29d",
+                "name": "Shatter",
+              },
+              Object {
+                "id": "934e604b-7ce6-4545-a61d-c44c32072a44",
+                "name": "Distillate",
+              },
+              Object {
+                "id": "335bc5dd-15b1-4be8-8595-17cc1df3e853",
+                "name": "Crumble",
+              },
+              Object {
+                "id": "6c56279f-be48-44be-8a53-8fb8303e154c",
+                "name": "Budder",
+              },
+            ],
+            "parent": Object {
+              "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",
+              "name": "Concentrates",
+            },
+          },
+          Object {
+            "children": Array [
+              Object {
+                "id": "963d5e18-0feb-4263-9bd4-2ebd1e35693b",
+                "name": "Beverages",
+              },
+              Object {
+                "id": "f245a838-fd25-4c7d-af45-e989c6702304",
+                "name": "Munchies",
+              },
+              Object {
+                "id": "bf045477-c46d-4f12-b1bf-94f0f04e7f33",
+                "name": "Baked Goods",
+              },
+              Object {
+                "id": "1e9b1182-59e6-4b9a-92ae-2c731a517409",
+                "name": "Candies",
+              },
+              Object {
+                "id": "95f27620-bc0f-421f-8d6f-d0e6abb1ec4c",
+                "name": "Cooking Ingredients",
+              },
+              Object {
+                "id": "af3eeab3-26f9-425b-99b5-fa70021e0d45",
+                "name": "Gummies",
+              },
+              Object {
+                "id": "330979e6-bacf-42e0-adbd-bf623c590a7a",
+                "name": "Chocolate",
+              },
+            ],
+            "parent": Object {
+              "id": "e306a27d-5076-4074-ab7a-21f6485ad4bb",
+              "name": "Edibles",
+            },
+          },
+        ]
+      }
+    />
+    <withRouter(FilterSection)
+      defaultLabel="All Availability"
+      options={
+        Array [
+          Object {
+            "id": "published",
+            "name": "Published",
+          },
+          Object {
+            "id": "unpublished",
+            "name": "Unpublished",
+          },
+        ]
+      }
+      paramKey="active"
+      route="sellerProducts"
+      singleSelection={true}
+      title="Availability"
+    />
+  </FilterPanel>
+  <styles__Content>
+    <withRouter(inject-SearchBar-with-store)
+      queryParams={
+        Array [
+          "categories",
+          "availability",
+          "sortBy",
+          "ascending",
+          "page",
+        ]
+      }
+      route="sellerProducts"
+      showCategory={false}
+    />
+    <styles__ProductsTable>
+      <styles__TableHeader>
+        <styles__TableCell
+          key="name"
+        >
+          <SortButton
+            isActive={true}
+            onClick={[Function]}
+            pointsUp={true}
+          >
+            Name
+          </SortButton>
+        </styles__TableCell>
+        <styles__TableCell
+          key="category_names"
+        >
+          <SortButton
+            isActive={false}
+            onClick={[Function]}
+            pointsUp={true}
+          >
+            Category
+          </SortButton>
+        </styles__TableCell>
+        <styles__TableCell
+          key="quantity"
+        >
+          <SortButton
+            isActive={false}
+            onClick={[Function]}
+            pointsUp={true}
+          >
+            Inventory
+          </SortButton>
+        </styles__TableCell>
+        <styles__TableCell
+          key="zone_count"
+        >
+          <SortButton
+            isActive={false}
+            onClick={[Function]}
+            pointsUp={true}
+          >
+            Zones
+          </SortButton>
+        </styles__TableCell>
+        <styles__TableCell
+          key="active"
+        >
+          <SortButton
+            isActive={false}
+            onClick={[Function]}
+            pointsUp={true}
+          >
+            Published
+          </SortButton>
+        </styles__TableCell>
+      </styles__TableHeader>
+      <styles__TableBody>
+        <styles__TableCell>
+          <styles__AvatarName>
+            <img
+              alt="24K Live Resin Shatter"
+              src="https://images-acceptance.weedmaps.com/products/000/024/998/avatar/square/natureslab_live24k-1.jpg"
+            />
+            <LinkRoutes
+              href="/seller/products/b3f4fd48-6698-43cd-addc-33504fcd0434"
+            >
+              <a>
+                24K Live Resin Shatter
+              </a>
+            </LinkRoutes>
+          </styles__AvatarName>
+        </styles__TableCell>
+        <styles__TableCell>
+          Concentrates &gt; Live Resin
+        </styles__TableCell>
+        <styles__TableCell>
+          5 in stock for 2 variants
+        </styles__TableCell>
+        <styles__TableCell>
+          <styles__NoValue>
+            0
+          </styles__NoValue>
+        </styles__TableCell>
+        <styles__TableCell>
+          <ToggleSwitch
+            checked={false}
+            disabled={false}
+            onChange={[Function]}
+          />
+        </styles__TableCell>
+        <styles__TableCell>
+          <styles__AvatarName>
+            <img
+              alt="2 Palms Tee"
+              src="https://images-acceptance.weedmaps.com/products/000/016/381/avatar/square/blvdsupply_2_palmstee_1.png"
+            />
+            <LinkRoutes
+              href="/seller/products/914a63ff-a67b-47fb-946b-86c991ce4560"
+            >
+              <a>
+                2 Palms Tee
+              </a>
+            </LinkRoutes>
+          </styles__AvatarName>
+        </styles__TableCell>
+        <styles__TableCell>
+          Gear &gt; Men's Apparel
+        </styles__TableCell>
+        <styles__TableCell>
+          5 in stock for 1 variant
+        </styles__TableCell>
+        <styles__TableCell>
+          <styles__NoValue>
+            0
+          </styles__NoValue>
+        </styles__TableCell>
+        <styles__TableCell>
+          <ToggleSwitch
+            checked={false}
+            disabled={false}
+            onChange={[Function]}
+          />
+        </styles__TableCell>
+        <styles__TableCell>
+          <styles__AvatarName>
+            <img
+              alt="303 Kush Live Wax"
+              src="https://images.weedmaps.com/products/000/052/107/avatar/square/1506462031-170918_303KushLW_3874.jpg?development=1"
+            />
+            <LinkRoutes
+              href="/seller/products/554cc78e-d9f3-4240-8b57-63a377c5a240"
+            >
+              <a>
+                303 Kush Live Wax
+              </a>
+            </LinkRoutes>
+          </styles__AvatarName>
+        </styles__TableCell>
+        <styles__TableCell>
+          Concentrates
+        </styles__TableCell>
+        <styles__TableCell>
+          <styles__NoValue>
+            0
+          </styles__NoValue>
+        </styles__TableCell>
+        <styles__TableCell>
+          <styles__NoValue>
+            0
+          </styles__NoValue>
+        </styles__TableCell>
+        <styles__TableCell>
+          <ToggleSwitch
+            checked={true}
+            disabled={true}
+            onChange={[Function]}
+          />
+        </styles__TableCell>
+      </styles__TableBody>
+      <styles__TableFooter>
+        Showing 
+        1-3
+         of 
+        1841
+         Products
+        <PagingControls
+          currentPage={1}
+          onSelectPage={[Function]}
+          pageCount={1841}
+        />
+      </styles__TableFooter>
+    </styles__ProductsTable>
+  </styles__Content>
+</styles__SellerProductsWrapper>
+`;
+
+exports[`Seller Products Page should show product count for only 1 product 1`] = `
+<styles__SellerProductsWrapper>
+  <FilterPanel
+    onClearAll={[Function]}
+  >
+    <withRouter(TreeFilterSection)
+      defaultLabel="All Categories"
+      paramKey="categories"
+      route="sellerProducts"
+      title="Categories"
+      trees={
+        Array [
+          Object {
+            "children": Array [
+              Object {
+                "id": "c922a456-146e-4293-955b-bb517d3063ac",
+                "name": "Sauce",
+              },
+              Object {
+                "id": "b7295924-975c-4e0c-bb18-250d4b233a35",
+                "name": "Live Resin",
+              },
+              Object {
+                "id": "2e6d3214-fac6-45a8-9786-6dbda76a6a33",
+                "name": "Hash Oil",
+              },
+              Object {
+                "id": "89af476a-0f1e-4158-9781-ac3109f3c96c",
+                "name": "Solventless",
+              },
+              Object {
+                "id": "0128b3c7-54d6-4b27-812d-718fc8ab4b4a",
+                "name": "Ice Hash",
+              },
+              Object {
+                "id": "68ea1a1c-9a5c-44a8-b97e-daceb020c284",
+                "name": "Dry Sift",
+              },
+              Object {
+                "id": "5e9573a9-a0b2-4b7e-b345-ce750ba62a41",
+                "name": "Apparel",
+              },
+              Object {
+                "id": "bfae7a36-f12f-4faf-9a63-1d4e9b60d9be",
+                "name": "Rosin",
+              },
+              Object {
+                "id": "20eef949-8169-4a80-a80e-8482a393e29d",
+                "name": "Shatter",
+              },
+              Object {
+                "id": "934e604b-7ce6-4545-a61d-c44c32072a44",
+                "name": "Distillate",
+              },
+              Object {
+                "id": "335bc5dd-15b1-4be8-8595-17cc1df3e853",
+                "name": "Crumble",
+              },
+              Object {
+                "id": "6c56279f-be48-44be-8a53-8fb8303e154c",
+                "name": "Budder",
+              },
+            ],
+            "parent": Object {
+              "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",
+              "name": "Concentrates",
+            },
+          },
+          Object {
+            "children": Array [
+              Object {
+                "id": "963d5e18-0feb-4263-9bd4-2ebd1e35693b",
+                "name": "Beverages",
+              },
+              Object {
+                "id": "f245a838-fd25-4c7d-af45-e989c6702304",
+                "name": "Munchies",
+              },
+              Object {
+                "id": "bf045477-c46d-4f12-b1bf-94f0f04e7f33",
+                "name": "Baked Goods",
+              },
+              Object {
+                "id": "1e9b1182-59e6-4b9a-92ae-2c731a517409",
+                "name": "Candies",
+              },
+              Object {
+                "id": "95f27620-bc0f-421f-8d6f-d0e6abb1ec4c",
+                "name": "Cooking Ingredients",
+              },
+              Object {
+                "id": "af3eeab3-26f9-425b-99b5-fa70021e0d45",
+                "name": "Gummies",
+              },
+              Object {
+                "id": "330979e6-bacf-42e0-adbd-bf623c590a7a",
+                "name": "Chocolate",
+              },
+            ],
+            "parent": Object {
+              "id": "e306a27d-5076-4074-ab7a-21f6485ad4bb",
+              "name": "Edibles",
+            },
+          },
+        ]
+      }
+    />
+    <withRouter(FilterSection)
+      defaultLabel="All Availability"
+      options={
+        Array [
+          Object {
+            "id": "published",
+            "name": "Published",
+          },
+          Object {
+            "id": "unpublished",
+            "name": "Unpublished",
+          },
+        ]
+      }
+      paramKey="active"
+      route="sellerProducts"
+      singleSelection={true}
+      title="Availability"
+    />
+  </FilterPanel>
+  <styles__Content>
+    <withRouter(inject-SearchBar-with-store)
+      queryParams={
+        Array [
+          "categories",
+          "availability",
+          "sortBy",
+          "ascending",
+          "page",
+        ]
+      }
+      route="sellerProducts"
+      showCategory={false}
+    />
+    <loader__LoaderWrapper>
+      <Loader />
+    </loader__LoaderWrapper>
+  </styles__Content>
+</styles__SellerProductsWrapper>
+`;

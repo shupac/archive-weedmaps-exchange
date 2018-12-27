@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 
 export const Wrapper = styled.div`
@@ -23,6 +24,6 @@ export const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
+  font-size: ${rem(14)};
   color: ${theme.style.text.normal};
 `;

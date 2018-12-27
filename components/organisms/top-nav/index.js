@@ -42,12 +42,19 @@ const NavIcon = {
       fill={theme.colors.primary}
     />
   ),
+  'seller-products': (
+    <Papers
+      size={{ width: '24px', height: '24px' }}
+      fill={theme.colors.primary}
+    />
+  ),
 };
 
 const headerForPath = {
   cart: 'shopping cart',
   'buyer-orders': 'purchase orders',
   'seller-settings': 'Settings',
+  'seller-products': 'products',
 };
 
 // Add any pathname that will exclude the Location Selector into the array
@@ -62,6 +69,7 @@ export class TopNav extends Component<Props> {
   render() {
     const { onMenuClick, pathname } = this.props;
     const pathName = pathname && pathname.substring(1);
+
     return (
       <TopNavContainer>
         <LeftContainer>

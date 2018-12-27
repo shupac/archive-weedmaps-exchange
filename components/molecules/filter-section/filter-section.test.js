@@ -5,7 +5,7 @@ import CheckboxGroup from 'components/atoms/checkbox-group';
 import ComboCheckbox from 'components/atoms/combo-checkbox';
 import { FilterSection } from './';
 
-function setup(brandsQuery) {
+function setup(brandsQuery, singleSelection) {
   const mockRouter = {
     query: {
       tab: 'catalog',
@@ -42,6 +42,7 @@ function setup(brandsQuery) {
       defaultLabel="All Brands"
       route="marketplace"
       routeParams={{ tab: 'catalog' }}
+      singleSelection={singleSelection}
     />
   );
   const wrapper = shallow(component);
@@ -144,5 +145,21 @@ describe('FilterSection', () => {
     const instance = wrapper.instance();
     const labels = instance.getLabels();
     expect(labels).toEqual('All Brands');
+  });
+
+  it('should only allow single selection', () => {
+    const wrapper = setup('2', true);
+    const instance = wrapper.instance();
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    instance.onOptionStateChange({
+      id: '1',
+      name: 'Brand1',
+      checked: true,
+    });
+    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
+      tab: 'catalog',
+      brands: ['1'],
+    });
+    pushRoute.mockRestore();
   });
 });

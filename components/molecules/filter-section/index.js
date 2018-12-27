@@ -22,6 +22,7 @@ type Props = {
   defaultLabel: string,
   route: string,
   routeParams: mixed,
+  singleSelection?: boolean,
 };
 
 class FilterSection extends React.Component<Props> {
@@ -55,9 +56,15 @@ class FilterSection extends React.Component<Props> {
   };
 
   onOptionStateChange = (option: Option) => {
-    const { paramKey, router, route, routeParams } = this.props;
+    const {
+      paramKey,
+      router,
+      route,
+      routeParams,
+      singleSelection,
+    } = this.props;
 
-    const selectedOptions = this.getSelectedOptions();
+    const selectedOptions = singleSelection ? {} : this.getSelectedOptions();
     selectedOptions[option.id] = option.checked;
 
     const nextOptions = Object.keys(selectedOptions).filter(

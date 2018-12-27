@@ -37,17 +37,19 @@ export const sellerData = [
   {
     name: 'Orders',
     icon: sizeIcon(Cart),
-    route: '/seller/orders',
+    route: {
+      name: 'sellerOrders',
+      path: '/seller-orders',
+    },
   },
   {
     name: 'Products',
     icon: sizeIcon(Papers),
-    route: '/seller/products',
+    route: {
+      name: 'sellerProducts',
+      path: '/seller-products',
+    },
   },
-  // {
-  //   name: 'Business',
-  //   icon: sizeIcon(WM),
-  // },
 ];
 
 export const buyerFooterData = [

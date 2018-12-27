@@ -151,6 +151,7 @@ class Catalog extends Component<Props, State> {
             route="marketplace"
             routeParams={{ tab: 'catalog' }}
             options={AVAILABILITY_FILTERS}
+            singleSelection
           />
           <FilterSection
             paramKey="brands"
