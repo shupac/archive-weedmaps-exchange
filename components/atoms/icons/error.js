@@ -10,8 +10,8 @@ type Props = {
 
 export const ErrorIcon = ({
   fill = theme.colors.red,
-  width = '20px',
   height = '18px',
+  width = '20px',
 }: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -19,17 +19,10 @@ export const ErrorIcon = ({
     height={height}
     viewBox="0 0 20 18"
   >
-    <defs>
-      <path
-        id="a"
-        d="M2 21h20L12 3 2 21zm10.91-2.842h-1.82v-1.895h1.82v1.895zm0-3.79h-1.82v-3.79h1.82v3.79z"
-      />
-    </defs>
-    <use
+    <path
       fill={fill}
-      fillRule="evenodd"
-      transform="translate(-2 -3)"
-      xlinkHref="#a"
+      fillRule="nonzero"
+      d="M19.37 18H.63c-.55 0-.78-.4-.51-.88L9.52.36c.27-.48.7-.48.97 0l9.4 16.76c.27.49.04.87-.52.87zM10 15a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM9 7v3a1 1 0 0 0 2 0V7a1 1 0 0 0-2 0z"
     />
   </svg>
 );
