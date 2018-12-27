@@ -51,6 +51,7 @@ class SideNavComponent extends React.Component<Props> {
     }
     return sellerFooterData;
   }
+
   render() {
     const { collapse } = this.props;
 

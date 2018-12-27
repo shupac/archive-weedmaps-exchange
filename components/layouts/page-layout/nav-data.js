@@ -72,7 +72,13 @@ export const sellerFooterData = [
   {
     name: 'settings',
     icon: sizeIcon(Gear),
-    route: '/seller/settings',
+    route: {
+      name: 'sellerSettings',
+      params: {
+        tab: 'general',
+      },
+      path: '/seller/settings',
+    },
   },
   {
     name: 'help',

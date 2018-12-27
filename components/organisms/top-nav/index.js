@@ -47,6 +47,7 @@ const NavIcon = {
 const headerForPath = {
   cart: 'shopping cart',
   'buyer-orders': 'purchase orders',
+  'seller-settings': 'Settings',
 };
 
 // Add any pathname that will exclude the Location Selector into the array
