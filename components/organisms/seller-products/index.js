@@ -195,6 +195,7 @@ export class SellerProducts extends Component<Props, State> {
             defaultLabel="All Categories"
             route="sellerProducts"
             trees={this.getCategories()}
+            maxHeight={500}
           />
           <FilterSection
             paramKey="active"

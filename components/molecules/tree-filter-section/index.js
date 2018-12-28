@@ -28,6 +28,7 @@ type Props = {
   defaultLabel: string,
   route: string,
   routeParams: mixed,
+  maxHeight?: number,
 };
 
 class TreeFilterSection extends React.Component<Props> {
@@ -122,7 +123,7 @@ class TreeFilterSection extends React.Component<Props> {
   };
 
   render() {
-    const { title, trees } = this.props;
+    const { title, trees, maxHeight } = this.props;
 
     const components = trees.map(tree => (
       <CheckboxTree
@@ -133,7 +134,11 @@ class TreeFilterSection extends React.Component<Props> {
     ));
 
     return (
-      <FilterContainer title={title} filters={this.getLabels()}>
+      <FilterContainer
+        title={title}
+        filters={this.getLabels()}
+        maxHeight={maxHeight}
+      >
         {components}
       </FilterContainer>
     );

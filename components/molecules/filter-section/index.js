@@ -23,6 +23,7 @@ type Props = {
   route: string,
   routeParams: mixed,
   singleSelection?: boolean,
+  maxHeight?: number,
 };
 
 class FilterSection extends React.Component<Props> {
@@ -84,7 +85,7 @@ class FilterSection extends React.Component<Props> {
   };
 
   render() {
-    const { title, options } = this.props;
+    const { title, options, maxHeight } = this.props;
 
     const selectedOptions = this.getSelectedOptions();
 
@@ -100,7 +101,11 @@ class FilterSection extends React.Component<Props> {
     ));
 
     return (
-      <FilterContainer title={title} filters={this.getLabels()}>
+      <FilterContainer
+        title={title}
+        filters={this.getLabels()}
+        maxHeight={maxHeight}
+      >
         {components}
       </FilterContainer>
     );
