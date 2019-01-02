@@ -133,7 +133,7 @@ exports[`Seller Products Page should show pagination 1`] = `
       queryParams={
         Array [
           "categories",
-          "availability",
+          "active",
           "sortBy",
           "ascending",
           "page",
@@ -453,7 +453,7 @@ exports[`Seller Products Page should show product count for only 1 product 1`] =
       queryParams={
         Array [
           "categories",
-          "availability",
+          "active",
           "sortBy",
           "ascending",
           "page",
