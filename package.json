@@ -122,6 +122,7 @@
     "flow-bin": "^0.69.0",
     "flow-typed": "^2.5.1",
     "husky": "~0.14.3",
+    "jest-cli": "^23.6.0",
     "lint-staged": "~4.3.0",
     "nock": "^9.2.5",
     "prettier": "^1.13.7",

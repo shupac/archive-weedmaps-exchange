@@ -36,6 +36,7 @@ Object {
       "phoneNumber": "1112223333",
     },
     "preferences": Object {
+      "brandId": "fd2b3edd-3de5-497b-af07-13d4cf02f240",
       "locationId": "6039ad85-7be7-45ce-a5f9-3e802eeba1e5",
       "userContext": "buyer",
     },

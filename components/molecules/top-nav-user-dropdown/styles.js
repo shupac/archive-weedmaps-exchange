@@ -1,15 +1,16 @@
 // @flow
 import styled from 'styled-components';
-import { WmTheme } from '@ghostgroup/ui';
+import { WmTheme, Select as SelectBase, SelectStyles } from '@ghostgroup/ui';
 import { ButtonBase } from 'components/atoms/button';
 import { rem } from 'polished';
 
 const { text, border, icon, state, shadow } = WmTheme.style;
+const { Item, SelectButton } = SelectStyles;
 
 export const UserDropdownContainer = styled.div`
   position: relative;
   align-items: center;
-  border-left: 1px solid ${border.default};
+  border-left: 1px solid ${icon.inverted};
   display: flex;
   justify-content: space-around;
   width: ${rem(253)};
@@ -73,3 +74,17 @@ export const LogoutButton = styled.a`
   color: ${text.normal};
   text-decoration: none;
 `;
+
+export const Select = styled(SelectBase)`
+  margin-top: 16px;
+  ${Item} {
+    :hover {
+      color: ${state.primaryCompanion};
+    }
+  }
+  ${SelectButton} {
+    padding: 0 8px;
+  }
+`;
+
+export const SelectWrapper = styled.div``;

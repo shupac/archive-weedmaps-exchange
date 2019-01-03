@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
 import AuthStore from 'lib/data-access/stores/auth';
 import { mockWmProfile, mockWmxUser } from 'lib/mocks/user';
+import { mockOrgBrands } from 'lib/mocks/organization';
 import { UserDropdown } from './';
 
 function setup() {
@@ -11,6 +12,7 @@ function setup() {
       wmProfile: mockWmProfile,
       wmxUser: mockWmxUser,
       setUserContext: jest.fn(),
+      orgBrands: jest.fn().mockReturnValue(mockOrgBrands),
     }),
   };
   const wrapper = shallow(<UserDropdown store={mockStore} />);
@@ -40,31 +42,35 @@ describe('Top Nav User Dropdown', () => {
   it('should handle documentClick', () => {
     const { instance } = setup();
     instance.documentClick();
-    expect(instance.state).toEqual({ open: false });
+    expect(instance.open).toEqual(false);
   });
 
   it('should be able to switch to buyer context', () => {
-    const { wrapper, mockStore } = setup();
+    const { wrapper, mockStore, instance } = setup();
     jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    const handleContextToggle = jest.spyOn(instance, 'handleContextToggle');
     const setUserContext = jest.spyOn(mockStore.authStore, 'setUserContext');
     const selector = wrapper.find('DropdownSelector');
 
     selector.simulate('click', { stopPropagation });
     const buyerButton = wrapper.find('ToggleButton').first();
     buyerButton.simulate('click');
+    expect(handleContextToggle).toHaveBeenCalledWith('buyer');
     expect(setUserContext).toHaveBeenCalledWith('buyer');
   });
 
   it('should be able to switch to seller context ', () => {
-    const { wrapper, mockStore } = setup();
+    const { wrapper, mockStore, instance } = setup();
     mockStore.authStore.user.userContext = 'seller';
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    const handleContextToggle = jest.spyOn(instance, 'handleContextToggle');
     const setUserContext = jest.spyOn(mockStore.authStore, 'setUserContext');
     const selector = wrapper.find('DropdownSelector');
     selector.simulate('click', { stopPropagation });
 
     const sellerButton = wrapper.find('ToggleButton').last();
     sellerButton.simulate('click');
+    expect(handleContextToggle).toHaveBeenCalledWith('seller');
     expect(setUserContext).toHaveBeenCalledWith('seller');
     expect(pushRoute).toHaveBeenCalledWith('/seller/products');
   });
@@ -86,6 +92,22 @@ describe('Top Nav User Dropdown', () => {
     expect(global.removeEventListener).toBeCalledWith(
       'click',
       instance.documentClick,
+    );
+  });
+
+  it('should handle select change on brand dropdown', () => {
+    const { instance } = setup();
+    const selectedBrand = {
+      value: 'fd2b3edd-3de5-497b-af07-13d4cf02f240',
+      text: 'Bakked',
+    };
+    const setActiveBrand = jest.spyOn(
+      instance.props.store.authStore,
+      'setActiveBrand',
+    );
+    instance.handleSelectChange(selectedBrand);
+    expect(setActiveBrand).toHaveBeenCalledWith(
+      'fd2b3edd-3de5-497b-af07-13d4cf02f240',
     );
   });
 });

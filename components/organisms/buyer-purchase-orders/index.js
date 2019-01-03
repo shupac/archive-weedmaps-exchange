@@ -169,14 +169,16 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
             onReorder={onReorder}
           />
 
-          <Pagination>
-            <p>{paginationText}</p>
-            <PagingControls
-              pageCount={Math.ceil(totalEntries / pageSize)}
-              currentPage={pageNumber && Number(pageNumber)}
-              onSelectPage={this.setPage}
-            />
-          </Pagination>
+          {totalEntries >= 1 && (
+            <Pagination>
+              <p>{paginationText}</p>
+              <PagingControls
+                pageCount={Math.ceil(totalEntries / pageSize)}
+                currentPage={pageNumber && Number(pageNumber)}
+                onSelectPage={this.setPage}
+              />
+            </Pagination>
+          )}
         </TableWrapper>
       </PageWrapper>
     );

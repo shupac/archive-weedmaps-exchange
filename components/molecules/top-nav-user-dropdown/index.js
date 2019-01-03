@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import { observable, action } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import { Router } from 'lib/routes';
 import { withRouter } from 'next/router';
@@ -15,6 +16,8 @@ import {
   Username,
   Divider,
   LogoutButton,
+  Select,
+  SelectWrapper,
 } from './styles';
 
 type Props = {
@@ -27,7 +30,8 @@ type State = {
 };
 
 export class UserDropdown extends React.Component<Props, State> {
-  state = { open: false };
+  @observable
+  open = false;
 
   componentDidMount() {
     global.addEventListener('click', this.documentClick);
@@ -37,8 +41,15 @@ export class UserDropdown extends React.Component<Props, State> {
     global.removeEventListener('click', this.documentClick);
   }
 
+  @action
   documentClick = () => {
-    this.setState({ open: false });
+    this.open = false;
+  };
+
+  @action
+  handleToggle = (e: SyntheticEvent<HTMLElement>) => {
+    e.stopPropagation();
+    this.open = !this.open;
   };
 
   handleContextToggle = (context: 'buyer' | 'seller') => {
@@ -54,18 +65,14 @@ export class UserDropdown extends React.Component<Props, State> {
     setUserContext(context);
   };
 
-  handleToggle = (e: SyntheticEvent<HTMLElement>) => {
-    e.stopPropagation();
-    this.setState(prevState => ({
-      open: !prevState.open,
-    }));
+  handleSelectChange = (item: { value: string, name: string }) => {
+    const { setActiveBrand } = this.props.store.authStore;
+    setActiveBrand(item.value);
   };
 
   render() {
-    const { open } = this.state;
-    const {
-      authStore: { user },
-    } = this.props.store;
+    const { authStore } = this.props.store;
+    const { user, orgBrands, activeSellerBrand } = authStore;
     const { avatarUrl, username, userContext } = user;
 
     return (
@@ -76,9 +83,9 @@ export class UserDropdown extends React.Component<Props, State> {
             <p>{username}</p>
             <p>{userContext}</p>
           </Username>
-          <Arrow direction={open ? 'up' : 'down'} />
+          <Arrow direction={this.open ? 'up' : 'down'} />
         </DropdownSelector>
-        {this.state.open && (
+        {this.open && (
           <UserDropdownMenu>
             <ToggleButtons>
               <ToggleButton
@@ -94,6 +101,18 @@ export class UserDropdown extends React.Component<Props, State> {
                 seller
               </ToggleButton>
             </ToggleButtons>
+
+            {userContext === 'seller' && orgBrands.length > 1 && (
+              <SelectWrapper onClick={e => e.stopPropagation()}>
+                <Select
+                  items={orgBrands}
+                  selectedItem={activeSellerBrand}
+                  itemToString={item => item.text}
+                  onChange={this.handleSelectChange}
+                  placeholder="Select your brand.."
+                />
+              </SelectWrapper>
+            )}
             <Divider />
             <LogoutButton href={`${config.coreBaseUrl}/logout`}>
               logout
