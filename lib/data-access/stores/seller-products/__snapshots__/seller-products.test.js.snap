@@ -1,5 +1,310 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SellerProducts Store should fetch product details and set data 1`] = `
+Object {
+  "active": true,
+  "categoryNames": Object {
+    "categoryName": "Gummies",
+    "departmentName": "Edibles",
+  },
+  "id": "05f56e24-5842-4d0a-a4f0-ad18a41e2f0b",
+  "product": Object {
+    "avatarImage": Object {
+      "id": "922327d6-1ad8-49d4-b9d6-3455d950a8f2",
+      "largeUrl": "https://images-acceptance.weedmaps.com/products/000/054/200/avatar/large/1507933286-THCLEAR-GUMMI-BLUEB-250.png",
+      "mediumUrl": "https://images-acceptance.weedmaps.com/products/000/054/200/avatar/medium/1507933286-THCLEAR-GUMMI-BLUEB-250.png",
+      "smallUrl": "https://images-acceptance.weedmaps.com/products/000/054/200/avatar/square/1507933286-THCLEAR-GUMMI-BLUEB-250.png",
+    },
+    "brand": Object {
+      "avatarImage": Object {
+        "id": "202793d4-1967-432f-bbf1-6a21842f3abf",
+      },
+      "deliveryEta": Object {
+        "etaMax": 3,
+        "etaMaxUnit": "day",
+        "etaMin": 1,
+        "etaMinUnit": "day",
+      },
+      "description": "<p>We are the industry leader in solventless distillate. We currently produce 6 different products with our Thclear Distillate, with our infamous uncut Private Reserve Cartridge being the most popular. Our other amazing products include: Disposable Pens, Cartridges, Syringes, Honeypot Vials, and our funky 50/50!</p>",
+      "id": "d60ca06a-89db-4584-99a8-1f9b9f427e42",
+      "licenses": Array [],
+      "minimumPurchasePrice": 10000,
+      "name": "THClear Co",
+      "shippingFee": 100,
+      "slug": "thclear-co",
+    },
+    "categories": Array [
+      Object {
+        "id": "af3eeab3-26f9-425b-99b5-fa70021e0d45",
+        "name": "Gummies",
+        "slug": "gummies",
+      },
+    ],
+    "departments": Array [
+      Object {
+        "id": "e306a27d-5076-4074-ab7a-21f6485ad4bb",
+        "name": "Edibles",
+        "slug": "edibles",
+      },
+    ],
+    "description": "<p>THClear blueberry gummies is made with lots of high-grade THC that delivers an unbelievably tasty flavor that leaves a blueberry aroma followed by strong feelings of happiness, creativity and euphoria. Many edible-lovers enjoy this tasty treat for its wonderful natural effects that aid in relieving stress, pain and anxiety.</p>",
+    "galleryImages": Array [
+      Object {
+        "id": "9000aaef-48c2-4691-bcfd-d6af94c66ece",
+        "largeUrl": "https://images-acceptance.weedmaps.com/photos/products/000/054/200/large/104972_THCLEAR-GUMMI-BLUEB-250.png",
+        "mediumUrl": "https://images-acceptance.weedmaps.com/photos/products/000/054/200/medium/104972_THCLEAR-GUMMI-BLUEB-250.png",
+        "smallUrl": "https://images-acceptance.weedmaps.com/photos/products/000/054/200/square/104972_THCLEAR-GUMMI-BLUEB-250.png",
+      },
+    ],
+    "id": "05f56e24-5842-4d0a-a4f0-ad18a41e2f0b",
+    "name": "BLUEBERRY GUMMIES - 250 MG",
+    "slug": "thclear-co-blueberry-gummies-250-mg",
+    "variants": Array [
+      Object {
+        "allocations": Array [
+          Object {
+            "active": true,
+            "amount": 75,
+            "currency": "usd",
+            "id": "fe745d99-d90d-41fe-888e-153601d39a90",
+            "price": "60",
+          },
+        ],
+        "id": "91d83169-d619-483d-92ff-3fb1492bebb5",
+        "name": "1 G Test Acc(DELETE WHEN DONE)",
+        "size": 1,
+        "sku": "onegee",
+        "unit": "gram",
+      },
+      Object {
+        "allocations": Array [],
+        "id": "04f16514-29fd-4835-aa91-4fbf3e3b28e3",
+        "name": "Gram",
+        "size": 2,
+        "sku": "2gram2gram2gram2gram",
+        "unit": "gram",
+      },
+      Object {
+        "allocations": Array [],
+        "id": "bd9a0d83-10ad-4689-afab-16d0fb1ad802",
+        "name": "Gram",
+        "size": 3,
+        "sku": "3gram3gram3gram3gram",
+        "unit": "gram",
+      },
+      Object {
+        "allocations": Array [],
+        "id": "692b6845-bd9d-42e6-8672-d459e1c8d4b2",
+        "name": "Gram",
+        "size": 4,
+        "sku": "4gram4gram4gram4gram",
+        "unit": "gram",
+      },
+      Object {
+        "allocations": Array [
+          Object {
+            "active": true,
+            "amount": 5,
+            "currency": "usd",
+            "id": "10a519bf-bc94-4d73-95c9-532080b52ade",
+            "price": "150",
+          },
+          Object {
+            "active": true,
+            "amount": 0,
+            "currency": "usd",
+            "id": "dfaaa1b3-b3c4-4031-b475-ca8c77919c13",
+            "price": "150",
+          },
+        ],
+        "id": "e0c6412f-05e4-4779-b964-86932d4de96a",
+        "name": "Pack of 5",
+        "size": 5,
+        "sku": "15555555555",
+        "unit": "gram",
+      },
+      Object {
+        "allocations": Array [],
+        "id": "1b9d74fd-e74a-4b7d-acf1-be7a32394ab0",
+        "name": "Gram",
+        "size": 5,
+        "sku": "5gram5gram5gram5gram",
+        "unit": "gram",
+      },
+      Object {
+        "allocations": Array [
+          Object {
+            "active": true,
+            "amount": 10,
+            "currency": "usd",
+            "id": "c4e8a036-da84-4a44-9502-fbd6593dd0b3",
+            "price": "290",
+          },
+          Object {
+            "active": true,
+            "amount": 1999,
+            "currency": "usd",
+            "id": "fbc69d33-c669-412b-8743-5ff84c07ff0d",
+            "price": "500",
+          },
+        ],
+        "id": "1e64b030-2f47-4f64-a3fa-183368d66a22",
+        "name": "Pack of 10",
+        "size": 10,
+        "sku": "1010",
+        "unit": "gram",
+      },
+      Object {
+        "allocations": Array [],
+        "id": "8bba5489-5166-4af1-bfa8-4f5603d2d8c5",
+        "name": "Gram",
+        "size": 10,
+        "sku": "10gram10gram10gram10gram",
+        "unit": "gram",
+      },
+      Object {
+        "allocations": Array [],
+        "id": "c6ec5ee6-9d6e-491f-8b29-3c980d8b5745",
+        "name": "Gram",
+        "size": 20,
+        "sku": "20gram20gram20gram20gram",
+        "unit": "gram",
+      },
+      Object {
+        "allocations": Array [
+          Object {
+            "active": true,
+            "amount": 10,
+            "currency": "usd",
+            "id": "e3ac1ecf-99fe-486f-8691-4eac6c88350a",
+            "price": "580",
+          },
+          Object {
+            "active": true,
+            "amount": 9,
+            "currency": "usd",
+            "id": "60bf4a4e-a611-4b69-a73d-604036eab6ef",
+            "price": "580",
+          },
+        ],
+        "id": "fc393e48-aad7-4b66-b9ab-2dd2a4c99280",
+        "name": "Pack of 20",
+        "size": 20,
+        "sku": "20202020220",
+        "unit": "gram",
+      },
+      Object {
+        "allocations": Array [
+          Object {
+            "active": true,
+            "amount": 75,
+            "currency": "usd",
+            "id": "d7a4da2f-ba0b-4d36-afba-5463d451c723",
+            "price": "600",
+          },
+        ],
+        "id": "e67c8429-5614-449b-96a2-7ecb15755b5f",
+        "name": "Liter Variant",
+        "size": 1,
+        "sku": "onegee",
+        "unit": "liter",
+      },
+      Object {
+        "allocations": Array [
+          Object {
+            "active": true,
+            "amount": 437,
+            "currency": "usd",
+            "id": "2b7619ef-b77f-40d7-a04c-73f1f0078605",
+            "price": "1000",
+          },
+        ],
+        "id": "6c149b1d-86de-4178-8b9e-2b5658de884d",
+        "name": "50 Units",
+        "size": 50,
+        "sku": "zzzzzzzz",
+        "unit": "unit",
+      },
+      Object {
+        "allocations": Array [],
+        "id": "b6e35903-26dd-4919-8c92-2bfa1bceec3f",
+        "name": "100 Units",
+        "size": 100,
+        "sku": "zzzzzzzz",
+        "unit": "unit",
+      },
+      Object {
+        "allocations": Array [
+          Object {
+            "active": true,
+            "amount": 75000,
+            "currency": "usd",
+            "id": "50ea6bab-524e-4e05-8ae9-14d3fdd751eb",
+            "price": "1700",
+          },
+        ],
+        "id": "c8143613-9717-4ea9-9b03-a5a3b1dd5095",
+        "name": "Gallon Variant",
+        "size": 1,
+        "sku": "onegee",
+        "unit": "gallon",
+      },
+      Object {
+        "allocations": Array [
+          Object {
+            "active": true,
+            "amount": 496,
+            "currency": "usd",
+            "id": "7e4f45f5-e60a-4faa-aa48-0ee86f051066",
+            "price": "40000",
+          },
+        ],
+        "id": "597a1148-29ce-4608-bc67-8b863a76c7c4",
+        "name": "500 Units",
+        "size": 500,
+        "sku": "zzzzzzzz",
+        "unit": "unit",
+      },
+      Object {
+        "allocations": Array [
+          Object {
+            "active": true,
+            "amount": 491,
+            "currency": "usd",
+            "id": "fff86083-41d4-447b-bfe0-459e2759ab3b",
+            "price": "55000",
+          },
+        ],
+        "id": "b8befbbe-433e-4eac-88c9-f7b539400fc2",
+        "name": "1000 Units",
+        "size": 1000,
+        "sku": "zzzzzzzz",
+        "unit": "unit",
+      },
+      Object {
+        "allocations": Array [
+          Object {
+            "active": true,
+            "amount": 491,
+            "currency": "usd",
+            "id": "254dae57-b528-4803-bbf5-365080273638",
+            "price": "106000",
+          },
+        ],
+        "id": "b531f91c-fe94-4c9a-8ace-018b722a38e9",
+        "name": "1500 Units",
+        "size": 1500,
+        "sku": "zzzzzzzz",
+        "unit": "unit",
+      },
+    ],
+  },
+  "quantity": 79098,
+  "variantCount": 17,
+  "zoneCount": 13,
+}
+`;
+
 exports[`SellerProducts Store should fetch seller products and set data 1`] = `
 Array [
   Object {
