@@ -108,7 +108,9 @@ export const FormTemplate = ({
         {errors.address && touched.address && (
           <ErrorMessage>{errors.address}</ErrorMessage>
         )}
-        <RequiredAsteriskLabel>Delivery Instructions</RequiredAsteriskLabel>
+        <RequiredAsteriskLabel required={false}>
+          Delivery Instructions
+        </RequiredAsteriskLabel>
         <FormTextArea
           data-test-id="form-instructions"
           type="text"

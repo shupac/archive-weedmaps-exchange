@@ -51,7 +51,6 @@ class LocationModal extends React.Component<Props> {
 
       delete location.id;
       location.licenses = newLicenses;
-
       buyerSettings.createNewLocation(location);
     } else {
       buyerSettings.patchLocation(location);
