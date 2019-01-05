@@ -7,16 +7,25 @@ function setup() {
     setSearch: jest.fn(),
     setDateRange: jest.fn(),
     setFilter: jest.fn(),
-    buyerOrdersStore: {
+    ordersStore: {
       locationsFilterOptions: [
         { label: 'SF Location', id: '244a4623-009f-48de-b294-9d463b9973c6' },
       ],
       brandsFilterOptions: [
         { label: 'GfarmaLabs', id: 'd054b34f-428e-4583-a2a4-27f4e5aea6f3' },
       ],
+      sellerBrandsFilterOptions: [
+        { label: 'GfarmaLabs', id: 'd054b34f-428e-4583-a2a4-27f4e5aea6f3' },
+      ],
+      sellerLocationsFilterOptions: [
+        { label: 'LA Loxation', id: 'd054b34f-428e-4583-a2a4-27f4e5aea6f3' },
+      ],
+      sellerZonesFilterOptions: [
+        { label: 'SoCal', id: 'd054b34f-428e-4583-a2a4-27f4e5aea6f3' },
+      ],
     },
   };
-  const tree = shallow(<OrdersFilters {...props} />);
+  const tree = shallow(<OrdersFilters buyersTable {...props} />);
   const instance = tree.instance();
 
   return { tree, instance, props };

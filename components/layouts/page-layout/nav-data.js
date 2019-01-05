@@ -35,7 +35,7 @@ export const buyerData = [
 
 export const sellerData = [
   {
-    name: 'Orders',
+    name: 'Purchase Orders',
     icon: sizeIcon(Cart),
     route: {
       name: 'sellerOrders',

@@ -19,6 +19,7 @@ type Props = {
   setSort: string => void,
   onCancelOrder: string => void,
   onReorder: string => void,
+  buyersTable: boolean,
 };
 
 export class OrdersTable extends Component<Props, State> {
@@ -45,8 +46,9 @@ export class OrdersTable extends Component<Props, State> {
   }
 
   render() {
-    const { orders, onCancelOrder, onReorder } = this.props;
+    const { orders, onCancelOrder, onReorder, buyersTable } = this.props;
     const { activeSort } = this.state;
+    const customerType = buyersTable ? 'buyer' : 'seller';
 
     return (
       <Table>
@@ -76,7 +78,7 @@ export class OrdersTable extends Component<Props, State> {
               isActive={activeSort === 'brand_name'}
               pointsUp={this.isPointedUp}
             >
-              seller
+              {buyersTable ? 'seller' : 'buyer'}
             </SortButton>
           </HeadCol>
           <HeadCol>
@@ -94,7 +96,7 @@ export class OrdersTable extends Component<Props, State> {
               isActive={activeSort === 'expected_ship_date'}
               pointsUp={this.isPointedUp}
             >
-              expected ship date
+              {buyersTable ? 'expected ship date' : 'zone'}
             </SortButton>
           </HeadCol>
           <HeadCol>
@@ -124,7 +126,7 @@ export class OrdersTable extends Component<Props, State> {
 
           return (
             <Fragment key={order.id}>
-              <StyledLink href={`/buyer/orders/${order.id}`}>
+              <StyledLink href={`/${customerType}/orders/${order.id}`}>
                 {order.id.substring(0, 6).toUpperCase()}
               </StyledLink>
               <p>{formatDate(order.orderDate)}</p>
@@ -136,14 +138,18 @@ export class OrdersTable extends Component<Props, State> {
               </p>
               <p>{formatDollars(Number(order.total))}</p>
               <StatusPill status={order.status} />
-              <ContextMenu>
-                {cancelable && (
-                  <MenuItem onClick={() => onCancelOrder(order.id)}>
-                    Cancel
+              {buyersTable && (
+                <ContextMenu>
+                  {cancelable && (
+                    <MenuItem onClick={() => onCancelOrder(order.id)}>
+                      Cancel
+                    </MenuItem>
+                  )}
+                  <MenuItem onClick={() => onReorder(order.id)}>
+                    Reorder
                   </MenuItem>
-                )}
-                <MenuItem onClick={() => onReorder(order.id)}>Reorder</MenuItem>
-              </ContextMenu>
+                </ContextMenu>
+              )}
               <Border />
             </Fragment>
           );

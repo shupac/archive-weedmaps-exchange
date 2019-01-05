@@ -21,14 +21,13 @@ type DateRange = {
 type Props = {
   store: StoreType,
   onCancelOrder: string => void,
-  onReorder: string => void,
 };
 
 type State = {
   mounted: boolean,
 };
 
-export class BuyerPurchaseOrders extends Component<Props, State> {
+export class SellerPurchaseOrders extends Component<Props, State> {
   state = {
     mounted: false,
   };
@@ -77,18 +76,18 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
   disposeFetchOrders = reaction(
     () => this.query.toJSON(),
     query => {
-      const { buyerOrders } = this.props.store;
+      const { sellerOrders } = this.props.store;
 
-      buyerOrders.fetchPurchaseOrders(query);
+      sellerOrders.fetchPurchaseOrders(query);
     },
     { name: 'Search and fetch filters data' },
   );
 
   disposeWatchModal = reaction(
     () => {
-      const { uiStore, buyerOrders } = this.props.store;
+      const { uiStore, sellerOrders } = this.props.store;
       const { activeModal, modalTransitioning } = uiStore;
-      const { ordersList } = buyerOrders;
+      const { ordersList } = sellerOrders;
 
       return {
         activeModal,
@@ -105,11 +104,12 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
   componentDidMount() {
     const { store } = this.props;
 
-    store.buyerOrders.fetchPurchaseOrders({
+    store.sellerOrders.fetchPurchaseOrders({
       sort: '-date_ordered',
     });
 
-    store.buyerOrders.fetchPOSellers();
+    store.sellerOrders.fetchOrders();
+    store.sellerOrders.fetchPOBuyers();
     // eslint-disable-next-line
     this.setState({ mounted: true });
   }
@@ -121,9 +121,9 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
 
   render() {
     const { mounted } = this.state;
-    const { store, onCancelOrder, onReorder } = this.props;
-    const { buyerOrders } = store;
-    const { ordersLoading } = buyerOrders;
+    const { store, onCancelOrder } = this.props;
+    const { sellerOrders, buyerOrders } = store;
+    const { ordersLoading } = sellerOrders;
     const { totalEntries, pageSize, pageNumber } = buyerOrders.ordersListMeta;
     const paginationText = getPaginationText(
       totalEntries,
@@ -159,32 +159,26 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
           setDateRange={this.setDateRange}
           dateRange={this.dateRange}
           setSearch={this.setSearch}
-          ordersStore={buyerOrders}
-          buyersTable
+          ordersStore={sellerOrders}
         />
         <TableWrapper>
           <OrdersTable
             orders={this.orders}
             setSort={this.setSort}
             onCancelOrder={onCancelOrder}
-            onReorder={onReorder}
-            buyersTable
           />
-
-          {totalEntries >= 1 && (
-            <Pagination>
-              <p>{paginationText}</p>
-              <PagingControls
-                pageCount={Math.ceil(totalEntries / pageSize)}
-                currentPage={pageNumber && Number(pageNumber)}
-                onSelectPage={this.setPage}
-              />
-            </Pagination>
-          )}
+          <Pagination>
+            <p>{paginationText}</p>
+            <PagingControls
+              pageCount={Math.ceil(totalEntries / pageSize)}
+              currentPage={pageNumber && Number(pageNumber)}
+              onSelectPage={this.setPage}
+            />
+          </Pagination>
         </TableWrapper>
       </PageWrapper>
     );
   }
 }
 
-export default inject('store')(observer(BuyerPurchaseOrders));
+export default inject('store')(observer(SellerPurchaseOrders));

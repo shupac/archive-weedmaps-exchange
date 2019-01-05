@@ -48,6 +48,12 @@ const NavIcon = {
       fill={theme.colors.primary}
     />
   ),
+  'seller-orders': (
+    <Cart
+      size={{ width: '24px', height: '24px' }}
+      fill={theme.colors.primary}
+    />
+  ),
 };
 
 const headerForPath = {
@@ -55,6 +61,7 @@ const headerForPath = {
   'buyer-orders': 'purchase orders',
   'seller-settings': 'Settings',
   'seller-products': 'products',
+  'seller-orders': 'purchase orders',
 };
 
 // Add any pathname that will exclude the Location Selector into the array

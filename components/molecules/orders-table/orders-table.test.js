@@ -7,7 +7,12 @@ import { OrdersTable } from './';
 function setup(props) {
   const setSort = jest.fn();
   const component = (
-    <OrdersTable orders={mockPurchaseOrders} setSort={setSort} {...props} />
+    <OrdersTable
+      orders={mockPurchaseOrders}
+      setSort={setSort}
+      buyersTable
+      {...props}
+    />
   );
   const wrapper = shallow(component, {
     disableLifecycleMethods: true,
