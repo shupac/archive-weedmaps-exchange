@@ -73,6 +73,7 @@
     "lodash.pick": "^4.4.0",
     "lodash.sortby": "^4.7.0",
     "lodash.uniqby": "^4.7.0",
+    "mapbox-gl": "^0.52.0",
     "mobx": "^5.0.4",
     "mobx-react": "^5.2.5",
     "mobx-state-tree": "^3.2.3",
@@ -81,7 +82,9 @@
     "polished": "^1.9.3",
     "prop-types": "^15.6.2",
     "query-string": "^6.2.0",
+    "react": "^16.6.3",
     "react-dates": "^18.2.2",
+    "react-dom": "^16.6.3",
     "react-howler": "^3.7.3",
     "react-pose": "^3.1.0",
     "react-resize-detector": "^2.3.0",
@@ -126,6 +129,7 @@
     "lint-staged": "~4.3.0",
     "nock": "^9.2.5",
     "prettier": "^1.13.7",
-    "react-addons-test-utils": "~15.6.2"
+    "react-addons-test-utils": "~15.6.2",
+    "react-component-component": "^1.2.1"
   }
 }

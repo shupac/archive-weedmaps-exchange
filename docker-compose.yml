@@ -11,6 +11,7 @@ services:
       args:
         NPM_TOKEN: ${NPM_TOKEN}
     environment:
+      - MAPBOX_ACCESS_TOKEN=${MAPBOX_ACCESS_TOKEN}
       - MOONSHOT_APP_NAME=Exchange FE
       - DEPLOY_ENVIRONMENT=${DEPLOY_ENVIRONMENT}
       - SHA=${sha}
@@ -24,6 +25,7 @@ services:
       args:
         NPM_TOKEN: ${NPM_TOKEN}
     environment:
+      - MAPBOX_ACCESS_TOKEN=${MAPBOX_ACCESS_TOKEN}
       - STORYBOOK=true
       - LOG_LEVEL=${LOG_LEVEL}
       - DEPLOY_ENVIRONMENT=${DEPLOY_ENVIRONMENT}

@@ -1,6 +1,7 @@
 export default {
   defaults: {
     sha: `${process.env.SHA || 'MISSING_SHA'}`,
+    mapboxAccessToken: `${process.env.MAPBOX_ACCESS_TOKEN}`,
   },
   test: {
     envName: 'test',

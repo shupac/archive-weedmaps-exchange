@@ -7,6 +7,10 @@ module.exports = {
     'react/sort-comp': 0,
     'flowtype/define-flow-type': 1,
     'flowtype/use-flow-type': 1,
+    'no-return-assign': 1,
+    'no-plusplus': 1,
+    'no-unused-vars': 1,
+    'no-underscore-dangle': 1
   },
   globals: {
     IS_SERVER: true,
