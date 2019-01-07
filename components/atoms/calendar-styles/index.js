@@ -571,9 +571,6 @@ const CalendarStyles = styled.div`
   .CalendarMonthGrid_month__horizontal {
     display: inline-block;
     vertical-align: top;
-    &:last-of-type {
-      margin-left: 16px;
-    }
   }
   .CalendarMonthGrid_month__hideForAnimation {
     position: absolute;
