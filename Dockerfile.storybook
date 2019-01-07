@@ -5,6 +5,7 @@ FROM node:10.8.0-alpine
 
 # To build this DockerFile, you will need to provide the NPM_TOKEN env variable
 ARG NPM_TOKEN
+ARG MAPBOX_ACCESS_TOKEN
 
 # Install git, which is not standard in alpine
 RUN apk add --no-cache git python bash make gcc g++
@@ -27,7 +28,7 @@ WORKDIR /var/www/exchange-fe
 # Add files
 ADD . /var/www/exchange-fe
 # Build the app
-RUN NODE_ENV=production yarn build-storybook
+RUN NODE_ENV=production STORYBOOK=true yarn build-storybook
 
 ## ***********************
 ##      Second Stage

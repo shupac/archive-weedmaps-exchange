@@ -94,7 +94,6 @@ jobs:
             docker tag exchangefe_storybook ${DOCKER_REGISTRY_URL}/exchange-fe/storybook:${CIRCLE_SHA1}
             docker push ${DOCKER_REGISTRY_URL}/exchange-fe/storybook:${CIRCLE_SHA1}
 
-
   deploy:
     <<: *machine_defaults
     working_directory: /home/circleci
@@ -113,7 +112,6 @@ jobs:
       - run:
           name: Deploy to Rancher
           command: APPLICATION_ENVIRONMENT=production DEPLOY_ENVIRONMENT=$(cat ~/.deploy_environment) BRANCH=${CIRCLE_BRANCH} REPOSITORY=${CIRCLE_PROJECT_REPONAME} SHA=${CIRCLE_SHA1} JENKINS_JOB=rancher_deploy ./run_jenkins
-
 
   notify_pre:
     <<: *docker_defaults
@@ -169,8 +167,6 @@ workflows:
             branches:
               only:
                 - develop
-
-
   refspec:
     jobs:
       - deploy:

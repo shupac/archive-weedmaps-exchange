@@ -24,6 +24,7 @@ services:
       dockerfile: Dockerfile.storybook
       args:
         NPM_TOKEN: ${NPM_TOKEN}
+        MAPBOX_ACCESS_TOKEN: ${MAPBOX_ACCESS_TOKEN}
     environment:
       - MAPBOX_ACCESS_TOKEN=${MAPBOX_ACCESS_TOKEN}
       - STORYBOOK=true

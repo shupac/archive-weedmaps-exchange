@@ -1,10 +1,11 @@
 import config from './app';
-
+// eslint-disable-next-line
 let exportConfig;
 
 if (
   !(typeof window !== 'undefined' && window.document) ||
-  process.env.NODE_ENV === 'test'
+  process.env.NODE_ENV === 'test' ||
+  process.env.STORYBOOK === 'true'
 ) {
   // on the server
   let configEnv = process.env.DEPLOY_ENVIRONMENT || 'development';
