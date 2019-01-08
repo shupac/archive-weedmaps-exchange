@@ -34,8 +34,8 @@ export const RegionRow = styled.div`
 `;
 
 export const ColorKey = styled.div`
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   margin-right: 8px;
   border-radius: 50%;
   border: 1px solid ${({ color }) => color};

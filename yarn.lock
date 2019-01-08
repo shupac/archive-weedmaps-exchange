@@ -4473,6 +4473,11 @@ component-emitter@^1.2.1:
   resolved "https://registry.npmjs.org/component-emitter/-/component-emitter-1.2.1.tgz#137918d6d78283f7df7a6b7c5a63e140e69425e6"
   integrity sha1-E3kY1teCg/ffemt8WmPhQOaUJeY=
 
+compute-scroll-into-view@^1.0.9:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/compute-scroll-into-view/-/compute-scroll-into-view-1.0.11.tgz#7ff0a57f9aeda6314132d8994cce7aeca794fecf"
+  integrity sha512-uUnglJowSe0IPmWOdDtrlHXof5CTIJitfJEyITHBW6zDVOGu9Pjk5puaLM73SLcwak0L4hEjO7Td88/a6P5i7A==
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
@@ -5424,10 +5429,15 @@ dotenv@~4.0.0:
   resolved "http://registry.npmjs.org/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
   integrity sha1-hk7xN5rO1Vzm+V3r7NzhefegzR0=
 
-downshift@~1.25.0:
-  version "1.25.0"
-  resolved "https://registry.npmjs.org/downshift/-/downshift-1.25.0.tgz#7f6e2dda4aa5ddbb2932401bd61e7b741e92c02e"
-  integrity sha512-oYpEdGPW9BLuM6s1pmKtAi1eKxiCL7O+1t7U4Ai1zdfUb9UHT0Gsa3bw7x07CHBACT90MMV2gFzwql1swPWSng==
+downshift@~3.1.8:
+  version "3.1.8"
+  resolved "https://registry.yarnpkg.com/downshift/-/downshift-3.1.8.tgz#0f4c64efeffae1fb978139522035a2e640cb2a01"
+  integrity sha512-giO9makvijAxDmG60XpVk84v8ovI4ex11/im4H354kq9kjxDP7SlylF6Gua2V6hRPrz7FtQM/c6rrOkXyO1Q+Q==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+    compute-scroll-into-view "^1.0.9"
+    prop-types "^15.6.0"
+    react-is "^16.5.2"
 
 duplexer2@~0.1.4:
   version "0.1.4"
@@ -11850,6 +11860,11 @@ react-is@^16.3.1, react-is@^16.3.2, react-is@^16.5.1, react-is@^16.6.1, react-is
   version "16.6.3"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.6.3.tgz#d2d7462fcfcbe6ec0da56ad69047e47e56e7eac0"
   integrity sha512-u7FDWtthB4rWibG/+mFbVd5FvdI20yde86qKGx4lVUTWmPlSWQ4QxbBIrrs+HnXGbxOUlUzTAP/VDmvCwaP2yA==
+
+react-is@^16.5.2:
+  version "16.7.0"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.7.0.tgz#c1bd21c64f1f1364c6f70695ec02d69392f41bfa"
+  integrity sha512-Z0VRQdF4NPDoI0tsXVMLkJLiwEBa+RP66g0xDHxgxysxSoCUccSten4RTF/UFvZF1dZvZ9Zu1sx+MDXwcOR34g==
 
 react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
