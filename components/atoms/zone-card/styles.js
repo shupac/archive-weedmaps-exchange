@@ -16,7 +16,7 @@ export const TitleRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   > p {
     margin: 0;
     font-size: ${rem(16)};
@@ -30,7 +30,7 @@ export const RegionRow = styled.div`
   max-width: 90%;
   margin-left: 20px;
   font-size: ${rem(14)};
-  line-height: 1.25;
+  line-height: 1.5;
 `;
 
 export const ColorKey = styled.div`
