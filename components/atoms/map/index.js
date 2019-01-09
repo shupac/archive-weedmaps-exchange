@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, Fragment, createRef, Children } from 'react';
+import * as React from 'react'; // React, { Component, Fragment, createRef, Children } from 'react';
 import Head from 'next/head';
 import mapboxgl from 'mapbox-gl';
 import config from 'config';
@@ -28,8 +28,10 @@ type State = {
 
 mapboxgl.accessToken = config.mapboxAccessToken;
 
-export default class Map extends Component<Props, State> {
-  mapRef: { current: null | HTMLDivElement } = createRef();
+export default class Map extends React.Component<Props, State> {
+  // $FlowFixMe createRef does exist stupid flow
+  mapRef: { current: null | HTMLDivElement } = React.createRef();
+  map: any;
   state = { map: null };
 
   componentDidMount() {
@@ -40,22 +42,24 @@ export default class Map extends Component<Props, State> {
     this.map.off('moveend', this.onMoveEnd);
   }
 
-  onMoveEnd = e => {
+  onMoveEnd = (e: any) => {
     if (this.props.onMoveEnd) {
       const mapboxBounds = this.map.getBounds();
-      this.props.onMoveEnd(
-        {
-          ne: {
-            lat: mapboxBounds._ne.lat,
-            lng: mapboxBounds._ne.lng,
+      if (this.props.onMoveEnd) {
+        this.props.onMoveEnd(
+          {
+            ne: {
+              lat: mapboxBounds._ne.lat,
+              lng: mapboxBounds._ne.lng,
+            },
+            sw: {
+              lat: mapboxBounds._sw.lat,
+              lng: mapboxBounds._sw.lng,
+            },
           },
-          sw: {
-            lat: mapboxBounds._sw.lat,
-            lng: mapboxBounds._sw.lng,
-          },
-        },
-        e,
-      );
+          e,
+        );
+      }
     }
   };
 
@@ -85,17 +89,19 @@ export default class Map extends Component<Props, State> {
   fitMap = () => {
     const { children } = this.props;
     const geometries = [];
-    Children.forEach(children, child => {
-      geometries.push(child.props.geometry);
-    });
-    const bounds = getBoundingBox(geometries);
-    this.map.fitBounds(
-      [[bounds.sw.lng, bounds.sw.lat], [bounds.ne.lng, bounds.ne.lat]],
-      {
-        linear: true,
-        padding: { top: 10, bottom: 10, left: 10, right: 10 },
-      },
-    );
+    if (children) {
+      React.Children.forEach(children, child => {
+        geometries.push(child.props.geometry);
+      });
+      const bounds = getBoundingBox(geometries);
+      this.map.fitBounds(
+        [[bounds.sw.lng, bounds.sw.lat], [bounds.ne.lng, bounds.ne.lat]],
+        {
+          linear: true,
+          padding: { top: 10, bottom: 10, left: 10, right: 10 },
+        },
+      );
+    }
   };
 
   render() {
@@ -103,7 +109,7 @@ export default class Map extends Component<Props, State> {
     const { className, children } = this.props;
 
     return (
-      <Fragment>
+      <>
         <Head>
           <link
             data-test-id="map-style-tag"
@@ -116,7 +122,7 @@ export default class Map extends Component<Props, State> {
         <MapContext.Provider value={this.state.map} data-test-id="map-provider">
           {children}
         </MapContext.Provider>
-      </Fragment>
+      </>
     );
   }
 }

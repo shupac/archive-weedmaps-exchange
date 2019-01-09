@@ -23,7 +23,7 @@ export default class GeoJson extends Component<Props> {
   disposeClickHandler: () => void;
   disposeLoadHandler: () => void;
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     const map = this.context;
     const { fill, opacity } = this.props;
 
@@ -50,10 +50,10 @@ export default class GeoJson extends Component<Props> {
     this.disposeLoadHandler();
   }
 
-  onLayerClick = e => {
+  onLayerClick = () => {
     const { onClick } = this.props;
     if (onClick) {
-      onClick(e);
+      onClick();
     }
   };
 

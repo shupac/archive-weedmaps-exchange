@@ -2,7 +2,7 @@
 export type Point = [number, number];
 export type Geometry = {
   type: string,
-  coordinates: Point[],
+  coordinates: Point[][] | Point[][][],
 };
 export type Bounds = {
   ne: {
@@ -28,9 +28,10 @@ export function getBoundingBox(geometries: Geometry[]): Bounds {
 
   // Loop through each "feature"
   for (let i = 0; i < geometries.length; i++) {
-    const { coordinates } = geometries[i];
+    let { coordinates } = geometries[i];
 
     if (coordinates.length === 1) {
+      coordinates = ((coordinates: any): Point[][]);
       // It's only a single Polygon
       // For each individual coordinate in this feature's coordinates...
       for (let j = 0; j < coordinates[0].length; j++) {
@@ -44,6 +45,7 @@ export function getBoundingBox(geometries: Geometry[]): Bounds {
         bounds.yMax = bounds.yMax > latitude ? bounds.yMax : latitude;
       }
     } else {
+      coordinates = ((coordinates: any): Point[][][]);
       // It's a MultiPolygon
       // Loop through each coordinate set
       for (let j = 0; j < coordinates.length; j++) {

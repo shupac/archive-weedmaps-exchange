@@ -59,6 +59,8 @@ jobs:
       - restore_cache:
           keys: *cache_keys
       - *yarn_install
+      - run: yarn flow check
+      - run: yarn lint
       - save_cache:
           key: *cache_key
           paths: *cache_paths

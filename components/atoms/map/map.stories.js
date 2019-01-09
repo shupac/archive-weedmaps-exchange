@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import { action } from '@storybook/addon-actions';
 import StateComponent from 'react-component-component';
-
+import { type Point } from './utils';
 import Map from './index';
 import GeoJson from './geo-json';
 
@@ -41,7 +41,7 @@ export default storiesOf('Map', module)
             label="Irvine"
             geometry={{
               type: 'Polygon',
-              coordinates: [
+              coordinates: ([
                 [
                   [-117.7621078491211, 33.65263724181318],
                   [-117.74906158447266, 33.68121111121435],
@@ -51,7 +51,7 @@ export default storiesOf('Map', module)
                   [-117.86888122558592, 33.688924428426475],
                   [-117.7621078491211, 33.65263724181318],
                 ],
-              ],
+              ]: Point[][]),
             }}
           />
           <GeoJson
@@ -60,7 +60,7 @@ export default storiesOf('Map', module)
             label="South Santa Ana"
             geometry={{
               type: 'Polygon',
-              coordinates: [
+              coordinates: ([
                 [
                   [-117.9045867919922, 33.75574417520175],
                   [-117.93651580810547, 33.69492319661598],
@@ -69,7 +69,7 @@ export default storiesOf('Map', module)
                   [-117.84519195556639, 33.71805737954357],
                   [-117.9045867919922, 33.75574417520175],
                 ],
-              ],
+              ]: Point[][]),
             }}
           />
           <GeoJson
@@ -82,7 +82,7 @@ export default storiesOf('Map', module)
             label="North Santa Ana"
             geometry={{
               type: 'Polygon',
-              coordinates: [
+              coordinates: ([
                 [
                   [-117.81051635742186, 33.75146241858857],
                   [-117.7906036376953, 33.77172751039999],
@@ -92,7 +92,7 @@ export default storiesOf('Map', module)
                   [-117.84450531005858, 33.71834294779959],
                   [-117.81051635742186, 33.75146241858857],
                 ],
-              ],
+              ]: Point[][]),
             }}
           />
         </ResponsiveMap>
