@@ -61,11 +61,13 @@ export const FormHeader = styled.div`
   border-bottom: 1px solid ${icon.inverted};
   font-size: ${rem(22)};
   padding: 16px 27px;
+  font-weight: 600;
 `;
 
 export const FormCategory = styled.div`
   font-size: ${rem(20)};
   font-weight: 600;
+  color: ${text.normal};
   border-bottom: 1px solid ${icon.inverted};
   padding-bottom: 8px;
   margin: 16px 0 24px 0;

@@ -1,14 +1,14 @@
 // @flow
-import React, { Component } from 'react';
+import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { type StoreType } from 'lib/types/store';
-import BuyerProfile from './buyer-profile-form';
+import Profile from './profile-form';
 
 type Props = {
   store: StoreType,
 };
 
-class Profile extends Component<Props> {
+class SettingsProfile extends React.Component<Props> {
   onSubmit = organization => {
     const { uiStore, authStore } = this.props.store;
     const notification = {
@@ -24,12 +24,8 @@ class Profile extends Component<Props> {
   render() {
     const { org } = this.props.store.authStore;
     if (!org) return null;
-    return (
-      <div>
-        <BuyerProfile organization={org} onSubmit={this.onSubmit} />
-      </div>
-    );
+    return <Profile organization={org} onSubmit={this.onSubmit} />;
   }
 }
 
-export default inject('store')(observer(Profile));
+export default inject('store')(observer(SettingsProfile));

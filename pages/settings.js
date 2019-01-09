@@ -11,7 +11,7 @@ import provide from 'lib/data-access/stores/provider';
 import Subheader from 'components/atoms/subheader';
 import ShowIfRoute from 'components/atoms/show-if-route';
 import Locations from 'components/organisms/settings-locations';
-import Profile from 'components/organisms/settings-profile';
+import SettingsProfile from 'components/organisms/settings-profile';
 import {
   PageContent,
   PageLayout,
@@ -73,7 +73,7 @@ export class Settings extends Component<Props> {
           </Subheader>
           <TabContent>
             <ShowIfRoute match="/buyer/settings/profile">
-              <Profile />
+              <SettingsProfile />
             </ShowIfRoute>
 
             <ShowIfRoute match="/buyer/settings/locations">

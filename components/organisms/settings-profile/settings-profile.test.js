@@ -5,8 +5,8 @@ import AuthStore from 'lib/data-access/stores/auth';
 import { LICENSE_TYPES } from 'lib/common/constants';
 import mockOrganization from 'lib/mocks/organization';
 import mockUserData from 'lib/mocks/user-data';
-import BuyerProfile, { BuyerProfileForm } from './buyer-profile-form';
-import Profile from './';
+import Profile, { ProfileForm } from './profile-form';
+import SettingsProfile from './';
 
 function setup(org) {
   const mockFetchClient = {
@@ -19,7 +19,7 @@ function setup(org) {
       { client: mockFetchClient },
     ),
   };
-  const component = <Profile store={mockStore} />;
+  const component = <SettingsProfile store={mockStore} />;
   const wrapper = shallow(component).dive();
   return { wrapper };
 }
@@ -43,7 +43,7 @@ function formSetup() {
     touched: { name: 'address' },
   };
   const formWrapper = shallow(
-    <BuyerProfileForm
+    <ProfileForm
       store={store}
       values={mockOrganization}
       licenseTypes={LICENSE_TYPES}
@@ -56,11 +56,11 @@ function formSetup() {
 describe('Profile', () => {
   it('should not render the profile if there is no organization data', () => {
     const { wrapper } = setup(undefined);
-    expect(wrapper.find(BuyerProfile).length).toEqual(0);
+    expect(wrapper.find(Profile).length).toEqual(0);
   });
   it('should render the Buyer Profile page when there is organization data', () => {
     const { wrapper } = setup(mockOrganization);
-    expect(wrapper.find(BuyerProfile).exists()).toEqual(true);
+    expect(wrapper.find(Profile).exists()).toEqual(true);
   });
 });
 

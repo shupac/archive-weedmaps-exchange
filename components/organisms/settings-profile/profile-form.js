@@ -44,7 +44,7 @@ type Props = {
   isSubmitting: boolean,
 };
 
-export const BuyerProfileForm = ({
+export const ProfileForm = ({
   values,
   errors,
   touched,
@@ -351,8 +351,8 @@ const FormikWrapper = withFormik({
     setSubmitting(false);
     resetForm(values);
   },
-})(inject('store')(observer(BuyerProfileForm)));
+})(inject('store')(observer(ProfileForm)));
 
-const BuyerProfile = FormikWrapper;
+const Profile = FormikWrapper;
 
-export default BuyerProfile;
+export default Profile;
