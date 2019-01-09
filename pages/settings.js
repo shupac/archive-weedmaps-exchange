@@ -39,11 +39,11 @@ export class Settings extends Component<Props> {
 
   render() {
     const { url, store } = this.props;
-    const { pathname, query } = url;
+    const { query } = url;
     const { uiStore, buyerSettings } = store;
 
     return (
-      <PageLayout pathname={pathname}>
+      <PageLayout>
         <PageContent>
           <Subheader>
             <Fragment>

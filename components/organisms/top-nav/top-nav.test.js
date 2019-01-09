@@ -5,7 +5,10 @@ import TopNav from './';
 
 describe('Top Nav', () => {
   const props = {
-    pathname: '/marketplace',
+    router: {
+      pathname: '/marketplace',
+      asPath: '/buyer/marketplace',
+    },
   };
   it('Top Nav', () => {
     const tree = shallow(
@@ -17,7 +20,7 @@ describe('Top Nav', () => {
         userName="gabOng"
         {...props}
       />,
-    );
+    ).dive();
     expect(tree.exists()).toEqual(true);
     expect(tree.find(LocationSelector).exists()).toEqual(true);
   });

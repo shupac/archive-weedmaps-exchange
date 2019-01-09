@@ -37,10 +37,8 @@ type Props = {
 export class Marketplace extends Component<Props> {
   render() {
     const { url } = this.props;
-    const { pathname } = url;
-
     return (
-      <PageLayout pathname={pathname}>
+      <PageLayout>
         <PageContent>
           <Subheader>
             <Tabs>

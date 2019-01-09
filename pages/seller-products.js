@@ -19,12 +19,11 @@ class SellerProductsPage extends Component<Props> {
   render() {
     const { url } = this.props;
     const {
-      pathname,
       query: { productId },
     } = url;
 
     return (
-      <PageLayout pathname={pathname}>
+      <PageLayout>
         <PageContent>
           <ShowIfRoute match="/seller/products">
             <SellerProducts />

@@ -17,10 +17,8 @@ export class Cart extends Component<Props> {
 
   render() {
     const { url } = this.props;
-    const { pathname } = url;
-
     return (
-      <PageLayout pathname={pathname}>
+      <PageLayout>
         <PageContent>
           <ShowIfRoute match="/buyer/cart">
             <BuyerCart />

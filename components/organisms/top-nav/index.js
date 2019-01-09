@@ -5,6 +5,7 @@ import { Cart, Settings, Papers } from 'components/atoms/icons';
 import Notification from 'components/molecules/top-nav-notification';
 import LocationSelector from 'components/atoms/location-selector';
 import UserDropdown from 'components/molecules/top-nav-user-dropdown';
+import { withRouter } from 'next/router';
 import theme from 'lib/styles/theme';
 import {
   TopNavContainer,
@@ -19,7 +20,7 @@ type Props = {
   user: any,
   avatarUrl?: string,
   onMenuClick: string => void,
-  pathname?: string,
+  router: any,
 };
 
 const NavIcon = {
@@ -74,8 +75,10 @@ export class TopNav extends Component<Props> {
   };
 
   render() {
-    const { onMenuClick, pathname } = this.props;
+    const { onMenuClick, router } = this.props;
+    const { pathname, asPath } = router;
     const pathName = pathname && pathname.substring(1);
+    const customerType = asPath.match(/(\w+)/)[0];
 
     return (
       <TopNavContainer>
@@ -89,9 +92,11 @@ export class TopNav extends Component<Props> {
               <span>{headerForPath[pathName] || pathName}</span>
             </NavContent>
           )}
-          <LocationSelector
-            isHidden={excludeLocationSelector.includes(pathName)}
-          />
+          {customerType === 'buyer' && (
+            <LocationSelector
+              isHidden={excludeLocationSelector.includes(pathName)}
+            />
+          )}
         </LeftContainer>
         <RightContainer>
           <Notification />
@@ -101,4 +106,4 @@ export class TopNav extends Component<Props> {
     );
   }
 }
-export default TopNav;
+export default withRouter(TopNav);

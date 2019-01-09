@@ -56,12 +56,11 @@ class BuyerOrdersPage extends Component<Props> {
   render() {
     const { url } = this.props;
     const {
-      pathname,
       query: { orderId },
     } = url;
 
     return (
-      <PageLayout pathname={pathname}>
+      <PageLayout>
         <PageContent>
           <ShowIfRoute match="/buyer/orders">
             <BuyerPurchaseOrders

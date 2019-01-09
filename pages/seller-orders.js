@@ -12,7 +12,6 @@ import { type StoreType } from 'lib/types/store';
 
 type Props = {
   store: StoreType,
-  url: any,
 };
 
 export class SellerOrdersPage extends Component<Props> {
@@ -24,11 +23,8 @@ export class SellerOrdersPage extends Component<Props> {
   };
 
   render() {
-    const { url } = this.props;
-    const { pathname } = url;
-
     return (
-      <PageLayout pathname={pathname}>
+      <PageLayout>
         <PageContent>
           <ShowIfRoute match="/seller/orders">
             <SellerPurchaseOrders onCancelOrder={this.cancelOrder} />

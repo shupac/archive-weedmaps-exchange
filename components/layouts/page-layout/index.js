@@ -51,7 +51,6 @@ type Props = {
   contentScrollY?: boolean,
   contentScrollX?: boolean,
   flexRow?: boolean,
-  pathname?: string,
 };
 
 type State = {
@@ -90,11 +89,9 @@ export class PageLayout extends React.Component<Props, State> {
       contentScrollY,
       contentScrollX,
       flexRow,
-      pathname,
     } = this.props;
 
     const { collapse } = this.state;
-
     return (
       <ThemeProvider theme={theme}>
         <PageContainer pageScrollY={pageScrollY} pageScrollX={pageScrollX}>
@@ -105,11 +102,7 @@ export class PageLayout extends React.Component<Props, State> {
           />
           <RightContainer>
             <div>
-              <TopNav
-                activeLink={activeLink}
-                onMenuClick={this.onMenuClick}
-                pathname={pathname}
-              />
+              <TopNav activeLink={activeLink} onMenuClick={this.onMenuClick} />
             </div>
             <ContentContainer
               className={`page ${this.props.className}`}
