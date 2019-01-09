@@ -16,7 +16,7 @@ export const CancelButton = styled(ButtonWhiteNoHover)`
 `;
 
 export const TrashcanBorder = styled.div`
-  padding: 8px;
+  padding: 11px;
   border-radius: 3px;
   border: 1px solid ${border.default};
   cursor: pointer;
@@ -28,7 +28,7 @@ export const LicenseNumberWrapper = styled.div`
 `;
 
 export const SelectLocation = styled(Select)`
-  width: 297px;
+  width: 100%;
   ${SelectButton} {
     line-height: ${rem(24)};
     padding: 9px 48px 9px 16px;
@@ -98,7 +98,9 @@ export const FormTextArea = styled.textarea`
 
 export const ErrorMessage = styled.div`
   color: ${theme.colors.red};
+  margin-top: 8px;
   margin-bottom: 16px;
+  font-size: ${rem(12)};
 `;
 
 export const FormInput = styled.input`
