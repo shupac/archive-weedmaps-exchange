@@ -65,10 +65,9 @@ export class SellerProducts extends Component<Props, State> {
   };
 
   componentDidMount() {
-    const { buyerSettings } = this.props.store;
+    const { sellerSettings } = this.props.store;
 
-    // blocked by SRVC-4597 so using buyer depts for now
-    buyerSettings.getDepartments();
+    sellerSettings.fetchDepartments();
     this.searchProducts();
 
     // eslint-disable-next-line
@@ -119,7 +118,7 @@ export class SellerProducts extends Component<Props, State> {
   };
 
   getCategories = () => {
-    const { departments } = this.props.store.buyerSettings;
+    const { departments } = this.props.store.sellerSettings;
     return departments.map(parent => ({
       parent: {
         id: parent.id,

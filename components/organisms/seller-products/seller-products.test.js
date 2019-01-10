@@ -2,8 +2,7 @@ import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
 import { ToggleSwitch } from '@ghostgroup/ui';
 
-// blocked by SRVC-4597 so using buyer depts for now
-import BuyerSettingsStore from 'lib/data-access/stores/buyer-settings';
+import SellerSettingsStore from 'lib/data-access/stores/seller-settings';
 import SellerProductsStore from 'lib/data-access/stores/seller-products';
 import mockProductsResponse from 'lib/mocks/seller-products';
 import { mockCategories } from 'lib/mocks/categories';
@@ -16,8 +15,8 @@ function setup(props) {
       sellerProducts: mockProductsResponse.data,
       sellerProductsTotalItems: mockProductsResponse.meta.totalEntries,
     }),
-    buyerSettings: BuyerSettingsStore.create({
-      departmentsData: mockCategories,
+    sellerSettings: SellerSettingsStore.create({
+      departments: mockCategories,
     }),
   };
 
@@ -41,15 +40,14 @@ describe('Seller Products Page', () => {
   it('should fetch departments on mount', () => {
     const { wrapper, mockStore } = setup();
     const instance = wrapper.instance();
-    // blocked by SRVC-4597 so using buyer depts for now
-    const getDepartments = jest
-      .spyOn(mockStore.buyerSettings, 'getDepartments')
+    const fetchDepartments = jest
+      .spyOn(mockStore.sellerSettings, 'fetchDepartments')
       .mockReturnValue();
     const fetchProducts = jest
       .spyOn(mockStore.sellerProducts, 'fetchProducts')
       .mockReturnValue();
     instance.componentDidMount();
-    expect(getDepartments).toHaveBeenCalled();
+    expect(fetchDepartments).toHaveBeenCalled();
     expect(fetchProducts).toHaveBeenCalled();
   });
 
