@@ -187,10 +187,12 @@ export class ProductVariants extends Component<Props, State> {
                   <p>{dollarTotal}</p>
                 </TotalsRow>
                 <ButtonRow>
-                  <ActionButton state="secondary">
-                    <Icons.Plus fill={WmTheme.style.state.dark} size="26px" />
-                    ADD TO WATCHLIST
-                  </ActionButton>
+                  {
+                    // <ActionButton state="secondary">
+                    //   <Icons.Plus fill={WmTheme.style.state.dark} size="26px" />
+                    //   ADD TO WATCHLIST
+                    // </ActionButton>
+                  }
                   <ActionButton
                     data-test-id="add-to-cart-button"
                     type="submit"
