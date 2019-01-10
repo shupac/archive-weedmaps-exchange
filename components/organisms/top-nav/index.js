@@ -1,10 +1,12 @@
 // @flow
 import React, { Component } from 'react';
 import Menu from 'components/molecules/top-nav-menu';
+import { inject, observer } from 'mobx-react';
 import { Cart, Settings, Papers } from 'components/atoms/icons';
 import Notification from 'components/molecules/top-nav-notification';
 import LocationSelector from 'components/atoms/location-selector';
 import UserDropdown from 'components/molecules/top-nav-user-dropdown';
+import { type StoreType } from 'lib/types/store';
 import { withRouter } from 'next/router';
 import theme from 'lib/styles/theme';
 import {
@@ -21,6 +23,7 @@ type Props = {
   avatarUrl?: string,
   onMenuClick: string => void,
   router: any,
+  store: StoreType,
 };
 
 const NavIcon = {
@@ -75,10 +78,11 @@ export class TopNav extends Component<Props> {
   };
 
   render() {
-    const { onMenuClick, router } = this.props;
-    const { pathname, asPath } = router;
+    const { onMenuClick, router, store } = this.props;
+    const { authStore } = store;
+    const { activeContext } = authStore;
+    const { pathname } = router;
     const pathName = pathname && pathname.substring(1);
-    const customerType = asPath.match(/(\w+)/)[0];
 
     return (
       <TopNavContainer>
@@ -92,18 +96,18 @@ export class TopNav extends Component<Props> {
               <span>{headerForPath[pathName] || pathName}</span>
             </NavContent>
           )}
-          {customerType === 'buyer' && (
+          {activeContext === 'buyer' && (
             <LocationSelector
               isHidden={excludeLocationSelector.includes(pathName)}
             />
           )}
         </LeftContainer>
         <RightContainer>
-          <Notification />
+          {activeContext === 'buyer' && <Notification />}
           <UserDropdown />
         </RightContainer>
       </TopNavContainer>
     );
   }
 }
-export default withRouter(TopNav);
+export default withRouter(inject('store')(observer(TopNav)));
