@@ -4,6 +4,8 @@ import { mockProducts } from 'lib/mocks/search-results';
 import BuyerProducts from 'lib/data-access/stores/buyer-products';
 import BuyerCart from 'lib/data-access/stores/buyer-cart';
 import AuthStore from 'lib/data-access/stores/auth';
+import { observable } from 'mobx';
+import { mockEmptyCategories } from 'lib/mocks/categories';
 import { ProductDetails } from './';
 
 function setup() {
@@ -18,6 +20,12 @@ function setup() {
     buyerProducts: mockProductsStore,
     buyerCart: mockCartStore,
     authStore: mockAuthStore,
+    buyerSettings: {
+      getDepartments: jest.fn(),
+      getBrands: jest.fn(),
+      departments: mockEmptyCategories,
+      brands: observable([]),
+    },
   };
 
   const props = {
@@ -38,6 +46,13 @@ describe('Product Detail Page', () => {
       const { wrapper } = setup();
       const breadCrumb = wrapper.find('Breadcrumbs');
       expect(breadCrumb.exists()).toEqual(true);
+    });
+
+    it('should fetch departments data', () => {
+      const { wrapper, mockStore } = setup();
+      const instance = wrapper.instance();
+      instance.componentDidMount();
+      expect(mockStore.buyerSettings.getDepartments).toHaveBeenCalled();
     });
 
     it('should render a product photo gallery', () => {

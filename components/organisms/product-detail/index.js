@@ -33,10 +33,16 @@ export class ProductDetails extends Component<Props> {
 
   componentDidMount() {
     this.getProductDetails();
+    this.fetchDepartmentData();
   }
 
   componentWillUnmount() {
     this.dispose();
+  }
+
+  fetchDepartmentData() {
+    const { buyerSettings } = this.props.store;
+    buyerSettings.getDepartments();
   }
 
   getProductDetails = () => {
