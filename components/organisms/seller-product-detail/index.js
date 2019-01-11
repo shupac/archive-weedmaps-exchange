@@ -2,21 +2,11 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { type StoreType } from 'lib/types/store';
-import Breadcrumbs from 'components/molecules/breadcrumbs';
+import { type SellerProductType } from 'models/seller-product';
+import { type ZoneType } from 'models/zone';
+import { Formik } from 'formik';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
-
-import {
-  SellerProductWrapper,
-  Layout,
-  ProductName,
-  VariantWrapper,
-  AvailabilityWrapper,
-  VariantHeader,
-  VariantInfo,
-  AddVariantButton,
-  InstructionsWrapper,
-  ZonesLink,
-} from './styles';
+import ProductForm from './product-form';
 
 type Props = {
   store: StoreType,
@@ -27,18 +17,31 @@ type State = {
   mounted: boolean,
 };
 
+type FormikProps = {
+  values: SellerProductType,
+  handleChange: mixed => void,
+  handleSubmit: mixed => void,
+  handleReset: mixed => void,
+  dirty: boolean,
+  isSubmitting: boolean,
+};
+
+type FormikActions = {
+  setSubmitting: boolean => void,
+  resetForm: () => void,
+};
+
 export class SellerProductDetails extends Component<Props, State> {
   state = {
     mounted: false,
   };
 
-  constructBreadcrumb = () => {
-    const baseCrumb = {
-      label: 'Products',
-      route: '/seller/products',
-    };
-
-    return [baseCrumb];
+  onSubmit = async (values: SellerProductType, actions: FormikActions) => {
+    const { sellerProducts } = this.props.store;
+    actions.setSubmitting(true);
+    await sellerProducts.updateSellerProduct(values);
+    actions.setSubmitting(false);
+    actions.resetForm();
   };
 
   componentDidMount() {
@@ -60,6 +63,10 @@ export class SellerProductDetails extends Component<Props, State> {
       sellerProductDetails,
     } = store.sellerProducts;
 
+    // so MobX updates component after zones load
+    // $FlowFixMe
+    const zones = store.sellerSettings.zones.toJSON();
+
     if (!mounted || fetchingProductDetails) {
       return (
         <LoaderWrapper>
@@ -68,32 +75,18 @@ export class SellerProductDetails extends Component<Props, State> {
       );
     }
 
-    const { product } = sellerProductDetails;
-    const { name } = product;
-
     return (
-      <SellerProductWrapper>
-        <Breadcrumbs links={this.constructBreadcrumb()} activeLabel="Product" />
-        <ProductName>{name}</ProductName>
-        <Layout>
-          <VariantWrapper>
-            <VariantHeader>Variants</VariantHeader>
-            <VariantInfo>
-              Add variants for each version of this product, like different
-              weights or packs. Then you can configure the selling options for
-              each variant and quantity to allocate to each zone.
-            </VariantInfo>
-            <AddVariantButton>Add Variant</AddVariantButton>
-            <InstructionsWrapper>
-              Modify the variants and zone allocations to be created:
-              <ZonesLink>View Zones</ZonesLink>
-            </InstructionsWrapper>
-          </VariantWrapper>
-          <AvailabilityWrapper />
-        </Layout>
-      </SellerProductWrapper>
+      <Formik
+        initialValues={sellerProductDetails}
+        onSubmit={this.onSubmit}
+        render={this.renderForm(zones)}
+      />
     );
   }
+
+  renderForm = (zones: ZoneType[]) => (formikProps: FormikProps) => (
+    <ProductForm zones={zones} {...formikProps} />
+  );
 }
 
 export default inject('store')(observer(SellerProductDetails));

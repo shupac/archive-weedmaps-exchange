@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Seller Product Details Variant Card should calculate available zones 1`] = `
+Array [
+  Object {
+    "color": "#4A90E2",
+    "id": "0ccf7a68-8f23-4dad-91bb-8d93f9d7cf29",
+    "name": "NorCal",
+    "regions": Array [],
+  },
+  Object {
+    "color": "#D0021B",
+    "id": "89cfc0ca-4410-49e2-af3a-f74808926bbd",
+    "name": "Andrew's Zone #3 3449 Updated 5",
+    "regions": Array [
+      Object {
+        "id": "2411d92b-d816-4d63-be75-d1a526cb84b3",
+        "name": "Central California",
+      },
+      Object {
+        "id": "f72ef8f0-3ba0-40d7-b328-613ab851bc26",
+        "name": "Oregon",
+      },
+      Object {
+        "id": "fd167cb8-5be3-4c5e-9207-1e78b771c11d",
+        "name": "Arkansas",
+      },
+      Object {
+        "id": "edd2ef7e-00b4-444d-b3e3-996ccbaa7b95",
+        "name": "Texas",
+      },
+      Object {
+        "id": "edd2ef7e-00b4-444d-b3e3-996csdfaa7b95",
+        "name": "Northern California",
+      },
+    ],
+  },
+]
+`;

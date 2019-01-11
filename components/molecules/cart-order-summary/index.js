@@ -61,6 +61,7 @@ const CartOrderSummary = ({ cart, quantity, onSubmit, isLoading }: Props) => {
                 <LoadingButton
                   onClick={onSubmit}
                   isLoading={isLoading || false}
+                  disabled={isLoading}
                   loadingText="Submitting"
                   size={{
                     width: '100%',
