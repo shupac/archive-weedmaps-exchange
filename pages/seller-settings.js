@@ -14,6 +14,7 @@ import TabButton from 'components/atoms/tab-button';
 import Subheader from 'components/atoms/subheader';
 import ShowIfRoute from 'components/atoms/show-if-route';
 import SettingsProfile from 'components/organisms/settings-profile';
+import ZoneEditor from 'components/organisms/zone-editor';
 import { type StoreType } from 'lib/types/store';
 
 type Props = {
@@ -57,11 +58,14 @@ export class SellerSettingsPage extends React.Component<Props> {
               ))}
             </Tabs>
           </Subheader>
-          <TabContent>
-            <ShowIfRoute match="/seller/settings/profile">
+          <ShowIfRoute match="/seller/settings/profile">
+            <TabContent>
               <SettingsProfile />
-            </ShowIfRoute>
-          </TabContent>
+            </TabContent>
+          </ShowIfRoute>
+          <ShowIfRoute match="/seller/settings/zones">
+            <ZoneEditor />
+          </ShowIfRoute>
         </PageContent>
       </PageLayout>
     );

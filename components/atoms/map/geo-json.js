@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import { Component } from 'react';
 import uniqueKey from 'lib/common/unique-key';
 import MapContext from './context';
 import { type Geometry } from './utils';

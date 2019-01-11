@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import MapboxGl from 'mapbox-gl';
 import findByTestId from 'lib/jest/find-by-test-id';
 import Map from './';
 import GeoJson from './geo-json';
@@ -7,8 +6,9 @@ import GeoJson from './geo-json';
 jest.mock('mapbox-gl');
 
 describe('map', () => {
+  let MapBox;
   beforeEach(() => {
-    MapboxGl.Map.mockClear();
+    MapBox = require('mapbox-gl');
   });
 
   it('will setup the mapbox styles', () => {
@@ -112,7 +112,7 @@ describe('map', () => {
   describe('with a center point', () => {
     it('will setup the map with the right center', () => {
       shallow(<Map center={[-111.023889, 32.1561235]} />);
-      expect(MapboxGl.Map).toHaveBeenCalledWith({
+      expect(MapBox.Map).toHaveBeenCalledWith({
         center: [-111.023889, 32.1561235],
         container: null,
         doubleClickZoom: false,

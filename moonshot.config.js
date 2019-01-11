@@ -5,7 +5,7 @@ export default {
     const csp = {
       policy: {
         directives: {
-          'default-src': ['self', 'strict-dynamic'],
+          'default-src': ['self'],
           'script-src': [
             'self',
             'https://*.amplitude.com',
@@ -29,6 +29,7 @@ export default {
           'style-src': ['self', 'data:', 'unsafe-inline', '*.mapbox.com'],
           'font-src': ['self', 'https://cdn.joinhoney.com'],
           'frame-src': ['self'],
+          'child-src': ['blob:'],
           'connect-src': [
             'self',
             'https://*.internal-weedmaps.com',

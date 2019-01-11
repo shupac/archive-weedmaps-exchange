@@ -1,7 +1,6 @@
 // @flow
 import * as React from 'react'; // React, { Component, Fragment, createRef, Children } from 'react';
 import Head from 'next/head';
-import mapboxgl from 'mapbox-gl';
 import config from 'config';
 import GeoJson from './geo-json';
 import MapContext from './context';
@@ -25,8 +24,6 @@ type Props = {
 type State = {
   map: any,
 };
-
-mapboxgl.accessToken = config.mapboxAccessToken;
 
 export default class Map extends React.Component<Props, State> {
   // $FlowFixMe createRef does exist stupid flow
@@ -65,6 +62,8 @@ export default class Map extends React.Component<Props, State> {
 
   setupMap = () => {
     const { fit, center } = this.props;
+    const mapboxgl = require('mapbox-gl');
+    mapboxgl.accessToken = config.mapboxAccessToken;
 
     this.map = new mapboxgl.Map({
       container: this.mapRef.current,

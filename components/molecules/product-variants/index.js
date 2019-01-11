@@ -7,7 +7,6 @@ import type { FormikActions } from 'formik';
 import { formatDollars } from 'lib/common/strings';
 import { Cart } from 'components/atoms/icons/cart';
 import { type StoreType } from 'lib/types/store';
-import { WmTheme, Icons } from '@ghostgroup/ui';
 import type { VariantType } from 'lib/data-access/models/variant';
 import { ALERT_STATUS } from 'lib/common/constants';
 import {

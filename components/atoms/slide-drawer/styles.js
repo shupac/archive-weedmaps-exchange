@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { rem } from 'polished/lib/index';
 import { WmTheme } from '@ghostgroup/ui';
 
-const { shadow, background, text } = WmTheme.style;
+const { shadow, background } = WmTheme.style;
 
 const PANEL_TRANSITION_DURATION = 250;
 

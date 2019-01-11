@@ -20,6 +20,4 @@ const MockMap = jest.fn().mockImplementation(() => ({
   }),
 }));
 
-export default {
-  Map: MockMap,
-};
+module.exports = { Map: MockMap };

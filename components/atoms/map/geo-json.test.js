@@ -48,7 +48,6 @@ describe('geojson map component', () => {
 
   it('will call the click handler', () => {
     const click = jest.fn();
-    const mockEvent = { target: 'test' };
     wrapper = mount(
       <GeoJson
         onClick={click}
@@ -70,8 +69,8 @@ describe('geojson map component', () => {
         }}
       />,
     );
-    wrapper.instance().onLayerClick(mockEvent);
-    expect(click).toHaveBeenCalledWith(mockEvent);
+    wrapper.instance().onLayerClick();
+    expect(click).toHaveBeenCalled();
   });
 
   it('will add the geojson layer', () => {
