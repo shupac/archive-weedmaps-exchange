@@ -1,14 +1,16 @@
 import styled from 'styled-components';
-import theme from 'lib/styles/theme';
+import { WmTheme } from '@ghostgroup/ui';
 import { rem } from 'polished';
 
+const { text, state, icon } = WmTheme.style;
+
 export const ModalContainer = styled.div`
-  background-color: ${theme.colors.white};
+  background-color: ${state.light};
   border-radius: 3px;
   position: relative;
   pointer-events: auto;
   min-width: 200px;
-  color: ${theme.style.text.normal};
+  color: ${text.normal};
 `;
 
 export const CloseButton = styled.a`
@@ -16,12 +18,12 @@ export const CloseButton = styled.a`
   cursor: pointer;
   top: 16px;
   right: 16px;
-  fill: ${theme.style.icon.dark};
+  fill: ${icon.dark};
   z-index: 2;
 `;
 
 export const ModalHeader = styled.div`
-  border-bottom: 1px solid ${theme.style.icon.inverted};
+  border-bottom: 1px solid ${icon.inverted};
   padding: 16px;
   font-size: ${rem(20)};
   font-weight: 600;
@@ -31,4 +33,27 @@ export const ModalHeader = styled.div`
 
 export const ModalContent = styled.div`
   overflow: auto;
+`;
+
+export const ModalContentWrapper = styled.div`
+  width: 620px;
+  padding: 24px;
+  color: ${text.normal};
+  font-size: ${rem(14)};
+`;
+
+export const ButtonRow = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+
+  > button {
+    width: auto;
+    min-width: 132px;
+    margin-right: 16px;
+  }
+
+  > :last-child {
+    margin-right: 0;
+  }
 `;

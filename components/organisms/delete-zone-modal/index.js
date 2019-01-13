@@ -8,30 +8,30 @@ import { type StoreType } from 'lib/types/store';
 
 type Props = {
   store: StoreType,
+  productCount: number,
+  variantCount: number,
 };
 
-export class DeleteLocationModal extends Component<Props> {
+export class DeleteZoneModal extends Component<Props> {
   onSubmit = async () => {
-    const { buyerSettings, uiStore } = this.props.store;
-    const { deleteLocation, locationToDelete } = buyerSettings;
-    const { id } = locationToDelete;
-    const success = await deleteLocation(id);
-    if (success) uiStore.closeModal();
+    const { uiStore } = this.props.store;
+
+    uiStore.closeModal();
   };
 
   render() {
-    const { store } = this.props;
-    const { locationToDelete } = store.buyerSettings;
+    const { store, productCount, variantCount } = this.props;
     const { openModal } = store.uiStore;
 
     return (
-      <Modal header="Delete Location" store={store}>
+      <Modal header="Delete Zone" store={store}>
         <ModalContentWrapper>
-          <p>Are you sure you want to delete {locationToDelete.name}?</p>
           <p>
-            Note: Deleting this address will not delete any pending orders being
-            shipped to this address.
+            There are currently {productCount} products with {variantCount}{' '}
+            variants allocated to this zone. If you delete this zone, those
+            products will no longer be associated to a zone.{' '}
           </p>
+          <p>Are you sure you want to delete this zone?</p>
 
           <ButtonRow>
             <ButtonWhiteNoHover
@@ -41,7 +41,7 @@ export class DeleteLocationModal extends Component<Props> {
               Cancel
             </ButtonWhiteNoHover>
             <ButtonPrimary data-test-id="delete-button" onClick={this.onSubmit}>
-              Delete
+              Delete Zone
             </ButtonPrimary>
           </ButtonRow>
         </ModalContentWrapper>
@@ -50,4 +50,4 @@ export class DeleteLocationModal extends Component<Props> {
   }
 }
 
-export default inject('store')(observer(DeleteLocationModal));
+export default inject('store')(observer(DeleteZoneModal));
