@@ -25,7 +25,7 @@ const ListingHeaderTab = ({
   handleTabSelect: (listingType: string) => void,
 }) => (
   <ListingHeadersTabsWrapper>
-    <Tabs>
+    <Tabs disableSelectionIndicatorBar>
       {listingTypes.map(listing => (
         <ListingTab
           key={listing.value}

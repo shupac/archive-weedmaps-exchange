@@ -47,7 +47,7 @@ export class Settings extends Component<Props> {
         <PageContent>
           <Subheader>
             <Fragment>
-              <Tabs>
+              <Tabs disableSelectionIndicatorBar>
                 {tabs.map(({ path, label }) => (
                   <TabButton key={label} isSelected={path === query.tab}>
                     <Link route="settings" params={{ tab: path }}>

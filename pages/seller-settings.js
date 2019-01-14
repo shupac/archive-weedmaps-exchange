@@ -48,7 +48,7 @@ export class SellerSettingsPage extends React.Component<Props> {
       <PageLayout pathname={pathname}>
         <PageContent>
           <Subheader>
-            <Tabs>
+            <Tabs disableSelectionIndicatorBar>
               {tabs.map(({ path, label }) => (
                 <TabButton key={label} isSelected={path === query.tab}>
                   <Link route="sellerSettings" params={{ tab: path }}>

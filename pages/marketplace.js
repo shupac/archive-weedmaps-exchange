@@ -41,7 +41,7 @@ export class Marketplace extends Component<Props> {
       <PageLayout>
         <PageContent>
           <Subheader>
-            <Tabs>
+            <Tabs disableSelectionIndicatorBar>
               {tabs.map(({ path, label }) => (
                 <TabButton key={label} isSelected={path === url.query.tab}>
                   <Link route="marketplace" params={{ tab: path }}>
