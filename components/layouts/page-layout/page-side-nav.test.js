@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
 import AuthStore from 'lib/data-access/stores/auth';
+import UiStore from 'lib/data-access/stores/ui';
 import { SideNavLink, AppHeader } from '@ghostgroup/ui';
 import { mockWmProfile, mockWmxUser } from 'lib/mocks/user';
 import { SideNavComponent } from './page-side-nav';
@@ -11,6 +12,7 @@ function setup() {
       wmProfile: mockWmProfile,
       wmxUser: mockWmxUser,
     }),
+    uiStore: UiStore.create({}),
   };
   const wrapper = shallow(
     <SideNavComponent

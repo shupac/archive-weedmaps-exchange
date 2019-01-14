@@ -21,7 +21,6 @@ type Props = {
   activeLink: string,
   user: any,
   avatarUrl?: string,
-  onMenuClick: string => void,
   router: any,
   store: StoreType,
 };
@@ -78,8 +77,8 @@ export class TopNav extends Component<Props> {
   };
 
   render() {
-    const { onMenuClick, router, store } = this.props;
-    const { authStore } = store;
+    const { router, store } = this.props;
+    const { authStore, uiStore } = store;
     const { activeContext } = authStore;
     const { pathname } = router;
     const pathName = pathname && pathname.substring(1);
@@ -87,7 +86,7 @@ export class TopNav extends Component<Props> {
     return (
       <TopNavContainer>
         <LeftContainer>
-          <MenuButton onClick={onMenuClick}>
+          <MenuButton onClick={uiStore.toggleSideNavCollapse}>
             <Menu />
           </MenuButton>
           {pathName && (

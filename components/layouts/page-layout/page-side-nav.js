@@ -28,7 +28,6 @@ const Wrapper = styled.div`
 
 type Props = {
   store: StoreType,
-  collapse: any,
   router: {
     route: string,
   },
@@ -53,11 +52,11 @@ class SideNavComponent extends React.Component<Props> {
   }
 
   render() {
-    const { collapse } = this.props;
+    const { uiStore } = this.props.store;
 
     return (
       <Wrapper>
-        <SideNav collapse={collapse}>
+        <SideNav collapse={uiStore.sideNavCollapse}>
           <SideNavHeader>
             <AppHeader
               title="exchange"

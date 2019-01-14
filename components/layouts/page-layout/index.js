@@ -58,10 +58,6 @@ type State = {
 };
 
 export class PageLayout extends React.Component<Props, State> {
-  constructor() {
-    super();
-    this.state = { collapse: false };
-  }
   static defaultProps = {
     className: '',
     children: null,
@@ -72,12 +68,6 @@ export class PageLayout extends React.Component<Props, State> {
     flexRow: false,
     activeLink: '',
     childActiveLink: '',
-  };
-
-  onMenuClick = () => {
-    this.setState({
-      collapse: !this.state.collapse,
-    });
   };
 
   render() {
@@ -91,18 +81,16 @@ export class PageLayout extends React.Component<Props, State> {
       flexRow,
     } = this.props;
 
-    const { collapse } = this.state;
     return (
       <ThemeProvider theme={theme}>
         <PageContainer pageScrollY={pageScrollY} pageScrollX={pageScrollX}>
           <PageSideNav
             activeLink={activeLink}
             childActiveLink={childActiveLink}
-            collapse={collapse}
           />
           <RightContainer>
             <div>
-              <TopNav activeLink={activeLink} onMenuClick={this.onMenuClick} />
+              <TopNav activeLink={activeLink} />
             </div>
             <ContentContainer
               className={`page ${this.props.className}`}

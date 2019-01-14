@@ -6,5 +6,6 @@ Object {
   "isLoading": false,
   "modalTransitioning": false,
   "notifications": Array [],
+  "sideNavCollapse": false,
 }
 `;

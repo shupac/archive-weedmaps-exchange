@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import UiStore from 'lib/data-access/stores/ui';
 import LocationSelector from 'components/atoms/location-selector';
 import Notification from 'components/molecules/top-nav-notification';
 import TopNav from './';
@@ -13,6 +14,7 @@ function setup(customerType) {
       authStore: {
         activeContext: customerType,
       },
+      uiStore: UiStore.create({}),
     },
   };
   const component = (
@@ -37,6 +39,7 @@ describe('Top Nav', () => {
     expect(wrapper.find(LocationSelector).exists()).toEqual(true);
     expect(wrapper.find(Notification).exists()).toEqual(true);
   });
+
   it('Seller Top Nav', () => {
     const { wrapper } = setup('seller');
     expect(wrapper.exists()).toEqual(true);
