@@ -4,28 +4,18 @@ import theme from 'lib/styles/theme';
 
 type Props = {
   width?: string,
-  height?: string,
   fill?: string,
 };
 
 export const Bookmark = ({
-  width = '16',
-  height = '20',
+  width = '24',
   fill = theme.colors.gullGray,
 }: Props) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
-    <defs>
-      <path id="a" d="M20 22l-8-4.39L4 22V2h16z" />
-    </defs>
-    <g fill="none" fillRule="evenodd" transform="translate(-4 -2)">
-      <mask id="b" fill="#fff">
-        <use xlinkHref="#a" />
-      </mask>
-      <use fill="#000" fillRule="nonzero" xlinkHref="#a" />
-      <g fill={fill} mask="url(#b)">
-        <path d="M0 0h24v24H0z" />
-      </g>
-    </g>
+  <svg xmlns="http://www.w3.org/2000/svg" width={width} viewBox="0 0 100 125">
+    <path
+      d="M80 10H20c-3.3333 0-3.3333 0-3.3333 3.3333v81c0 1.6667 1 1.9334 2.2666 1.2L50 77.6667l30.8667 17.6666c1.1333.6667 2.4666.6667 2.4666-1v-81C83.3333 10 83.3333 10 80 10zm0 0"
+      fill={fill}
+    />
   </svg>
 );
 
