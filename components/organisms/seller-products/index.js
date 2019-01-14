@@ -1,5 +1,6 @@
 // @flow
 import React, { Component, Fragment } from 'react';
+import { reaction } from 'mobx';
 import { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { ToggleSwitch } from '@ghostgroup/ui';
@@ -64,6 +65,17 @@ export class SellerProducts extends Component<Props, State> {
     mounted: false,
   };
 
+  dispose = reaction(
+    () => {
+      const { authStore } = this.props.store;
+      return authStore.activeSellerBrand;
+    },
+    () => {
+      this.searchProducts();
+    },
+    { name: 'Refetch Seller Products on brand change' },
+  );
+
   componentDidMount() {
     const { sellerSettings } = this.props.store;
 
@@ -79,6 +91,10 @@ export class SellerProducts extends Component<Props, State> {
       this.searchProducts();
       this.prevRoute = this.props.router.asPath;
     }
+  }
+
+  componentWillUnmount() {
+    this.dispose();
   }
 
   getRouterState = () => {

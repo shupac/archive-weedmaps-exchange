@@ -1,13 +1,23 @@
 import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
 import { ToggleSwitch } from '@ghostgroup/ui';
-
 import SellerSettingsStore from 'lib/data-access/stores/seller-settings';
 import SellerProductsStore from 'lib/data-access/stores/seller-products';
+import AuthStore from 'lib/data-access/stores/auth';
 import mockProductsResponse from 'lib/mocks/seller-products';
+import { mockWmxUser } from 'lib/mocks/user';
 import { mockCategories } from 'lib/mocks/categories';
 
 import { SellerProducts } from './';
+
+const mockUserSeller = {
+  ...mockWmxUser,
+  preferences: {
+    userContext: 'seller',
+    locationId: '6039ad85-7be7-45ce-a5f9-3e802eeba1e5',
+    brandId: 'fd2b3edd-3de5-497b-af07-13d4cf02f240',
+  },
+};
 
 function setup(props) {
   const mockStore = {
@@ -17,6 +27,10 @@ function setup(props) {
     }),
     sellerSettings: SellerSettingsStore.create({
       departments: mockCategories,
+    }),
+    authStore: AuthStore.create({
+      wmxUser: mockWmxUser,
+      activeSellerBrand: jest.fn(),
     }),
   };
 
@@ -28,7 +42,7 @@ function setup(props) {
     <SellerProducts store={mockStore} router={router} {...props} />
   );
   const wrapper = shallow(component, { disableLifecycleMethods: true });
-  return { wrapper, mockStore };
+  return { wrapper, mockStore, component };
 }
 
 describe('Seller Products Page', () => {
@@ -65,6 +79,28 @@ describe('Seller Products Page', () => {
     instance.componentDidUpdate();
     expect(searchProducts).toHaveBeenCalled();
     expect(instance.prevRoute).toEqual('/foo');
+  });
+
+  it('should re-fetch products on brand change', done => {
+    const { wrapper, mockStore } = setup();
+    const instance = wrapper.instance();
+
+    const searchProducts = jest
+      .spyOn(instance, 'searchProducts')
+      .mockReturnValue();
+    instance.componentDidMount();
+    mockStore.authStore.setUser(mockUserSeller);
+    setTimeout(() => {
+      expect(searchProducts).toHaveBeenCalled();
+      done();
+    }, 100);
+  });
+
+  it('disposes of the reaction when unmounting', () => {
+    const { wrapper } = setup();
+    const dispose = jest.spyOn(wrapper.instance(), 'dispose');
+    wrapper.unmount();
+    expect(dispose).toHaveBeenCalled();
   });
 
   it('should not search products if route does not change', () => {
