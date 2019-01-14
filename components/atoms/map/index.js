@@ -2,8 +2,6 @@
 import * as React from 'react'; // React, { Component, Fragment, createRef, Children } from 'react';
 import Head from 'next/head';
 import config from 'config';
-import GeoJson from './geo-json';
-import MapContext from './context';
 import {
   getBoundingBox,
   INITIAL_DEFAULT_MAP_ZOOM_LEVEL,
@@ -11,7 +9,9 @@ import {
   DEFAULT_CENTER,
   type Point,
   type Bounds,
-} from './utils';
+} from 'lib/geo';
+import GeoJson from './geo-json';
+import MapContext from './context';
 
 type Props = {
   className?: string,
@@ -37,6 +37,15 @@ export default class Map extends React.Component<Props, State> {
 
   componentWillUnmount() {
     this.map.off('moveend', this.onMoveEnd);
+  }
+
+  componentDidUpdate() {
+    const currentChildrenCount = React.Children.count(this.props.children);
+    const hasChildren = currentChildrenCount > 0;
+
+    if (hasChildren && this.props.fit) {
+      this.fitMap();
+    }
   }
 
   onMoveEnd = (e: any) => {
@@ -77,6 +86,8 @@ export default class Map extends React.Component<Props, State> {
 
     // Setup handlers
     this.map.on('moveend', this.onMoveEnd);
+    // Fire initial move
+    this.onMoveEnd({ initialMove: true });
 
     if (fit) {
       this.fitMap();
@@ -87,20 +98,25 @@ export default class Map extends React.Component<Props, State> {
 
   fitMap = () => {
     const { children } = this.props;
+    if (!children) return;
     const geometries = [];
-    if (children) {
-      React.Children.forEach(children, child => {
+
+    React.Children.forEach(children, child => {
+      if (child.props.geometry) {
         geometries.push(child.props.geometry);
-      });
-      const bounds = getBoundingBox(geometries);
-      this.map.fitBounds(
-        [[bounds.sw.lng, bounds.sw.lat], [bounds.ne.lng, bounds.ne.lat]],
-        {
-          linear: true,
-          padding: { top: 10, bottom: 10, left: 10, right: 10 },
-        },
-      );
-    }
+      }
+    });
+
+    if (!geometries.length) return;
+    const bounds = getBoundingBox(geometries);
+    this.map.fitBounds(
+      bounds,
+      {
+        linear: true,
+        padding: { top: 10, bottom: 10, left: 10, right: 10 },
+      },
+      { ignore: true },
+    );
   };
 
   render() {

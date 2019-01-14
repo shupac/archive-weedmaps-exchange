@@ -1,14 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Select from 'components/atoms/select';
+import findByTestId from 'lib/jest/find-by-test-id';
 import ColorKey from './styles';
 import { ColorSelect } from './';
 
-function setup() {
-  const props = {
+function setup(props) {
+  const defaultProps = {
     onColorSelect: jest.fn(),
+    ...props,
   };
-  const wrapper = shallow(<ColorSelect {...props} />);
+  const wrapper = shallow(<ColorSelect {...defaultProps} />);
   const instance = wrapper.instance();
   return {
     wrapper,
@@ -28,7 +30,17 @@ describe('ColorSelect', () => {
     expect(instance.state).toEqual({
       selectedRegionColor: { value: 'blueDark', text: 'Dark Blue' },
     });
-    expect(instance.props.onColorSelect).toHaveBeenCalledWith('blueDark');
+    expect(instance.props.onColorSelect).toHaveBeenCalledWith('#086788');
+  });
+
+  it('should handle an initial selection change', () => {
+    const { wrapper } = setup({ initialSelection: '#ACEDFF' });
+    const select = findByTestId(wrapper, 'select-box');
+    expect(select.props().selectedItem).toEqual({
+      icon: expect.anything(),
+      text: 'Light Blue',
+      value: 'blueLight',
+    });
   });
 
   it('should render the component and option labels ', () => {

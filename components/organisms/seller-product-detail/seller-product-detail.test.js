@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
-import SellerSettingsStore from 'lib/data-access/stores/seller-settings';
 import SellerProductsStore from 'lib/data-access/stores/seller-products';
+import ZonesStore from 'lib/data-access/stores/zones';
 import mockProductDetails from 'mocks/seller-product-details';
 import mockZones from 'mocks/zones';
 
@@ -12,7 +12,7 @@ function setup(props) {
       sellerProductDetails: mockProductDetails,
       fetchingProductDetails: false,
     }),
-    sellerSettings: SellerSettingsStore.create({
+    zones: ZonesStore.create({
       zones: mockZones,
     }),
   };
@@ -42,7 +42,7 @@ describe('Seller Product Details Page', () => {
       .spyOn(mockStore.sellerProducts, 'fetchProductDetails')
       .mockReturnValue();
     const fetchZones = jest
-      .spyOn(mockStore.sellerSettings, 'fetchZones')
+      .spyOn(mockStore.zones, 'fetchZones')
       .mockReturnValue();
     instance.componentDidMount();
     expect(fetchProductDetails).toHaveBeenCalledWith('123');

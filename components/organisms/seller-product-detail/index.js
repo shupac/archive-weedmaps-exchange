@@ -48,7 +48,7 @@ export class SellerProductDetails extends Component<Props, State> {
     const { productId, store } = this.props;
 
     store.sellerProducts.fetchProductDetails(productId);
-    store.sellerSettings.fetchZones();
+    store.zones.fetchZones();
     // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({ mounted: true });
   }
@@ -65,7 +65,7 @@ export class SellerProductDetails extends Component<Props, State> {
 
     // so MobX updates component after zones load
     // $FlowFixMe
-    const zones = store.sellerSettings.zones.toJSON();
+    const zones = store.zones.zones.toJSON();
 
     if (!mounted || fetchingProductDetails) {
       return (

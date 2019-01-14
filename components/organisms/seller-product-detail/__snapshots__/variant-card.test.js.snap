@@ -16,22 +16,27 @@ Array [
       Object {
         "id": "2411d92b-d816-4d63-be75-d1a526cb84b3",
         "name": "Central California",
+        "wmRegionId": 4,
       },
       Object {
         "id": "f72ef8f0-3ba0-40d7-b328-613ab851bc26",
         "name": "Oregon",
+        "wmRegionId": 5,
       },
       Object {
         "id": "fd167cb8-5be3-4c5e-9207-1e78b771c11d",
         "name": "Arkansas",
+        "wmRegionId": 6,
       },
       Object {
         "id": "edd2ef7e-00b4-444d-b3e3-996ccbaa7b95",
         "name": "Texas",
+        "wmRegionId": 7,
       },
       Object {
         "id": "edd2ef7e-00b4-444d-b3e3-996csdfaa7b95",
         "name": "Northern California",
+        "wmRegionId": 8,
       },
     ],
   },

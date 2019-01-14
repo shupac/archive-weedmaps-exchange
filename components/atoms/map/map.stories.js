@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import { action } from '@storybook/addon-actions';
 import StateComponent from 'react-component-component';
-import { type Point } from './utils';
+import { type Point } from 'lib/geo';
 import Map from './index';
 import GeoJson from './geo-json';
 
@@ -37,6 +37,7 @@ export default storiesOf('Map', module)
         <ResponsiveMap fit>
           <GeoJson
             fill="#fff"
+            outline="#333"
             opacity={state.opacity}
             label="Irvine"
             geometry={{
@@ -56,6 +57,7 @@ export default storiesOf('Map', module)
           />
           <GeoJson
             fill="#fff"
+            outline="#333"
             opacity={state.opacity}
             label="South Santa Ana"
             geometry={{
@@ -78,6 +80,7 @@ export default storiesOf('Map', module)
               setState({ fill: state.fill === '#fff' ? '#00CDBE' : '#fff' });
             }}
             fill={state.fill}
+            outline="#333"
             opacity={state.opacity}
             label="North Santa Ana"
             geometry={{

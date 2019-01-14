@@ -9,14 +9,19 @@ describe('geojson map component', () => {
   let element;
   beforeEach(() => {
     mockMap = {
+      getSource: () => false,
+      getLayer: () => false,
       addSource: jest.fn(),
       addLayer: jest.fn(),
+      removeLayer: jest.fn(),
       on: (event, target, cb) => {
         // fire immediately
         try {
           target();
         } catch (e) {
-          cb();
+          if (cb) {
+            cb();
+          }
         }
       },
       off: jest.fn(),
@@ -26,6 +31,7 @@ describe('geojson map component', () => {
       <MapContext.Provider value={null}>
         <GeoJson
           fill="#fff"
+          outline="#333"
           opacity={0.8}
           label="Irvine"
           geometry={{
@@ -52,6 +58,7 @@ describe('geojson map component', () => {
       <GeoJson
         onClick={click}
         fill="#fff"
+        outline="#333"
         opacity={0.8}
         label="Irvine"
         geometry={{
@@ -104,7 +111,7 @@ describe('geojson map component', () => {
       paint: {
         'fill-color': '#fff',
         'fill-opacity': 0.8,
-        'fill-outline-color': '#fff',
+        'fill-outline-color': '#333',
       },
       source: `${layerKey}-source`,
       type: 'fill',
@@ -134,6 +141,7 @@ describe('geojson map component', () => {
       <MapContext.Provider value={mockMap}>
         <GeoJson
           fill="#ccc"
+          outline="#333"
           opacity={0.8}
           label="Irvine"
           geometry={{
@@ -158,11 +166,38 @@ describe('geojson map component', () => {
       'fill-color',
       '#ccc',
     );
+  });
+
+  it('will update the outline color on prop change', () => {
+    wrapper = TestRenderer.create(element);
+    wrapper.update(
+      <MapContext.Provider value={mockMap}>
+        <GeoJson
+          fill="#ccc"
+          outline="#444"
+          opacity={0.8}
+          label="Irvine"
+          geometry={{
+            type: 'Polygon',
+            coordinates: [
+              [
+                [-117.9045867919922, 33.75574417520175],
+                [-117.93651580810547, 33.69492319661598],
+                [-117.90733337402344, 33.68578204940791],
+                [-117.86956787109374, 33.68749608856894],
+                [-117.84519195556639, 33.71805737954357],
+                [-117.9045867919922, 33.75574417520175],
+              ],
+            ],
+          }}
+        />
+      </MapContext.Provider>,
+    );
 
     expect(mockMap.setPaintProperty).toHaveBeenCalledWith(
       expect.any(String),
       'fill-outline-color',
-      '#ccc',
+      '#444',
     );
   });
 
@@ -172,6 +207,7 @@ describe('geojson map component', () => {
       <MapContext.Provider value={mockMap}>
         <GeoJson
           fill="#fff"
+          outline="#333"
           opacity={0.9}
           label="Irvine"
           geometry={{
@@ -212,7 +248,13 @@ describe('geojson map component', () => {
 
   it('will clean up after itself on unmounting', () => {
     wrapper = mount(element);
-    wrapper.setProps({ value: mockMap });
+    wrapper.setProps({
+      value: {
+        ...mockMap,
+        getSource: jest.fn(),
+        getLayer: jest.fn(),
+      },
+    });
     wrapper.unmount();
     expect(mockMap.off).toHaveBeenCalledWith('load', expect.any(Function));
     expect(mockMap.off).toHaveBeenCalledWith(

@@ -102,10 +102,13 @@ describe('map', () => {
       );
       expect(wrapper.instance().map.fitBounds).toHaveBeenCalledWith(
         [
-          [-117.93651580810547, 33.65263724181318],
-          [-117.72537231445312, 33.793699728538805],
+          -117.93651580810547,
+          33.65263724181318,
+          -117.72537231445312,
+          33.793699728538805,
         ],
         { linear: true, padding: { bottom: 10, left: 10, right: 10, top: 10 } },
+        { ignore: true },
       );
     });
   });

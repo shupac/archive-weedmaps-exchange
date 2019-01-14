@@ -1,14 +1,16 @@
 // @flow
 import { Component } from 'react';
 import uniqueKey from 'lib/common/unique-key';
+import { type Geometry } from 'lib/geo';
 import MapContext from './context';
-import { type Geometry } from './utils';
 
 type Props = {
   geometry: Geometry,
   fill: string,
+  outline: string,
   opacity: number,
   label: string,
+  layerKey?: string,
   onClick?: () => void,
 };
 
@@ -22,32 +24,58 @@ export default class GeoJson extends Component<Props> {
   layerKey: string = uniqueKey();
   disposeClickHandler: () => void;
   disposeLoadHandler: () => void;
+  drawn = false;
+
+  componentDidMount() {
+    // the map might not be available on first mount
+    const map = this.context;
+    if (map) {
+      this.setupLayer(this.props);
+    }
+  }
 
   componentDidUpdate(prevProps: Props) {
+    this.setupLayer(prevProps);
+  }
+
+  setupLayer(prevProps: Props) {
     const map = this.context;
-    const { fill, opacity } = this.props;
+    const { fill, opacity, outline, layerKey } = this.props;
+    const key = layerKey || this.layerKey;
 
     if (prevProps.fill !== fill) {
-      map.setPaintProperty(this.layerKey, 'fill-color', fill);
-      map.setPaintProperty(this.layerKey, 'fill-outline-color', fill);
+      map.setPaintProperty(key, 'fill-color', fill);
+    }
+
+    if (prevProps.outline !== outline) {
+      map.setPaintProperty(key, 'fill-outline-color', outline);
     }
 
     if (prevProps.opacity !== opacity) {
-      map.setPaintProperty(this.layerKey, 'fill-opacity', opacity);
+      map.setPaintProperty(key, 'fill-opacity', opacity);
     }
 
     if (!this.disposeClickHandler) {
       this.disposeClickHandler = this.addClickHandler();
     }
 
-    if (!this.disposeLoadHandler) {
+    if (map.loaded) {
+      this.addGeoJsonLayer();
+    } else if (!this.disposeLoadHandler) {
       this.disposeLoadHandler = this.addLoadHandler();
     }
   }
 
   componentWillUnmount() {
-    this.disposeClickHandler();
-    this.disposeLoadHandler();
+    if (this.disposeClickHandler) {
+      this.disposeClickHandler();
+    }
+
+    if (this.disposeLoadHandler) {
+      this.disposeLoadHandler();
+    }
+
+    this.cleanupLayers();
   }
 
   onLayerClick = () => {
@@ -66,49 +94,72 @@ export default class GeoJson extends Component<Props> {
   }
 
   addClickHandler() {
+    const { layerKey } = this.props;
+    const key = layerKey || this.layerKey;
     const map = this.context;
-    map.on('click', this.layerKey, this.onLayerClick);
+    map.on('click', key, this.onLayerClick);
     return () => {
-      map.off('click', this.layerKey, this.onLayerClick);
+      map.off('click', key, this.onLayerClick);
     };
+  }
+
+  cleanupLayers() {
+    const { layerKey } = this.props;
+    const key = layerKey || this.layerKey;
+    const map = this.context;
+
+    if (map) {
+      map.removeLayer(key);
+      map.removeLayer(`${key}-symbols`);
+    }
   }
 
   addGeoJsonLayer = () => {
     const map = this.context;
-    const { geometry, fill, opacity, label } = this.props;
+    const { geometry, fill, opacity, label, outline, layerKey } = this.props;
+    const key = layerKey || this.layerKey;
+    if (this.drawn) return;
 
-    map.addSource(`${this.layerKey}-source`, {
-      type: 'geojson',
-      data: {
-        type: 'Feature',
-        geometry,
-        properties: {
-          title: label,
+    if (!map.getSource(`${key}-source`)) {
+      map.addSource(`${key}-source`, {
+        type: 'geojson',
+        data: {
+          type: 'Feature',
+          geometry,
+          properties: {
+            title: label,
+          },
         },
-      },
-    });
+      });
+    }
 
-    map.addLayer({
-      id: this.layerKey,
-      type: 'fill',
-      source: `${this.layerKey}-source`,
-      paint: {
-        'fill-outline-color': fill,
-        'fill-color': fill,
-        'fill-opacity': opacity,
-      },
-    });
+    if (!map.getLayer(key)) {
+      map.addLayer({
+        id: key,
+        type: 'fill',
+        source: `${key}-source`,
+        paint: {
+          'fill-outline-color': outline,
+          'fill-color': fill,
+          'fill-opacity': opacity,
+        },
+      });
+    }
 
-    map.addLayer({
-      id: `${this.layerKey}-symbols`,
-      type: 'symbol',
-      source: `${this.layerKey}-source`,
-      layout: {
-        'symbol-placement': 'point',
-        'text-field': '{title}',
-        'text-size': 16,
-      },
-    });
+    if (!map.getLayer(`${key}-symbols`)) {
+      map.addLayer({
+        id: `${key}-symbols`,
+        type: 'symbol',
+        source: `${key}-source`,
+        layout: {
+          'symbol-placement': 'point',
+          'text-field': '{title}',
+          'text-size': 16,
+        },
+      });
+    }
+
+    this.drawn = true;
   };
 
   render() {

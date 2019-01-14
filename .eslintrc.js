@@ -9,7 +9,9 @@ module.exports = {
     'flowtype/use-flow-type': 1,
     'no-return-assign': 1,
     'no-plusplus': 1,
-    'no-underscore-dangle': 1
+    'no-underscore-dangle': 1,
+    'new-cap': 1,
+    'jsx-a11y/label-has-for': 1
   },
   globals: {
     IS_SERVER: true,

@@ -2,41 +2,105 @@
 import { shallow } from 'enzyme';
 import mockZones from 'mocks/zones';
 import findByTestId from 'lib/jest/find-by-test-id';
+import Zones from 'lib/data-access/stores/zones';
 import { ZoneEditor } from './';
 
 describe('zone editor', () => {
-  it('should fetch zones on mount', () => {
-    const mockStore = {
-      sellerSettings: {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('on mounting', () => {
+    let mockStore;
+    let mockClient;
+    let mockSdk;
+
+    beforeEach(() => {
+      mockClient = { fetch: jest.fn() };
+      mockSdk = {
         // $FlowFixMe
-        fetchZones: jest.fn().mockResolvedValue(mockZones),
-        zones: mockZones,
-      },
-    };
-    shallow(<ZoneEditor store={mockStore} />);
-    expect(mockStore.sellerSettings.fetchZones).toHaveBeenCalled();
+        fetch: jest.fn().mockResolvedValue(),
+      };
+      mockStore = {
+        zones: Zones.create(
+          {
+            zones: mockZones,
+            regionsWithGeometry: {},
+          },
+          { client: mockClient, wmSdk: mockSdk },
+        ),
+      };
+      // TODO mock fetchRegionsForZones for now
+      jest
+        .spyOn(mockStore.zones, 'fetchRegionsForZones')
+        // $FlowFixMe
+        .mockResolvedValue(true);
+      // TODO mock fetchRegionInBounds for now
+      jest
+        .spyOn(mockStore.zones, 'fetchRegionsInBounds')
+        // $FlowFixMe
+        .mockResolvedValue(true);
+      // $FlowFixMe
+      jest.spyOn(mockStore.zones, 'fetchZones').mockResolvedValue(mockZones);
+    });
+
+    it('should fetch zones', () => {
+      // $FlowFixMe
+      jest.spyOn(mockStore.zones, 'fetchZones').mockResolvedValue(true);
+      shallow(<ZoneEditor store={mockStore} />);
+      expect(mockStore.zones.fetchZones).toHaveBeenCalled();
+    });
   });
 
   describe('when there are zones', () => {
     let wrapper;
     let mockStore;
+    let mockClient;
+    let mockSdk;
+
     beforeEach(() => {
-      mockStore = {
-        sellerSettings: {
-          // $FlowFixMe
-          fetchZones: jest.fn().mockResolvedValue(mockZones),
-          zones: mockZones,
-        },
+      mockClient = { fetch: jest.fn() };
+      mockSdk = {
+        // $FlowFixMe
+        fetch: jest.fn().mockResolvedValue(),
       };
+      mockStore = {
+        zones: Zones.create(
+          {
+            zones: mockZones,
+            regionsWithGeometry: {},
+          },
+          { client: mockClient, wmSdk: mockSdk },
+        ),
+      };
+      // TODO mock fetchRegionsForZones for now
+      jest
+        .spyOn(mockStore.zones, 'fetchRegionsForZones')
+        // $FlowFixMe
+        .mockResolvedValue(true);
+      // TODO mock fetchRegionInBounds for now
+      jest
+        .spyOn(mockStore.zones, 'fetchRegionsInBounds')
+        // $FlowFixMe
+        .mockResolvedValue(true);
+      // $FlowFixMe
+      jest.spyOn(mockStore.zones, 'fetchZones').mockResolvedValue(mockZones);
       wrapper = shallow(<ZoneEditor store={mockStore} />);
     });
 
-    it('clicking the add zone button will add a zone', () => {
+    it('clicking the add zone button will add a zone', done => {
       const zoneButton = findByTestId(wrapper, 'add-zone');
-      jest.spyOn(console, 'log');
+      jest.spyOn(mockStore.zones, 'addZone');
       zoneButton.simulate('click');
-      // TODO replace with real side effect in next PR
-      expect(console.log).toHaveBeenCalledWith('Creating Zone');
+      setTimeout(() => {
+        expect(mockStore.zones.addZone).toHaveBeenCalledWith({
+          color: '#fff',
+          id: '',
+          name: '',
+          regions: [],
+        });
+        done();
+      }, 550);
     });
 
     it('should show the zones count', () => {
@@ -77,32 +141,43 @@ describe('zone editor', () => {
 
     it('should call the edit handler when clicking edit', () => {
       const zoneCard = findByTestId(wrapper, 'zone-card').at(1);
-      // TODO replace with real side effect in next PR
-      jest.spyOn(console, 'log');
-      zoneCard.props().onEdit({ id: 1 });
-      expect(console.log).toHaveBeenCalledWith({ id: 1 });
+      zoneCard.props().onEdit({ id: 1, regions: [] });
+      expect(wrapper.instance().selectedZone).toEqual({ id: 1, regions: [] });
     });
 
     it('should call the delete handler when clicking delete', () => {
       const zoneCard = findByTestId(wrapper, 'zone-card').at(1);
       // TODO replace with real side effect in next PR
-      jest.spyOn(console, 'log');
-      zoneCard.props().onDelete({ id: 2 });
-      expect(console.log).toHaveBeenCalledWith({ id: 2 });
+      // $FlowFixMe
+      jest.spyOn(mockStore.zones, 'deleteZone').mockResolvedValue(true);
+      zoneCard.props().onDelete({ id: 2, regions: [] });
+      expect(mockStore.zones.deleteZone).toHaveBeenCalledWith({
+        id: 2,
+        regions: [],
+      });
     });
   });
 
   describe('when there are no zones', () => {
     let wrapper;
     let mockStore;
+
     beforeEach(() => {
       mockStore = {
-        sellerSettings: {
-          // $FlowFixMe
-          fetchZones: jest.fn().mockResolvedValue(mockZones),
-          zones: [],
-        },
+        zones: Zones.create({ zones: [] }),
       };
+      // TODO mock fetchRegionsForZones for now
+      jest
+        .spyOn(mockStore.zones, 'fetchRegionsForZones')
+        // $FlowFixMe
+        .mockResolvedValue(true);
+      // TODO mock fetchRegionInBounds for now
+      jest
+        .spyOn(mockStore.zones, 'fetchRegionsInBounds')
+        // $FlowFixMe
+        .mockResolvedValue(true);
+      // $FlowFixMe
+      jest.spyOn(mockStore.zones, 'fetchZones').mockResolvedValue([]);
       wrapper = shallow(<ZoneEditor store={mockStore} />);
     });
 
