@@ -81,13 +81,11 @@ export class ZoneForm extends React.Component<Props> {
             />
           </FormControl>
         </ZoneFormHeader>
-        <ZoneCount data-test-id="zone-count">
-          Please select available regions from the map
-        </ZoneCount>
+        <ZoneCount data-test-id="zone-count">Selected Regions</ZoneCount>
         <ZoneRegionList>
           {Array.from(this.props.selectedRegions.values()).map(r => (
             <ZoneRegionListItem key={r.id}>
-              {r.name}
+              {r.name.replace('Brands', '')}
               <ClearButton
                 onClick={() =>
                   this.props.onRemoveRegionFromZone(this.props.zone, r)

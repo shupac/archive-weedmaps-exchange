@@ -245,7 +245,7 @@ export class ZoneEditor extends React.Component<Props> {
               geometry={regionWithGeometry.geometry}
               fill={zone.color}
               outline="#333"
-              opacity={0.8}
+              opacity={0.4}
               label={region.name.replace('Brands', '')}
             />
           );

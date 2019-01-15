@@ -1,3 +1,4 @@
+// @flow
 import styled from 'styled-components';
 import { Flex, Box } from '@ghostgroup/grid-styled';
 import Map from 'components/atoms/map';
@@ -21,14 +22,15 @@ export const FormControl = styled.div`
   margin-bottom: ${rem(16)};
 
   label {
+    display: block;
     color: ${theme.colors.gullGray};
     font-size: ${rem(14)};
-    margin-bottom: ${rem(2)};
+    margin-bottom: ${rem(4)};
   }
 `;
 
 export const ZoneRegionListDelete = styled(Close).attrs({
-  fill: theme.colors.oxfordBlue,
+  fill: theme.palette.darkGrey2,
   size: rem(14),
 })``;
 
@@ -109,6 +111,7 @@ export const NewZoneContainer = styled.div`
   transition: all 150ms ease-in-out;
   display: flex;
   flex-direction: column;
+  background: white;
 
   &.new-zone-enter {
     opacity: 0.01;
