@@ -31,7 +31,7 @@ describe('OrdersTable', () => {
     const mockOnSort = jest.spyOn(wrapper.instance(), 'onSort');
     const sortButton = wrapper.find('SortButton').first();
     sortButton.simulate('click');
-    expect(mockOnSort).toHaveBeenCalledWith('order_id');
+    expect(mockOnSort).toHaveBeenCalledWith('purchase_order_id');
   });
 
   it('should sort on date ordered ', () => {

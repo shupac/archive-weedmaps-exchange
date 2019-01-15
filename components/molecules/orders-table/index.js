@@ -57,8 +57,8 @@ export class OrdersTable extends Component<Props, State> {
         <Fragment>
           <HeadCol>
             <SortButton
-              onClick={() => this.onSort('order_id')}
-              isActive={activeSort === 'order_id'}
+              onClick={() => this.onSort('purchase_order_id')}
+              isActive={activeSort === 'purchase_order_id'}
               pointsUp={this.isPointedUp}
             >
               order id
