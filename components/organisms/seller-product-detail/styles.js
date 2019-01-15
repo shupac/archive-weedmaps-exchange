@@ -13,6 +13,7 @@ export const StyledForm = styled(Form)`
 `;
 
 export const SellerProductWrapper = styled.div`
+  flex: 1;
   padding: 0 16px 16px;
   color: ${text.normal};
   overflow-y: auto;
@@ -40,7 +41,10 @@ export const ProductName = styled.div`
   margin-bottom: 16px;
 `;
 
-export const ContentWrapper = styled.div``;
+export const ContentWrapper = styled.div`
+  font-size: ${rem(14)};
+  line-height: ${rem(20)};
+`;
 
 export const AvailabilityWrapper = styled.div`
   font-size: ${rem(14)};
@@ -227,6 +231,11 @@ export const ToggleWrapper = styled.div`
 
 export const StyledSelect = styled(Select)`
   width: auto;
+  background-color: ${background.light};
+
+  button {
+    padding-left: 16px;
+  }
 `;
 
 StyledSelect.displayName = 'StyledSelect';

@@ -60,14 +60,14 @@ describe('Seller Product Details Variant Card', () => {
 
   it('should render unit option name', () => {
     const { wrapper } = setup();
-    const select = wrapper.find('Select');
+    const select = wrapper.find('StyledSelect');
     const option = { value: 'foo', text: 'bar' };
     expect(select.props().itemToString(option)).toEqual(option.text);
   });
 
   it('should update the zone', () => {
     const { wrapper, props } = setup();
-    const select = wrapper.find('Select');
+    const select = wrapper.find('StyledSelect');
     const option = { value: 'foo', text: 'bar' };
     select.props().onChange(option);
     expect(props.onUpdate).toHaveBeenCalledWith({ unit: 'foo' });

@@ -1,10 +1,10 @@
 // @flow
 /* globals document window */
 import * as React from 'react';
-import { type StoreType } from 'lib/types/store';
 import { inject, observer } from 'mobx-react';
 import Transition from 'react-transition-group/Transition';
 import { Icons } from '@ghostgroup/ui';
+import { type StoreType } from 'lib/types/store';
 import theme from 'lib/styles/theme';
 import { MODAL_TRANSITION } from 'lib/common/constants';
 import Portal from './portal';

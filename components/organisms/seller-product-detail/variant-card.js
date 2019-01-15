@@ -1,7 +1,6 @@
 // @flow
 import React, { Component, Fragment } from 'react';
 import { FieldArray } from 'formik';
-import { Select } from '@ghostgroup/ui';
 import Trashcan from 'components/atoms/icons/trashcan';
 import uniqueKey from 'lib/common/unique-key';
 import { UNIT_TYPES } from 'lib/common/constants';
@@ -19,6 +18,7 @@ import {
   AllocationsWrapper,
   AllocationTableHeader,
   AddAllocation,
+  StyledSelect,
 } from './styles';
 
 class Allocation {
@@ -95,7 +95,7 @@ class VariantCard extends Component<Props> {
           </FormGroup>
           <FormGroup>
             <FormLabel>Unit Type</FormLabel>
-            <Select
+            <StyledSelect
               value={unit}
               initialSelection={UNIT_TYPES.find(({ value }) => value === unit)}
               items={UNIT_TYPES}
