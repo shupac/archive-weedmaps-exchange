@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ComboSelect as ComboSelectBase } from '@ghostgroup/ui';
+import { ComboSelect as ComboSelectBase, WmTheme } from '@ghostgroup/ui';
 
 const FiltersRow = styled.div`
   display: grid;
@@ -18,5 +18,8 @@ export const SellerFiltersRow = styled(FiltersRow)`
 export const ComboSelect = styled(ComboSelectBase)`
   div[id^='downshift-'] {
     padding: 10px;
+  }
+  & button {
+    background-color: ${WmTheme.style.background.light};
   }
 `;

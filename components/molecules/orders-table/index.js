@@ -7,6 +7,7 @@ import { SortButton } from 'components/atoms/sort-button';
 import ContextMenu, { MenuItem } from 'components/molecules/context-menu';
 import { STATUS_TYPES } from 'lib/common/constants';
 import { PurchaseOrderType } from 'models/purchase-order';
+import StatusPillDropDown from 'components/atoms/order-status-pill/status-pill-dropdown';
 import { Table, HeadCol, Border, ActionHead } from './styles';
 
 type State = {
@@ -19,7 +20,7 @@ type Props = {
   setSort: string => void,
   onCancelOrder: string => void,
   onReorder: string => void,
-  buyersTable: boolean,
+  buyersTable: false,
 };
 
 export class OrdersTable extends Component<Props, State> {
@@ -137,7 +138,11 @@ export class OrdersTable extends Component<Props, State> {
                 {formatDate(order.expectedShipDateMax)}
               </p>
               <p>{formatDollars(Number(order.total))}</p>
-              <StatusPill status={order.status} />
+              {buyersTable ? (
+                <StatusPill status={order.status} />
+              ) : (
+                <StatusPillDropDown status={order.status} orderId={order.id} />
+              )}
               {buyersTable && (
                 <ContextMenu>
                   {cancelable && (

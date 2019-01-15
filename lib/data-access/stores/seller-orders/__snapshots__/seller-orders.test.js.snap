@@ -92,3 +92,53 @@ Array [
   },
 ]
 `;
+
+exports[`Seller Orders Store can fetch purchase order and set data 1`] = `
+Object {
+  "buyerData": Object {
+    "buyerAddress": "{\\"territory\\":\\"CA\\",\\"street_address\\":\\"55 Discovery\\",\\"region\\":{\\"name\\":\\"South OC Brands\\",\\"id\\":\\"64d05017-4339-4cda-9e57-0da061bf6b00\\"},\\"postal_code\\":\\"92618\\",\\"country\\":\\"us\\",\\"city\\":\\"Irvine\\"}",
+    "buyerDeliveryInstructions": "TEST.",
+    "buyerEmail": "asciametta@aol.com",
+    "buyerLicenses": Array [
+      Object {
+        "id": "e5ae232c-9ae7-4e81-b6f6-67bd5562706f",
+        "licenseType": "medical",
+        "number": "THX1138",
+      },
+    ],
+    "buyerLocationName": "Andrew's Cryb",
+    "buyerPhone": "(303) 555-5555",
+  },
+  "expectedShipDateMax": "2018-11-15T17:48:29.169876Z",
+  "expectedShipDateMin": "2018-11-13T17:48:29.169876Z",
+  "givenDeliveryEta": Object {
+    "etaMax": 6,
+    "etaMaxUnit": "day",
+    "etaMin": 4,
+    "etaMinUnit": "day",
+  },
+  "id": "b97329d4-a7ae-4c7a-ab5e-4de8aec22f50",
+  "orderDate": "2018-11-09T17:48:29.174071Z",
+  "orderItems": Array [
+    Object {
+      "id": "2b113f61-1b7f-4d18-bd20-7c3ebc7d2007",
+    },
+    Object {
+      "id": "7ada039c-fca7-462c-b87c-6d69a815d442",
+    },
+  ],
+  "sellerData": Object {
+    "sellerAddress": null,
+    "sellerEmail": "test@test.com",
+    "sellerId": "2f4ddb82-3b67-4780-8ae4-7f27da36d813",
+    "sellerLicenses": Array [],
+    "sellerName": "West Coast Cure",
+    "sellerPhone": "1112223333",
+  },
+  "shippingFee": "0.0",
+  "status": "not_started",
+  "statusReason": "",
+  "subtotal": "4400.0",
+  "total": "4400",
+}
+`;
