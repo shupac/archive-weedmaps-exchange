@@ -47,7 +47,6 @@ const statusPossibility = (status: string) => {
       return accum;
     }, []);
   }
-  // console.log('this is the status', status)
 };
 
 const getInitialSelection = status => items.find(item => item.value === status);
@@ -63,7 +62,7 @@ export class StatusPillDropDown extends React.Component<Props, State> {
     const { sellerOrders } = store;
     this.setState({
       status: value,
-      filteredItems: items.filter(item => item.value !== value),
+      filteredItems: statusPossibility(value),
     });
     sellerOrders.updateOrderStatus(orderId, value);
   };
