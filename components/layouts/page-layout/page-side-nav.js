@@ -26,6 +26,12 @@ const Wrapper = styled.div`
   }
 `;
 
+const StyledSideNavLink = styled(SideNavLink)`
+  line-height: normal;
+`;
+
+StyledSideNavLink.displayName = 'StyledSideNavLink';
+
 type Props = {
   store: StoreType,
   router: {
@@ -80,7 +86,7 @@ class SideNavComponent extends React.Component<Props> {
     const { router } = this.props;
 
     return data.map(({ name, icon, route }) => (
-      <SideNavLink
+      <StyledSideNavLink
         key={name}
         name={name}
         icon={icon}

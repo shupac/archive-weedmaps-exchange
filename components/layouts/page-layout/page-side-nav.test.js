@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
 import AuthStore from 'lib/data-access/stores/auth';
 import UiStore from 'lib/data-access/stores/ui';
-import { SideNavLink, AppHeader } from '@ghostgroup/ui';
+import { AppHeader } from '@ghostgroup/ui';
 import { mockWmProfile, mockWmxUser } from 'lib/mocks/user';
 import { SideNavComponent } from './page-side-nav';
 
@@ -45,7 +45,7 @@ describe('The SideNavComponent', () => {
     const { wrapper } = setup();
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     wrapper
-      .find(SideNavLink)
+      .find('StyledSideNavLink')
       .at(1)
       .simulate('click');
     expect(pushRoute).toHaveBeenCalledWith('buyerOrders', undefined);
