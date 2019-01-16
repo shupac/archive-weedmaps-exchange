@@ -178,7 +178,7 @@ class Catalog extends Component<Props, State> {
   }
 
   gotoProduct = (productId: string) =>
-    Router.push(`/buyer/marketplace/catalog/product/${productId}`);
+    Router.pushRoute(`/buyer/marketplace/catalog/product/${productId}`);
 
   renderProducts() {
     const { router, store } = this.props;

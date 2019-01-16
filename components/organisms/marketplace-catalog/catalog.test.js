@@ -234,7 +234,7 @@ describe('Marketplace Catalog', () => {
     const instance = wrapper.instance();
     instance.componentDidMount();
 
-    const push = jest.spyOn(Router, 'push').mockReturnValue();
+    const push = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     wrapper.find(ProductCard).simulate('click');
     expect(push).toHaveBeenCalledWith(
       '/buyer/marketplace/catalog/product/1234',
