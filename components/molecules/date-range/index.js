@@ -45,7 +45,7 @@ export class DateRange extends Component<Props, State> {
           navPrev={<ChevronLeft />}
           navNext={<ChevronRight />}
           customArrowIcon={<span>&ndash;</span>}
-          startDatePlaceholderText="Start date"
+          startDatePlaceholderText="Start Date"
           endDatePlaceholderText="End Date"
           daySize={36}
           horizontalMonthPadding={16}
