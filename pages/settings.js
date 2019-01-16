@@ -40,7 +40,7 @@ export class Settings extends Component<Props> {
   render() {
     const { url, store } = this.props;
     const { query } = url;
-    const { uiStore, buyerSettings } = store;
+    const { uiStore, buyerSettings, addressSuggestions } = store;
 
     return (
       <PageLayout>
@@ -63,6 +63,7 @@ export class Settings extends Component<Props> {
               <ButtonPrimary
                 onClick={() => {
                   buyerSettings.setEditingLocationId(null);
+                  addressSuggestions.clearAddressSuggestions();
                   uiStore.openModal('locationModal');
                 }}
                 width={161}

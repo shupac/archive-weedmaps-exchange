@@ -272,7 +272,7 @@ export const FormTemplate = ({
             type="button"
             onClick={x => {
               handleReset(x);
-              addressSuggestions.setSuggestedAddresses([]);
+              addressSuggestions.clearAddressSuggestions();
               return uiStore.closeModal();
             }}
           >

@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import UiStore from 'lib/data-access/stores/ui';
+import AddressSuggestionsStore from 'lib/data-access/stores/address-suggestions';
 import AddressManager from './';
 import { AddButton, AddressDropdown } from './styles';
 
@@ -22,7 +23,11 @@ const mockItems = [
 const mockSelectAddress = jest.fn();
 const mockAddAddress = jest.fn();
 const mockUiStore = UiStore.create();
-const mockStore = { uiStore: mockUiStore };
+const mockAddressStore = AddressSuggestionsStore.create({});
+const mockStore = {
+  uiStore: mockUiStore,
+  addressSuggestions: mockAddressStore,
+};
 
 describe('Address Manager', () => {
   it('renders itself and its components', () => {
@@ -59,6 +64,11 @@ describe('Address Manager', () => {
   });
 
   it('should handle the open modal', () => {
+    const clearAddressSuggestions = jest.spyOn(
+      mockStore.addressSuggestions,
+      'clearAddressSuggestions',
+    );
+
     const component = shallow(
       <AddressManager
         addresses={mockItems}
@@ -72,6 +82,7 @@ describe('Address Manager', () => {
 
     const openModal = jest.spyOn(mockStore.uiStore, 'openModal');
     component.find('AddButton').simulate('click');
+    expect(clearAddressSuggestions).toHaveBeenCalled();
     expect(openModal).toHaveBeenCalledWith('cartModal');
   });
 });

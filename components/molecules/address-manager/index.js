@@ -31,7 +31,7 @@ const AddressManager = ({
   store,
 }: Props) => {
   const addressText = item => ({ text: truncate(item.text, 25), ...item });
-  const { uiStore } = store;
+  const { uiStore, addressSuggestions } = store;
 
   return (
     <AddressManagerWrapper>
@@ -49,6 +49,7 @@ const AddressManager = ({
         />
         <AddButton
           onClick={() => {
+            addressSuggestions.clearAddressSuggestions();
             uiStore.openModal('cartModal');
           }}
         >
