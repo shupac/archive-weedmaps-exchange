@@ -21,6 +21,7 @@ const ProductRow = ({ item }: Props) => {
     avatarImage,
     categories,
     price,
+    productActive,
     productId,
     productName,
     variantName,
@@ -31,7 +32,7 @@ const ProductRow = ({ item }: Props) => {
 
   return (
     <ProductRowWrapper>
-      <ProductWrapper>
+      <ProductWrapper isPublished={productActive}>
         <ProductPhoto
           style={{
             backgroundImage: `url(${avatarImage.smallUrl})`,

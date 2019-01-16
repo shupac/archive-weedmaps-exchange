@@ -139,42 +139,10 @@ Object {
   "orderDate": "2018-11-09T17:48:29.174071Z",
   "orderItems": Array [
     Object {
-      "amount": 24,
-      "avatarImage": Object {
-        "id": "1d962557-b9bc-4e4a-9e16-a426820023be",
-        "largeUrl": "https://images-acceptance.internal-weedmaps.com/products/000/035/422/avatar/large/wcc_gelatocan-12.jpg",
-        "mediumUrl": "https://images-acceptance.internal-weedmaps.com/products/000/035/422/avatar/medium/wcc_gelatocan-12.jpg",
-        "smallUrl": "https://images-acceptance.internal-weedmaps.com/products/000/035/422/avatar/square/wcc_gelatocan-12.jpg",
-      },
-      "categories": Object {
-        "child": "Hybrid",
-        "parent": "Flower",
-      },
       "id": "2b113f61-1b7f-4d18-bd20-7c3ebc7d2007",
-      "price": "100",
-      "productId": "856c2fc1-854d-4eec-b62b-9d1670609110",
-      "productName": "Gelato",
-      "sku": "zzzzzzzz",
-      "variantName": "1 ounces",
     },
     Object {
-      "amount": 2,
-      "avatarImage": Object {
-        "id": "d636f9ff-411c-4d77-a32b-cf035ea77dd5",
-        "largeUrl": "https://images-acceptance.internal-weedmaps.com/products/000/053/262/avatar/large/1507323767-171005_WestCoastCure_Lemon-Hard-Gelato-InsideShot-2072.jpg",
-        "mediumUrl": "https://images-acceptance.internal-weedmaps.com/products/000/053/262/avatar/medium/1507323767-171005_WestCoastCure_Lemon-Hard-Gelato-InsideShot-2072.jpg",
-        "smallUrl": "https://images-acceptance.internal-weedmaps.com/products/000/053/262/avatar/square/1507323767-171005_WestCoastCure_Lemon-Hard-Gelato-InsideShot-2072.jpg",
-      },
-      "categories": Object {
-        "child": "Pre Rolls",
-        "parent": "Flower",
-      },
       "id": "7ada039c-fca7-462c-b87c-6d69a815d442",
-      "price": "1000",
-      "productId": "dbfa378b-85e6-44c0-a783-fe9650dc99f8",
-      "productName": "Tahoe OG 3PC Cured Joints",
-      "sku": "zzzzzzzz",
-      "variantName": "50 Units",
     },
   ],
   "sellerData": Object {

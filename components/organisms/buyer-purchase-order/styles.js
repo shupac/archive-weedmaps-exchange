@@ -164,6 +164,7 @@ export const ProductWrapper = styled.div`
     display: flex;
     text-decoration: none;
     color: inherit;
+    pointer-events: ${({ productActive }) => (productActive ? `auto` : `none`)};
   }
 `;
 
