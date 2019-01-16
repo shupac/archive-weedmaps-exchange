@@ -18,6 +18,7 @@ import {
   ZoneRegionListDelete,
   ClearButton,
   FormControl,
+  ZoneListCta,
 } from './styles';
 
 type Props = {
@@ -81,7 +82,10 @@ export class ZoneForm extends React.Component<Props> {
             />
           </FormControl>
         </ZoneFormHeader>
-        <ZoneCount data-test-id="zone-count">Selected Regions</ZoneCount>
+        <ZoneCount>Selected Regions</ZoneCount>
+        <ZoneListCta data-test-id="zone-cta">
+          Please select available regions from the map
+        </ZoneListCta>
         <ZoneRegionList>
           {Array.from(this.props.selectedRegions.values()).map(r => (
             <ZoneRegionListItem key={r.id}>

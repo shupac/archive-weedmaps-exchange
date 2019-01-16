@@ -14,6 +14,12 @@ export const Container = styled(Flex)`
   overflow: hidden;
 `;
 
+export const ZoneListCta = styled.div`
+  padding: ${rem(16)};
+  font-size: ${rem(14)};
+  color: ${theme.palette.darkBlue1};
+`;
+
 export const ZoneFormHeader = styled(Box)`
   background: white;
 `;
@@ -58,7 +64,7 @@ export const ClearButton = styled.button`
 `;
 
 export const ZoneRegionList = styled.ul`
-  padding: 0 ${rem(16)};
+  padding: 0 ${rem(24)};
   list-style: none;
   flex-grow: 1;
   overflow-y: auto;
