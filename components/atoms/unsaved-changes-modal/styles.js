@@ -1,13 +1,15 @@
 import styled from 'styled-components';
+import { rem } from 'polished';
 
 export const UnsavedChanges = styled.div`
   width: 620px;
   padding: 24px;
+  font-size: ${rem(14)};
 
   div {
     margin-bottom: 24px;
 
-    &:last-of-type: {
+    &:last-of-type {
       margin-bottom: 0;
     }
   }
