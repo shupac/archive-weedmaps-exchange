@@ -67,6 +67,10 @@ export const buyerFooterData = [
   {
     name: 'help',
     icon: sizeIcon(Info),
+    route: {
+      name: 'help',
+      path: '/help',
+    },
   },
 ];
 
@@ -85,5 +89,9 @@ export const sellerFooterData = [
   {
     name: 'help',
     icon: sizeIcon(Info),
+    route: {
+      name: 'help',
+      path: '/help',
+    },
   },
 ];

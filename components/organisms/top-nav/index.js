@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import Menu from 'components/molecules/top-nav-menu';
 import { inject, observer } from 'mobx-react';
-import { Cart, Settings, Papers } from 'components/atoms/icons';
+import { Cart, Settings, Papers, Info } from 'components/atoms/icons';
 import Notification from 'components/molecules/top-nav-notification';
 import LocationSelector from 'components/atoms/location-selector';
 import UserDropdown from 'components/molecules/top-nav-user-dropdown';
@@ -15,6 +15,7 @@ import {
   RightContainer,
   MenuButton,
   NavContent,
+  NavIconWrapper,
 } from './styles';
 
 type Props = {
@@ -57,6 +58,12 @@ const NavIcon = {
       fill={theme.colors.primary}
     />
   ),
+  help: (
+    <Info
+      size={{ width: '18px', height: '18px' }}
+      fill={theme.colors.primary}
+    />
+  ),
 };
 
 const headerForPath = {
@@ -91,7 +98,7 @@ export class TopNav extends Component<Props> {
           </MenuButton>
           {pathName && (
             <NavContent>
-              <div>{NavIcon[pathName]}</div>
+              <NavIconWrapper>{NavIcon[pathName]}</NavIconWrapper>
               <span>{headerForPath[pathName] || pathName}</span>
             </NavContent>
           )}

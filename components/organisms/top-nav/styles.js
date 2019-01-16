@@ -43,3 +43,8 @@ export const NavContent = styled.div`
     margin-right: 8px;
   }
 `;
+
+export const NavIconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
