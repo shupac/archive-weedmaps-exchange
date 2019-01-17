@@ -4,7 +4,7 @@ import theme from 'lib/styles/theme';
 import { rem } from 'polished';
 import { ButtonPrimary, ButtonWhiteNoHover } from 'components/atoms/button';
 
-const { SelectButton, Item } = SelectStyles;
+const { SelectButton, Item, Menu } = SelectStyles;
 
 export const LocationModalWrapper = styled.div`
   width: 644px;
@@ -57,6 +57,10 @@ export const SelectLicenseType = styled(Select)`
       background-color: ${theme.colors.lightGrey3};
       font-weight: 600;
     }
+  }
+  ${Menu} {
+    position: relative;
+    top: 3px;
   }
 `;
 
