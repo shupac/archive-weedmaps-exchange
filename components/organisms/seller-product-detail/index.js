@@ -1,11 +1,12 @@
 // @flow
 import React, { Component, Fragment } from 'react';
-import { Router } from 'lib/routes';
 import { inject, observer } from 'mobx-react';
+import { Formik } from 'formik';
+import { Router } from 'lib/routes';
+import { ALERT_STATUS } from 'lib/common/constants';
 import { type StoreType } from 'lib/types/store';
 import { type SellerProductType } from 'models/seller-product';
 import { type ZoneType } from 'models/zone';
-import { Formik } from 'formik';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
 import UnsavedChangesModal from 'components/atoms/unsaved-changes-modal';
 import ProductForm from './product-form';
@@ -77,7 +78,7 @@ export class SellerProductDetails extends Component<Props, State> {
     throw new Error('Unsaved changes: Seller product details');
   };
 
-  handleBrowserUnload = (event: Event): ?string => {
+  handleBrowserUnload = (event: Event) => {
     if (!this.isDirty || this.confirmRouteChange) return null;
 
     event.preventDefault();
@@ -88,9 +89,29 @@ export class SellerProductDetails extends Component<Props, State> {
   onSubmit = async (values: SellerProductType, actions: FormikActions) => {
     const { sellerProducts } = this.props.store;
     actions.setSubmitting(true);
-    await sellerProducts.updateSellerProduct(values);
+    const success = await sellerProducts.updateSellerProduct(values);
     actions.setSubmitting(false);
-    actions.resetForm();
+    this.displaySumbitNotification(success);
+    if (success) actions.resetForm();
+  };
+
+  displaySumbitNotification = (success: boolean) => {
+    const { uiStore } = this.props.store;
+
+    const notification = {
+      autoDismiss: 4000,
+      status: ALERT_STATUS.SUCCESS,
+      title: 'Success!',
+      body: 'Product variant was published successfully.',
+    };
+
+    if (!success) {
+      notification.status = ALERT_STATUS.ERROR;
+      notification.title = 'Oops!';
+      notification.body = 'There were errors with your submission.';
+    }
+
+    uiStore.notifyToast(notification);
   };
 
   leavePage = () => {

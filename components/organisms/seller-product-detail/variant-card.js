@@ -99,7 +99,7 @@ class VariantCard extends Component<Props> {
               value={unit}
               initialSelection={UNIT_TYPES.find(({ value }) => value === unit)}
               items={UNIT_TYPES}
-              itemToString={({ text }) => text}
+              itemToString={option => option && option.text}
               onChange={({ value }) => onUpdate({ unit: value })}
             />
           </FormGroup>

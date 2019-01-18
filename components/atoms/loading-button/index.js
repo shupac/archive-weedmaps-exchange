@@ -13,6 +13,7 @@ const LoadingButton = ({
   onClick,
   size = { width: '180px', height: '40px' },
   disabled,
+  type,
 }: {
   isLoading: boolean,
   children: string,
@@ -20,12 +21,14 @@ const LoadingButton = ({
   onClick: any,
   size?: { width?: string, height?: string },
   disabled?: boolean,
+  type?: string,
 }) => (
   <ButtonLoadingProgress
     isLoading={isLoading}
     size={size}
     onClick={onClick}
     disabled={disabled}
+    type={type}
   >
     {isLoading ? (
       <Fragment>

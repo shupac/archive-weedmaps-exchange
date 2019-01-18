@@ -86,7 +86,7 @@ class ProductForm extends Component<Props> {
     const { name, variants } = product;
 
     return (
-      <StyledForm>
+      <StyledForm onKeyDown={e => e.key === 'Enter' && e.preventDefault()}>
         <SellerProductWrapper>
           <Breadcrumbs
             links={this.constructBreadcrumb()}

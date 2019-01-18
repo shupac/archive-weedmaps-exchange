@@ -5,6 +5,7 @@ import ZonesStore from 'lib/data-access/stores/zones';
 import UiStore from 'lib/data-access/stores/ui';
 import mockProductDetails from 'mocks/seller-product-details';
 import mockZones from 'mocks/zones';
+import { ALERT_STATUS } from 'lib/common/constants';
 
 import { SellerProductDetails } from './';
 
@@ -105,10 +106,13 @@ describe('Seller Product Details Page', () => {
     expect(productFormWrapper.exists()).toEqual(true);
   });
 
-  it('should handle submit form', async () => {
+  it('should handle successful save', async () => {
     const { instance, mockStore } = setup();
     const updateSellerProduct = jest
       .spyOn(mockStore.sellerProducts, 'updateSellerProduct')
+      .mockReturnValue();
+    const notifyToast = jest
+      .spyOn(mockStore.uiStore, 'notifyToast')
       .mockReturnValue();
     const actions = {
       resetForm: jest.fn(),
@@ -117,7 +121,25 @@ describe('Seller Product Details Page', () => {
     await instance.onSubmit(mockProductDetails, actions);
     expect(updateSellerProduct).toHaveBeenCalledWith(mockProductDetails);
     expect(actions.setSubmitting).toHaveBeenCalled();
+    expect(notifyToast.mock.calls[0][0].status).toEqual(ALERT_STATUS.ERROR);
+  });
+
+  it('should handle unsuccessful save', async () => {
+    const { instance, mockStore } = setup();
+    const updateSellerProduct = jest
+      .spyOn(mockStore.sellerProducts, 'updateSellerProduct')
+      .mockReturnValue(true);
+    const notifyToast = jest
+      .spyOn(mockStore.uiStore, 'notifyToast')
+      .mockReturnValue();
+    const actions = {
+      resetForm: jest.fn(),
+      setSubmitting: jest.fn(),
+    };
+    await instance.onSubmit(mockProductDetails, actions);
+    expect(updateSellerProduct).toHaveBeenCalledWith(mockProductDetails);
     expect(actions.resetForm).toHaveBeenCalled();
+    expect(notifyToast.mock.calls[0][0].status).toEqual(ALERT_STATUS.SUCCESS);
   });
 
   it('can handle route change', () => {
