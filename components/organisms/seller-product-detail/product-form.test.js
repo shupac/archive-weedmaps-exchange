@@ -1,4 +1,6 @@
 import { shallow } from 'enzyme';
+import { Router } from 'lib/routes';
+import findByTestId from 'lib/jest/find-by-test-id';
 import { ToggleSwitch } from '@ghostgroup/ui';
 import mockProductDetails from 'mocks/seller-product-details';
 import mockZones from 'mocks/zones';
@@ -87,5 +89,22 @@ describe('Seller Product Details Page', () => {
   it('should show the footer when dirty', () => {
     const { wrapper } = setup({ dirty: true });
     expect(wrapper.find('Footer').exists()).toEqual(true);
+  });
+
+  it('should toggle the zones legend drawer', () => {
+    const { wrapper, instance } = setup();
+    const toggleBtn = findByTestId(wrapper, 'zones-link');
+    toggleBtn.simulate('click');
+    expect(instance.state).toEqual({
+      drawerOpen: true,
+    });
+  });
+
+  it('should navigate to manage zones page', () => {
+    const { wrapper } = setup();
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
+    const manageZonesBtn = findByTestId(wrapper, 'manage-zones-button');
+    manageZonesBtn.simulate('click');
+    expect(pushRoute).toHaveBeenCalled();
   });
 });

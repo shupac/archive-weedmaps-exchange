@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { ToggleSwitch } from '@ghostgroup/ui';
+import { Router } from 'lib/routes';
 import LoadingButton from 'components/atoms/loading-button';
 import { ButtonWhiteNoHover } from 'components/atoms/button';
 import { type SellerProductType } from 'models/seller-product';
@@ -8,6 +9,8 @@ import { type VariantType } from 'models/variant';
 import { type ZoneType } from 'models/zone';
 import { FieldArray } from 'formik';
 import Breadcrumbs from 'components/molecules/breadcrumbs';
+import SlideInDrawer, { DrawerHead } from 'components/atoms/slide-drawer';
+import ZoneLegend from 'components/molecules/zone-legend';
 import uniqueKey from 'lib/common/unique-key';
 import VariantCard from './variant-card';
 
@@ -59,7 +62,14 @@ class Variant {
   isNew = true;
 }
 
-class ProductForm extends Component<Props> {
+type State = {
+  drawerOpen: boolean,
+};
+
+class ProductForm extends Component<Props, State> {
+  state = {
+    drawerOpen: false,
+  };
   addVariant: () => void;
 
   constructBreadcrumb = () => {
@@ -69,6 +79,12 @@ class ProductForm extends Component<Props> {
     };
 
     return [baseCrumb];
+  };
+
+  onDrawerToggle = () => {
+    this.setState(prevState => ({
+      drawerOpen: !prevState.drawerOpen,
+    }));
   };
 
   render() {
@@ -84,6 +100,7 @@ class ProductForm extends Component<Props> {
 
     const { product, active } = values;
     const { name, variants } = product;
+    const { drawerOpen } = this.state;
 
     return (
       <StyledForm onKeyDown={e => e.key === 'Enter' && e.preventDefault()}>
@@ -92,6 +109,20 @@ class ProductForm extends Component<Props> {
             links={this.constructBreadcrumb()}
             activeLabel="Product"
           />
+          <SlideInDrawer show={drawerOpen}>
+            <DrawerHead onClick={this.onDrawerToggle}>
+              <ButtonWhiteNoHover
+                data-test-id="manage-zones-button"
+                w={160}
+                onClick={() =>
+                  Router.pushRoute('sellerSettings', { tab: 'zones' })
+                }
+              >
+                Manage Zones
+              </ButtonWhiteNoHover>
+            </DrawerHead>
+            <ZoneLegend />
+          </SlideInDrawer>
           <ProductName>{name}</ProductName>
           <Layout>
             <ContentWrapper>
@@ -106,7 +137,12 @@ class ProductForm extends Component<Props> {
               </AddVariantButton>
               <InstructionsWrapper>
                 Modify the variants and zone allocations to be created:
-                <ZonesLink>View Zones</ZonesLink>
+                <ZonesLink
+                  onClick={this.onDrawerToggle}
+                  data-test-id="zones-link"
+                >
+                  View Zones
+                </ZonesLink>
               </InstructionsWrapper>
               <VariantsWrapper>
                 <FieldArray
