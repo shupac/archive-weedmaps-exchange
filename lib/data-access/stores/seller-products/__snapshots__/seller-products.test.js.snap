@@ -79,6 +79,7 @@ Object {
             "id": "8ecaf48f-b04b-40b5-8a88-0bb9a6aabf97",
             "price": "48000",
             "zone": Object {
+              "cId": "78d2a139-bf28-4570-a787-be3d3b297487",
               "color": "#00CDBE",
               "id": "78d2a139-bf28-4570-a787-be3d3b297487",
               "name": "SoCal",
@@ -101,6 +102,7 @@ Object {
             "id": "004498ab-1667-45c2-9027-e9ab10a05822",
             "price": "14174.50",
             "zone": Object {
+              "cId": "78d2a139-bf28-4570-a787-be3d3b297487",
               "color": "#00CDBE",
               "id": "78d2a139-bf28-4570-a787-be3d3b297487",
               "name": "SoCal",

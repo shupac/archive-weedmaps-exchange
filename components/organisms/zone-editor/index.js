@@ -17,6 +17,7 @@ import { type Bounds } from 'lib/geo';
 import GeoJson from 'components/atoms/map/geo-json';
 import debounce from 'lodash.debounce';
 import { CSSTransition } from 'react-transition-group';
+import uniqueKey from 'lib/common/unique-key';
 import {
   Container,
   FullWidthMap,
@@ -37,12 +38,26 @@ export class ZoneEditor extends React.Component<Props> {
   @observable loading = false;
   @observable dirty = false;
   @observable searchQuery = '';
+  /**
+   * Has the map been moved from the initial bounds
+   * @type {boolean}
+   */
   @observable boundsBroken = false;
   @observable creatingEditingZone = false;
-  @observable selectedRegions: ObservableMap<
+  /**
+   * selectedZoneRegions track the regions in the zone and any new selections
+   * @type {ObservableMap<string, RegionType>}
+   */
+  @observable selectedZoneRegions: ObservableMap<
     string,
     RegionType,
   > = new observable.map();
+  /**
+   * transientRegions track only the regions that have been added before a commit
+   * operation
+   * @type {Map<*, *>}
+   */
+  transientRegions: Map<string, RegionType> = new Map();
   @observable selectedZone: ZoneType;
 
   @computed
@@ -90,11 +105,17 @@ export class ZoneEditor extends React.Component<Props> {
   };
 
   onZoneEdit = (zone: ZoneType) => {
+    // show the edit form
     this.creatingEditingZone = true;
+    // set the selected zone
     this.selectedZone = zone;
-    this.selectedRegions.clear();
+    // clear the existing set of zoneEditedRegions
+    this.selectedZoneRegions.clear();
+    // clear the transient region selections
+    this.transientRegions.clear();
+    // Setup the selectedRegions to include the existing regions for that zone
     zone.regions.forEach(region => {
-      this.selectedRegions.set(region.wmRegionId.toString(), region);
+      this.selectedZoneRegions.set(region.wmRegionId.toString(), region);
     });
   };
 
@@ -102,11 +123,13 @@ export class ZoneEditor extends React.Component<Props> {
   onZoneCreate = () => {
     this.creatingEditingZone = true;
     this.selectedZone = Zone.create({
+      cId: uniqueKey(),
       id: '',
       name: '',
       color: '#fff',
     });
     const { zones } = this.props.store;
+    // timeout for animation delay
     setTimeout(() => {
       zones.addZone(this.selectedZone);
     }, 500);
@@ -119,13 +142,14 @@ export class ZoneEditor extends React.Component<Props> {
 
   @action
   onZoneSave = async () => {
-    const { zones } = this.props.store;
     if (!this.selectedZone.id) {
-      await zones.createZone(this.selectedZone);
+      await this.selectedZone.create();
     } else {
-      await zones.updateZone(this.selectedZone);
+      await this.selectedZone.update();
     }
 
+    this.transientRegions.clear();
+    this.selectedZoneRegions.clear();
     this.creatingEditingZone = false;
   };
 
@@ -135,7 +159,12 @@ export class ZoneEditor extends React.Component<Props> {
     if (!this.selectedZone.id) {
       zones.removeZone(this.selectedZone);
     }
-    this.selectedRegions.clear();
+    // remove transient regions from Zone
+    Array.from(this.transientRegions.values()).forEach(region => {
+      this.selectedZone.removeRegion(region);
+    });
+    // clear the local set
+    this.selectedZoneRegions.clear();
     this.creatingEditingZone = false;
   };
 
@@ -177,9 +206,10 @@ export class ZoneEditor extends React.Component<Props> {
     } else {
       id = region.id.toString();
     }
-    this.selectedRegions.delete(id);
+    this.selectedZoneRegions.delete(id);
     // $FlowFixMe
     this.selectedZone.removeRegion(region);
+    this.transientRegions.delete(id);
   };
 
   addNewRegionfromCoreRegion = (region: RegionWithGeometryType) => {
@@ -190,6 +220,7 @@ export class ZoneEditor extends React.Component<Props> {
       name: region.name,
     });
     this.selectedZone.addRegion(regionModel);
+    this.transientRegions.set(id, regionModel);
   };
 
   toggleRegion = (region: RegionType | RegionWithGeometryType) => {
@@ -203,7 +234,7 @@ export class ZoneEditor extends React.Component<Props> {
         id = region.id.toString();
       }
 
-      if (this.selectedRegions.has(id)) {
+      if (this.selectedZoneRegions.has(id)) {
         this.removeTemporaryRegion(region);
       } else {
         const zone = region.zone || null;
@@ -215,15 +246,8 @@ export class ZoneEditor extends React.Component<Props> {
         }
         // no existing zone, add it to this one
         // $FlowFixMe
-        this.selectedRegions.set(id, region);
-        if (!region.wmRegionId) {
-          // add region to zone by creating a Zone model and associating
-          // $FlowFixMe
-          this.addNewRegionfromCoreRegion(region);
-        } else {
-          // Region is an existing Region model, so add it without creating it
-          this.selectedZone.addRegion((region: any));
-        }
+        this.selectedZoneRegions.set(id, region);
+        this.addNewRegionfromCoreRegion((region: any));
       }
     }
   };
@@ -289,7 +313,7 @@ export class ZoneEditor extends React.Component<Props> {
               onCancel={this.onZoneCreateCancel}
               onSubmit={this.onZoneSave}
               onRemoveRegionFromZone={this.onRemoveRegionFromZone}
-              selectedRegions={this.selectedRegions}
+              selectedRegions={this.selectedZoneRegions}
               zone={this.selectedZone}
             />
           </CSSTransition>

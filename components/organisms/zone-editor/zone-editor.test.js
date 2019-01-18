@@ -93,12 +93,15 @@ describe('zone editor', () => {
       jest.spyOn(mockStore.zones, 'addZone');
       zoneButton.simulate('click');
       setTimeout(() => {
-        expect(mockStore.zones.addZone).toHaveBeenCalledWith({
-          color: '#fff',
-          id: '',
-          name: '',
-          regions: [],
-        });
+        expect(mockStore.zones.addZone).toHaveBeenCalledWith(
+          expect.objectContaining({
+            cId: expect.any(String),
+            color: '#fff',
+            id: '',
+            name: '',
+            regions: [],
+          }),
+        );
         done();
       }, 550);
     });

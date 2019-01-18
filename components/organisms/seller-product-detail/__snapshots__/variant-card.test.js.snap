@@ -3,12 +3,14 @@
 exports[`Seller Product Details Variant Card should calculate available zones 1`] = `
 Array [
   Object {
+    "cId": "0ccf7a68-8f23-4dad-91bb-8d93f9d7cf29",
     "color": "#4A90E2",
     "id": "0ccf7a68-8f23-4dad-91bb-8d93f9d7cf29",
     "name": "NorCal",
     "regions": Array [],
   },
   Object {
+    "cId": "89cfc0ca-4410-49e2-af3a-f74808926bbd",
     "color": "#D0021B",
     "id": "89cfc0ca-4410-49e2-af3a-f74808926bbd",
     "name": "Andrew's Zone #3 3449 Updated 5",

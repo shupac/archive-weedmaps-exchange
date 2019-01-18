@@ -10,7 +10,7 @@ export default {
             'self',
             'https://*.amplitude.com',
             'unsafe-eval',
-            'js.honeybadger.io',
+            '*.honeybadger.io',
           ],
           'img-src': [
             'self',
@@ -32,6 +32,7 @@ export default {
           'child-src': ['blob:'],
           'connect-src': [
             'self',
+            '*.honeybadger.io',
             'https://*.internal-weedmaps.com',
             'https://*.weedmaps.com',
             'https://internal-weedmaps.com',
@@ -41,7 +42,6 @@ export default {
             'https://*.mapbox.com',
             'http://localhost:*',
             'ws://localhost:*',
-            'api.honeybadger.io',
           ],
           'report-uri': [config.contentPolicyReportUri],
         },
