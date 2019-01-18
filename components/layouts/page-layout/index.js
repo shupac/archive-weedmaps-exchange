@@ -22,7 +22,7 @@ auto`
 
 const RightContainer = styled(Flex)`
   flex-direction: column;
-  width: 100%;
+  flex: 1;
   min-width: ${rem(550)};
 `;
 
