@@ -7,7 +7,6 @@ import { PageContent, PageLayout } from 'components/layouts/page-layout';
 import ShowIfRoute from 'components/atoms/show-if-route';
 import SellerProducts from 'components/organisms/seller-products';
 import SellerProductDetail from 'components/organisms/seller-product-detail';
-
 import { type StoreType } from 'lib/types/store';
 
 type Props = {

@@ -7,27 +7,40 @@ import ShowIfRoute from 'components/atoms/show-if-route';
 import { PageContent, PageLayout } from 'components/layouts/page-layout';
 import CancelOrderModal from 'components/organisms/cancel-order-modal';
 import SellerPurchaseOrders from 'components/organisms/seller-purchase-orders';
+import SellerPurchaseOrder from 'components/organisms/seller-purchase-order';
 
 import { type StoreType } from 'lib/types/store';
 
 type Props = {
   store: StoreType,
+  url: any,
 };
 
 export class SellerOrdersPage extends Component<Props> {
   cancelOrder = async (orderId: string) => {
-    const { buyerOrders, uiStore } = this.props.store;
+    const { sellerOrders, uiStore } = this.props.store;
 
-    await buyerOrders.cancelOrder(orderId);
+    await sellerOrders.cancelOrder(orderId);
     uiStore.openModal('cancelOrder');
   };
 
   render() {
+    const { url } = this.props;
+    const {
+      query: { orderId },
+    } = url;
+
     return (
       <PageLayout>
         <PageContent>
           <ShowIfRoute match="/seller/orders">
             <SellerPurchaseOrders onCancelOrder={this.cancelOrder} />
+          </ShowIfRoute>
+          <ShowIfRoute match="/seller/orders/(.*)">
+            <SellerPurchaseOrder
+              orderId={orderId}
+              onCancelOrder={() => this.cancelOrder(orderId)}
+            />
           </ShowIfRoute>
           <CancelOrderModal />
         </PageContent>
