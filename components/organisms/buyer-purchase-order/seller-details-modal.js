@@ -39,7 +39,9 @@ const SellerDetailsModal = ({
       <DetailsTitle>License(s)</DetailsTitle>
       {sellerLicenses.length > 0 ? (
         sellerLicenses.map(licenses => (
-          <DetailDescription>{licenses}</DetailDescription>
+          <DetailDescription>
+            {licenses.licenseType} {licenses.number}
+          </DetailDescription>
         ))
       ) : (
         <DetailDescription>N/A</DetailDescription>
