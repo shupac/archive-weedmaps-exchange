@@ -94,7 +94,9 @@ describe('Seller Product Details Page', () => {
   it('should toggle the zones legend drawer', () => {
     const { wrapper, instance } = setup();
     const toggleBtn = findByTestId(wrapper, 'zones-link');
-    toggleBtn.simulate('click');
+    toggleBtn.simulate('click', {
+      preventDefault: () => {},
+    });
     expect(instance.state).toEqual({
       drawerOpen: true,
     });
@@ -104,7 +106,9 @@ describe('Seller Product Details Page', () => {
     const { wrapper } = setup();
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     const manageZonesBtn = findByTestId(wrapper, 'manage-zones-button');
-    manageZonesBtn.simulate('click');
+    manageZonesBtn.simulate('click', {
+      preventDefault: () => {},
+    });
     expect(pushRoute).toHaveBeenCalled();
   });
 });

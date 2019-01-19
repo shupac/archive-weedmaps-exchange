@@ -81,7 +81,8 @@ class ProductForm extends Component<Props, State> {
     return [baseCrumb];
   };
 
-  onDrawerToggle = () => {
+  onDrawerToggle = (e: SyntheticEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     this.setState(prevState => ({
       drawerOpen: !prevState.drawerOpen,
     }));
@@ -114,9 +115,10 @@ class ProductForm extends Component<Props, State> {
               <ButtonWhiteNoHover
                 data-test-id="manage-zones-button"
                 w={160}
-                onClick={() =>
-                  Router.pushRoute('sellerSettings', { tab: 'zones' })
-                }
+                onClick={e => {
+                  e.preventDefault();
+                  Router.pushRoute('sellerSettings', { tab: 'zones' });
+                }}
               >
                 Manage Zones
               </ButtonWhiteNoHover>

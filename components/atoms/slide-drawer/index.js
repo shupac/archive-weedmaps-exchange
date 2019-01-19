@@ -9,7 +9,7 @@ type DrawerProps = {
 };
 
 type DrawerHeadProps = {
-  onClick?: () => void,
+  onClick: (SyntheticEvent<HTMLButtonElement>) => void,
   children?: React.Node,
 };
 
