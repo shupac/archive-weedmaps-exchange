@@ -12,7 +12,6 @@ import {
   VendorCartHeader,
   SubtotalWrapper,
   Table,
-  TotalsRow,
   TableBody,
   ColLabel,
   ColLabelRight,
@@ -50,6 +49,22 @@ export class ShipmentCard extends Component<Props> {
     };
   };
 
+  // If every product in a shipment card has unavailable location
+  // errors, we do not show the minimum order warning
+  hasMinimumErrorState(): boolean {
+    const { cartItems, store } = this.props;
+    const { buyerCart } = store;
+
+    if (buyerCart.cartErrorsByItemId) {
+      return cartItems.every(
+        ({ id }) =>
+          buyerCart.cartErrorsByItemId[id] &&
+          buyerCart.cartErrorsByItemId[id].error === 'location_unavailable',
+      );
+    }
+    return false;
+  }
+
   render() {
     const { cartItems, index, store, count } = this.props;
     const { buyerCart } = store;
@@ -78,19 +93,17 @@ export class ShipmentCard extends Component<Props> {
                 cartError={buyerCart.cartErrorsByItemId[cartItem.id]}
               />
             ))}
-        </TableBody>
-
-        <TotalsRow>
           <SubtotalWrapper>
             Subtotal: <b>{formatDollars(this.shipmentSubTotal)}</b>
-            {this.shipmentSubTotal < minimumPurchasePrice && (
+          </SubtotalWrapper>
+          {!this.hasMinimumErrorState() &&
+            this.shipmentSubTotal < minimumPurchasePrice && (
               <ErrorMessage>
                 <ErrorIcon width="16px" height="14px" /> {shipmentBrand} has a
                 minimum order amount of {formatDollars(minimumPurchasePrice)}.
               </ErrorMessage>
             )}
-          </SubtotalWrapper>
-        </TotalsRow>
+        </TableBody>
       </Table>
     );
   }

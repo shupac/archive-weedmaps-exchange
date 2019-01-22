@@ -17,7 +17,7 @@ import {
   ProductPhoto,
   ProductDescription,
   RemoveItem,
-  SubtotalWrapper,
+  RowTotal,
   QuantityButton,
   QuantityInput,
   QuantityWrapper,
@@ -147,9 +147,9 @@ export class ProductRow extends Component<Props> {
           </QuantityButton>
         </QuantityWrapper>
         <RemoveItem onClick={() => this.onUpdate(0)}>Remove</RemoveItem>
-        <SubtotalWrapper>
+        <RowTotal>
           {outOfStock ? 'N/A' : formatDollars(this.rowSubTotal)}
-        </SubtotalWrapper>
+        </RowTotal>
         {cartError && (
           <CartError
             errorType={cartError.error}

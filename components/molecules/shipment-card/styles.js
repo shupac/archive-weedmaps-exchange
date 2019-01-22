@@ -107,12 +107,6 @@ export const RemoveItem = styled.a`
 `;
 RemoveItem.displayName = 'RemoveItem';
 
-export const SubtotalWrapper = styled.p`
-  text-align: right;
-  padding-right: 16px;
-`;
-SubtotalWrapper.displayName = 'SubtotalWrapper';
-
 export const ProductDescription = styled.div`
   display: flex;
   flex-direction: column;
@@ -182,17 +176,33 @@ export const UpdateLink = styled.a`
 `;
 UpdateLink.displayName = 'UpdateLink';
 
+export const SubtotalWrapper = styled.p`
+  grid-column: 1/-1;
+  text-align: right;
+  padding-right: 16px;
+  margin: 0 0 16px 0;
+`;
+SubtotalWrapper.displayName = 'SubtotalWrapper';
+
+export const RowTotal = styled.p`
+  text-align: right;
+  padding-right: 16px;
+`;
+RowTotal.displayName = 'RowTotal';
+
 export const ErrorMessage = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   text-align: left;
+  grid-column: 1/4;
   border: 1px solid ${border.error};
   border-radius: 3px;
   background-color: ${theme.colors.bg.error};
   color: ${state.danger};
   font-size: ${rem(14)};
   padding: 8px 19px;
-  margin: 8px 0 8px 16px;
+  margin: -8px 0 16px 16px;
   svg {
     margin-right: 8px;
   }

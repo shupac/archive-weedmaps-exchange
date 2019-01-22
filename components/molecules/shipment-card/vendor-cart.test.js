@@ -53,6 +53,7 @@ describe('ShipmentCart', () => {
 
   it('should show inline error in the shipment cart', () => {
     const { shipmentWrapper } = setup();
+
     expect(
       shipmentWrapper
         .find('ErrorMessage')
@@ -67,6 +68,7 @@ describe('ShipmentCart', () => {
 describe('ProductRow', () => {
   it('should render the product row', () => {
     const { productRowWrapper } = setup();
+
     expect(
       productRowWrapper
         .find('ProductDescription')
@@ -83,7 +85,7 @@ describe('ProductRow', () => {
     ).toEqual('50 Units');
     expect(
       productRowWrapper
-        .find('SubtotalWrapper')
+        .find('RowTotal')
         .dive()
         .text(),
     ).toEqual('$100,000.00');
