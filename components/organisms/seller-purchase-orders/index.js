@@ -74,10 +74,15 @@ export class SellerPurchaseOrders extends Component<Props, State> {
   };
 
   disposeFetchOrders = reaction(
-    () => this.query.toJSON(),
-    query => {
+    () => {
+      const { authStore } = this.props.store;
+      return {
+        query: this.query.toJSON(),
+        activeBrand: authStore.activeSellerBrand,
+      };
+    },
+    ({ query }) => {
       const { sellerOrders } = this.props.store;
-
       sellerOrders.fetchPurchaseOrders(query);
     },
     { name: 'Search and fetch filters data' },
@@ -92,13 +97,13 @@ export class SellerPurchaseOrders extends Component<Props, State> {
       return {
         activeModal,
         modalTransitioning,
-        orders: ordersList.map(o => o),
+        orders: ordersList,
       };
     },
     ({ activeModal, modalTransitioning, orders }) => {
       if (!activeModal && !modalTransitioning) this.orders = orders;
     },
-    { name: 'Watch modal transition' },
+    { name: 'Watch modal transition Seller PO' },
   );
 
   componentDidMount() {

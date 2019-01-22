@@ -43,6 +43,9 @@ function createMockStore(ordersLoading) {
       },
     ),
     uiStore: UiStore.create(),
+    authStore: {
+      activeSellerBrand: 'activeBrand',
+    },
   };
 }
 
@@ -172,5 +175,15 @@ describe('Buyer Purchase Orders Page', () => {
       expect(instance.orders.length).toEqual(2);
       done();
     }, 410);
+  });
+
+  it('should fetch PO data when query changes', () => {
+    const { instance, mockStore } = setup();
+    const fetchPurchaseOrders = jest.spyOn(
+      mockStore.sellerOrders,
+      'fetchPurchaseOrders',
+    );
+    instance.setSearch('search');
+    expect(fetchPurchaseOrders).toHaveBeenCalled();
   });
 });
