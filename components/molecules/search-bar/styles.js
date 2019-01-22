@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 
-const { state: WmColor, border } = WmTheme.style;
+const { state: WmColor, border, background } = WmTheme.style;
 const { SelectButton } = SelectStyles;
 
 export const SearchBarWrapper = styled.div`
@@ -33,7 +33,7 @@ export const SearchInputText = styled.input`
     border: 1px solid ${WmColor.primary};
   }
   width: 100%;
-  padding: 0 10px;
+  padding: 0 16px;
   cursor: auto;
   border-style: none;
   font-size: ${rem(14)};
@@ -47,7 +47,9 @@ SearchInputText.displayName = 'SearchInputText';
 
 export const SelectWrapper = styled.div`
   width: 150px;
+  background-color: ${background.secondary};
   ${SelectButton} {
+    padding-left: 16px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     width: 150px;
