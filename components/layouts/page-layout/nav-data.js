@@ -83,7 +83,7 @@ export const sellerFooterData = [
       params: {
         tab: 'general',
       },
-      path: '/seller/settings',
+      path: '/seller-settings',
     },
   },
   {
