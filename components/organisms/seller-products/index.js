@@ -191,11 +191,11 @@ export class SellerProducts extends Component<Props, State> {
     Router.pushRoute('sellerProducts', nextQuery);
   };
 
-  setActive = (product: SellerProductType, active: boolean) => {
+  setActive = (sellerProduct: SellerProductType, active: boolean) => {
     const { sellerProducts } = this.props.store;
 
     sellerProducts.updateSellerProduct({
-      ...product,
+      ...sellerProduct,
       active,
     });
   };
@@ -353,7 +353,7 @@ export class SellerProducts extends Component<Props, State> {
           <TableCell>
             <ToggleSwitch
               checked={active}
-              onChange={() => this.setActive(product, !active)}
+              onChange={() => this.setActive(sellerProduct, !active)}
               disabled={!quantity}
             />
           </TableCell>
