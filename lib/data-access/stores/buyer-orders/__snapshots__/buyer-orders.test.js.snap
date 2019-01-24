@@ -46,6 +46,7 @@ Array [
     "statusReason": "",
     "subtotal": "24900.00",
     "total": "25000",
+    "zoneName": "Zone1",
   },
   Object {
     "buyerData": Object {
@@ -91,6 +92,7 @@ Array [
     "statusReason": "Not needed",
     "subtotal": "114900.00",
     "total": "115000",
+    "zoneName": "Zone1",
   },
 ]
 `;
@@ -161,5 +163,6 @@ Object {
   "statusReason": "",
   "subtotal": "4400.0",
   "total": "4400",
+  "zoneName": "Zone1",
 }
 `;

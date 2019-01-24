@@ -58,7 +58,7 @@ function setup(ordersLoading = false) {
   return { tree, instance, mockStore };
 }
 
-describe('Buyer Purchase Orders Page', () => {
+describe('Seller Purchase Orders Page', () => {
   it('should render the component', () => {
     const { tree } = setup();
     expect(tree.exists()).toEqual(true);

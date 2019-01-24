@@ -113,7 +113,6 @@ export class SellerPurchaseOrders extends Component<Props, State> {
       sort: '-date_ordered',
     });
 
-    store.sellerOrders.fetchOrders();
     store.sellerOrders.fetchPOBuyers();
     // eslint-disable-next-line
     this.setState({ mounted: true });
@@ -127,9 +126,11 @@ export class SellerPurchaseOrders extends Component<Props, State> {
   render() {
     const { mounted } = this.state;
     const { store, onCancelOrder } = this.props;
-    const { sellerOrders, buyerOrders } = store;
+    const { sellerOrders } = store;
     const { ordersLoading } = sellerOrders;
-    const { totalEntries, pageSize, pageNumber } = buyerOrders.ordersListMeta;
+    const { totalEntries, pageSize, pageNumber } = sellerOrders.ordersListMeta;
+    const emptyStateBody =
+      'Once you submit a purchase order, it will show up here. Then you can track the status of current orders and view order history.\n\nTo start receiving purchase orders, create variant allocations and publish your products so buyers can shop for them in the marketplace.';
     const paginationText = getPaginationText(
       totalEntries,
       pageSize,
@@ -149,10 +150,10 @@ export class SellerPurchaseOrders extends Component<Props, State> {
       return (
         <EmptyState
           image="no_orders_yet"
-          title="No Orders Yet"
-          body="Once you submit an order, it will show up here. Then you can track the status of current orders and view order history."
-          route="/buyer/marketplace/discover"
-          buttonLabel="browse products"
+          title="No Purchase Orders Yet"
+          body={emptyStateBody}
+          route="/seller/products"
+          buttonLabel="manage products"
         />
       );
     }

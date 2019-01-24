@@ -35,22 +35,10 @@ type Props = {
 };
 
 export class OrdersFilters extends Component<Props> {
-  onSelectBrands = (selections: Selection[]) => {
+  onSelectFilter = (filter: string) => (selections: Selection[]) => {
     const { setFilter } = this.props;
     const vals = selections.map(({ value }) => value);
-    setFilter('brand', vals);
-  };
-
-  onSelectLocations = (selections: Selection[]) => {
-    const { setFilter } = this.props;
-    const vals = selections.map(({ value }) => value);
-    setFilter('location', vals);
-  };
-
-  onSelectStatus = (selections: Selection[]) => {
-    const { setFilter } = this.props;
-    const vals = selections.map(({ value }) => value);
-    setFilter('status', vals);
+    setFilter(filter, vals);
   };
 
   get statusOptions(): Selection[] {
@@ -82,33 +70,48 @@ export class OrdersFilters extends Component<Props> {
       <FiltersRow>
         <SearchBox onHandleSearch={setSearch} />
         <DateRange dateRange={dateRange} setDateRange={setDateRange} />
-        <ComboSelect
-          items={buyersTable ? brandsFilterOptions : sellerBrandsFilterOptions}
-          buttonId="BrandsFilter"
-          placeholder="All Brands"
-          onSelectionChange={this.onSelectBrands}
-        />
+        {buyersTable ? (
+          <ComboSelect
+            data-test-id="select-status"
+            items={brandsFilterOptions}
+            itemToString={item => item.text}
+            buttonId="BrandsFilter"
+            placeholder="All Brands"
+            onSelectionChange={this.onSelectFilter('brand')}
+          />
+        ) : (
+          <ComboSelect
+            items={sellerBrandsFilterOptions}
+            itemToString={item => item.text}
+            buttonId="OrganizationsFilter"
+            placeholder="All Organizations"
+            onSelectionChange={this.onSelectFilter('buyer_name')}
+          />
+        )}
         <ComboSelect
           items={
             buyersTable ? locationsFilterOptions : sellerLocationsFilterOptions
           }
+          itemToString={item => item.text}
           buttonId="LocationFilter"
           placeholder="All Locations"
-          onSelectionChange={this.onSelectLocations}
+          onSelectionChange={this.onSelectFilter('location')}
         />
         {!buyersTable && (
           <ComboSelect
             items={sellerZonesFilterOptions}
+            itemToString={item => item.text}
             buttonId="ZoneFilter"
             placeholder="All Zones"
-            onSelectionChange={this.onSelectStatus}
+            onSelectionChange={this.onSelectFilter('zone')}
           />
         )}
         <ComboSelect
           items={this.statusOptions}
+          itemToString={item => item.text}
           buttonId="StatusFilter"
           placeholder="All Statuses"
-          onSelectionChange={this.onSelectStatus}
+          onSelectionChange={this.onSelectFilter('status')}
         />
       </FiltersRow>
     );

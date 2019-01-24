@@ -5,7 +5,7 @@ import { observable, reaction } from 'mobx';
 import at from 'lodash/at';
 import StyledLink from 'components/atoms/styled-link';
 import BackArrow from 'components/atoms/icons/back-arrow';
-import StatusPill from 'components/atoms/order-status-pill';
+import StatusPillDropDown from 'components/atoms/order-status-pill/status-pill-dropdown';
 import { ButtonPrimary, ButtonWhiteNoHover } from 'components/atoms/button';
 import Loader from 'components/atoms/loader';
 import { formatOrderId, formatCurrency } from 'lib/common/strings';
@@ -160,7 +160,7 @@ class SellerPurchaseOrder extends Component<Props> {
                 <td>{address}</td>
                 <td>{shipDate}</td>
                 <td>
-                  <StatusPill status={status} />
+                  <StatusPillDropDown status={status} orderId={orderId} />
                 </td>
                 {status === 'canceled' && <td>{statusReason}</td>}
               </tr>

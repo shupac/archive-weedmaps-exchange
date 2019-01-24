@@ -131,12 +131,20 @@ export class OrdersTable extends Component<Props, State> {
                 {order.id.substring(0, 6).toUpperCase()}
               </StyledLink>
               <p>{formatDate(order.orderDate)}</p>
-              <p>{order.sellerData.sellerName}</p>
-              <p>{order.buyerData.buyerLocationName}</p>
               <p>
-                {formatDate(order.expectedShipDateMin)}-
-                {formatDate(order.expectedShipDateMax)}
+                {customerType === 'buyer'
+                  ? order.sellerData.sellerName
+                  : order.buyerData.buyerName}
               </p>
+              <p>{order.buyerData.buyerLocationName}</p>
+              {customerType === 'buyer' ? (
+                <p>
+                  {formatDate(order.expectedShipDateMin)}-
+                  {formatDate(order.expectedShipDateMax)}
+                </p>
+              ) : (
+                <p>{order.zoneName}</p>
+              )}
               <p>{formatDollars(Number(order.total))}</p>
               {buyersTable ? (
                 <StatusPill status={order.status} />

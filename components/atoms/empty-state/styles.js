@@ -25,4 +25,5 @@ export const NoResultsTitle = styled.h2`
 export const NoResultsInstructions = styled.span`
   font-size: ${rem(14)};
   margin-bottom: 24px;
+  white-space: pre;
 `;
