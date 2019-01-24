@@ -115,6 +115,15 @@ jobs:
           name: Deploy to Rancher
           command: APPLICATION_ENVIRONMENT=production DEPLOY_ENVIRONMENT=$(cat ~/.deploy_environment) BRANCH=${CIRCLE_BRANCH} REPOSITORY=${CIRCLE_PROJECT_REPONAME} SHA=${CIRCLE_SHA1} JENKINS_JOB=rancher_deploy ./run_jenkins
 
+  notify_honeybadger:
+    <<: *docker_defaults
+    steps:
+      - *set_deploy_environment
+      - run:
+          name: Notify Honeybadger of a deploy
+          command: |
+            curl -g "https://api.honeybadger.io/v1/deploys?deploy[environment]=$DEPLOY_ENVIRONMENT&deploy[local_username]=$CIRCLE_USERNAME&deploy[revision]=$CIRCLE_SHA1&api_key=$HONEYBADGER_API_KEY_BROWSER&deploy[repository]=https://github.com/GhostGroup/exchange-fe"
+            curl -g "https://api.honeybadger.io/v1/deploys?deploy[environment]=$DEPLOY_ENVIRONMENT&deploy[local_username]=$CIRCLE_USERNAME&deploy[revision]=$CIRCLE_SHA1&api_key=$HONEYBADGER_API_KEY_NODE&deploy[repository]=https://github.com/GhostGroup/exchange-fe"
   notify_pre:
     <<: *docker_defaults
     steps:
@@ -131,7 +140,10 @@ jobs:
       - run:
           name: Notify Datadog of production release
           command: curl https://provision-weedmaps.s3-us-west-2.amazonaws.com/testing/bin/report_datadog_event | ENVIRONMENT=production REVISION=${CIRCLE_SHA1} DEPLOYER=CircleCI BUILD_ID=${CIRCLE_SHA1} PROJECT=${CIRCLE_PROJECT_REPONAME} bash
-
+      - run:
+          name: Notify Newrelic of production release
+          command: |
+            curl -XPOST https://api.newrelic.com/v2/applications/$NEW_RELIC_APP_ID/deployments.json -H "X-Api-Key:$NEW_RELIC_API_KEY" -H "Content-Type: application/json" -d "{\"deployment\":{\"revision\":\"$CIRCLE_SHA1\"}}"
 exclude_refspec: &exclude_refspec
   filters:
     branches:
@@ -169,6 +181,9 @@ workflows:
             branches:
               only:
                 - develop
+      - notify_honeybadger:
+          requires:
+            - deploy
   refspec:
     jobs:
       - deploy:
@@ -192,3 +207,6 @@ workflows:
             branches:
               only:
                 - production
+      - notify_honeybadger:
+          requires:
+            - deploy
