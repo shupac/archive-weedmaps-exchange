@@ -64,6 +64,17 @@ jobs:
       - save_cache:
           key: *cache_key
           paths: *cache_paths
+  danger:
+    <<: *docker_defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys: *cache_keys
+      - *yarn_install
+      - save_cache:
+          key: *cache_key
+          paths: *cache_paths
+      - run: '[ ! -z $CI_PULL_REQUESTS ] && yarn danger ci || (echo "Skipping Danger. No PR." && exit 1)'
 
   build_app:
     <<: *machine_defaults
@@ -159,6 +170,8 @@ workflows:
       - test:
           <<: *exclude_refspec
       - verify:
+          <<: *exclude_refspec
+      - danger:
           <<: *exclude_refspec
       - build_app:
           context: weedmaps
