@@ -22,7 +22,7 @@ services:
       com.datadoghq.ad.check_names: '["tcp_check"]'
       com.datadoghq.ad.init_configs: '[{}]'
       com.datadoghq.ad.instances: '[{"name":"exchange-fe_app", "host":"%%host%%", "port":"%%port%%", "collect_response_time":"true", "timeout":"3", "tags":["env:${deploy_environment}"]}]'
-      com.datadoghq.ad.logs: '[{"source": "exchange-fe", "service": "app"}]'
+      com.datadoghq.ad.logs: '[{"source": "app", "service": "${STACK_NAME}"}]'
     ports:
       - 1620
     environment:
@@ -40,7 +40,7 @@ services:
       com.datadoghq.ad.check_names: '["tcp_check"]'
       com.datadoghq.ad.init_configs: '[{}]'
       com.datadoghq.ad.instances: '[{"name":"exchange-fe-storybook", "host":"%%host%%", "port":"%%port%%", "collect_response_time":"true", "timeout":"3", "tags":["env:${deploy_environment}"]}]'
-      com.datadoghq.ad.logs: '[{"source": "exchange-fe", "service": "storybook"}]'
+      com.datadoghq.ad.logs: '[{"source": "storybook", "service": "${STACK_NAME}"}]'
     environment:
       - LOGSTASH_TAGS=exchange-fe,${deploy_environment},nodejs,app
       - LOGSTASH_FIELDS=stack=exchange-fe,service=storybook,deploy_environment=${deploy_environment},sha=${sha},application_environment=${application_environment}
