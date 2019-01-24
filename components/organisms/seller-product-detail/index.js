@@ -9,6 +9,7 @@ import { type SellerProductType } from 'models/seller-product';
 import { type ZoneType } from 'models/zone';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
 import UnsavedChangesModal from 'components/atoms/unsaved-changes-modal';
+import ProductValidationSchema from './product-validation-schema';
 import ProductForm from './product-form';
 
 type Props = {
@@ -22,10 +23,14 @@ type State = {
 
 type FormikProps = {
   values: SellerProductType,
+  errors: Object,
+  touched: Object,
   handleChange: mixed => void,
   handleSubmit: mixed => void,
   handleReset: mixed => void,
+  handleBlur: (SyntheticEvent<FocusEvent>) => void,
   dirty: boolean,
+  isValid: boolean,
   isSubmitting: boolean,
 };
 
@@ -148,6 +153,8 @@ export class SellerProductDetails extends Component<Props, State> {
     return (
       <Fragment>
         <Formik
+          validateOnBlur
+          validationSchema={ProductValidationSchema}
           initialValues={sellerProductDetails}
           onSubmit={this.onSubmit}
           render={this.renderForm(zones)}

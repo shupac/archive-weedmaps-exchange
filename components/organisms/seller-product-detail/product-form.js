@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { ToggleSwitch } from '@ghostgroup/ui';
 import { Router } from 'lib/routes';
+import get from 'lodash.get';
 import LoadingButton from 'components/atoms/loading-button';
 import { ButtonWhiteNoHover } from 'components/atoms/button';
 import { type SellerProductType } from 'models/seller-product';
@@ -17,6 +18,7 @@ import VariantCard from './variant-card';
 import {
   StyledForm,
   SellerProductWrapper,
+  ScrollWrapper,
   Layout,
   ProductName,
   ContentWrapper,
@@ -34,16 +36,23 @@ import {
 type Props = {
   zones: ZoneType[],
   values: SellerProductType,
+  errors: Object,
+  touched: Object,
   handleChange: mixed => void,
   handleSubmit: mixed => void,
   handleReset: mixed => void,
+  handleBlur: (SyntheticEvent<FocusEvent>) => void,
   dirty: boolean,
+  isValid: boolean,
   isSubmitting: boolean,
 };
 
 type FormData = {
   variants: VariantType[],
   zones: ZoneType[],
+  handleBlur: (SyntheticEvent<FocusEvent>) => void,
+  errors: Object,
+  touched: Object,
 };
 
 type ArrayHelpers = {
@@ -92,10 +101,14 @@ class ProductForm extends Component<Props, State> {
     const {
       zones,
       values,
+      errors,
+      touched,
       handleChange,
       handleSubmit,
       handleReset,
+      handleBlur,
       dirty,
+      isValid,
       isSubmitting,
     } = this.props;
 
@@ -106,74 +119,85 @@ class ProductForm extends Component<Props, State> {
     return (
       <StyledForm onKeyDown={e => e.key === 'Enter' && e.preventDefault()}>
         <SellerProductWrapper>
-          <Breadcrumbs
-            links={this.constructBreadcrumb()}
-            activeLabel="Product"
-          />
-          <SlideInDrawer show={drawerOpen}>
-            <DrawerHead onClick={this.onDrawerToggle}>
-              <ButtonWhiteNoHover
-                data-test-id="manage-zones-button"
-                w={160}
-                onClick={e => {
-                  e.preventDefault();
-                  Router.pushRoute('sellerSettings', { tab: 'zones' });
-                }}
-              >
-                Manage Zones
-              </ButtonWhiteNoHover>
-            </DrawerHead>
-            <ZoneLegend />
-          </SlideInDrawer>
-          <ProductName>{name}</ProductName>
-          <Layout>
-            <ContentWrapper>
-              <VariantHeader>Variants</VariantHeader>
-              <VariantInfo>
-                Add variants for each version of this product, like different
-                weights or packs. Then you can configure the selling options for
-                each variant and quantity to allocate to each zone.
-              </VariantInfo>
-              <AddVariantButton type="button" onClick={() => this.addVariant()}>
-                Add Variant
-              </AddVariantButton>
-              <InstructionsWrapper>
-                Modify the variants and zone allocations to be created:
-                <ZonesLink
-                  onClick={this.onDrawerToggle}
-                  data-test-id="zones-link"
-                >
-                  View Zones
-                </ZonesLink>
-              </InstructionsWrapper>
-              <VariantsWrapper>
-                <FieldArray
-                  name="product.variants"
-                  render={this.renderVariants({ variants, zones })}
-                />
-              </VariantsWrapper>
-            </ContentWrapper>
-            <AvailabilityWrapper>
-              <AvailabilityHeader>Availability</AvailabilityHeader>
-              <p>
-                Once published, buyers can browse and purchase this product in
-                the marketplace.
-              </p>
-              <div>
-                Publish Product
-                <ToggleSwitch
-                  checked={values.active}
-                  onChange={event => {
-                    event.target = {
-                      value: !active,
-                      name: 'active',
-                    };
-                    handleChange(event);
+          <ScrollWrapper>
+            <Breadcrumbs
+              links={this.constructBreadcrumb()}
+              activeLabel="Product"
+            />
+            <SlideInDrawer show={drawerOpen}>
+              <DrawerHead onClick={this.onDrawerToggle}>
+                <ButtonWhiteNoHover
+                  data-test-id="manage-zones-button"
+                  w={160}
+                  onClick={e => {
+                    e.preventDefault();
+                    Router.pushRoute('sellerSettings', { tab: 'zones' });
                   }}
-                />
-              </div>
-            </AvailabilityWrapper>
-          </Layout>
+                >
+                  Manage Zones
+                </ButtonWhiteNoHover>
+              </DrawerHead>
+              <ZoneLegend />
+            </SlideInDrawer>
+            <ProductName>{name}</ProductName>
+            <Layout>
+              <ContentWrapper>
+                <VariantHeader>Variants</VariantHeader>
+                <VariantInfo>
+                  Add variants for each version of this product, like different
+                  weights or packs. Then you can configure the selling options
+                  for each variant and quantity to allocate to each zone.
+                </VariantInfo>
+                <AddVariantButton
+                  type="button"
+                  onClick={() => this.addVariant()}
+                >
+                  Add Variant
+                </AddVariantButton>
+                <InstructionsWrapper>
+                  Modify the variants and zone allocations to be created:
+                  <ZonesLink
+                    onClick={this.onDrawerToggle}
+                    data-test-id="zones-link"
+                  >
+                    View Zones
+                  </ZonesLink>
+                </InstructionsWrapper>
+                <VariantsWrapper>
+                  <FieldArray
+                    name="product.variants"
+                    render={this.renderVariants({
+                      variants,
+                      zones,
+                      errors: get(errors, ['product', 'variants'], []),
+                      touched: get(touched, ['product', 'variants'], []),
+                      handleBlur,
+                    })}
+                  />
+                </VariantsWrapper>
+              </ContentWrapper>
+              <AvailabilityWrapper>
+                <AvailabilityHeader>Availability</AvailabilityHeader>
+                <p>
+                  Once published, buyers can browse and purchase this product in
+                  the marketplace.
+                </p>
+                <div>
+                  Publish Product
+                  <ToggleSwitch
+                    checked={values.active}
+                    onChange={event => {
+                      event.target = {
+                        value: !active,
+                        name: 'active',
+                      };
+                      handleChange(event);
+                    }}
+                  />
+                </div>
+              </AvailabilityWrapper>
+            </Layout>
+          </ScrollWrapper>
         </SellerProductWrapper>
         {dirty && (
           <Footer>
@@ -185,7 +209,7 @@ class ProductForm extends Component<Props, State> {
               type="submit"
               onClick={handleSubmit}
               isLoading={isSubmitting}
-              disabled={isSubmitting}
+              disabled={isSubmitting || !isValid}
               loadingText="Saving"
               size={{
                 width: '100%',
@@ -201,7 +225,7 @@ class ProductForm extends Component<Props, State> {
   }
 
   renderVariants = (formData: FormData) => (arrayHelpers: ArrayHelpers) => {
-    const { variants, zones } = formData;
+    const { variants, zones, errors, touched, handleBlur } = formData;
     const { push, replace, remove } = arrayHelpers;
 
     this.addVariant = () => push(new Variant());
@@ -210,10 +234,14 @@ class ProductForm extends Component<Props, State> {
       <VariantCard
         key={variant.id}
         index={i}
+        namePath="product.variants"
         variant={variant}
         zones={zones.map(zone => zone)}
         onUpdate={values => replace(i, { ...variant, ...values })}
         onDelete={() => remove(i)}
+        errors={get(errors, [i], {})}
+        touched={get(touched, [i], {})}
+        handleBlur={handleBlur}
       />
     ));
   };

@@ -12,6 +12,8 @@ export const StyledForm = styled(Form)`
   flex-direction: column;
 `;
 
+StyledForm.displayName = 'StyledForm';
+
 export const SellerProductWrapper = styled.div`
   flex: 1;
   padding: 0 16px 16px;
@@ -19,10 +21,15 @@ export const SellerProductWrapper = styled.div`
   overflow-y: auto;
 `;
 
+export const ScrollWrapper = styled.div`
+  margin: 0 auto;
+  width: fit-content;
+`;
+
 export const Layout = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(700px, 1fr) 374px;
+  grid-template-columns: 780px 374px;
   grid-column-gap: 16px;
   padding-bottom: 16px;
 
@@ -177,7 +184,7 @@ export const AllocationsWrapper = styled.div`
 
 const gridColumns = css`
   display: grid;
-  grid-template-columns: 1fr 86px 86px 110px 51px 32px;
+  grid-template-columns: 294px 86px 86px 110px 51px 32px;
   grid-column-gap: 8px;
 `;
 
@@ -235,6 +242,8 @@ export const StyledSelect = styled(Select)`
 
   button {
     padding-left: 16px;
+    border-color: ${({ error }) =>
+      error ? `${state.danger}` : `${border.default}`};
   }
 `;
 

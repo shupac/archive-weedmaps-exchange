@@ -34,7 +34,7 @@ function setup(props) {
   return { wrapper, formikProps, instance, variantsWrapper, arrayHelpers };
 }
 
-describe('Seller Product Details Page', () => {
+describe('Seller Product Detail Product Form', () => {
   it('should render the component', () => {
     const { wrapper, variantsWrapper } = setup();
     expect(wrapper.exists()).toEqual(true);
@@ -110,5 +110,15 @@ describe('Seller Product Details Page', () => {
       preventDefault: () => {},
     });
     expect(pushRoute).toHaveBeenCalled();
+  });
+
+  it('should call preventDefault when Enter is pressed', () => {
+    const { wrapper } = setup();
+    const { onKeyDown } = wrapper.find('StyledForm').props();
+    const preventDefault = jest.fn();
+    onKeyDown({ key: 'a', preventDefault });
+    expect(preventDefault).not.toHaveBeenCalled();
+    onKeyDown({ key: 'Enter', preventDefault });
+    expect(preventDefault).toHaveBeenCalled();
   });
 });

@@ -12,6 +12,11 @@ function setup(newProps) {
     availableZones: mockZones,
     onUpdate: jest.fn(),
     onDelete: jest.fn(),
+    errors: {},
+    touched: {},
+    handleBlur: jest.fn(),
+    namePath: 'product.variants.0.allocations',
+    index: 0,
   };
 
   const component = <AllocationRow {...props} {...newProps} />;
@@ -45,17 +50,17 @@ describe('Seller Product Details Allocation Row', () => {
   it('should update the price', () => {
     const { wrapper, props } = setup();
     const select = wrapper.find('FormInput').first();
-    const event = { target: { value: 10 } };
+    const event = { target: { value: '10' } };
     select.props().onChange(event);
-    expect(props.onUpdate).toHaveBeenCalledWith({ price: 10 });
+    expect(props.onUpdate).toHaveBeenCalledWith({ price: '10' });
   });
 
   it('should update the amount', () => {
     const { wrapper, props } = setup();
     const select = wrapper.find('FormInput').last();
-    const event = { target: { value: 10 } };
+    const event = { target: { value: '10' } };
     select.props().onChange(event);
-    expect(props.onUpdate).toHaveBeenCalledWith({ amount: 10 });
+    expect(props.onUpdate).toHaveBeenCalledWith({ amount: '10' });
   });
 
   it('should update the active status', () => {
@@ -63,5 +68,63 @@ describe('Seller Product Details Allocation Row', () => {
     const select = wrapper.find('ToggleSwitch');
     select.props().onChange(true);
     expect(props.onUpdate).toHaveBeenCalledWith({ active: false });
+  });
+
+  it('should handle onBlur for the zone', () => {
+    const { wrapper, props } = setup();
+    const select = wrapper.find('StyledSelect');
+    select.props().onBlur();
+    expect(props.handleBlur).toHaveBeenCalledWith({
+      target: {
+        name: 'product.variants.0.allocations.0.zone',
+      },
+    });
+  });
+
+  it('should handle onBlur for the price', () => {
+    const { wrapper, props } = setup();
+    const select = wrapper.find('FormInput').first();
+    const event = { target: { foo: 'bar' } };
+    select.props().onBlur(event);
+    expect(props.onUpdate).toHaveBeenCalledWith({ price: '$48,000.00' });
+    expect(props.handleBlur).toHaveBeenCalledWith(event);
+  });
+
+  it('should handle onBlur for the empty price', () => {
+    const { wrapper, props } = setup({
+      allocation: {
+        ...mockProductDetails.product.variants[0].allocations[0],
+        price: '',
+      },
+    });
+    const select = wrapper.find('FormInput').first();
+    const event = { target: { foo: 'bar' } };
+    select.props().onBlur(event);
+    expect(props.onUpdate).toHaveBeenCalledWith({ price: '' });
+    expect(props.handleBlur).toHaveBeenCalledWith(event);
+  });
+
+  it('should handle onBlur for the amount', () => {
+    const { wrapper, props } = setup();
+    const select = wrapper.find('FormInput').last();
+    const event = { target: { foo: 'bar' } };
+    select.props().onBlur(event);
+    expect(props.handleBlur).toHaveBeenCalledWith(event);
+  });
+
+  it('should show errors', () => {
+    const { wrapper } = setup({
+      errors: {
+        zone: 'Test error',
+        price: 'Test error',
+        amount: 'Test error',
+      },
+      touched: {
+        zone: true,
+        price: true,
+        amount: true,
+      },
+    });
+    expect(wrapper.find('FormInputError').length).toEqual(3);
   });
 });
