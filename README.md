@@ -1,8 +1,5 @@
 Exchange front-end using Node and React
-
-[![codecov](https://codecov.io/gh/GhostGroup/admin/branch/develop/graph/badge.svg?token=OdCTnCI0to)](https://codecov.io/gh/GhostGroup/admin)
-<a href="https://codeclimate.com/repos/58ef9577a6ef36027c0000d3/feed"><img src="https://codeclimate.com/repos/58ef9577a6ef36027c0000d3/badges/9738c4dde8e6d09cd0d1/gpa.svg" /></a>
-[![CircleCI](https://circle.weedmaps.com/gh/GhostGroup/admin/tree/develop.svg?style=svg&circle-token=6780bc4cef266ecc0184bc681f345358733aa98f)](https://circle.weedmaps.com/gh/GhostGroup/admin/tree/develop)
+[![codecov](https://codecov.io/gh/GhostGroup/exchange-fe/branch/master/graph/badge.svg?token=thqzIMewEF)](https://codecov.io/gh/GhostGroup/exchange-fe)
 
 ## Features
 

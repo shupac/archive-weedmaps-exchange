@@ -50,7 +50,16 @@ jobs:
       - save_cache:
           key: *cache_key
           paths: *cache_paths
-      - run: yarn test
+      - run:
+          name: Run Tests and Coverage
+          command: |
+            mkdir reports
+            yarn test:serial --bail --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
+      - run:
+          name: Codecov
+          command: bash <(curl -s https://codecov.io/bash)
 
   verify:
     <<: *docker_defaults
@@ -155,6 +164,7 @@ jobs:
           name: Notify Newrelic of production release
           command: |
             curl -XPOST https://api.newrelic.com/v2/applications/$NEW_RELIC_APP_ID/deployments.json -H "X-Api-Key:$NEW_RELIC_API_KEY" -H "Content-Type: application/json" -d "{\"deployment\":{\"revision\":\"$CIRCLE_SHA1\"}}"
+
 exclude_refspec: &exclude_refspec
   filters:
     branches:
@@ -172,7 +182,13 @@ workflows:
       - verify:
           <<: *exclude_refspec
       - danger:
-          <<: *exclude_refspec
+          filters:
+            branches:
+              ignore:
+                - develop
+                - staging
+                - performance
+                - production
       - build_app:
           context: weedmaps
           requires:
