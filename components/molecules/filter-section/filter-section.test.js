@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
@@ -6,11 +7,10 @@ import ComboCheckbox from 'components/atoms/combo-checkbox';
 import { FilterSection } from './';
 
 function setup(brandsQuery, singleSelection) {
-  const mockRouter = {
-    query: {
-      tab: 'catalog',
-      brands: brandsQuery,
-    },
+  const mockRouter = jest.genMockFromModule('next/router');
+  mockRouter.query = {
+    tab: 'catalog',
+    brands: brandsQuery,
   };
   if (!brandsQuery) delete mockRouter.query.brands;
 
@@ -18,18 +18,22 @@ function setup(brandsQuery, singleSelection) {
     {
       id: '1',
       name: 'Brand1',
+      checked: false,
     },
     {
       id: '2',
       name: 'Brand2',
+      checked: false,
     },
     {
       id: '3',
       name: 'Brand3',
+      checked: false,
     },
     {
       id: '4',
       name: 'Brand4',
+      checked: false,
     },
   ];
 

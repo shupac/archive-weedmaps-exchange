@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import GlobalStyleDecorator from 'storybook/decorators/global-style';
@@ -5,9 +6,17 @@ import GlobalStyleDecorator from 'storybook/decorators/global-style';
 import { categories } from 'components/molecules/filter-panel/mock-data';
 import CheckboxTree from './';
 
-class Parent extends React.Component {
+type Props = {
+  tree: any,
+};
+
+type State = {
+  tree: any,
+};
+
+class Parent extends React.Component<Props, State> {
   state = {
-    tree: categories[0],
+    tree: this.props.tree,
   };
 
   render() {
@@ -20,6 +29,12 @@ class Parent extends React.Component {
   }
 }
 
+const noChildren = {
+  ...categories[0],
+  children: [],
+};
+
 export default storiesOf('CheckboxTree', module)
   .addDecorator(GlobalStyleDecorator)
-  .add('Default', () => <Parent />);
+  .add('Default', () => <Parent tree={categories[0]} />)
+  .add('NoChildren', () => <Parent tree={noChildren} />);

@@ -27,7 +27,9 @@ type Props = {
   onChange: (state: State) => void,
 };
 
-const isParentChecked = (children: Option[]) => {
+const isParentChecked = (children: Option[], parent?: Option) => {
+  if (!children.length && parent) return parent.checked;
+
   const numChecked = children.filter(({ checked }) => checked).length;
   if (!numChecked) return 0;
   if (numChecked === children.length) return 2;
@@ -36,6 +38,16 @@ const isParentChecked = (children: Option[]) => {
 
 const getNextState = (clickedId: string, state: State) => {
   const { parent, children } = state;
+
+  if (!children.length) {
+    return {
+      parent: {
+        ...parent,
+        checked: parent.checked ? 0 : 2,
+      },
+      children,
+    };
+  }
 
   let nextChildren;
 
@@ -81,7 +93,7 @@ const ComboCheckbox = ({ state, onChange }: Props) => {
         state={{
           id: parent.id,
           name: parent.name,
-          checked: isParentChecked(children),
+          checked: isParentChecked(children, parent),
           allowPartial: true,
         }}
         onChange={() => {

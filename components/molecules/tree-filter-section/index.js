@@ -106,8 +106,12 @@ class TreeFilterSection extends React.Component<Props> {
       else checked = selectedOptions[child.id] || false;
       return { ...child, checked };
     });
+
     const selectedChildren = children.filter(({ checked }) => checked);
-    if (selectedChildren.length === tree.children.length) {
+
+    if (!children.length) {
+      parentCheckedState = selectedOptions[tree.parent.id] ? 2 : 0;
+    } else if (selectedChildren.length === tree.children.length) {
       parentCheckedState = 2;
     } else {
       parentCheckedState = selectedChildren.length ? 1 : 0;

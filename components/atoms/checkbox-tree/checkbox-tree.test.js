@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { mount } from 'enzyme';
 
@@ -30,6 +31,7 @@ describe('CheckboxTree', () => {
       parent: {
         id: '1',
         name: 'Flower',
+        checked: 1,
       },
       children: [
         {
@@ -79,6 +81,7 @@ describe('CheckboxTree', () => {
       parent: {
         id: '1',
         name: 'Flower',
+        checked: 2,
       },
       children: [
         {
@@ -134,9 +137,9 @@ describe('CheckboxTree', () => {
       .simulate('click');
     expect(onChange).toHaveBeenCalled();
 
-    const nextParent = onChange.mock.calls[0][0];
-    expect(nextParent.parent.checked).toEqual(1);
-    expect(nextParent.children[0].checked).toEqual(true);
+    const nextState = onChange.mock.calls[0][0];
+    expect(nextState.parent.checked).toEqual(1);
+    expect(nextState.children[0].checked).toEqual(true);
   });
 
   it('should check all children when unchecked parent is checked', () => {
@@ -151,10 +154,10 @@ describe('CheckboxTree', () => {
       .simulate('click');
     expect(onChange).toHaveBeenCalled();
 
-    const nextParent = onChange.mock.calls[0][0];
-    expect(nextParent.parent.checked).toEqual(2);
+    const nextState = onChange.mock.calls[0][0];
+    expect(nextState.parent.checked).toEqual(2);
     expect(
-      nextParent.children.forEach(child => {
+      nextState.children.forEach(child => {
         expect(child.checked).toEqual(true);
       }),
     );
@@ -167,6 +170,7 @@ describe('CheckboxTree', () => {
       parent: {
         id: '1',
         name: 'Flower',
+        checked: 1,
       },
       children: [
         {
@@ -209,10 +213,10 @@ describe('CheckboxTree', () => {
       .simulate('click');
     expect(onChange).toHaveBeenCalled();
 
-    const nextParent = onChange.mock.calls[0][0];
-    expect(nextParent.parent.checked).toEqual(2);
+    const nextState = onChange.mock.calls[0][0];
+    expect(nextState.parent.checked).toEqual(2);
     expect(
-      nextParent.children.forEach(child => {
+      nextState.children.forEach(child => {
         expect(child.checked).toEqual(true);
       }),
     );
@@ -225,6 +229,7 @@ describe('CheckboxTree', () => {
       parent: {
         id: '1',
         name: 'Flower',
+        checked: 2,
       },
       children: [
         {
@@ -267,12 +272,68 @@ describe('CheckboxTree', () => {
       .simulate('click');
     expect(onChange).toHaveBeenCalled();
 
-    const nextParent = onChange.mock.calls[0][0];
-    expect(nextParent.parent.checked).toEqual(0);
+    const nextState = onChange.mock.calls[0][0];
+    expect(nextState.parent.checked).toEqual(0);
     expect(
-      nextParent.children.forEach(child => {
+      nextState.children.forEach(child => {
         expect(child.checked).toEqual(false);
       }),
     );
+  });
+
+  it('should check parent with no children', () => {
+    const onChange = jest.fn();
+
+    const data = {
+      parent: {
+        id: '1',
+        name: 'Flower',
+        checked: 0,
+      },
+      children: [],
+    };
+
+    const component = <CheckboxTree state={data} onChange={onChange} />;
+    const wrapper = mount(component);
+
+    expect(wrapper.find(Check)).toHaveLength(0);
+    expect(wrapper.find(PartialCheck)).toHaveLength(0);
+
+    wrapper
+      .find(Checkbox)
+      .first()
+      .simulate('click');
+    expect(onChange).toHaveBeenCalled();
+
+    const nextState = onChange.mock.calls[0][0];
+    expect(nextState.parent.checked).toEqual(2);
+  });
+
+  it('should uncheck parent with no children', () => {
+    const onChange = jest.fn();
+
+    const data = {
+      parent: {
+        id: '1',
+        name: 'Flower',
+        checked: 2,
+      },
+      children: [],
+    };
+
+    const component = <CheckboxTree state={data} onChange={onChange} />;
+    const wrapper = mount(component);
+
+    expect(wrapper.find(Check)).toHaveLength(1);
+    expect(wrapper.find(PartialCheck)).toHaveLength(0);
+
+    wrapper
+      .find(Checkbox)
+      .first()
+      .simulate('click');
+    expect(onChange).toHaveBeenCalled();
+
+    const nextState = onChange.mock.calls[0][0];
+    expect(nextState.parent.checked).toEqual(0);
   });
 });
