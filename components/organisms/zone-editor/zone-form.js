@@ -3,10 +3,11 @@ import * as React from 'react';
 import TextInput from 'components/atoms/forms/text-input';
 import { ButtonPrimary, ButtonWhite } from 'components/atoms/button';
 import { inject, observer } from 'mobx-react';
-import { observable, type ObservableMap } from 'mobx';
+import { observable, action, type ObservableMap } from 'mobx';
 import ZoneColorSelect from 'components/atoms/zone-color-select';
 import { type ZoneType } from 'lib/data-access/models/zone';
 import { type RegionType } from 'lib/data-access/models/region';
+import RequiredAsteriskLabel from 'components/atoms/required-asterisk';
 import {
   NewZoneContainer,
   NewZoneFooter,
@@ -32,14 +33,22 @@ type Props = {
 export class ZoneForm extends React.Component<Props> {
   @observable name = this.props.zone.name;
   @observable color = this.props.zone.color;
+  @observable errorMsg = '';
   originalColor = this.props.zone.color;
 
   onColorSelect = (color: string) => {
     this.props.zone.setColor(color);
   };
 
+  @action
   onNameChange = (e: SyntheticEvent<HTMLInputElement>) => {
     this.name = e.currentTarget.value;
+    if (this.name.length < 3 || this.name.length > 250) {
+      this.errorMsg =
+        'Zone name must have a minimum 3 characters and maximum 250 characters.';
+    } else if (this.errorMsg) {
+      this.errorMsg = '';
+    }
   };
 
   onCancel = () => {
@@ -59,15 +68,19 @@ export class ZoneForm extends React.Component<Props> {
   };
 
   render() {
+    const { onRemoveRegionFromZone, zone, selectedRegions } = this.props;
     return (
       <NewZoneContainer>
         <ZoneFormHeader p={[12]}>
           <NewZoneHeader>New Zone</NewZoneHeader>
           <FormControl>
-            <label htmlFor="zone-name">Zone Name</label>
+            <RequiredAsteriskLabel required>
+              <label htmlFor="zone-name">Zone Name</label>
+            </RequiredAsteriskLabel>
             <TextInput
-              hasError={false}
-              errorMessage=""
+              data-test-id="zone-name-input"
+              hasError={!!this.errorMsg}
+              errorMessage={this.errorMsg}
               placeholder="Zone Name e.g. West Coast Zone"
               name="zone-name"
               onChange={this.onNameChange}
@@ -87,14 +100,10 @@ export class ZoneForm extends React.Component<Props> {
           Please select available regions from the map
         </ZoneListCta>
         <ZoneRegionList>
-          {Array.from(this.props.selectedRegions.values()).map(r => (
+          {Array.from(selectedRegions.values()).map(r => (
             <ZoneRegionListItem key={r.id}>
               {r.name.replace('Brands', '')}
-              <ClearButton
-                onClick={() =>
-                  this.props.onRemoveRegionFromZone(this.props.zone, r)
-                }
-              >
+              <ClearButton onClick={() => onRemoveRegionFromZone(zone, r)}>
                 <ZoneRegionListDelete />
               </ClearButton>
             </ZoneRegionListItem>
@@ -102,7 +111,13 @@ export class ZoneForm extends React.Component<Props> {
         </ZoneRegionList>
         <NewZoneFooter justifyContent="space-around" alignItems="center">
           <ButtonWhite onClick={this.onCancel}>Cancel</ButtonWhite>
-          <ButtonPrimary onClick={this.onSubmit}>Save</ButtonPrimary>
+          <ButtonPrimary
+            data-test-id="save-button"
+            disabled={!selectedRegions.size || !!this.errorMsg || !this.name}
+            onClick={this.onSubmit}
+          >
+            Save
+          </ButtonPrimary>
         </NewZoneFooter>
       </NewZoneContainer>
     );

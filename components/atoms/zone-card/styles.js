@@ -40,4 +40,5 @@ export const ColorKey = styled.div`
   border-radius: 50%;
   border: 1px solid ${({ color }) => color};
   background-color: ${({ color }) => transparentize(0.6, color)};
+  flex-shrink: 0;
 `;

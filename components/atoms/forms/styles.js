@@ -66,9 +66,6 @@ export const InputWrap = styled.div`
 `;
 
 export const InputError = styled.small`
-  position: absolute;
-  left: 0;
-  bottom: -13px;
   font-size: ${rem(11)};
   color: ${theme.style.state.danger};
 `;
