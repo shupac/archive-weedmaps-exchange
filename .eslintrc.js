@@ -16,6 +16,5 @@ module.exports = {
   globals: {
     IS_SERVER: true,
     Honeybadger: true,
-    logger: true,
   },
 };

@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import provide from 'lib/data-access/stores/provider';
+import { withRouter } from 'next/router';
 import { inject } from 'mobx-react';
 import AuthConnector from 'components/containers/auth-connector';
 import { Tabs } from '@ghostgroup/ui';
@@ -31,19 +32,19 @@ const tabs = [
 
 type Props = {
   store: StoreType,
-  url: any,
+  router: any,
 };
 
 export class Marketplace extends Component<Props> {
   render() {
-    const { url } = this.props;
+    const { router } = this.props;
     return (
       <PageLayout>
         <PageContent>
           <Subheader>
             <Tabs disableSelectionIndicatorBar>
               {tabs.map(({ path, label }) => (
-                <TabButton key={label} isSelected={path === url.query.tab}>
+                <TabButton key={label} isSelected={path === router.query.tab}>
                   <Link route="marketplace" params={{ tab: path }}>
                     <a>{label}</a>
                   </Link>
@@ -66,7 +67,7 @@ export class Marketplace extends Component<Props> {
             </ShowIfRoute>
 
             <ShowIfRoute match="/buyer/marketplace/catalog/product(.*)">
-              <ProductDetail productId={url.query.productId} />
+              <ProductDetail productId={router.query.productId} />
             </ShowIfRoute>
           </TabContent>
         </PageContent>
@@ -75,4 +76,4 @@ export class Marketplace extends Component<Props> {
   }
 }
 
-export default provide(AuthConnector(inject('store')(Marketplace)));
+export default provide(withRouter(AuthConnector(inject('store')(Marketplace))));

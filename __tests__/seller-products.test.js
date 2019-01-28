@@ -4,13 +4,13 @@ import { SellerProductsPage } from 'pages/seller-products';
 function setup(props) {
   const mockStore = {};
 
-  const url = {
+  const router = {
     pathname: '/seller/products/123',
     query: { productId: '123' },
   };
 
   const component = (
-    <SellerProductsPage {...props} store={mockStore} url={url} />
+    <SellerProductsPage {...props} store={mockStore} router={router} />
   );
 
   const wrapper = shallow(component, {

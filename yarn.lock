@@ -1347,10 +1347,10 @@
   resolved "https://registry.npmjs.org/@emotion/weak-memoize/-/weak-memoize-0.1.3.tgz#b700d97385fa91affed60c71dfd51c67e9dad762"
   integrity sha512-QsYGKdhhuDFNq7bjm2r44y0mp5xW3uO3csuTPDWZc0OIiMQv+AIY5Cqwd4mJiC5N8estVl7qlvOx1hbtOuUWbw==
 
-"@ghostgroup/create-moonshot-app@0.0.1-alpha-11":
-  version "0.0.1-alpha-11"
-  resolved "https://registry.npmjs.org/@ghostgroup/create-moonshot-app/-/create-moonshot-app-0.0.1-alpha-11.tgz#9669549bb760d6f75b9f366e8d05068c9a3abaea"
-  integrity sha512-LKInYkCxVLuoVPzbZywhi+xsO/M0ygOlih6mD0lrUMy9+DK3/QvQbiwsqek5G5/asWkhUGJfUWJJYaWx+/wS8A==
+"@ghostgroup/create-moonshot-app@0.0.1-alpha-17":
+  version "0.0.1-alpha-17"
+  resolved "https://registry.npmjs.org/@ghostgroup/create-moonshot-app/-/create-moonshot-app-0.0.1-alpha-17.tgz#44b15c5a40699b53e86a41459b9b9674c6f819ef"
+  integrity sha512-xlLRE8vtFZo3jADFrPrDRpZfGcreTwgiiN1qq9owxbELRwIDdtTZ+tq7pyL2vco0HMkpQrJrep9vQm/4ivzzjQ==
   dependencies:
     "@babel/cli" "~7.1.5"
     "@babel/core" "^7.2.2"
@@ -1381,6 +1381,7 @@
     enzyme-adapter-react-16 "^1.7.1"
     enzyme-to-json "~3.3.5"
     express-csp "^0.1.3"
+    honeybadger "^1.3.0"
     identity-obj-proxy "~3.0.0"
     intersection-observer "~0.5.0"
     jest "^23.6.0"
@@ -1390,6 +1391,7 @@
     jest-environment-node-debug "~2.0.0"
     jest-junit "~5.2.0"
     jest-styled-components "6.3.1"
+    js-logger "^1.6.0"
     lodash-webpack-plugin "~0.11.5"
     newrelic "^4.12.0"
     next "^7.0.2"
@@ -1397,6 +1399,7 @@
     pm2 "^3.2.3"
     react "^16.6.3"
     react-dom "^16.6.3"
+    serialize-error "^3.0.0"
     shelljs "^0.8.3"
     universal-webpack "~0.6.2"
     webpack "4.27.1"
@@ -5787,13 +5790,13 @@ eslint-config-prettier@^2.6.0, eslint-config-prettier@^2.9.0:
   dependencies:
     get-stdin "^5.0.1"
 
-eslint-import-resolver-babel-module@~4.0.0-beta.3:
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/eslint-import-resolver-babel-module/-/eslint-import-resolver-babel-module-4.0.0.tgz#1c596f7fb9815050292c8750d523b27a5444b4bf"
-  integrity sha512-aPj0+pG0H3HCaMD9eRDYEzPdMyKrLE2oNhAzTXd2w86ZBe3s7drSrrPwVTfzO1CBp13FGk8S84oRmZHZvSo0mA==
+eslint-import-resolver-babel-module@~5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npmjs.org/eslint-import-resolver-babel-module/-/eslint-import-resolver-babel-module-5.0.0.tgz#c976c524a5e5d01dd85fcdaca0c6be6035cbe2b9"
+  integrity sha512-SIdPGAEybpb/xMylMWZHKpWtHlFQfI/v7SI0L5fyDv2No/JU2L5A0y6ZpvxK48w26dTH0x01m9LTXYuG+UCfkg==
   dependencies:
     pkg-up "^2.0.0"
-    resolve "^1.4.0"
+    resolve "^1.8.1"
 
 eslint-import-resolver-node@^0.3.1:
   version "0.3.2"
@@ -7373,7 +7376,7 @@ homedir-polyfill@^1.0.0, homedir-polyfill@^1.0.1:
   dependencies:
     parse-passwd "^1.0.0"
 
-honeybadger@^1.2.1:
+honeybadger@^1.3.0:
   version "1.3.0"
   resolved "https://registry.npmjs.org/honeybadger/-/honeybadger-1.3.0.tgz#e9f01314d52a26a6d615d65485a0a4d4e50ec8f8"
   integrity sha512-LY24cmCzZ9QGInvO7FUk8p8eoVN12CwZGLhD1fkggZCJYxFVJeMK0ymlyWa3CYBIiAfQSDcdZekBVWdJTJ/IGg==
@@ -8680,7 +8683,7 @@ js-levenshtein@^1.1.3:
   resolved "https://registry.npmjs.org/js-levenshtein/-/js-levenshtein-1.1.4.tgz#3a56e3cbf589ca0081eb22cd9ba0b1290a16d26e"
   integrity sha512-PxfGzSs0ztShKrUYPIn5r0MtyAhYcCwmndozzpz8YObbPnD1jFxzlBGbRnX2mIu6Z13xN6+PTu05TQFnZFlzow==
 
-js-logger@^1.4.1:
+js-logger@^1.4.1, js-logger@^1.6.0:
   version "1.6.0"
   resolved "https://registry.npmjs.org/js-logger/-/js-logger-1.6.0.tgz#7abae5cfaf208c965f3ef20754533bb9e79c7aef"
   integrity sha512-K4kt2AdD0jUYINbe00BPPpsL65u/rdYOgfaBBVWm/mid+ANk7qxDnoXgKI5ilm49Sjmach2Dzlc+5VxKdRA3tw==
@@ -12768,6 +12771,11 @@ serialize-error@^2.1.0:
   version "2.1.0"
   resolved "http://registry.npmjs.org/serialize-error/-/serialize-error-2.1.0.tgz#50b679d5635cdf84667bdc8e59af4e5b81d5f60a"
   integrity sha1-ULZ51WNc34Rme9yOWa9OW4HV9go=
+
+serialize-error@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/serialize-error/-/serialize-error-3.0.0.tgz#80100282b09be33c611536f50033481cb9cc87cf"
+  integrity sha512-+y3nkkG/go1Vdw+2f/+XUXM1DXX1XcxTl99FfiD/OEPUNw4uo0i6FKABfTAN5ZcgGtjTRZcEbxcE/jtXbEY19A==
 
 serialize-javascript@^1.4.0:
   version "1.5.0"

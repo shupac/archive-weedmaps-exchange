@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import provide from 'lib/data-access/stores/provider';
+import { withRouter } from 'next/router';
 import { inject } from 'mobx-react';
 import AuthConnector from 'components/containers/auth-connector';
 import ShowIfRoute from 'components/atoms/show-if-route';
@@ -13,7 +14,7 @@ import { type StoreType } from 'lib/types/store';
 
 type Props = {
   store: StoreType,
-  url: any,
+  router: any,
 };
 
 export class SellerOrdersPage extends Component<Props> {
@@ -25,10 +26,10 @@ export class SellerOrdersPage extends Component<Props> {
   };
 
   render() {
-    const { url } = this.props;
+    const { router } = this.props;
     const {
       query: { orderId },
-    } = url;
+    } = router;
 
     return (
       <PageLayout>
@@ -49,4 +50,6 @@ export class SellerOrdersPage extends Component<Props> {
   }
 }
 
-export default provide(AuthConnector(inject('store')(SellerOrdersPage)));
+export default provide(
+  withRouter(AuthConnector(inject('store')(SellerOrdersPage))),
+);

@@ -6,29 +6,34 @@ import 'lib/styles/global';
 import { ServerStyleSheet } from 'styled-components';
 
 export class DealsAdminDocument extends Document {
-  static async getInitialProps({ renderPage, req }) {
-    const page = renderPage();
-    const isServer = !!req;
-    if (isServer) {
+  static async getInitialProps({ renderPage, res }) {
+    try {
+      // set mobx static rendering
       useStaticRendering(true);
+      // create SC server style sheet
+      const sheet = new ServerStyleSheet();
+      const page = renderPage(App => props =>
+        sheet.collectStyles(<App {...props} />),
+      );
+      // Flush Styled Components tags
+      const styleTags = sheet.getStyleElement();
+      return {
+        ...page,
+        styleTags,
+      };
+    } catch (e) {
+      // Something bad happened during the gIP cycle,
+      // set the status code and attach the error
+      res.capturedError = e;
+      res.statusCode = 500;
+      return {};
     }
-    // Add locale script
-    const { localeDataScript } = req;
-    return {
-      ...page,
-      localeDataScript,
-    };
   }
 
   render() {
-    const sheet = new ServerStyleSheet();
-    const main = sheet.collectStyles(<Main />);
-    const styleTags = sheet.getStyleTags();
-
     return (
       <html lang="en">
         <Head>
-          <title>Weedmaps Exchange</title>
           <meta charSet="utf-8" />
           <meta
             name="viewport"
@@ -37,20 +42,15 @@ export class DealsAdminDocument extends Document {
           <meta name="description" content="Weedmaps Exchange" />
           <script type="text/javascript" src="/static/config.js" />
           <script
-            dangerouslySetInnerHTML={{
-              __html: this.props.localeDataScript,
-            }}
-          />
-          <script
             src="//js.honeybadger.io/v0.5/honeybadger.min.js"
             type="text/javascript"
             data-apikey="3bbdd023"
             data-environment={config.envName}
           />
-          <style dangerouslySetInnerHTML={{ __html: styleTags }} />
+          {this.props.styleTags}
         </Head>
         <body>
-          {main}
+          <Main />
           <NextScript />
         </body>
       </html>

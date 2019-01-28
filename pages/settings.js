@@ -1,5 +1,6 @@
 // @flow
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'next/router';
 import { inject } from 'mobx-react';
 import { Tabs } from '@ghostgroup/ui';
 import TabButton from 'components/atoms/tab-button';
@@ -20,7 +21,7 @@ import {
 
 type Props = {
   store: StoreType,
-  url: any,
+  router: any,
 };
 
 const tabs = [
@@ -38,8 +39,8 @@ export class Settings extends Component<Props> {
   static displayName = 'Settings';
 
   render() {
-    const { url, store } = this.props;
-    const { query } = url;
+    const { router, store } = this.props;
+    const { query } = router;
     const { uiStore, buyerSettings, addressSuggestions } = store;
 
     return (
@@ -87,4 +88,4 @@ export class Settings extends Component<Props> {
   }
 }
 
-export default provide(AuthConnector(inject('store')(Settings)));
+export default provide(withRouter(AuthConnector(inject('store')(Settings))));

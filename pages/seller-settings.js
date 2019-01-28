@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
 import provide from 'lib/data-access/stores/provider';
+import { withRouter } from 'next/router';
 import { inject } from 'mobx-react';
 import AuthConnector from 'components/containers/auth-connector';
 import {
@@ -19,7 +20,7 @@ import { type StoreType } from 'lib/types/store';
 
 type Props = {
   store: StoreType,
-  url: any,
+  router: any,
 };
 
 const tabs = [
@@ -41,8 +42,8 @@ export class SellerSettingsPage extends React.Component<Props> {
   static displayName = 'Seller Settings';
 
   render() {
-    const { url } = this.props;
-    const { pathname, query } = url;
+    const { router } = this.props;
+    const { pathname, query } = router;
 
     return (
       <PageLayout pathname={pathname}>
@@ -72,4 +73,6 @@ export class SellerSettingsPage extends React.Component<Props> {
   }
 }
 
-export default provide(AuthConnector(inject('store')(SellerSettingsPage)));
+export default provide(
+  withRouter(AuthConnector(inject('store')(SellerSettingsPage))),
+);

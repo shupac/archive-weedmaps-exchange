@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { withRouter } from 'next/router';
 import { inject } from 'mobx-react';
 import AuthConnector from 'components/containers/auth-connector';
 import provide from 'lib/data-access/stores/provider';
@@ -9,14 +10,14 @@ import CartConfirmation from 'components/organisms/cart-confirmation';
 import { PageContent, PageLayout } from 'components/layouts/page-layout';
 
 type Props = {
-  url: any,
+  router: any,
 };
 
 export class Cart extends Component<Props> {
   static displayName = 'Cart';
 
   render() {
-    const { url } = this.props;
+    const { router } = this.props;
     return (
       <PageLayout>
         <PageContent>
@@ -25,7 +26,7 @@ export class Cart extends Component<Props> {
           </ShowIfRoute>
 
           <ShowIfRoute match="/buyer/cart/confirmation(.*)">
-            <CartConfirmation orderId={url.query.orderId} />
+            <CartConfirmation orderId={router.query.orderId} />
           </ShowIfRoute>
         </PageContent>
       </PageLayout>
@@ -33,4 +34,4 @@ export class Cart extends Component<Props> {
   }
 }
 
-export default provide(AuthConnector(inject('store')(Cart)));
+export default provide(withRouter(AuthConnector(inject('store')(Cart))));

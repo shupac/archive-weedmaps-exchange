@@ -1,15 +1,27 @@
+// @flow
 import React, { Component } from 'react';
+import { Flex } from '@ghostgroup/grid-styled';
+import styled from 'styled-components';
 
-export class ErrorPage extends Component {
+const ErrorWrapper = styled(Flex)`
+  width: 100%;
+  height: 100%;
+`;
+
+type Props = {
+  statusCode: number,
+};
+
+export class ErrorPage extends Component<Props> {
   static displayName = 'ErrorPage';
 
   static defaultProps = {
-    statusCode: null,
+    statusCode: 500,
   };
 
-  static async getInitialProps(props) {
+  static async getInitialProps(ctx: any) {
     const initialProps = {};
-    initialProps.statusCode = props.res ? props.res.statusCode : 200;
+    initialProps.statusCode = ctx.res ? ctx.res.statusCode : 200;
 
     /**
      * Next.js swallows error when thrown within the `getInitialProps` cycle
@@ -18,15 +30,24 @@ export class ErrorPage extends Component {
      * to Honeybadger.
      */
 
-    if (props.err && props.res) {
-      props.res.capturedError = props.err;
+    if (ctx.err && ctx.res && !ctx.res.capturedError) {
+      ctx.res.capturedError = ctx.err;
     }
 
     return initialProps;
   }
 
   render() {
-    return <h1>ERROR</h1>;
+    return (
+      <ErrorWrapper
+        justifyContent="center"
+        alignItems="center"
+        flexDirection="column"
+      >
+        <h1>{this.props.statusCode}</h1>
+        <p>An unexpected error occurred</p>
+      </ErrorWrapper>
+    );
   }
 }
 

@@ -16,12 +16,14 @@ function setup(props) {
     buyerCart: BuyerCart.create(),
   };
 
-  const url = {
+  const router = {
     pathname: '/buyer/orders/123',
     query: { orderId: mockPurchaseOrders[0].id },
   };
 
-  const component = <BuyerOrdersPage {...props} store={mockStore} url={url} />;
+  const component = (
+    <BuyerOrdersPage {...props} store={mockStore} router={router} />
+  );
 
   const wrapper = shallow(component, {
     disableLifecycleMethods: true,
