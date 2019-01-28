@@ -5,7 +5,6 @@ import { inject, observer } from 'mobx-react';
 import moment from 'moment';
 import { getPaginationText } from 'lib/common/strings';
 import { type StoreType } from 'lib/types/store';
-import { type PurchaseOrderType } from 'models/purchase-order';
 import EmptyState from 'components/atoms/empty-state';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
 import OrdersFilters from 'components/molecules/orders-filters';
@@ -36,9 +35,6 @@ export class SellerPurchaseOrders extends Component<Props, State> {
 
   @observable
   dateRange = {};
-
-  @observable
-  orders: PurchaseOrderType[] = [];
 
   @action
   setFilter = (column: string, filters: string) => {
@@ -88,24 +84,6 @@ export class SellerPurchaseOrders extends Component<Props, State> {
     { name: 'Search and fetch filters data' },
   );
 
-  disposeWatchModal = reaction(
-    () => {
-      const { uiStore, sellerOrders } = this.props.store;
-      const { activeModal, modalTransitioning } = uiStore;
-      const { ordersList } = sellerOrders;
-
-      return {
-        activeModal,
-        modalTransitioning,
-        orders: ordersList,
-      };
-    },
-    ({ activeModal, modalTransitioning, orders }) => {
-      if (!activeModal && !modalTransitioning) this.orders = orders;
-    },
-    { name: 'Watch modal transition Seller PO' },
-  );
-
   componentDidMount() {
     const { store } = this.props;
 
@@ -120,14 +98,13 @@ export class SellerPurchaseOrders extends Component<Props, State> {
 
   componentWillUnmount() {
     this.disposeFetchOrders();
-    this.disposeWatchModal();
   }
 
   render() {
     const { mounted } = this.state;
     const { store, onCancelOrder } = this.props;
     const { sellerOrders } = store;
-    const { ordersLoading } = sellerOrders;
+    const { ordersLoading, ordersList } = sellerOrders;
     const { totalEntries, pageSize, pageNumber } = sellerOrders.ordersListMeta;
     const emptyStateBody =
       'Once you submit a purchase order, it will show up here. Then you can track the status of current orders and view order history.\n\nTo start receiving purchase orders, create variant allocations and publish your products so buyers can shop for them in the marketplace.';
@@ -146,7 +123,7 @@ export class SellerPurchaseOrders extends Component<Props, State> {
       );
     }
 
-    if (!this.orders.length && !this.query.size) {
+    if (!ordersList && !this.query.size) {
       return (
         <EmptyState
           image="no_orders_yet"
@@ -169,7 +146,7 @@ export class SellerPurchaseOrders extends Component<Props, State> {
         />
         <TableWrapper>
           <OrdersTable
-            orders={this.orders}
+            orders={ordersList}
             setSort={this.setSort}
             onCancelOrder={onCancelOrder}
           />

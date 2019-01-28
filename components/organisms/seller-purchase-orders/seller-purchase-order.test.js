@@ -134,10 +134,8 @@ describe('Seller Purchase Orders Page', () => {
   it('should clean up disposer on unmount', () => {
     const { tree, instance } = setup();
     const disposeFetchOrders = jest.spyOn(instance, 'disposeFetchOrders');
-    const disposeWatchModal = jest.spyOn(instance, 'disposeWatchModal');
     tree.unmount();
     expect(disposeFetchOrders).toHaveBeenCalled();
-    expect(disposeWatchModal).toHaveBeenCalled();
   });
 
   it('should render a loader if unmounted', () => {
@@ -155,26 +153,6 @@ describe('Seller Purchase Orders Page', () => {
     const { tree, instance } = setup(false);
     instance.setState({ mounted: true });
     expect(tree.find(EmptyState).exists()).toEqual(true);
-  });
-
-  it('should not update order data if modal is transitioning', done => {
-    const { instance, mockStore } = setup();
-    jest.spyOn(mockStore.sellerOrders, 'fetchPOBuyers').mockReturnValue();
-    instance.componentDidMount();
-
-    setTimeout(() => {
-      mockStore.uiStore.openModal('testModal');
-    }, 0);
-
-    setTimeout(() => {
-      mockStore.buyerOrders.setPurchaseOrders([]);
-      mockStore.uiStore.closeModal();
-    }, 400);
-
-    setTimeout(() => {
-      expect(instance.orders.length).toEqual(2);
-      done();
-    }, 410);
   });
 
   it('should fetch PO data when query changes', () => {

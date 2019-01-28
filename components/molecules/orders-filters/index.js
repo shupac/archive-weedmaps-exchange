@@ -85,7 +85,7 @@ export class OrdersFilters extends Component<Props> {
             itemToString={item => item.text}
             buttonId="OrganizationsFilter"
             placeholder="All Organizations"
-            onSelectionChange={this.onSelectFilter('buyer_name')}
+            onSelectionChange={this.onSelectFilter('buyer')}
           />
         )}
         <ComboSelect
@@ -103,7 +103,7 @@ export class OrdersFilters extends Component<Props> {
             itemToString={item => item.text}
             buttonId="ZoneFilter"
             placeholder="All Zones"
-            onSelectionChange={this.onSelectFilter('zone')}
+            onSelectionChange={this.onSelectFilter('zone_ids')}
           />
         )}
         <ComboSelect

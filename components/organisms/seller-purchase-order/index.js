@@ -116,7 +116,7 @@ class SellerPurchaseOrder extends Component<Props> {
             <ButtonWhiteNoHover onClick={() => window.print()}>
               View or print
             </ButtonWhiteNoHover>
-            {cancelable && (
+            {cancelable && status !== 'not_started' && (
               <ButtonPrimary onClick={onCancelOrder}>
                 Cancel order
               </ButtonPrimary>

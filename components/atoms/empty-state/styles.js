@@ -1,3 +1,4 @@
+// @flow
 import { WmTheme } from '@ghostgroup/ui';
 import styled from 'styled-components';
 import { rem } from 'polished';
@@ -25,5 +26,9 @@ export const NoResultsTitle = styled.h2`
 export const NoResultsInstructions = styled.span`
   font-size: ${rem(14)};
   margin-bottom: 24px;
-  white-space: pre;
+  max-width: 500px;
+  line-height: 20px;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+  text-align: center;
 `;
