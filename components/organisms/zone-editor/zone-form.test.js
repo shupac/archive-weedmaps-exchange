@@ -38,7 +38,7 @@ describe('Zone Form', () => {
     // 1 selected region but zone name invalid
     wrapper = setup(true);
     findByTestId(wrapper, 'zone-name-input').simulate('change', {
-      currentTarget: { value: '' },
+      currentTarget: { value: '   ' },
     });
     expect(findByTestId(wrapper, 'save-button').props().disabled).toEqual(true);
   });

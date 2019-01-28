@@ -43,7 +43,7 @@ export class ZoneForm extends React.Component<Props> {
   @action
   onNameChange = (e: SyntheticEvent<HTMLInputElement>) => {
     this.name = e.currentTarget.value;
-    if (this.name.length < 3 || this.name.length > 250) {
+    if (this.name.trim().length < 3 || this.name.trim().length > 250) {
       this.errorMsg =
         'Zone name must have a minimum 3 characters and maximum 250 characters.';
     } else if (this.errorMsg) {
