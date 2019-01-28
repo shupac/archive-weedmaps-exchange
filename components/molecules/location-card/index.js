@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import Bookmark from 'components/atoms/icons/bookmark';
+import { observer } from 'mobx-react';
 import Shiitake from 'shiitake';
 import Tooltip from 'components/atoms/tool-tip';
 import {
@@ -35,7 +36,7 @@ type Props = {
   onDelete: () => void,
 };
 
-export default class LocationCard extends Component<Props> {
+export class LocationCard extends Component<Props> {
   static defaultProps = {
     isPrimary: true,
   };
@@ -103,3 +104,4 @@ export default class LocationCard extends Component<Props> {
     );
   }
 }
+export default observer(LocationCard);
