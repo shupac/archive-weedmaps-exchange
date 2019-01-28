@@ -349,9 +349,9 @@ const LocationFormTemplate = withFormik({
     };
   },
   validationSchema: schema,
-  handleSubmit: (values, { props, resetForm }) => {
+  handleSubmit: (values, { props, setSubmitting }) => {
     props.onSubmit(values);
-    resetForm();
+    setSubmitting(false);
   },
 })(inject('store')(observer(FormTemplate)));
 

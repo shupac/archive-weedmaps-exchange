@@ -40,8 +40,32 @@ class LocationModal extends React.Component<Props> {
     addressSuggestions.setAddressCommitted(true);
   }
 
-  onSubmit = (location: LocationValueType) => {
-    const { buyerSettings, uiStore } = this.props.store;
+  onConfirmToast = (successFlag: boolean) => {
+    const { uiStore } = this.props.store;
+    let notification;
+    if (successFlag) {
+      notification = {
+        title: 'Location Success',
+        body: 'Your location has been saved',
+        autoDismiss: 3000,
+        status: 'SUCCESS',
+      };
+      uiStore.closeModal();
+    } else {
+      notification = {
+        title: 'Location Error',
+        body:
+          'There was a problem saving your location. Please check the address and try again',
+        autoDismiss: 8000,
+        status: 'ERROR',
+      };
+    }
+
+    uiStore.notifyToast(notification);
+  };
+
+  onSubmit = async (location: LocationValueType) => {
+    const { buyerSettings } = this.props.store;
 
     if (!location.id) {
       const newLicenses = location.licenses.map(item => ({
@@ -51,11 +75,12 @@ class LocationModal extends React.Component<Props> {
 
       delete location.id;
       location.licenses = newLicenses;
-      buyerSettings.createNewLocation(location);
+      const successFlag = await buyerSettings.createNewLocation(location);
+      this.onConfirmToast(successFlag);
     } else {
-      buyerSettings.patchLocation(location);
+      const successFlag = await buyerSettings.patchLocation(location);
+      this.onConfirmToast(successFlag);
     }
-    uiStore.closeModal();
   };
 
   render() {
