@@ -7,7 +7,7 @@ environment: &environment
 
 docker_defaults: &docker_defaults
   docker:
-    - image: circleci/node:10
+    - image: circleci/node:10-browsers
       environment: *environment
 
 machine_defaults: &machine_defaults
@@ -37,7 +37,7 @@ set_deploy_environment: &set_deploy_environment
       export DEPLOY_ENVIRONMENT=${CIRCLE_BRANCH}
       if [ ${DEPLOY_ENVIRONMENT} == 'develop' ]; then export DEPLOY_ENVIRONMENT=acceptance; fi
       echo $DEPLOY_ENVIRONMENT > ~/.deploy_environment
-      echo "export DEPLOY_ENVIRONMENT=${DEPLOY_ENVIRONMENT}" >> ~/.bashrc
+      echo "export DEPLOY_ENVIRONMENT=${DEPLOY_ENVIRONMENT}" >> $BASH_ENV
 
 jobs:
   test:
@@ -117,23 +117,18 @@ jobs:
             docker push ${DOCKER_REGISTRY_URL}/exchange-fe/storybook:${CIRCLE_SHA1}
 
   deploy:
-    <<: *machine_defaults
-    working_directory: /home/circleci
+    <<: *docker_defaults
     steps:
       - *set_deploy_environment
       - run:
-          name: Download provisioning scripts
-          command: |
-            wget -O jenkins_credentials https://provision-weedmaps.s3-us-west-2.amazonaws.com/jenkins_credentials
-            wget -O crypto https://provision-weedmaps.s3-us-west-2.amazonaws.com/bin/crypto
-            wget -O run_jenkins https://provision-weedmaps.s3-us-west-2.amazonaws.com/bin/start_jenkins_task.sh
-            chmod u+x crypto run_jenkins
+          name: Download nectar-collector
+          command: wget -O nectar-collector-ctl https://provision-weedmaps.s3-us-west-2.amazonaws.com/nectar-collector/latest/linux_amd64/nectar-collector-ctl
       - run:
-          name: Decrypt Jenkins credentials
-          command: bash crypto -d jenkins_credentials
+          name: Change permissions on nectar-collector-ctl
+          command: chmod 755 nectar-collector-ctl
       - run:
-          name: Deploy to Rancher
-          command: APPLICATION_ENVIRONMENT=production DEPLOY_ENVIRONMENT=$(cat ~/.deploy_environment) BRANCH=${CIRCLE_BRANCH} REPOSITORY=${CIRCLE_PROJECT_REPONAME} SHA=${CIRCLE_SHA1} JENKINS_JOB=rancher_deploy ./run_jenkins
+          name: Deploy release using nectar-collector
+          command: ./nectar-collector-ctl release deploy --repo ${CIRCLE_PROJECT_REPONAME} --sha ${CIRCLE_SHA1} --env ${DEPLOY_ENVIRONMENT:-$CIRCLE_BRANCH}
 
   notify_honeybadger:
     <<: *docker_defaults
@@ -199,6 +194,7 @@ workflows:
               only:
                 - develop
       - deploy:
+          context: weedmaps-deploy
           requires:
             - build_app
       - build_storybook:
@@ -216,6 +212,7 @@ workflows:
   refspec:
     jobs:
       - deploy:
+          context: weedmaps-deploy
           filters:
             branches:
               only:
