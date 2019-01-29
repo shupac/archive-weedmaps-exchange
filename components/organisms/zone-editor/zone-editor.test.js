@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import mockZones from 'mocks/zones';
 import findByTestId from 'lib/jest/find-by-test-id';
 import Zones from 'lib/data-access/stores/zones';
+import Zone from 'lib/data-access/models/zone';
 import { ZoneEditor } from './';
 
 describe('zone editor', () => {
@@ -144,8 +145,18 @@ describe('zone editor', () => {
 
     it('should call the edit handler when clicking edit', () => {
       const zoneCard = findByTestId(wrapper, 'zone-card').at(1);
-      zoneCard.props().onEdit({ id: 1, regions: [] });
-      expect(wrapper.instance().selectedZone).toEqual({ id: 1, regions: [] });
+      zoneCard
+        .props()
+        .onEdit(
+          Zone.create({ id: '123', name: 'test', color: '#333', regions: [] }),
+        );
+      expect(wrapper.instance().selectedZone.toJSON()).toEqual({
+        cId: '123',
+        id: '123',
+        name: 'test',
+        color: '#333',
+        regions: [],
+      });
     });
 
     it('should call the delete handler when clicking delete', () => {

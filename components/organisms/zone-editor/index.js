@@ -6,6 +6,7 @@ import { ButtonPrimary, ButtonWhite } from 'components/atoms/button';
 import { Box } from '@ghostgroup/grid-styled';
 import { inject, observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
+import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 import type { ObservableMap } from 'mobx';
 import { type StoreType } from 'lib/types/store';
 import Zone, { type ZoneType } from 'lib/data-access/models/zone';
@@ -53,21 +54,14 @@ export class ZoneEditor extends React.Component<Props> {
     RegionType,
   > = new observable.map();
   /**
-   * regionsToAdd track only the regions that have been added before a commit
-   * operation
-   * @type {Map<*, *>}
-   */
-  regionsToAdd: Map<string, RegionType> = new Map();
-  /**
-   * regionsToRemove track only the regions that have been added before a commit
-   * operation
-   * @type {Map<*, *>}
-   */
-  regionsToRemove: Map<string, RegionType> = new Map();
-  /**
    * The current selected Zone for editing
    */
   @observable selectedZone: ZoneType;
+
+  /**
+   * The snapshot of the zone before editing
+   */
+  zoneSnapshot: any;
 
   @computed
   get filteredZones(): ZoneType[] {
@@ -114,15 +108,13 @@ export class ZoneEditor extends React.Component<Props> {
   };
 
   onZoneEdit = (zone: ZoneType) => {
+    this.zoneSnapshot = getSnapshot(zone);
     // show the edit form
     this.creatingEditingZone = true;
     // set the selected zone
     this.selectedZone = zone;
     // clear the existing set of zoneEditedRegions
     this.selectedZoneRegions.clear();
-    // clear the transient region selections
-    this.regionsToAdd.clear();
-    this.regionsToRemove.clear();
     // Setup the selectedRegions to include the existing regions for that zone
     zone.regions.forEach(region => {
       this.selectedZoneRegions.set(region.wmRegionId.toString(), region);
@@ -158,8 +150,6 @@ export class ZoneEditor extends React.Component<Props> {
       await this.selectedZone.update();
     }
 
-    this.regionsToAdd.clear();
-    this.regionsToRemove.clear();
     this.selectedZoneRegions.clear();
     this.creatingEditingZone = false;
   };
@@ -173,21 +163,11 @@ export class ZoneEditor extends React.Component<Props> {
     if (!this.selectedZone.id) {
       zones.removeZone(this.selectedZone);
     } else {
-      // remove transient regions from Zone
-      Array.from(this.regionsToAdd.values()).forEach(region => {
-        this.selectedZone.removeRegion(region);
-      });
-      // add back any removals
-      Array.from(this.regionsToRemove.values()).forEach(region => {
-        this.selectedZone.addRegion(region);
-      });
+      applySnapshot(this.selectedZone, this.zoneSnapshot);
     }
     // clear the local set
     this.selectedZoneRegions.clear();
     this.creatingEditingZone = false;
-    // clear regionsToAdd and regionsToRemove
-    this.regionsToAdd.clear();
-    this.regionsToRemove.clear();
   };
 
   onMapMove = debounce(async (bounds: Bounds, e: any) => {
@@ -231,9 +211,6 @@ export class ZoneEditor extends React.Component<Props> {
     this.selectedZoneRegions.delete(id);
     // $FlowFixMe
     this.selectedZone.removeRegion(region);
-    this.regionsToAdd.delete(id);
-    // $FlowFixMe
-    this.regionsToRemove.set(id, region);
   };
 
   addNewRegionfromCoreRegion = (region: RegionWithGeometryType) => {
@@ -244,7 +221,6 @@ export class ZoneEditor extends React.Component<Props> {
       name: region.name,
     });
     this.selectedZone.addRegion(regionModel);
-    this.regionsToAdd.set(id, regionModel);
   };
 
   toggleRegion = (region: RegionType | RegionWithGeometryType) => {
