@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { Formik } from 'formik';
 import { Router } from 'lib/routes';
 import { ALERT_STATUS } from 'lib/common/constants';
+import { formatCurrency } from 'lib/common/strings';
 import { type StoreType } from 'lib/types/store';
 import { type SellerProductType } from 'models/seller-product';
 import { type ZoneType } from 'models/zone';
@@ -126,6 +127,20 @@ export class SellerProductDetails extends Component<Props, State> {
     Router.push(this.nextRoute);
   };
 
+  formatPrices = (sellerProduct: SellerProductType) => ({
+    ...sellerProduct,
+    product: {
+      ...sellerProduct.product,
+      variants: sellerProduct.product.variants.map(variant => ({
+        ...variant,
+        allocations: variant.allocations.map(allocation => ({
+          ...allocation,
+          price: formatCurrency(allocation.price),
+        })),
+      })),
+    },
+  });
+
   render() {
     const { store } = this.props;
 
@@ -155,7 +170,7 @@ export class SellerProductDetails extends Component<Props, State> {
         <Formik
           validateOnBlur
           validationSchema={ProductValidationSchema}
-          initialValues={sellerProductDetails}
+          initialValues={this.formatPrices(sellerProductDetails)}
           onSubmit={this.onSubmit}
           render={this.renderForm(zones)}
         />
