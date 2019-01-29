@@ -3,7 +3,7 @@ import * as React from 'react';
 import TextInput from 'components/atoms/forms/text-input';
 import { ButtonPrimary, ButtonWhite } from 'components/atoms/button';
 import { inject, observer } from 'mobx-react';
-import { observable, action, type ObservableMap } from 'mobx';
+import { observable, action } from 'mobx';
 import ZoneColorSelect from 'components/atoms/zone-color-select';
 import { type ZoneType } from 'lib/data-access/models/zone';
 import { type RegionType } from 'lib/data-access/models/region';
@@ -24,7 +24,7 @@ import {
 
 type Props = {
   zone: ZoneType,
-  selectedRegions: ObservableMap<number, RegionType>,
+  selectedRegions: RegionType[],
   onRemoveRegionFromZone: (zone: ZoneType, region: RegionType) => void,
   onCancel: () => void,
   onSubmit: () => void,
@@ -100,7 +100,7 @@ export class ZoneForm extends React.Component<Props> {
           Please select available regions from the map
         </ZoneListCta>
         <ZoneRegionList>
-          {Array.from(selectedRegions.values()).map(r => (
+          {selectedRegions.map(r => (
             <ZoneRegionListItem key={r.id}>
               {r.name.replace('Brands', '')}
               <ClearButton onClick={() => onRemoveRegionFromZone(zone, r)}>
@@ -113,7 +113,7 @@ export class ZoneForm extends React.Component<Props> {
           <ButtonWhite onClick={this.onCancel}>Cancel</ButtonWhite>
           <ButtonPrimary
             data-test-id="save-button"
-            disabled={!selectedRegions.size || !!this.errorMsg || !this.name}
+            disabled={!selectedRegions.length || !!this.errorMsg || !this.name}
             onClick={this.onSubmit}
           >
             Save

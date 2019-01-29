@@ -263,7 +263,7 @@ export class ZoneEditor extends React.Component<Props> {
       } else {
         const zone = region.zone || null;
         // We are trying to add a region to zone, that already
-        // has a Zone asscociated, so do nothing for now
+        // has a Zone associated, so do nothing for now
         if (zone) {
           // TODO throw error or modal to remove?
           return;
@@ -337,7 +337,7 @@ export class ZoneEditor extends React.Component<Props> {
               onCancel={this.onZoneCreateCancel}
               onSubmit={this.onZoneSave}
               onRemoveRegionFromZone={this.onRemoveRegionFromZone}
-              selectedRegions={this.selectedZoneRegions}
+              selectedRegions={this.selectedZone && this.selectedZone.regions}
               zone={this.selectedZone}
             />
           </CSSTransition>

@@ -7,11 +7,9 @@ function setup(withSelectedRegion) {
   let selectedRegions;
 
   if (withSelectedRegion) {
-    selectedRegions = observable(
-      new Map([['1324', { id: 1324, name: 'Northern California' }]]),
-    );
+    selectedRegions = observable([{ id: 1324, name: 'Northern California' }]);
   } else {
-    selectedRegions = observable(new Map([]));
+    selectedRegions = observable([]);
   }
 
   return shallow(<ZoneForm zone={{}} selectedRegions={selectedRegions} />);
