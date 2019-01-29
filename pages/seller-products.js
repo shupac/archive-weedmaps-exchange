@@ -28,7 +28,7 @@ class SellerProductsPage extends Component<Props> {
           <ShowIfRoute match="/seller/products">
             <SellerProducts />
           </ShowIfRoute>
-          <ShowIfRoute match="/seller/products/(.*)">
+          <ShowIfRoute match="/seller/products/:productId">
             <SellerProductDetail productId={productId} />
           </ShowIfRoute>
         </PageContent>
