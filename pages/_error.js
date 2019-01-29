@@ -1,15 +1,12 @@
 // @flow
 import React, { Component } from 'react';
-import { Flex } from '@ghostgroup/grid-styled';
-import styled from 'styled-components';
+import type { Node } from 'react';
+import ErrorPageComponent from 'components/layouts/error-page';
+import type { NextContext } from 'lib/next/types';
 
-const ErrorWrapper = styled(Flex)`
-  width: 100%;
-  height: 100%;
-`;
-
-type Props = {
+export type Props = {
   statusCode: number,
+  children?: Node,
 };
 
 export class ErrorPage extends Component<Props> {
@@ -19,7 +16,7 @@ export class ErrorPage extends Component<Props> {
     statusCode: 500,
   };
 
-  static async getInitialProps(ctx: any) {
+  static async getInitialProps(ctx: NextContext) {
     const initialProps = {};
     initialProps.statusCode = ctx.res ? ctx.res.statusCode : 200;
 
@@ -38,15 +35,11 @@ export class ErrorPage extends Component<Props> {
   }
 
   render() {
+    const { statusCode, children } = this.props;
     return (
-      <ErrorWrapper
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-      >
-        <h1>{this.props.statusCode}</h1>
-        <p>An unexpected error occurred</p>
-      </ErrorWrapper>
+      <ErrorPageComponent statusCode={statusCode}>
+        {children}
+      </ErrorPageComponent>
     );
   }
 }
