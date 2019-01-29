@@ -100,20 +100,25 @@ export class ZoneForm extends React.Component<Props> {
           Please select available regions from the map
         </ZoneListCta>
         <ZoneRegionList>
-          {selectedRegions.map(r => (
-            <ZoneRegionListItem key={r.id}>
-              {r.name.replace('Brands', '')}
-              <ClearButton onClick={() => onRemoveRegionFromZone(zone, r)}>
-                <ZoneRegionListDelete />
-              </ClearButton>
-            </ZoneRegionListItem>
-          ))}
+          {selectedRegions &&
+            selectedRegions.map(r => (
+              <ZoneRegionListItem key={r.id}>
+                {r.name.replace('Brands', '')}
+                <ClearButton onClick={() => onRemoveRegionFromZone(zone, r)}>
+                  <ZoneRegionListDelete />
+                </ClearButton>
+              </ZoneRegionListItem>
+            ))}
         </ZoneRegionList>
         <NewZoneFooter justifyContent="space-around" alignItems="center">
           <ButtonWhite onClick={this.onCancel}>Cancel</ButtonWhite>
           <ButtonPrimary
             data-test-id="save-button"
-            disabled={!selectedRegions.length || !!this.errorMsg || !this.name}
+            disabled={
+              (selectedRegions && !selectedRegions.length) ||
+              !!this.errorMsg ||
+              !this.name
+            }
             onClick={this.onSubmit}
           >
             Save
