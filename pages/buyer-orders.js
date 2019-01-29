@@ -19,11 +19,36 @@ type Props = {
 };
 
 class BuyerOrdersPage extends Component<Props> {
-  cancelOrder = async (orderId: string) => {
+  openCancelModal = async (orderId: string) => {
     const { buyerOrders, uiStore } = this.props.store;
 
     await buyerOrders.cancelOrder(orderId);
+    buyerOrders.refreshOrderInList(buyerOrders.orderData);
+
     uiStore.openModal('cancelOrder');
+  };
+
+  closeCancelModal = () => {
+    const { buyerOrders, uiStore } = this.props.store;
+    buyerOrders.cancelOrder(null);
+    uiStore.closeModal();
+  };
+
+  submitCancelModal = async (reason: string) => {
+    const { buyerOrders } = this.props.store;
+
+    const { cancelOrderId } = buyerOrders;
+
+    const success = await buyerOrders.updateOrderStatus(
+      cancelOrderId,
+      'canceled',
+      reason,
+    );
+
+    if (success) this.closeCancelModal();
+
+    await buyerOrders.fetchOrder(cancelOrderId);
+    buyerOrders.refreshOrderInList(buyerOrders.orderData);
   };
 
   reorder = async (orderId: string) => {
@@ -36,9 +61,7 @@ class BuyerOrdersPage extends Component<Props> {
     if (response) {
       const { itemsAdded } = response;
       alertContent = {
-        title: `You added ${itemsAdded} item${
-          itemsAdded === 1 ? '' : 's'
-        } to you cart`,
+        title: this.getTitle(itemsAdded),
         link: { label: 'VIEW CART', route: '/buyer/cart' },
         status: ALERT_STATUS.SUCCESS,
         autoDismiss: 4000,
@@ -54,6 +77,9 @@ class BuyerOrdersPage extends Component<Props> {
     buyerCart.fetchCart();
   };
 
+  getTitle = (itemsAdded: number) =>
+    `You added ${itemsAdded} item${itemsAdded === 1 ? '' : 's'} to you cart`;
+
   render() {
     const { router } = this.props;
     const {
@@ -65,19 +91,22 @@ class BuyerOrdersPage extends Component<Props> {
         <PageContent>
           <ShowIfRoute match="/buyer/orders">
             <BuyerPurchaseOrders
-              onCancelOrder={this.cancelOrder}
+              onCancelOrder={this.openCancelModal}
               onReorder={this.reorder}
             />
           </ShowIfRoute>
           <ShowIfRoute match="/buyer/orders/(.*)">
             <BuyerPurchaseOrder
               orderId={orderId}
-              onCancelOrder={() => this.cancelOrder(orderId)}
+              onCancelOrder={() => this.openCancelModal(orderId)}
               onReorder={() => this.reorder(orderId)}
             />
           </ShowIfRoute>
 
-          <CancelOrderModal />
+          <CancelOrderModal
+            onClose={this.closeCancelModal}
+            onSubmit={this.submitCancelModal}
+          />
         </PageContent>
       </PageLayout>
     );

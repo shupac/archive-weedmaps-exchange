@@ -1,5 +1,7 @@
+// @flow
 import React from 'react';
 import { shallow } from 'enzyme';
+import RootStore from 'lib/data-access/stores';
 import BuyerOrdersStore from 'lib/data-access/stores/buyer-orders';
 import UiStore from 'lib/data-access/stores/ui';
 import { ButtonWhiteNoHover } from 'components/atoms/button';
@@ -11,6 +13,11 @@ import { OrderHeader } from './styles';
 const orderId = 'b97329d4-a7ae-4c7a-ab5e-4de8aec22f50';
 
 function setup() {
+  const props = {
+    onCancelOrder: jest.fn(),
+    onReorder: jest.fn(),
+  };
+
   const mockFetchClient = {
     fetch: jest
       .fn()
@@ -18,6 +25,7 @@ function setup() {
   };
 
   const mockStore = {
+    ...RootStore,
     buyerOrders: BuyerOrdersStore.create(
       {},
       {
@@ -26,11 +34,13 @@ function setup() {
     ),
     uiStore: UiStore.create(),
   };
-  const component = <BuyerPurchaseOrder store={mockStore} orderId={orderId} />;
+  const component = (
+    <BuyerPurchaseOrder store={mockStore} orderId={orderId} {...props} />
+  );
   const wrapper = shallow(component, {
     disableLifecycleMethods: true,
   });
-  return { wrapper, mockStore };
+  return { wrapper, mockStore, props };
 }
 
 describe('Buyer Purchase Order Page', () => {

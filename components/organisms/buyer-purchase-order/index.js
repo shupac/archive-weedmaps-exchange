@@ -202,5 +202,7 @@ class BuyerPurchaseOrder extends Component<Props> {
   }
 }
 
+BuyerPurchaseOrder.displayName = 'BuyerPurchaseOrder';
+
 export default inject('store')(observer(BuyerPurchaseOrder));
 export { BuyerPurchaseOrder };

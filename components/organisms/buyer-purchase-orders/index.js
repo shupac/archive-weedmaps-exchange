@@ -5,7 +5,6 @@ import { inject, observer } from 'mobx-react';
 import moment from 'moment';
 import { getPaginationText } from 'lib/common/strings';
 import { type StoreType } from 'lib/types/store';
-import { type PurchaseOrderType } from 'models/purchase-order';
 import EmptyState from 'components/atoms/empty-state';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
 import OrdersFilters from 'components/molecules/orders-filters';
@@ -37,9 +36,6 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
 
   @observable
   dateRange = {};
-
-  @observable
-  orders: PurchaseOrderType[] = [];
 
   @action
   setFilter = (column: string, filters: string) => {
@@ -84,24 +80,6 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
     { name: 'Search and fetch filters data' },
   );
 
-  disposeWatchModal = reaction(
-    () => {
-      const { uiStore, buyerOrders } = this.props.store;
-      const { activeModal, modalTransitioning } = uiStore;
-      const { ordersList } = buyerOrders;
-
-      return {
-        activeModal,
-        modalTransitioning,
-        orders: ordersList.map(o => o),
-      };
-    },
-    ({ activeModal, modalTransitioning, orders }) => {
-      if (!activeModal && !modalTransitioning) this.orders = orders;
-    },
-    { name: 'Watch modal transition' },
-  );
-
   componentDidMount() {
     const { store } = this.props;
 
@@ -116,7 +94,6 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
 
   componentWillUnmount() {
     this.disposeFetchOrders();
-    this.disposeWatchModal();
   }
 
   render() {
@@ -132,6 +109,8 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
       'Orders',
     );
 
+    const { ordersList } = buyerOrders;
+
     if ((!mounted || ordersLoading) && !this.query.size) {
       return (
         <LoaderWrapper>
@@ -140,7 +119,7 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
       );
     }
 
-    if (!this.orders.length && !this.query.size) {
+    if (!ordersList.length && !this.query.size) {
       return (
         <EmptyState
           image="no_orders_yet"
@@ -164,7 +143,8 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
         />
         <TableWrapper>
           <OrdersTable
-            orders={this.orders}
+            // force MST to update component when order status changes
+            orders={ordersList.map(o => ({ ...o }))}
             setSort={this.setSort}
             onCancelOrder={onCancelOrder}
             onReorder={onReorder}
