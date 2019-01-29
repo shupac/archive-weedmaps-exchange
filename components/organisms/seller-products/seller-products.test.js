@@ -191,7 +191,11 @@ describe('Seller Products Page', () => {
     const instance = wrapper.instance();
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     instance.clearAll();
-    expect(pushRoute).toHaveBeenCalledWith('sellerProducts', {});
+    expect(pushRoute).toHaveBeenCalledWith(
+      'sellerProducts',
+      {},
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -206,7 +210,13 @@ describe('Seller Products Page', () => {
     const instance = wrapper.instance();
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     instance.clearAll();
-    expect(pushRoute).toHaveBeenCalledWith('sellerProducts', { search: 'foo' });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'sellerProducts',
+      {
+        search: 'foo',
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 

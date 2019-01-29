@@ -130,7 +130,7 @@ export class SellerProducts extends Component<Props, State> {
       ascending,
     });
 
-    Router.pushRoute('sellerProducts', query);
+    Router.pushRoute('sellerProducts', query, { shallow: true });
   };
 
   getCategories = () => {

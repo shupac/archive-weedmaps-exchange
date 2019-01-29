@@ -131,8 +131,7 @@ class SearchBar extends Component<Props, State> {
       delete nextParams.search;
     }
     delete nextParams.page;
-
-    Router.pushRoute(route, nextParams);
+    Router.pushRoute(route, nextParams, { shallow: true });
   };
 
   render() {
@@ -140,7 +139,6 @@ class SearchBar extends Component<Props, State> {
     const { searchValue, categorySelected } = this.state;
 
     const options = this.getOptions();
-
     return (
       <SearchBarWrapper>
         {showCategory && (

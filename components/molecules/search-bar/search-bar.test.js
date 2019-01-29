@@ -128,10 +128,14 @@ describe('SearchBar', () => {
     const instance = component.instance();
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     instance.handleSearch();
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      categories: 'indica',
-      tab: 'catalog',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        categories: 'indica',
+        tab: 'catalog',
+      },
+      { shallow: true },
+    );
   });
 
   it('should include searchable query params', () => {
@@ -163,15 +167,19 @@ describe('SearchBar', () => {
       },
     };
     instance.handleSearch();
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      categories: 'concentrate',
-      search: 'orange',
-      brands: 'brand1/brand2',
-      availability: 'inStock',
-      minPrice: '2.00',
-      maxPrice: '5.00',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        categories: 'concentrate',
+        search: 'orange',
+        brands: 'brand1/brand2',
+        availability: 'inStock',
+        minPrice: '2.00',
+        maxPrice: '5.00',
+      },
+      { shallow: true },
+    );
   });
 
   it('should exclude non searchable query params', () => {
@@ -189,10 +197,14 @@ describe('SearchBar', () => {
     const instance = wrapper.instance();
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     instance.handleSearch();
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      categories: 'indica',
-      tab: 'catalog',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        categories: 'indica',
+        tab: 'catalog',
+      },
+      { shallow: true },
+    );
   });
 
   it('should handle input and category change', () => {
@@ -207,10 +219,14 @@ describe('SearchBar', () => {
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     component.update();
     instance.handleSearch();
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      search: 'orange',
-      tab: 'catalog',
-      categories: 'concentrate',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        search: 'orange',
+        tab: 'catalog',
+        categories: 'concentrate',
+      },
+      { shallow: true },
+    );
   });
 });
