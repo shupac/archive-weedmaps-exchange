@@ -6,7 +6,7 @@ import { LICENSE_TYPES } from 'lib/common/constants';
 import mockOrganization from 'lib/mocks/organization';
 import mockUserData from 'lib/mocks/user-data';
 import Profile, { ProfileForm } from './profile-form';
-import SettingsProfile from './';
+import { SettingsProfile } from './';
 
 function setup(org) {
   const mockFetchClient = {
@@ -20,8 +20,9 @@ function setup(org) {
     ),
   };
   const component = <SettingsProfile store={mockStore} />;
-  const wrapper = shallow(component).dive();
-  return { wrapper };
+  const wrapper = shallow(component);
+  const instance = wrapper.instance();
+  return { wrapper, instance, mockStore };
 }
 
 function formSetup() {
@@ -50,7 +51,8 @@ function formSetup() {
       {...props}
     />,
   );
-  return { formWrapper };
+  const instance = formWrapper.instance();
+  return { formWrapper, instance, store };
 }
 
 describe('Profile', () => {
@@ -98,5 +100,23 @@ describe('LocationForm', () => {
     const { formWrapper } = formSetup();
     const save = formWrapper.dive().find('[data-test-id="button-submit"]');
     expect(save.props().disabled).toBe(true);
+  });
+
+  it('should be able to pop success toast', async () => {
+    const { instance, mockStore } = setup();
+    const updateOrganization = jest
+      .spyOn(mockStore.authStore, 'updateOrganization')
+      .mockReturnValue(Promise.resolve(true));
+    instance.onSubmit();
+    expect(await updateOrganization).toHaveBeenCalled();
+  });
+
+  it('should be able to pop error toast', async () => {
+    const { instance, mockStore } = setup();
+    const updateOrganization = jest
+      .spyOn(mockStore.authStore, 'updateOrganization')
+      .mockReturnValue(Promise.resolve(false));
+    instance.onSubmit();
+    expect(await updateOrganization).toHaveBeenCalled();
   });
 });
