@@ -26,43 +26,54 @@ const VariantRow = ({
   resetField,
   fieldValue,
   cartError,
-}: Props) => (
-  <TableRow>
-    <p style={{ fontWeight: 600 }}>{variant.name}</p>
-    <p>{formatDollars(variant.price)}</p>
-    <Stock data-test-id="stock" inStock={variant.inStock}>
-      {variant.inStock ? 'In Stock' : 'Out of Stock'}
-    </Stock>
-    <TextInput
-      name={variant.id}
-      type="number"
-      disabled={!variant.inStock}
-      onChange={handleChange}
-      min="1"
-      hasError={cartError || error}
-      errorMessage={error}
-      value={fieldValue}
-    />
-    <span>
-      {variant.inStock
-        ? quantity && !error && formatDollars(quantity * variant.price)
-        : 'N/A'}
-    </span>
-    {cartError && (
-      <QuantityAlert>
-        <div style={{ marginRight: '10px' }}>
-          <ErrorIcon width="20" height="18" />
-        </div>
-        {cartErrorMsg[cartError.error]}{' '}
-        {cartError.error === 'quantity_unavailable' && variant.amount}
-        <ResetLink
-          onClick={() => resetField(variant.id, variant.amount, false)}
-        >
-          Reset Quantity
-        </ResetLink>
-      </QuantityAlert>
-    )}
-  </TableRow>
-);
+}: Props) => {
+  const inStock: boolean = !!(
+    variant.inStock &&
+    !(cartError && cartError.error === 'location_unavailable')
+  );
+
+  return (
+    <TableRow>
+      <p style={{ fontWeight: 600 }}>{variant.name}</p>
+      <p>{formatDollars(variant.price)}</p>
+      <Stock data-test-id="stock" inStock={inStock}>
+        {inStock ? 'In Stock' : 'Out of Stock'}
+      </Stock>
+      <TextInput
+        name={variant.id}
+        type="number"
+        disabled={!inStock}
+        onChange={handleChange}
+        min="1"
+        hasError={inStock && (cartError || error)}
+        errorMessage={error}
+        value={inStock ? fieldValue : ''}
+      />
+      <span>
+        {inStock
+          ? quantity && !error && formatDollars(quantity * variant.price)
+          : 'N/A'}
+      </span>
+      {cartError && (
+        <QuantityAlert>
+          <div style={{ marginRight: '10px' }}>
+            <ErrorIcon width="20" height="18" />
+          </div>
+          {cartErrorMsg[cartError.error]}{' '}
+          {cartError.error === 'quantity_unavailable' && (
+            <span>
+              {variant.amount}
+              <ResetLink
+                onClick={() => resetField(variant.id, variant.amount, false)}
+              >
+                Reset Quantity
+              </ResetLink>
+            </span>
+          )}
+        </QuantityAlert>
+      )}
+    </TableRow>
+  );
+};
 
 export default VariantRow;

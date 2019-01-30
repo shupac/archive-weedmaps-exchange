@@ -6,7 +6,7 @@ import TextInput from 'components/atoms/forms/text-input';
 import { mockVariants } from 'lib/mocks/product-details';
 import { ProductVariants } from './index';
 import VariantRow from './variant-row';
-import { TableWrap } from './styles';
+import { QuantityAlert, ResetLink, Stock, TableWrap } from './styles';
 
 function setup(cartResp) {
   const mockStore = {
@@ -151,7 +151,7 @@ describe('Product Variants', () => {
     ).toEqual('N/A');
   });
   describe('when there are cartErrors', () => {
-    it('will render inline error alert', () => {
+    it('will render inline error alert with Reset Quantity link', () => {
       const variant = {
         id: '82244edd-60a6-4c0d-8984-9570b720c204',
         name: '50 Units',
@@ -175,7 +175,141 @@ describe('Product Variants', () => {
           cartError={cartError}
         />,
       );
-      expect(component.find('QuantityAlert').exists()).toEqual(true);
+      expect(
+        component
+          .find(QuantityAlert)
+          .dive()
+          .find(ResetLink)
+          .exists(),
+      ).toEqual(true);
+    });
+    it('handles Reset Quantity link clicks', () => {
+      const variant = {
+        id: '82244edd-60a6-4c0d-8984-9570b720c204',
+        name: '50 Units',
+        size: 50,
+        unit: 'unit',
+        price: 50,
+        amount: 499,
+        inStock: true,
+      };
+      const cartError = {
+        itemId: 'a4844a49-7f92-4e2f-be6d-60bb072a4447',
+        error: 'quantity_unavailable',
+      };
+      const resetField = jest.fn();
+      const component = shallow(
+        <VariantRow
+          variant={variant}
+          error={false}
+          fieldValue={3}
+          handleChange={jest.fn()}
+          resetField={resetField}
+          cartError={cartError}
+        />,
+      );
+      component
+        .find(QuantityAlert)
+        .dive()
+        .find(ResetLink)
+        .simulate('click');
+      expect(resetField).toHaveBeenCalled();
+    });
+    it('will show an available variant as in-stock after an error', () => {
+      const variant = {
+        id: '82244edd-60a6-4c0d-8984-9570b720c204',
+        name: '50 Units',
+        size: 50,
+        unit: 'unit',
+        price: 50,
+        amount: 499,
+        inStock: true,
+      };
+      const cartError = {
+        itemId: 'a4844a49-7f92-4e2f-be6d-60bb072a4447',
+        error: 'quantity_unavailable',
+      };
+      const component = shallow(
+        <VariantRow
+          variant={variant}
+          error={false}
+          fieldValue={3}
+          handleChange={jest.fn()}
+          resetField={jest.fn()}
+          cartError={cartError}
+        />,
+      );
+      expect(
+        component
+          .find(Stock)
+          .dive()
+          .text()
+          .includes('In Stock'),
+      ).toEqual(true);
+    });
+    it('will not render a Reset Quantity button if the variant is no longer available', () => {
+      const variant = {
+        id: '82244edd-60a6-4c0d-8984-9570b720c204',
+        name: '50 Units',
+        size: 50,
+        unit: 'unit',
+        price: 50,
+        amount: 499,
+        inStock: true,
+      };
+      const cartError = {
+        itemId: 'a4844a49-7f92-4e2f-be6d-60bb072a4447',
+        error: 'location_unavailable',
+      };
+      const component = shallow(
+        <VariantRow
+          variant={variant}
+          error={false}
+          fieldValue={3}
+          handleChange={jest.fn()}
+          resetField={jest.fn()}
+          cartError={cartError}
+        />,
+      );
+      expect(
+        component
+          .find(QuantityAlert)
+          .dive()
+          .find(ResetLink)
+          .exists(),
+      ).toEqual(false);
+    });
+    it('will display a variant as out-of-stock if no longer available', () => {
+      const variant = {
+        id: '82244edd-60a6-4c0d-8984-9570b720c204',
+        name: '50 Units',
+        size: 50,
+        unit: 'unit',
+        price: 50,
+        amount: 499,
+        inStock: true,
+      };
+      const cartError = {
+        itemId: 'a4844a49-7f92-4e2f-be6d-60bb072a4447',
+        error: 'location_unavailable',
+      };
+      const component = shallow(
+        <VariantRow
+          variant={variant}
+          error={false}
+          fieldValue={3}
+          handleChange={jest.fn()}
+          resetField={jest.fn()}
+          cartError={cartError}
+        />,
+      );
+      expect(
+        component
+          .find(Stock)
+          .dive()
+          .text()
+          .includes('Out of Stock'),
+      ).toEqual(true);
     });
   });
   describe('can calculate', () => {
