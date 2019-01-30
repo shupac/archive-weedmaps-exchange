@@ -20,7 +20,7 @@ export const RequiredAsteriskWrapper = styled.div`
 
 type Props = {
   children: Node,
-  required: boolean,
+  required?: boolean,
 };
 
 const RequiredAsteriskLabel = ({ children, required = true }: Props) => (

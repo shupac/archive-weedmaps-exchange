@@ -19,6 +19,7 @@ type Props = {
   onChange: (event: any) => void,
   type: string,
   error: boolean,
+  setFieldValue: ('address', string) => void,
 };
 
 class AddressSuggestions extends Component<Props> {
@@ -53,6 +54,7 @@ class AddressSuggestions extends Component<Props> {
     const { addressSuggestions } = this.props.store;
     addressSuggestions.setQuery(suggestion.address);
     addressSuggestions.setAddressCommitted(true);
+    this.props.setFieldValue('address', suggestion.address);
   };
 
   render() {
@@ -62,6 +64,7 @@ class AddressSuggestions extends Component<Props> {
       addressInput,
       isAddressCommitted,
     } = store.addressSuggestions;
+
     return (
       <AddressSuggestionWrapper>
         <AddressSuggestionInput

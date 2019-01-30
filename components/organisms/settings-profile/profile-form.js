@@ -42,6 +42,7 @@ type Props = {
   handleBlur: () => void,
   dirty: boolean,
   isSubmitting: boolean,
+  setFieldValue: string => void,
 };
 
 export const ProfileForm = ({
@@ -55,6 +56,7 @@ export const ProfileForm = ({
   handleReset,
   handleBlur,
   initialValues,
+  setFieldValue,
 }: Props) => {
   const { addressSuggestions } = store;
   const { licenses } = values;
@@ -115,6 +117,7 @@ export const ProfileForm = ({
             onBlur={handleBlur}
             placeholder="Enter Address"
             error={errors.address && touched.address}
+            setFieldValue={setFieldValue}
           />
           {errors.address && touched.address && (
             <ErrorMessage>{errors.address}</ErrorMessage>

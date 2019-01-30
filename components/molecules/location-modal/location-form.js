@@ -1,3 +1,4 @@
+// @flow
 import React, { Fragment } from 'react';
 import { withFormik, Form, FieldArray } from 'formik';
 import * as Yup from 'yup';
@@ -33,11 +34,12 @@ type Props = {
   values: any,
   errors: any,
   touched: any,
-  handleChange: () => void,
+  handleChange: any => void,
   handleReset: () => void,
   handleBlur: () => void,
   dirty: boolean,
   isSubmitting: boolean,
+  setFieldValue: (string, string) => void,
 };
 
 export const FormTemplate = ({
@@ -50,6 +52,7 @@ export const FormTemplate = ({
   dirty,
   isSubmitting,
   store,
+  setFieldValue,
 }: Props) => {
   const { uiStore, addressSuggestions } = store;
   const { licenses } = values;
@@ -104,6 +107,7 @@ export const FormTemplate = ({
           onBlur={handleBlur}
           placeholder="Address"
           error={errors.address && touched.address}
+          setFieldValue={setFieldValue}
         />
         {errors.address && touched.address && (
           <ErrorMessage>{errors.address}</ErrorMessage>
@@ -270,8 +274,8 @@ export const FormTemplate = ({
           <CancelButton
             data-test-id="button-cancel"
             type="button"
-            onClick={x => {
-              handleReset(x);
+            onClick={() => {
+              handleReset();
               addressSuggestions.clearAddressSuggestions();
               return uiStore.closeModal();
             }}

@@ -16,12 +16,14 @@ const store = {
 };
 const props = {
   onChange: jest.fn(),
+  setFieldValue: jest.fn(),
 };
 describe('AddressSuggestion', () => {
   it('renders the correct content', () => {
     const component = shallow(<AddressSuggestions store={store} />).dive();
     expect(component.find(SuggestionListItem).length).toEqual(5);
   });
+
   it('should handle the onAddressQuery with query supplied', () => {
     const component = shallow(
       <AddressSuggestions store={store} {...props} />,
@@ -40,6 +42,7 @@ describe('AddressSuggestion', () => {
       '41 Discovery',
     );
   });
+
   it('should handle the onAddressQuery with NO query supplied', () => {
     const component = shallow(
       <AddressSuggestions store={store} {...props} />,
@@ -59,6 +62,7 @@ describe('AddressSuggestion', () => {
       '',
     );
   });
+
   it('should handle the onAddressSuggestion', () => {
     const component = shallow(
       <AddressSuggestions store={store} {...props} />,
