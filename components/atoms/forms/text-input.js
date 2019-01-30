@@ -9,7 +9,7 @@ export const TextInput = ({
   ...props
 }: {
   hasError: boolean | CartErrorType,
-  errorMessage: string,
+  errorMessage?: string,
   height?: number,
 }) => (
   <InputWrap>

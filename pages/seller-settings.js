@@ -16,6 +16,7 @@ import Subheader from 'components/atoms/subheader';
 import ShowIfRoute from 'components/atoms/show-if-route';
 import SettingsProfile from 'components/organisms/settings-profile';
 import ZoneEditor from 'components/organisms/zone-editor';
+import GeneralSettings from 'components/organisms/general-settings';
 import { type StoreType } from 'lib/types/store';
 
 type Props = {
@@ -66,6 +67,9 @@ export class SellerSettingsPage extends React.Component<Props> {
           </ShowIfRoute>
           <ShowIfRoute match="/seller/settings/zones">
             <ZoneEditor />
+          </ShowIfRoute>
+          <ShowIfRoute match="/seller/settings/general">
+            <GeneralSettings />
           </ShowIfRoute>
         </PageContent>
       </PageLayout>

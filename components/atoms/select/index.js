@@ -13,7 +13,7 @@ type Props = {
   items: Item[],
   buttonId?: any,
   dropdownLabel?: string,
-  placeholder: string,
+  placeholder?: string,
   isInverted?: boolean,
   hasError?: boolean,
   initialSelection?: Item,
