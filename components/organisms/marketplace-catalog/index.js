@@ -103,7 +103,7 @@ class Catalog extends Component<Props, State> {
     const { search } = router.query;
     const query = { tab: 'catalog', search };
     if (!search) delete query.search;
-    Router.pushRoute('marketplace', query);
+    Router.pushRoute('marketplace', query, { shallow: true });
   };
 
   getCategories = () => {
@@ -126,7 +126,7 @@ class Catalog extends Component<Props, State> {
       ...query,
       page,
     };
-    Router.pushRoute('marketplace', nextQuery);
+    Router.pushRoute('marketplace', nextQuery, { shallow: true });
   };
 
   render() {

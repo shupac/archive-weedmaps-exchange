@@ -107,10 +107,14 @@ describe('FilterSection', () => {
       .find(ComboCheckbox)
       .dive()
       .simulate('click');
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      brands: ['1', '2', '3'],
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        brands: ['1', '2', '3'],
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -124,9 +128,11 @@ describe('FilterSection', () => {
       .find(ComboCheckbox)
       .dive()
       .simulate('click');
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      { tab: 'catalog' },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -160,10 +166,14 @@ describe('FilterSection', () => {
       name: 'Brand1',
       checked: true,
     });
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      brands: ['1'],
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        brands: ['1'],
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 });

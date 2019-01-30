@@ -1,3 +1,4 @@
+// @flow
 import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
 import { ToggleSwitch } from '@ghostgroup/ui';
@@ -7,15 +8,16 @@ import AuthStore from 'lib/data-access/stores/auth';
 import mockProductsResponse from 'lib/mocks/seller-products';
 import { mockWmxUser } from 'lib/mocks/user';
 import { mockCategories } from 'lib/mocks/categories';
+import { mockOrg } from 'lib/mocks/organization';
 
 import { SellerProducts } from './';
 
 const mockUserSeller = {
   ...mockWmxUser,
   preferences: {
+    ...mockWmxUser.preferences,
     userContext: 'seller',
-    locationId: '6039ad85-7be7-45ce-a5f9-3e802eeba1e5',
-    brandId: 'fd2b3edd-3de5-497b-af07-13d4cf02f240',
+    brandId: 'e98a5787-2e60-4302-b566-c6454a69a91f',
   },
 };
 
@@ -29,8 +31,15 @@ function setup(props) {
       departments: mockCategories,
     }),
     authStore: AuthStore.create({
-      wmxUser: mockWmxUser,
-      activeSellerBrand: jest.fn(),
+      wmxUser: {
+        ...mockWmxUser,
+        preferences: {
+          ...mockWmxUser.preferences,
+          userContext: 'seller',
+          brandId: '9ffabab9-75bd-4d17-b8f6-265470243155',
+        },
+      },
+      org: mockOrg,
     }),
   };
 
@@ -130,10 +139,14 @@ describe('Seller Products Page', () => {
     const instance = wrapper.instance();
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     instance.setRouterState({ foo: 'bar' });
-    expect(pushRoute).toHaveBeenCalledWith('sellerProducts', {
-      search: 'foo',
-      foo: 'bar',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'sellerProducts',
+      {
+        search: 'foo',
+        foo: 'bar',
+      },
+      { shallow: true },
+    );
   });
 
   it('should handle on sort', () => {
@@ -254,10 +267,14 @@ describe('Seller Products Page', () => {
     const instance = wrapper.instance();
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     instance.goToPage(2);
-    expect(pushRoute).toHaveBeenCalledWith('sellerProducts', {
-      search: 'foo',
-      page: 2,
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'sellerProducts',
+      {
+        search: 'foo',
+        page: 2,
+      },
+      { shallow: true },
+    );
   });
 
   it('should update url state for different sort key', () => {

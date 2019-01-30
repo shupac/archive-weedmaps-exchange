@@ -68,9 +68,11 @@ export class SellerProducts extends Component<Props, State> {
   dispose = reaction(
     () => {
       const { authStore } = this.props.store;
-      return authStore.activeSellerBrand;
+      return authStore.activeSellerBrand.value;
     },
     () => {
+      const { sellerSettings } = this.props.store;
+      sellerSettings.fetchDepartments();
       this.searchProducts();
     },
     { name: 'Refetch Seller Products on brand change' },
@@ -114,10 +116,14 @@ export class SellerProducts extends Component<Props, State> {
   setRouterState = (state: mixed) => {
     const { router } = this.props;
 
-    Router.pushRoute('sellerProducts', {
-      ...router.query,
-      ...state,
-    });
+    Router.pushRoute(
+      'sellerProducts',
+      {
+        ...router.query,
+        ...state,
+      },
+      { shallow: true },
+    );
   };
 
   clearAll = () => {
@@ -188,7 +194,7 @@ export class SellerProducts extends Component<Props, State> {
       ...query,
       page,
     };
-    Router.pushRoute('sellerProducts', nextQuery);
+    Router.pushRoute('sellerProducts', nextQuery, { shallow: true });
   };
 
   setActive = (sellerProduct: SellerProductType, active: boolean) => {

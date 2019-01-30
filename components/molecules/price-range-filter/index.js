@@ -64,7 +64,7 @@ class PriceRangeFilter extends Component<Props, State> {
 
     this.setState({ min: formattedMin, max: formattedMax }, () => {
       if (this.checkError(formattedMin)(formattedMax)) return null;
-      return Router.pushRoute('marketplace', nextParams);
+      return Router.pushRoute('marketplace', nextParams, { shallow: true });
     });
   };
 

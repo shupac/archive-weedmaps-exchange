@@ -136,12 +136,16 @@ describe('Marketplace Catalog', () => {
     const instance = wrapper.instance();
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     instance.goToPage(3);
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      search: 'indica',
-      brands: '1/2',
-      page: 3,
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        search: 'indica',
+        brands: '1/2',
+        page: 3,
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -150,10 +154,14 @@ describe('Marketplace Catalog', () => {
     const instance = wrapper.instance();
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     instance.clearAll();
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      search: 'indica',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        search: 'indica',
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -168,9 +176,11 @@ describe('Marketplace Catalog', () => {
     const instance = wrapper.instance();
     const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     instance.clearAll();
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      { tab: 'catalog' },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 

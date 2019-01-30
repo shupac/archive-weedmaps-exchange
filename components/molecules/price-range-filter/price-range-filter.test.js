@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
@@ -6,14 +7,19 @@ import TextInput from 'components/atoms/forms/text-input';
 import { PriceRangeFilter } from './';
 import { Wrapper, ErrorMessage } from './styles';
 
-function setup({ minPrice, maxPrice, page }) {
-  const mockRouter = {
-    query: {
-      tab: 'catalog',
-      minPrice,
-      maxPrice,
-      page,
-    },
+type queryType = {
+  minPrice?: string,
+  maxPrice?: string,
+  page?: number,
+};
+
+function setup({ minPrice, maxPrice, page }: queryType) {
+  const mockRouter = jest.genMockFromModule('next/router');
+  mockRouter.query = {
+    tab: 'catalog',
+    minPrice,
+    maxPrice,
+    page,
   };
   if (!minPrice) delete mockRouter.query.minPrice;
   if (!maxPrice) delete mockRouter.query.maxPrice;
@@ -48,11 +54,15 @@ describe('Price Range Filter', () => {
     instance.setPrice('max')({ target: { value: '10' } });
     instance.setPrice('min')({ target: { value: '2' } });
     instance.updateState();
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      minPrice: '2.00',
-      maxPrice: '10.00',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        minPrice: '2.00',
+        maxPrice: '10.00',
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -63,9 +73,11 @@ describe('Price Range Filter', () => {
     instance.setPrice('min')({ target: { value: '' } });
     instance.setPrice('max')({ target: { value: '' } });
     instance.updateState();
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      { tab: 'catalog' },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -76,10 +88,14 @@ describe('Price Range Filter', () => {
     instance.setPrice('min')({ target: { value: '' } });
     instance.setPrice('max')({ target: { value: '' } });
     instance.updateState();
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      page: 2,
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        page: 2,
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -90,11 +106,15 @@ describe('Price Range Filter', () => {
     instance.setPrice('min')({ target: { value: '2' } });
     instance.setPrice('max')({ target: { value: '5.88888' } });
     instance.updateState();
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      minPrice: '2.00',
-      maxPrice: '5.89',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        minPrice: '2.00',
+        maxPrice: '5.89',
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -108,11 +128,15 @@ describe('Price Range Filter', () => {
       },
     });
     instance.updateState();
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      minPrice: '3.00',
-      maxPrice: '5.00',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        minPrice: '3.00',
+        maxPrice: '5.00',
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -126,11 +150,15 @@ describe('Price Range Filter', () => {
       },
     });
     instance.updateState();
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      minPrice: '1.00',
-      maxPrice: '5.00',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        minPrice: '1.00',
+        maxPrice: '5.00',
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -144,10 +172,14 @@ describe('Price Range Filter', () => {
       },
     });
     instance.updateState();
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      maxPrice: '5.00',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        maxPrice: '5.00',
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -208,18 +240,26 @@ describe('Price Range Filter', () => {
     first.simulate('change', { target: { value: '5' } });
     expect(pushRoute).not.toHaveBeenCalled();
     first.simulate('blur');
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      minPrice: '5.00',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        minPrice: '5.00',
+      },
+      { shallow: true },
+    );
     last.simulate('focus');
     last.simulate('change', { target: { value: '20' } });
     last.simulate('blur');
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      minPrice: '5.00',
-      maxPrice: '20.00',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        minPrice: '5.00',
+        maxPrice: '20.00',
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -243,18 +283,26 @@ describe('Price Range Filter', () => {
     first.simulate('change', { target: { value: '5' } });
     expect(pushRoute).not.toHaveBeenCalled();
     first.simulate('keypress', { key: 'Enter' });
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      minPrice: '5.00',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        minPrice: '5.00',
+      },
+      { shallow: true },
+    );
     last.simulate('focus');
     last.simulate('change', { target: { value: '20' } });
     last.simulate('keypress', { key: 'Enter' });
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      minPrice: '5.00',
-      maxPrice: '20.00',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        minPrice: '5.00',
+        maxPrice: '20.00',
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 

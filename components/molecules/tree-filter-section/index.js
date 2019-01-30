@@ -93,7 +93,7 @@ class TreeFilterSection extends React.Component<Props> {
 
     if (!nextOptions.length) delete nextParams[paramKey];
 
-    Router.pushRoute(route, nextParams);
+    Router.pushRoute(route, nextParams, { shallow: true });
   };
 
   getTreeState = (tree: Tree) => {

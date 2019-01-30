@@ -81,7 +81,7 @@ class FilterSection extends React.Component<Props> {
     if (!nextOptions.length) delete nextParams[paramKey];
     delete nextParams.page;
 
-    Router.pushRoute(route, nextParams);
+    Router.pushRoute(route, nextParams, { shallow: true });
   };
 
   render() {

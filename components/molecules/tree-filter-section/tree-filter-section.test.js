@@ -223,10 +223,14 @@ describe('TreeFilterSection', () => {
       .find(ComboCheckbox)
       .dive()
       .simulate('click');
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      categories: ['1'],
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        categories: ['1'],
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -243,10 +247,14 @@ describe('TreeFilterSection', () => {
       .find(ComboCheckbox)
       .dive()
       .simulate('click');
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      categories: ['11'],
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        categories: ['11'],
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -263,10 +271,14 @@ describe('TreeFilterSection', () => {
       .find(ComboCheckbox)
       .dive()
       .simulate('click');
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-      categories: ['1'],
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+        categories: ['1'],
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -283,9 +295,13 @@ describe('TreeFilterSection', () => {
       .find(ComboCheckbox)
       .dive()
       .simulate('click');
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
@@ -302,9 +318,13 @@ describe('TreeFilterSection', () => {
       .find(ComboCheckbox)
       .dive()
       .simulate('click');
-    expect(pushRoute).toHaveBeenCalledWith('marketplace', {
-      tab: 'catalog',
-    });
+    expect(pushRoute).toHaveBeenCalledWith(
+      'marketplace',
+      {
+        tab: 'catalog',
+      },
+      { shallow: true },
+    );
     pushRoute.mockRestore();
   });
 
