@@ -44,7 +44,7 @@
   },
   "homepage": "https://github.com/GhostGroup/admin#readme",
   "dependencies": {
-    "@ghostgroup/create-moonshot-app": "0.0.1-alpha-17",
+    "@ghostgroup/create-moonshot-app": "0.0.1-alpha-18",
     "@ghostgroup/grid-styled": "~4.0.0",
     "@ghostgroup/ui": "^19.0.2",
     "@ghostgroup/wm-express-login-proxy": "^1.0.0",

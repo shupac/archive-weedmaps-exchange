@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import provide from 'lib/data-access/stores/provider';
 import { withRouter } from 'next/router';
 import { inject } from 'mobx-react';
 import AuthConnector from 'components/containers/auth-connector';
@@ -76,4 +75,4 @@ export class Marketplace extends Component<Props> {
   }
 }
 
-export default provide(withRouter(AuthConnector(inject('store')(Marketplace))));
+export default withRouter(AuthConnector(inject('store')(Marketplace)));

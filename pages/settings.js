@@ -8,7 +8,6 @@ import { ButtonPrimary } from 'components/atoms/button';
 import { Link } from 'lib/routes';
 import { type StoreType } from 'lib/types/store';
 import AuthConnector from 'components/containers/auth-connector';
-import provide from 'lib/data-access/stores/provider';
 import Subheader from 'components/atoms/subheader';
 import ShowIfRoute from 'components/atoms/show-if-route';
 import Locations from 'components/organisms/settings-locations';
@@ -88,4 +87,4 @@ export class Settings extends Component<Props> {
   }
 }
 
-export default provide(withRouter(AuthConnector(inject('store')(Settings))));
+export default withRouter(AuthConnector(inject('store')(Settings)));

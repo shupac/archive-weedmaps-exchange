@@ -1347,10 +1347,10 @@
   resolved "https://registry.npmjs.org/@emotion/weak-memoize/-/weak-memoize-0.1.3.tgz#b700d97385fa91affed60c71dfd51c67e9dad762"
   integrity sha512-QsYGKdhhuDFNq7bjm2r44y0mp5xW3uO3csuTPDWZc0OIiMQv+AIY5Cqwd4mJiC5N8estVl7qlvOx1hbtOuUWbw==
 
-"@ghostgroup/create-moonshot-app@0.0.1-alpha-17":
-  version "0.0.1-alpha-17"
-  resolved "https://registry.npmjs.org/@ghostgroup/create-moonshot-app/-/create-moonshot-app-0.0.1-alpha-17.tgz#44b15c5a40699b53e86a41459b9b9674c6f819ef"
-  integrity sha512-xlLRE8vtFZo3jADFrPrDRpZfGcreTwgiiN1qq9owxbELRwIDdtTZ+tq7pyL2vco0HMkpQrJrep9vQm/4ivzzjQ==
+"@ghostgroup/create-moonshot-app@0.0.1-alpha-18":
+  version "0.0.1-alpha-18"
+  resolved "https://registry.npmjs.org/@ghostgroup/create-moonshot-app/-/create-moonshot-app-0.0.1-alpha-18.tgz#2ec36d66459d098fdd92a5fead02a8b0f8bf4162"
+  integrity sha512-wewTFg+jL1WiCrvgO7XRKnI+90ZpH57TRMfapztXxsKMgmWoSYmxUAWkjofnoDJW8kUhR4w8/aYwRkypHE2++g==
   dependencies:
     "@babel/cli" "~7.1.5"
     "@babel/core" "^7.2.2"

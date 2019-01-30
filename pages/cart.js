@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import { inject } from 'mobx-react';
 import AuthConnector from 'components/containers/auth-connector';
-import provide from 'lib/data-access/stores/provider';
 import ShowIfRoute from 'components/atoms/show-if-route';
 import BuyerCart from 'components/organisms/buyer-cart';
 import CartConfirmation from 'components/organisms/cart-confirmation';
@@ -34,4 +33,4 @@ export class Cart extends Component<Props> {
   }
 }
 
-export default provide(withRouter(AuthConnector(inject('store')(Cart))));
+export default withRouter(AuthConnector(inject('store')(Cart)));

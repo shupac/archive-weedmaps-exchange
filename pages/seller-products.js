@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
-import provide from 'lib/data-access/stores/provider';
 import { inject } from 'mobx-react';
 import AuthConnector from 'components/containers/auth-connector';
 import { PageContent, PageLayout } from 'components/layouts/page-layout';
@@ -37,7 +36,5 @@ class SellerProductsPage extends Component<Props> {
   }
 }
 
-export default provide(
-  withRouter(AuthConnector(inject('store')(SellerProductsPage))),
-);
+export default withRouter(AuthConnector(inject('store')(SellerProductsPage)));
 export { SellerProductsPage };

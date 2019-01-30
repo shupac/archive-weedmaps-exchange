@@ -1,16 +1,15 @@
 /* eslint-disable import/first, no-unused-vars */
-import PageProgressBar, { getProgressBar } from './index';
+import { shallow } from 'enzyme';
+import NProgressBar from './index';
 
-describe('PageProgressBar', () => {
+describe('NProgressBar', () => {
   let NProgress;
-  let Router;
+  let router;
+  let emitter;
   beforeEach(() => {
     NProgress = require('nprogress');
-    Router = require('next/router');
-  });
-
-  it('behaves like an HOC', () => {
-    expect(PageProgressBar).toBeAHoc();
+    router = require('next/router');
+    emitter = router.Router.events;
   });
 
   describe('when the site has an error when changing pages', () => {
@@ -19,12 +18,11 @@ describe('PageProgressBar', () => {
     });
     it('will complete the progress bar', () => {
       // Create instance of component with progress bar
-      const ProgressComponent = getProgressBar(<div />);
-      const instance = new ProgressComponent();
+      const instance = new NProgressBar();
       // call mount
       instance.componentDidMount();
       // error on the route change
-      Router.default.onRouteChangeError();
+      emitter.emit('routeChangeError');
       // component should hear the event, and complete progress
       expect(NProgress.done).toHaveBeenCalled();
     });
@@ -36,12 +34,11 @@ describe('PageProgressBar', () => {
     });
     it('will complete the progress bar', () => {
       // Create instance of component with progress bar
-      const ProgressComponent = getProgressBar(<div />);
-      const instance = new ProgressComponent();
+      const instance = new NProgressBar();
       // call mount
       instance.componentDidMount();
       // complete the route change
-      Router.default.onRouteChangeComplete();
+      emitter.emit('routeChangeComplete');
       // component should hear the event, and complete progress
       expect(NProgress.done).toHaveBeenCalled();
     });
@@ -53,60 +50,73 @@ describe('PageProgressBar', () => {
     });
     it('will show the progress bar', () => {
       // Create instance of component with progress bar
-      const ProgressComponent = getProgressBar(<div />);
-      const instance = new ProgressComponent();
+      const instance = new NProgressBar();
       // call mount
       instance.componentDidMount();
       // call route change start
-      Router.default.onRouteChangeStart();
+      emitter.emit('routeChangeStart');
       // component should hear the event, and start progress
       expect(NProgress.start).toHaveBeenCalled();
     });
   });
 
   describe('When the component is rendered on the page', () => {
+    let onSpy;
+    beforeEach(() => {
+      onSpy = jest.spyOn(emitter, 'on');
+    });
     it('will register to listen to route events', () => {
       // Create instance of component with progress bar
-      const ProgressComponent = getProgressBar(<div />);
-      const instance = new ProgressComponent();
+      const instance = new NProgressBar();
       // call mount
       instance.componentDidMount();
       // expect all the route handlers to be asssigned
-      expect(Router.default.onRouteChangeStart).toBe(
+      expect(onSpy).toHaveBeenCalledWith(
+        'routeChangeStart',
         instance.onRouteChangeStart,
       );
-      expect(Router.default.onRouteChangeComplete).toBe(
+      expect(onSpy).toHaveBeenCalledWith(
+        'routeChangeComplete',
         instance.onRouteChangeComplete,
       );
-      expect(Router.default.onRouteChangeError).toBe(
+      expect(onSpy).toHaveBeenCalledWith(
+        'routeChangeError',
         instance.onRouteChangeError,
       );
     });
   });
 
   describe('when the component is removed from the page', () => {
+    let offSpy;
     beforeEach(() => {
       NProgress.remove = jest.fn();
+      offSpy = jest.spyOn(emitter, 'off');
     });
 
     it('will un-register from route events', () => {
       // Create instance of component with progress bar
-      const ProgressComponent = getProgressBar(<div />);
-      const instance = new ProgressComponent();
+      const instance = new NProgressBar();
       // setup  route handlers
       instance.componentDidMount();
       // unmount component which should clean then up
       instance.componentWillUnmount();
-      // expect all the route handlers to be null
-      expect(Router.default.onRouteChangeStart).toBe(null);
-      expect(Router.default.onRouteChangeComplete).toBe(null);
-      expect(Router.default.onRouteChangeError).toBe(null);
+      expect(offSpy).toHaveBeenCalledWith(
+        'routeChangeStart',
+        instance.onRouteChangeStart,
+      );
+      expect(offSpy).toHaveBeenCalledWith(
+        'routeChangeComplete',
+        instance.onRouteChangeComplete,
+      );
+      expect(offSpy).toHaveBeenCalledWith(
+        'routeChangeError',
+        instance.onRouteChangeError,
+      );
     });
 
     it('will cleanup the progress bar', () => {
       // Create instance of component with progress bar
-      const ProgressComponent = getProgressBar(<div />);
-      const instance = new ProgressComponent();
+      const instance = new NProgressBar();
       // Call unmount
       instance.componentWillUnmount();
       // verify that the nprogress element is removed

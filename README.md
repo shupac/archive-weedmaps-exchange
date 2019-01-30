@@ -1,5 +1,5 @@
 Exchange front-end using Node and React
-[![codecov](https://codecov.io/gh/GhostGroup/exchange-fe/branch/master/graph/badge.svg?token=thqzIMewEF)](https://codecov.io/gh/GhostGroup/exchange-fe)
+[![codecov](https://codecov.io/gh/GhostGroup/exchange-fe/branch/develop/graph/badge.svg?token=thqzIMewEF)](https://codecov.io/gh/GhostGroup/exchange-fe)
 
 ## Features
 

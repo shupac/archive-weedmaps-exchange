@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import provide from 'lib/data-access/stores/provider';
 import AuthConnector from 'components/containers/auth-connector';
 import { withRouter } from 'next/router';
 import { PageContent, PageLayout } from 'components/layouts/page-layout';
@@ -24,4 +23,4 @@ export class Home extends Component<Props> {
   }
 }
 
-export default withRouter(provide(AuthConnector(Home)));
+export default withRouter(AuthConnector(Home));
