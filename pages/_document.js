@@ -40,18 +40,27 @@ export class DealsAdminDocument extends Document {
             content="initial-scale=1.0, width=device-width"
           />
           <meta name="description" content="Weedmaps Exchange" />
+          {this.props.styleTags}
+        </Head>
+        <body>
           <script type="text/javascript" src="/static/config.js" />
+          <Main />
+          <NextScript />
           <script
             src="//js.honeybadger.io/v0.5/honeybadger.min.js"
             type="text/javascript"
             data-apikey="3bbdd023"
             data-environment={config.envName}
           />
-          {this.props.styleTags}
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
+          {process.env.NODE_ENV === 'production' && (
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+          (function(w,d,s){w._uptime_rum={};w._uptime_rum.uuid='6A3Y-EE03D11B6E0BF2C8';w._uptime_rum.url='https://rum.uptime.com/rum/record-data';s=document.createElement('script');s.async=1;s.src='https://uptime.com/static/rum/compiled/rum.js';d.getElementsByTagName('head')[0].appendChild(s);})(window,document);
+          `,
+              }}
+            />
+          )}
         </body>
       </html>
     );
