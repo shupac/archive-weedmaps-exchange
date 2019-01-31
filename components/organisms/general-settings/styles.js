@@ -36,7 +36,7 @@ export const GeneralBody = styled.div`
 `;
 
 export const ShippingHeader = styled.div`
-  font-size: ${rem(22)};
+  font-size: ${rem(20)};
   font-weight: 600;
   padding-bottom: 8px;
   border-bottom: 1px solid ${icon.inverted};
@@ -95,7 +95,7 @@ export const AddButton = styled(ButtonPrimary)`
 `;
 
 export const InputTitle = styled.div`
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 `;
 
 export const ErrorMessage = styled.div`

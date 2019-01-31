@@ -203,9 +203,7 @@ export class GeneralSettings extends Component<Props> {
                 customHandleChange={(value: string) =>
                   this.handleMinPurchaseChange(value)
                 }
-                value={parseInt(this.minimumPurchasePrice || '0', 10).toFixed(
-                  2,
-                )}
+                value={parseFloat(this.minimumPurchasePrice || '0').toFixed(2)}
                 data-test-id="minimum-purchase"
               />
             </ShippingMinInputWrapper>
@@ -216,7 +214,7 @@ export class GeneralSettings extends Component<Props> {
                 customHandleChange={(value: string) =>
                   this.handleShippingFeeChange(value)
                 }
-                value={parseInt(this.shippingFee || '0', 10).toFixed(2)}
+                value={parseFloat(this.shippingFee || '0').toFixed(2)}
                 data-test-id="shipping-fee"
               />
             </ShippingMinInputWrapper>
