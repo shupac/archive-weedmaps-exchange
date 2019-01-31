@@ -136,7 +136,9 @@ export default class ExchangeApp extends App {
     }
 
     // Process redirects
-    await ExchangeApp.processRedirects(ctx, store);
+    if (store.authStore.loggedIn) {
+      await ExchangeApp.processRedirects(ctx, store);
+    }
 
     // If we are on the server, we need to snapshot the initial state
     // then we can serialize over the wire

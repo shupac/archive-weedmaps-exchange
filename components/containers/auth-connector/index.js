@@ -27,7 +27,6 @@ export const AuthConnectorWrapper = ComponentToCompose => {
       const { authStore, buyerCart, buyerSettings } = store;
 
       let initialProps = {};
-
       logger.debug('Checking if we are authenticated');
 
       // Check user status
