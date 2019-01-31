@@ -30,6 +30,9 @@ describe('zone editor', () => {
           },
           { client: mockClient, wmSdk: mockSdk },
         ),
+        uiStore: {
+          activeModal: null,
+        },
       };
       // TODO mock fetchRegionsForZones for now
       jest
@@ -73,6 +76,11 @@ describe('zone editor', () => {
           },
           { client: mockClient, wmSdk: mockSdk },
         ),
+        uiStore: {
+          activeModal: null,
+          openModal: jest.fn(),
+          closeModal: jest.fn(),
+        },
       };
       // TODO mock fetchRegionsForZones for now
       jest
@@ -161,14 +169,10 @@ describe('zone editor', () => {
 
     it('should call the delete handler when clicking delete', () => {
       const zoneCard = findByTestId(wrapper, 'zone-card').at(1);
-      // TODO replace with real side effect in next PR
       // $FlowFixMe
       jest.spyOn(mockStore.zones, 'deleteZone').mockResolvedValue(true);
       zoneCard.props().onDelete({ id: 2, regions: [] });
-      expect(mockStore.zones.deleteZone).toHaveBeenCalledWith({
-        id: 2,
-        regions: [],
-      });
+      expect(mockStore.uiStore.openModal).toHaveBeenCalledWith('zoneModal');
     });
   });
 
@@ -179,6 +183,9 @@ describe('zone editor', () => {
     beforeEach(() => {
       mockStore = {
         zones: Zones.create({ zones: [] }),
+        uiStore: {
+          activeModal: null,
+        },
       };
       // TODO mock fetchRegionsForZones for now
       jest
@@ -201,6 +208,32 @@ describe('zone editor', () => {
 
     it('should show the button to add the first zone', () => {
       expect(findByTestId(wrapper, 'no-zones-add-zone').length).toBe(1);
+    });
+  });
+
+  describe('when deleting a zone ', () => {
+    let wrapper;
+    let mockStore;
+    let instance;
+    beforeEach(() => {
+      mockStore = {
+        zones: Zones.create({ zones: [] }),
+        uiStore: {
+          openModal: jest.fn(),
+          closeModal: jest.fn(),
+        },
+      };
+      wrapper = shallow(<ZoneEditor store={mockStore} />);
+      instance = wrapper.instance();
+    });
+
+    it('should delete the zone on confirm', () => {
+      // $FlowFixMe
+      const deleteZone = jest
+        .spyOn(mockStore.zones, 'deleteZone')
+        .mockResolvedValue(true);
+      instance.onZoneDeleteConfirm();
+      expect(deleteZone).toHaveBeenCalled();
     });
   });
 });

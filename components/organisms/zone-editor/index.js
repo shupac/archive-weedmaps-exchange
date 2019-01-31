@@ -2,7 +2,11 @@
 import * as React from 'react';
 import SearchBox from 'components/atoms/search-box';
 import ZoneCard from 'components/atoms/zone-card';
-import { ButtonPrimary, ButtonWhite } from 'components/atoms/button';
+import {
+  ButtonPrimary,
+  ButtonWhite,
+  ButtonWhiteNoHover,
+} from 'components/atoms/button';
 import { Box } from '@ghostgroup/grid-styled';
 import { inject, observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
@@ -19,6 +23,8 @@ import GeoJson from 'components/atoms/map/geo-json';
 import debounce from 'lodash.debounce';
 import { CSSTransition } from 'react-transition-group';
 import uniqueKey from 'lib/common/unique-key';
+import Modal from 'components/atoms/modal';
+import { ModalContentWrapper, ButtonRow } from 'components/atoms/modal/styles';
 import {
   Container,
   FullWidthMap,
@@ -62,6 +68,7 @@ export class ZoneEditor extends React.Component<Props> {
    * The snapshot of the zone before editing
    */
   zoneSnapshot: any;
+  zoneToDelete: ZoneType;
 
   @computed
   get filteredZones(): ZoneType[] {
@@ -103,8 +110,15 @@ export class ZoneEditor extends React.Component<Props> {
   };
 
   onZoneDelete = (zone: ZoneType) => {
-    const { zones } = this.props.store;
-    zones.deleteZone(zone);
+    this.zoneToDelete = zone;
+    const { openModal } = this.props.store.uiStore;
+    openModal('zoneModal');
+  };
+
+  onZoneDeleteConfirm = () => {
+    const { zones, uiStore } = this.props.store;
+    zones.deleteZone(this.zoneToDelete);
+    uiStore.closeModal();
   };
 
   onZoneEdit = (zone: ZoneType) => {
@@ -299,7 +313,8 @@ export class ZoneEditor extends React.Component<Props> {
   };
 
   render() {
-    const { zones } = this.props.store;
+    const { store } = this.props;
+    const { zones, uiStore } = store;
     return (
       <Container>
         <ActionContainer flex={[0.85]}>
@@ -385,6 +400,34 @@ export class ZoneEditor extends React.Component<Props> {
             {!this.loading && this.geoJsonLayers()}
           </FullWidthMap>
         </MapContainer>
+        <Modal header="Delete Zone" store={store}>
+          {uiStore.activeModal === 'zoneModal' && (
+            <ModalContentWrapper>
+              <p>
+                You are about to delete{' '}
+                {this.zoneToDelete && this.zoneToDelete.name} zone. Any products
+                currently allocated to this zone will no longer be if you
+                proceed.
+              </p>
+              <p>Are you sure you want to delete this zone?</p>
+
+              <ButtonRow>
+                <ButtonWhiteNoHover
+                  onClick={() => uiStore.closeModal()}
+                  data-test-id="cancel-button"
+                >
+                  Cancel
+                </ButtonWhiteNoHover>
+                <ButtonPrimary
+                  onClick={this.onZoneDeleteConfirm}
+                  data-test-id="delete-button"
+                >
+                  Delete
+                </ButtonPrimary>
+              </ButtonRow>
+            </ModalContentWrapper>
+          )}
+        </Modal>
       </Container>
     );
   }
