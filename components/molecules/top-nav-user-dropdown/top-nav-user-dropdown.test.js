@@ -2,18 +2,26 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
 import AuthStore from 'lib/data-access/stores/auth';
+import Organization from 'lib/data-access/models/organization';
 import { mockWmProfile, mockWmxUser } from 'lib/mocks/user';
 import { mockOrgBrands } from 'lib/mocks/organization';
+import findByTestId from 'lib/jest/find-by-test-id';
 import { UserDropdown } from './';
 
-function setup() {
+function setup(store) {
   const mockStore = {
     authStore: AuthStore.create({
       wmProfile: mockWmProfile,
       wmxUser: mockWmxUser,
       setUserContext: jest.fn(),
+      org: Organization.create({
+        id: '123',
+        name: 'test',
+        organizationType: 'both',
+      }),
       orgBrands: jest.fn().mockReturnValue(mockOrgBrands),
     }),
+    ...store,
   };
   const wrapper = shallow(<UserDropdown store={mockStore} />);
   const instance = wrapper.instance();
@@ -24,6 +32,46 @@ describe('Top Nav User Dropdown', () => {
   let stopPropagation;
   beforeEach(() => {
     stopPropagation = jest.fn();
+  });
+
+  describe('when you are a seller', () => {
+    it('will not render the buyer/seller toggle', () => {
+      const { wrapper } = setup({
+        authStore: AuthStore.create({
+          wmProfile: mockWmProfile,
+          wmxUser: mockWmxUser,
+          setUserContext: jest.fn(),
+          org: Organization.create({
+            id: '123',
+            name: 'test',
+            organizationType: 'seller',
+          }),
+          orgBrands: jest.fn().mockReturnValue(mockOrgBrands),
+        }),
+      });
+      wrapper.instance().open = true;
+      expect(findByTestId(wrapper, 'toggle-buttons').length).toBe(0);
+    });
+  });
+
+  describe('when you are a buyer', () => {
+    it('will not render the buyer/seller toggle', () => {
+      const { wrapper } = setup({
+        authStore: AuthStore.create({
+          wmProfile: mockWmProfile,
+          wmxUser: mockWmxUser,
+          setUserContext: jest.fn(),
+          org: Organization.create({
+            id: '123',
+            name: 'test',
+            organizationType: 'buyer',
+          }),
+          orgBrands: jest.fn().mockReturnValue(mockOrgBrands),
+        }),
+      });
+      wrapper.instance().open = true;
+      expect(findByTestId(wrapper, 'toggle-buttons').length).toBe(0);
+    });
   });
 
   it('should render the component', () => {

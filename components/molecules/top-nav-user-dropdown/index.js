@@ -72,8 +72,12 @@ export class UserDropdown extends React.Component<Props, State> {
 
   render() {
     const { authStore } = this.props.store;
-    const { user, orgBrands, activeSellerBrand } = authStore;
+    const { user, orgBrands, activeSellerBrand, org } = authStore;
     const { avatarUrl, username, userContext } = user;
+    const shouldShowContextToggle = org.organizationType === 'both';
+    const shouldShowBrandDropDown =
+      userContext === 'seller' && orgBrands.length > 1;
+    const showDivider = shouldShowContextToggle || shouldShowBrandDropDown;
 
     return (
       <UserDropdownContainer>
@@ -87,22 +91,23 @@ export class UserDropdown extends React.Component<Props, State> {
         </DropdownSelector>
         {this.open && (
           <UserDropdownMenu>
-            <ToggleButtons>
-              <ToggleButton
-                onClick={() => this.handleContextToggle('buyer')}
-                isActive={userContext === 'buyer'}
-              >
-                buyer
-              </ToggleButton>
-              <ToggleButton
-                onClick={() => this.handleContextToggle('seller')}
-                isActive={userContext === 'seller'}
-              >
-                seller
-              </ToggleButton>
-            </ToggleButtons>
-
-            {userContext === 'seller' && orgBrands.length > 1 && (
+            {shouldShowContextToggle && (
+              <ToggleButtons data-test-id="toggle-buttons">
+                <ToggleButton
+                  onClick={() => this.handleContextToggle('buyer')}
+                  isActive={userContext === 'buyer'}
+                >
+                  buyer
+                </ToggleButton>
+                <ToggleButton
+                  onClick={() => this.handleContextToggle('seller')}
+                  isActive={userContext === 'seller'}
+                >
+                  seller
+                </ToggleButton>
+              </ToggleButtons>
+            )}
+            {shouldShowBrandDropDown && (
               <SelectWrapper onClick={e => e.stopPropagation()}>
                 <Select
                   items={orgBrands}
@@ -113,7 +118,7 @@ export class UserDropdown extends React.Component<Props, State> {
                 />
               </SelectWrapper>
             )}
-            <Divider />
+            {showDivider && <Divider />}
             <LogoutButton href={`${config.coreBaseUrl}/logout`}>
               logout
             </LogoutButton>
