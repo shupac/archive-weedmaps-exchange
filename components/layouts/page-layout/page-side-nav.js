@@ -20,6 +20,7 @@ import {
 const { SideNavHeader, SideNavFooter } = SideNavLayout;
 const Wrapper = styled.div`
   align-self: stretch;
+  height: 100vh;
 
   @media print {
     display: none;

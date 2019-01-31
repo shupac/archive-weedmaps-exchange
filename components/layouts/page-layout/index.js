@@ -24,6 +24,7 @@ const RightContainer = styled(Flex)`
   flex-direction: column;
   flex: 1;
   min-width: ${rem(550)};
+  height: 100vh;
 `;
 
 const ContentContainer = styled(Flex)`
