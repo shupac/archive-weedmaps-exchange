@@ -1,6 +1,7 @@
 // @flow
 import App, { Container } from 'next/app';
 import Head from 'next/head';
+import { Router } from 'lib/routes';
 import { Provider } from 'mobx-react';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 import * as React from 'react';
@@ -80,13 +81,39 @@ function storeFactory(req, res, snapshot) {
 }
 
 export default class ExchangeApp extends App {
-  // eslint-disable-next-line
-  static processClientSideRedirects(ctx: NextContext, store: StoreType) {
-    // TODO once we get buyer/seller data implement redirects
-  }
-  // eslint-disable-next-line
-  static processServerSideRedirects(ctx: NextContext, store: StoreType) {
-    // TODO once we get buyer/seller data implement redirects
+  static async processRedirects(ctx: NextContext, store: StoreType) {
+    const type = store.authStore.org.organizationType;
+    const reqUrl = ctx.asPath;
+    const isSellerUrl = reqUrl.startsWith('/seller');
+    const isBuyerUrl = reqUrl.startsWith('/buyer');
+
+    // A "both" org type means they have both buyers and sellers
+    // so all routes are permitted, but we should switch context first
+    if (type === 'both') {
+      if (isSellerUrl) {
+        await store.authStore.setUserContext('seller');
+      } else {
+        await store.authStore.setUserContext('buyer');
+      }
+      return;
+    }
+    // If they aren't both, we should redirect to the "homepage"
+    // for the org type they have
+    if (type === 'buyer' && isSellerUrl) {
+      if (IS_SERVER) {
+        // $FlowFixMe
+        ctx.res.locals.redirect = '/buyer/marketplace/discover';
+      } else {
+        Router.pushRoute('/buyer/marketplace/discover');
+      }
+    } else if (type === 'seller' && isBuyerUrl) {
+      if (IS_SERVER) {
+        // $FlowFixMe
+        ctx.res.locals.redirect = '/seller/orders';
+      } else {
+        Router.pushRoute('/seller/orders');
+      }
+    }
   }
 
   static async getInitialProps({
@@ -108,18 +135,14 @@ export default class ExchangeApp extends App {
       initialProps = await Component.getInitialProps(ctx, store);
     }
 
+    // Process redirects
+    await ExchangeApp.processRedirects(ctx, store);
+
     // If we are on the server, we need to snapshot the initial state
     // then we can serialize over the wire
     let storeInitialState;
     if (IS_SERVER) {
       storeInitialState = getSnapshot(store);
-    }
-
-    // Process redirects
-    if (IS_SERVER) {
-      ExchangeApp.processServerSideRedirects(ctx, store);
-    } else {
-      ExchangeApp.processClientSideRedirects(ctx, store);
     }
 
     return { pageProps: initialProps, storeInitialState };
