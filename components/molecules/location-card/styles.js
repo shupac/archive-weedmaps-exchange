@@ -58,6 +58,11 @@ export const LocationCardContact = styled.p`
   > span:first-child {
     font-weight: bold;
   }
+  > span:nth-of-type(4) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 LocationCardContact.displayName = 'LocationCardContact';
 
