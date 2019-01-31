@@ -56,6 +56,8 @@ export const Username = styled.div`
     text-transform: capitalize;
     &:first-of-type {
       font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 `;
