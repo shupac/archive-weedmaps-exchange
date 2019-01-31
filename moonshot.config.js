@@ -11,7 +11,7 @@ export default {
             'https://*.amplitude.com',
             'unsafe-eval',
             '*.honeybadger.io',
-            '*.uptime.com',
+            'https://uptime.com',
           ],
           'img-src': [
             'self',
@@ -43,7 +43,7 @@ export default {
             'https://*.mapbox.com',
             'http://localhost:*',
             'ws://localhost:*',
-            '*.uptime.com',
+            'https://uptime.com',
           ],
           'report-uri': [config.contentPolicyReportUri],
         },
