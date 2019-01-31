@@ -198,6 +198,33 @@ Array [
     "phoneNumber": "(303) 555-5555",
     "source": "exchange",
   },
+  Object {
+    "active": true,
+    "address": Object {
+      "city": "Irvine",
+      "country": "US",
+      "id": "0f1c4675-4d74-4895-9d08-c0ba3a99ef96",
+      "latitude": 33.6618199,
+      "longitude": -117.7597545,
+      "postalCode": "92618",
+      "streetAddress": "55 Discovery",
+      "territory": "CA",
+    },
+    "contactName": null,
+    "deliveryInstructions": "TEST.",
+    "email": null,
+    "id": "2a57860a-62d7-40c7-a2c6-0ebc32e5ce48",
+    "licenses": Array [
+      Object {
+        "id": "95dce1e6-ef2d-4ca8-8161-fea6cff5efae",
+        "licenseType": "medical",
+        "number": "THX1138",
+      },
+    ],
+    "name": "Incomplete Location",
+    "phoneNumber": null,
+    "source": "weedmaps",
+  },
 ]
 `;
 
