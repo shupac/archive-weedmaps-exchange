@@ -25,6 +25,7 @@ import { CSSTransition } from 'react-transition-group';
 import uniqueKey from 'lib/common/unique-key';
 import Modal from 'components/atoms/modal';
 import { ModalContentWrapper, ButtonRow } from 'components/atoms/modal/styles';
+
 import {
   Container,
   FullWidthMap,
@@ -400,8 +401,8 @@ export class ZoneEditor extends React.Component<Props> {
             {!this.loading && this.geoJsonLayers()}
           </FullWidthMap>
         </MapContainer>
-        <Modal header="Delete Zone" store={store}>
-          {uiStore.activeModal === 'zoneModal' && (
+        {uiStore.activeModal === 'zoneModal' && (
+          <Modal header="Delete Zone" store={store}>
             <ModalContentWrapper>
               <p>
                 You are about to delete{' '}
@@ -426,8 +427,8 @@ export class ZoneEditor extends React.Component<Props> {
                 </ButtonPrimary>
               </ButtonRow>
             </ModalContentWrapper>
-          )}
-        </Modal>
+          </Modal>
+        )}
       </Container>
     );
   }
