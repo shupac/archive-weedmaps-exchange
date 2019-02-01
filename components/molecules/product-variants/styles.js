@@ -8,7 +8,7 @@ const ROW_HEIGHT = '77px';
 
 const gridColumns = css`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 120px 1fr;
+  grid-template-columns: repeat(5, 120px);
   grid-column-gap: 40px;
   align-items: center;
   justify-items: start;

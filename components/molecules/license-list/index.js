@@ -15,7 +15,7 @@ type Props = {
 
 const LicenseList = ({ brandName, licenseList }: Props) => (
   <Fragment>
-    <BrandHeader>{brandName} License(s)</BrandHeader>
+    {!!licenseList.length && <BrandHeader>{brandName} License(s)</BrandHeader>}
     {licenseList.map(license => (
       <LicenseItem key={license.number} license={license} />
     ))}
