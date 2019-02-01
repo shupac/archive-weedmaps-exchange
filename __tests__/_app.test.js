@@ -14,6 +14,25 @@ describe('_app.js', () => {
       });
 
       describe('when the org type is buyer', () => {
+        it('will redirect from the homepage', async () => {
+          const mockStore = {
+            authStore: {
+              org: {
+                organizationType: 'buyer',
+              },
+              setUserContext: jest.fn().mockResolvedValue(true),
+            },
+          };
+          const mockContext = {
+            asPath: '/',
+            res: { locals: {} },
+          };
+          await ExchangeApp.processRedirects(mockContext, mockStore);
+          expect(mockContext.res.locals.redirect).toBe(
+            '/buyer/marketplace/discover',
+          );
+        });
+
         it('will redirect to buyer page when a seller page is requested', async () => {
           const mockStore = {
             authStore: {
@@ -53,6 +72,23 @@ describe('_app.js', () => {
       });
 
       describe('when the org type is seller', () => {
+        it('will redirect from the homepage', async () => {
+          const mockStore = {
+            authStore: {
+              org: {
+                organizationType: 'seller',
+              },
+              setUserContext: jest.fn().mockResolvedValue(true),
+            },
+          };
+          const mockContext = {
+            asPath: '/',
+            res: { locals: {} },
+          };
+          await ExchangeApp.processRedirects(mockContext, mockStore);
+          expect(mockContext.res.locals.redirect).toBe('/seller/orders');
+        });
+
         it('will redirect to seller page when a buyer page is requested', async () => {
           const mockStore = {
             authStore: {
@@ -90,6 +126,44 @@ describe('_app.js', () => {
       });
 
       describe('when the org type is both', () => {
+        it('will redirect from the homepage with buyer context', async () => {
+          const mockStore = {
+            authStore: {
+              org: {
+                organizationType: 'both',
+              },
+              setUserContext: jest.fn().mockResolvedValue(true),
+              activeContext: 'buyer',
+            },
+          };
+          const mockContext = {
+            asPath: '/',
+            res: { locals: {} },
+          };
+          await ExchangeApp.processRedirects(mockContext, mockStore);
+          expect(mockContext.res.locals.redirect).toBe(
+            '/buyer/marketplace/discover',
+          );
+        });
+
+        it('will redirect from the homepage with seller context', async () => {
+          const mockStore = {
+            authStore: {
+              org: {
+                organizationType: 'both',
+              },
+              setUserContext: jest.fn().mockResolvedValue(true),
+              activeContext: 'seller',
+            },
+          };
+          const mockContext = {
+            asPath: '/',
+            res: { locals: {} },
+          };
+          await ExchangeApp.processRedirects(mockContext, mockStore);
+          expect(mockContext.res.locals.redirect).toBe('/seller/orders');
+        });
+
         it('will set the context to buyer with a buyer URL', async () => {
           const mockStore = {
             authStore: {

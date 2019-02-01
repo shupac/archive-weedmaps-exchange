@@ -80,10 +80,29 @@ function storeFactory(req, res, snapshot) {
   return storeSingleton;
 }
 
+function redirectBuyerOrSeller(ctx: NextContext, type: 'buyer' | 'seller') {
+  if (type === 'buyer') {
+    if (IS_SERVER) {
+      // $FlowFixMe
+      ctx.res.locals.redirect = '/buyer/marketplace/discover';
+    } else {
+      Router.pushRoute('/buyer/marketplace/discover');
+    }
+  } else if (type === 'seller') {
+    if (IS_SERVER) {
+      // $FlowFixMe
+      ctx.res.locals.redirect = '/seller/orders';
+    } else {
+      Router.pushRoute('/seller/orders');
+    }
+  }
+}
+
 export default class ExchangeApp extends App {
   static async processRedirects(ctx: NextContext, store: StoreType) {
     const type = store.authStore.org.organizationType;
     const reqUrl = ctx.asPath;
+    const isHomePage = reqUrl === '/';
     const isSellerUrl = reqUrl.startsWith('/seller');
     const isBuyerUrl = reqUrl.startsWith('/buyer');
 
@@ -95,24 +114,20 @@ export default class ExchangeApp extends App {
       } else {
         await store.authStore.setUserContext('buyer');
       }
+
+      if (isHomePage) {
+        redirectBuyerOrSeller(ctx, store.authStore.activeContext);
+      }
+
       return;
     }
+
     // If they aren't both, we should redirect to the "homepage"
     // for the org type they have
-    if (type === 'buyer' && isSellerUrl) {
-      if (IS_SERVER) {
-        // $FlowFixMe
-        ctx.res.locals.redirect = '/buyer/marketplace/discover';
-      } else {
-        Router.pushRoute('/buyer/marketplace/discover');
-      }
-    } else if (type === 'seller' && isBuyerUrl) {
-      if (IS_SERVER) {
-        // $FlowFixMe
-        ctx.res.locals.redirect = '/seller/orders';
-      } else {
-        Router.pushRoute('/seller/orders');
-      }
+    if (type === 'buyer' && (isSellerUrl || isHomePage)) {
+      redirectBuyerOrSeller(ctx, 'buyer');
+    } else if (type === 'seller' && (isBuyerUrl || isHomePage)) {
+      redirectBuyerOrSeller(ctx, 'seller');
     }
   }
 
