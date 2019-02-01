@@ -194,6 +194,50 @@ describe('GeneralSettings', () => {
     });
   });
 
+  it('should throw an error if min delivery eta is greater than 99', () => {
+    const { instance } = setup(mockBrand);
+    const minDeliveryEvent = {
+      currentTarget: {
+        name: 'min-delivery-eta',
+        value: '100',
+      },
+    };
+    instance.handleInputChange(minDeliveryEvent);
+    expect(instance.deliveryEta).toEqual({
+      etaMin: {
+        value: 100,
+        unit: 'hr',
+      },
+      etaMax: {
+        value: 2,
+        unit: 'week',
+      },
+      error: 'The min. value must be less than 100',
+    });
+  });
+
+  it('should throw an error if max delivery eta is greater than 99', () => {
+    const { instance } = setup(mockBrand);
+    const maxDeliveryEvent = {
+      currentTarget: {
+        name: 'max-delivery-eta',
+        value: '100',
+      },
+    };
+    instance.handleInputChange(maxDeliveryEvent);
+    expect(instance.deliveryEta).toEqual({
+      etaMin: {
+        value: 1,
+        unit: 'hr',
+      },
+      etaMax: {
+        value: 100,
+        unit: 'week',
+      },
+      error: 'The max. value must be less than 100',
+    });
+  });
+
   it('should show a loader if brand does not exist', () => {
     const { wrapper } = setup();
     expect(wrapper.find(Loader).exists()).toEqual(true);

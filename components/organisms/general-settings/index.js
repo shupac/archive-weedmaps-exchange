@@ -78,12 +78,12 @@ export class GeneralSettings extends Component<Props> {
 
   @action
   handleShippingFeeChange = (value: string) => {
-    this.shippingFee = value === '0.00' ? '' : value;
+    this.shippingFee = value;
   };
 
   @action
   handleMinPurchaseChange = (value: string) => {
-    this.minimumPurchasePrice = value === '0.00' ? '' : value;
+    this.minimumPurchasePrice = value;
   };
 
   @action
@@ -159,6 +159,10 @@ export class GeneralSettings extends Component<Props> {
         'The min. value must be less than the max. value';
     } else if (!startDuration && endDuration) {
       this.deliveryEta.error = 'Please select min. value';
+    } else if (etaMin.value >= 100) {
+      this.deliveryEta.error = 'The min. value must be less than 100';
+    } else if (etaMax.value >= 100) {
+      this.deliveryEta.error = 'The max. value must be less than 100';
     } else {
       this.deliveryEta.error = '';
     }
@@ -281,7 +285,7 @@ export class GeneralSettings extends Component<Props> {
               data-test-id="button-submit"
               type="submit"
               onClick={this.handleSubmit}
-              disabled={this.deliveryEta.error}
+              disabled={!!this.deliveryEta.error}
             >
               Save
             </AddButton>
