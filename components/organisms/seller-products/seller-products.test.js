@@ -94,13 +94,20 @@ describe('Seller Products Page', () => {
     const { wrapper, mockStore } = setup();
     const instance = wrapper.instance();
 
-    const searchProducts = jest
-      .spyOn(instance, 'searchProducts')
+    const fetchDepartments = jest
+      .spyOn(mockStore.sellerSettings, 'fetchDepartments')
       .mockReturnValue();
+    const pushRoute = jest.spyOn(Router, 'pushRoute').mockReturnValue();
     instance.componentDidMount();
     mockStore.authStore.setUser(mockUserSeller);
     setTimeout(() => {
-      expect(searchProducts).toHaveBeenCalled();
+      expect(fetchDepartments).toHaveBeenCalled();
+      expect(pushRoute).toHaveBeenCalledWith(
+        'sellerProducts',
+        {},
+        { shallow: true },
+      );
+      pushRoute.mockRestore();
       done();
     }, 100);
   });

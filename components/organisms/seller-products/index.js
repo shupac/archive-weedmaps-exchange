@@ -73,7 +73,7 @@ export class SellerProducts extends Component<Props, State> {
     () => {
       const { sellerSettings } = this.props.store;
       sellerSettings.fetchDepartments();
-      this.searchProducts();
+      Router.pushRoute('sellerProducts', {}, { shallow: true });
     },
     { name: 'Refetch Seller Products on brand change' },
   );
