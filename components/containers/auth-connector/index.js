@@ -44,9 +44,13 @@ export const AuthConnectorWrapper = ComponentToCompose => {
           }
         } catch (e) {
           logger.debug('Fetching user FAIL', e);
-
-          if (e.response && e.response.json().errors[0].status === '403') {
-            initialProps.userNotEnabled = true;
+          if (e.response) {
+            const body = await e.response.json();
+            if (body.errors[0].status === '403') {
+              initialProps.userNotEnabled = true;
+            } else {
+              return resolveUnauthenticatedRedirect(props, store);
+            }
           } else {
             return resolveUnauthenticatedRedirect(props, store);
           }
