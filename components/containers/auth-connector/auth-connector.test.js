@@ -36,6 +36,7 @@ describe('AuthConnector', () => {
         },
         { wmSdk: mockSDK },
       );
+      jest.spyOn(mockAuthStore, 'fetchUser').mockResolvedValue(true);
     });
 
     it('will call getInitialProps on the wrapped component', async () => {

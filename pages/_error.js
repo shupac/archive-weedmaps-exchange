@@ -18,6 +18,7 @@ export class ErrorPage extends Component<Props> {
 
   static async getInitialProps(ctx: NextContext) {
     const initialProps = {};
+
     initialProps.statusCode = ctx.res ? ctx.res.statusCode : 200;
 
     /**

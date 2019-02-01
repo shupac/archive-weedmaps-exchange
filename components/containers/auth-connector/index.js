@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { redirectUnauthenticatedUser } from 'lib/common/redirect-unauthenticated-user';
+import ErrorPageComponent from 'components/layouts/error-page';
 import logger from 'lib/common/logger';
 
 function resolveUnauthenticatedRedirect(props, stores) {
@@ -28,7 +29,6 @@ export const AuthConnectorWrapper = ComponentToCompose => {
 
       let initialProps = {};
       logger.debug('Checking if we are authenticated');
-
       // Check user status
       if (authStore.isAuthenticated) {
         // Auth tokens exists, try and fetch the user
@@ -44,7 +44,12 @@ export const AuthConnectorWrapper = ComponentToCompose => {
           }
         } catch (e) {
           logger.debug('Fetching user FAIL', e);
-          return resolveUnauthenticatedRedirect(props, store);
+
+          if (e.response && e.response.json().errors[0].status === '403') {
+            initialProps.userNotEnabled = true;
+          } else {
+            return resolveUnauthenticatedRedirect(props, store);
+          }
         }
       } else {
         return resolveUnauthenticatedRedirect(props, store);
@@ -59,6 +64,9 @@ export const AuthConnectorWrapper = ComponentToCompose => {
     }
 
     render() {
+      if (this.props.userNotEnabled) {
+        return <ErrorPageComponent statusCode={403} />;
+      }
       return <ComponentToCompose {...this.props} />;
     }
   }

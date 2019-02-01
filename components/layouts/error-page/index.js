@@ -12,7 +12,20 @@ type Props = {
   statusCode: number,
 };
 
-export const ErrorPage = ({ statusCode }: Props) => (
+const backLink = code => {
+  if (code === 403) {
+    return {
+      path: 'https://weedmaps.com/',
+      label: 'Back to Weedmaps',
+    };
+  }
+  return {
+    path: '/help',
+    label: 'Back to Dashboard',
+  };
+};
+
+export const ErrorPageComponent = ({ statusCode }: Props) => (
   <ErrorPageWrapper>
     <ErrorPageContent>
       <IconWrapper>
@@ -24,23 +37,26 @@ export const ErrorPage = ({ statusCode }: Props) => (
       </IconWrapper>
       <h1>{statusCode}</h1>
       <h2>
-        {statusCode === 404 ? 'Page does not exist' : 'Internal Server Error'}
+        {statusCode === 404 && 'Page does not exist'}
+        {statusCode === 500 && 'Internal Server Error'}
+        {statusCode === 403 && 'User is not enabled for this product '}
       </h2>
       <p>
-        {statusCode === 404
-          ? 'Sorry, the page you are looking for does not exist'
-          : "Sorry. It's not you. It's us."}
-        <br />
-        {statusCode === 404
-          ? 'but feel free to explore more below'
-          : 'Please try again later or explore more below.'}
+        {statusCode === 404 &&
+          'Sorry, the page you are looking for does not exist'}
+        {statusCode === 500 && "Sorry. It's not you. It's us."}
+        {statusCode === 403 &&
+          'Please contact your sales rep to get on-boarded.'}
       </p>
 
-      <StyledLink href="/help" data-test-id="link-button-to-home">
-        Back to Dashboard
+      <StyledLink
+        href={backLink(statusCode).path}
+        data-test-id="link-button-to-home"
+      >
+        {backLink(statusCode).label}
       </StyledLink>
     </ErrorPageContent>
   </ErrorPageWrapper>
 );
 
-export default ErrorPage;
+export default ErrorPageComponent;
