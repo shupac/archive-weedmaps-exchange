@@ -108,7 +108,7 @@ export class SellerProductDetails extends Component<Props, State> {
       autoDismiss: 4000,
       status: ALERT_STATUS.SUCCESS,
       title: 'Success!',
-      body: 'Product variant was published successfully.',
+      body: 'Product variant was saved successfully.',
     };
 
     if (!success) {
