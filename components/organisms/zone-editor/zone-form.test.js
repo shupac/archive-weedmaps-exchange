@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import { observable } from 'mobx';
 import findByTestId from 'lib/jest/find-by-test-id';
+import Zone from 'lib/data-access/models/zone';
 import { ZoneForm } from './zone-form';
 
 function setup(withSelectedRegion) {
@@ -11,8 +12,22 @@ function setup(withSelectedRegion) {
   } else {
     selectedRegions = observable([]);
   }
+  const zone = Zone.create({
+    id: '123',
+    name: 'test',
+    color: '#333',
+    regions: [],
+  });
+  jest.spyOn(zone, 'setName');
 
-  return shallow(<ZoneForm zone={{}} selectedRegions={selectedRegions} />);
+  return shallow(
+    <ZoneForm
+      zone={zone}
+      zoneNames={['norcal', 'socal']}
+      selectedRegions={selectedRegions}
+      onCancel={jest.fn()}
+    />,
+  );
 }
 
 describe('Zone Form', () => {
@@ -39,6 +54,11 @@ describe('Zone Form', () => {
       currentTarget: { value: '   ' },
     });
     expect(findByTestId(wrapper, 'save-button').props().disabled).toEqual(true);
+
+    findByTestId(wrapper, 'zone-name-input').simulate('change', {
+      currentTarget: { value: 'socal' },
+    });
+    expect(findByTestId(wrapper, 'save-button').props().disabled).toEqual(true);
   });
 
   it('will enable the save button if all conditions are met', () => {
@@ -49,5 +69,12 @@ describe('Zone Form', () => {
     expect(findByTestId(wrapper, 'save-button').props().disabled).toEqual(
       false,
     );
+  });
+
+  it('should be able to cancel set color', () => {
+    const wrapper = setup(true);
+    const instance = wrapper.instance();
+    instance.onCancel();
+    expect(instance.props.onCancel).toHaveBeenCalled();
   });
 });

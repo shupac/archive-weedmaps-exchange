@@ -80,8 +80,16 @@ export class ZoneEditor extends React.Component<Props> {
       const regionNameMatch = zone.regions.some(region =>
         region.name.toLowerCase().match(query),
       );
+
       return zoneNameMatch || regionNameMatch;
     });
+  }
+  @computed
+  get zoneNames(): string[] {
+    const { zones } = this.props.store;
+    return zones.zones
+      .map(({ name }) => name.toLowerCase())
+      .filter(name => name);
   }
 
   @computed
@@ -316,6 +324,7 @@ export class ZoneEditor extends React.Component<Props> {
   render() {
     const { store } = this.props;
     const { zones, uiStore } = store;
+
     return (
       <Container>
         <ActionContainer flex={[0.85]}>
@@ -331,6 +340,7 @@ export class ZoneEditor extends React.Component<Props> {
               onRemoveRegionFromZone={this.onRemoveRegionFromZone}
               selectedRegions={this.selectedZone && this.selectedZone.regions}
               zone={this.selectedZone}
+              zoneNames={this.zoneNames}
             />
           </CSSTransition>
 

@@ -28,6 +28,7 @@ type Props = {
   onRemoveRegionFromZone: (zone: ZoneType, region: RegionType) => void,
   onCancel: () => void,
   onSubmit: () => void,
+  zoneNames: string[],
 };
 
 export class ZoneForm extends React.Component<Props> {
@@ -43,10 +44,15 @@ export class ZoneForm extends React.Component<Props> {
   @action
   onNameChange = (e: SyntheticEvent<HTMLInputElement>) => {
     this.name = e.currentTarget.value;
+    const dupeName = this.props.zoneNames.some(
+      name => name.trim() === this.name.toLowerCase().trim(),
+    );
     if (this.name.trim().length < 3 || this.name.trim().length > 250) {
       this.errorMsg =
         'Zone name must have a minimum 3 characters and maximum 250 characters.';
-    } else if (this.errorMsg) {
+    } else if (dupeName) {
+      this.errorMsg = 'There is an existing zone with this name';
+    } else {
       this.errorMsg = '';
     }
   };

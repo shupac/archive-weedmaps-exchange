@@ -61,6 +61,7 @@ describe('zone editor', () => {
     let mockStore;
     let mockClient;
     let mockSdk;
+    let instance;
 
     beforeEach(() => {
       mockClient = { fetch: jest.fn() };
@@ -95,6 +96,7 @@ describe('zone editor', () => {
       // $FlowFixMe
       jest.spyOn(mockStore.zones, 'fetchZones').mockResolvedValue(mockZones);
       wrapper = shallow(<ZoneEditor store={mockStore} />);
+      instance = wrapper.instance();
     });
 
     it('clicking the add zone button will add a zone', done => {
@@ -133,6 +135,15 @@ describe('zone editor', () => {
           .at(1)
           .html(),
       ).toContain('South OC');
+    });
+
+    it('should compute zone names', () => {
+      const zNames = instance.zoneNames;
+      expect(zNames).toEqual([
+        'norcal',
+        'socal',
+        "andrew's zone #3 3449 updated 5",
+      ]);
     });
 
     it('should render the zone name', () => {
