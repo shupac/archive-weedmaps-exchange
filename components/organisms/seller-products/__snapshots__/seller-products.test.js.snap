@@ -207,13 +207,13 @@ exports[`Seller Products Page should show pagination 1`] = `
               alt="24K Live Resin Shatter"
               src="https://images-acceptance.weedmaps.com/products/000/024/998/avatar/square/natureslab_live24k-1.jpg"
             />
-            <LinkRoutes
+            <Link
               href="/seller/products/b3f4fd48-6698-43cd-addc-33504fcd0434"
             >
               <a>
                 24K Live Resin Shatter
               </a>
-            </LinkRoutes>
+            </Link>
           </styles__AvatarName>
         </styles__TableCell>
         <styles__TableCell>
@@ -240,13 +240,13 @@ exports[`Seller Products Page should show pagination 1`] = `
               alt="2 Palms Tee"
               src="https://images-acceptance.weedmaps.com/products/000/016/381/avatar/square/blvdsupply_2_palmstee_1.png"
             />
-            <LinkRoutes
+            <Link
               href="/seller/products/914a63ff-a67b-47fb-946b-86c991ce4560"
             >
               <a>
                 2 Palms Tee
               </a>
-            </LinkRoutes>
+            </Link>
           </styles__AvatarName>
         </styles__TableCell>
         <styles__TableCell>
@@ -273,13 +273,13 @@ exports[`Seller Products Page should show pagination 1`] = `
               alt="303 Kush Live Wax"
               src="https://images.weedmaps.com/products/000/052/107/avatar/square/1506462031-170918_303KushLW_3874.jpg?development=1"
             />
-            <LinkRoutes
+            <Link
               href="/seller/products/554cc78e-d9f3-4240-8b57-63a377c5a240"
             >
               <a>
                 303 Kush Live Wax
               </a>
-            </LinkRoutes>
+            </Link>
           </styles__AvatarName>
         </styles__TableCell>
         <styles__TableCell>

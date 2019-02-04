@@ -59,13 +59,11 @@ const defaultState = {
 };
 
 export class SellerProducts extends Component<Props, State> {
-  prevRoute = null; // needed to detect route change
-
   state = {
     mounted: false,
   };
 
-  dispose = reaction(
+  onBrandChange = reaction(
     () => {
       const { authStore } = this.props.store;
       return authStore.activeSellerBrand.value;
@@ -73,30 +71,31 @@ export class SellerProducts extends Component<Props, State> {
     () => {
       const { sellerSettings } = this.props.store;
       sellerSettings.fetchDepartments();
-      Router.pushRoute('sellerProducts', {}, { shallow: true });
+      if (Object.keys(Router.query).length) {
+        Router.pushRoute('sellerProducts', {}, { shallow: true });
+      } else {
+        this.searchProducts();
+      }
     },
     { name: 'Refetch Seller Products on brand change' },
   );
 
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.router.asPath !== this.props.router.asPath) {
+      this.searchProducts();
+    }
+  }
+
   componentDidMount() {
     const { sellerSettings } = this.props.store;
-
     sellerSettings.fetchDepartments();
     this.searchProducts();
-
     // eslint-disable-next-line
     this.setState({ mounted: true });
   }
 
-  componentDidUpdate() {
-    if (this.props.router.asPath !== this.prevRoute) {
-      this.searchProducts();
-      this.prevRoute = this.props.router.asPath;
-    }
-  }
-
   componentWillUnmount() {
-    this.dispose();
+    this.onBrandChange();
   }
 
   getRouterState = () => {
@@ -154,8 +153,7 @@ export class SellerProducts extends Component<Props, State> {
   };
 
   searchProducts = () => {
-    const { router, store } = this.props;
-
+    const { store, router } = this.props;
     const {
       sortBy,
       ascending,

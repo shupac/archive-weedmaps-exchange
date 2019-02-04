@@ -9,8 +9,9 @@ import mockProductsResponse from 'lib/mocks/seller-products';
 import { mockWmxUser } from 'lib/mocks/user';
 import { mockCategories } from 'lib/mocks/categories';
 import { mockOrg } from 'lib/mocks/organization';
-
 import { SellerProducts } from './';
+
+jest.mock('lib/routes');
 
 const mockUserSeller = {
   ...mockWmxUser,
@@ -85,15 +86,21 @@ describe('Seller Products Page', () => {
     const searchProducts = jest
       .spyOn(instance, 'searchProducts')
       .mockReturnValue();
-    instance.componentDidUpdate();
+    instance.componentDidUpdate({
+      router: {
+        asPath: '/',
+      },
+    });
     expect(searchProducts).toHaveBeenCalled();
-    expect(instance.prevRoute).toEqual('/foo');
   });
 
   it('should re-fetch products on brand change', done => {
     const { wrapper, mockStore } = setup();
     const instance = wrapper.instance();
-
+    // Mock a query
+    Router.query = {
+      someQuery: 1,
+    };
     const fetchDepartments = jest
       .spyOn(mockStore.sellerSettings, 'fetchDepartments')
       .mockReturnValue();
@@ -114,7 +121,7 @@ describe('Seller Products Page', () => {
 
   it('disposes of the reaction when unmounting', () => {
     const { wrapper } = setup();
-    const dispose = jest.spyOn(wrapper.instance(), 'dispose');
+    const dispose = jest.spyOn(wrapper.instance(), 'onBrandChange');
     wrapper.unmount();
     expect(dispose).toHaveBeenCalled();
   });
@@ -127,11 +134,14 @@ describe('Seller Products Page', () => {
       },
     });
     const instance = wrapper.instance();
-    instance.prevRoute = '/foo';
     const searchProducts = jest
       .spyOn(instance, 'searchProducts')
       .mockReturnValue();
-    instance.componentDidUpdate();
+    instance.componentDidUpdate({
+      router: {
+        asPath: '/foo',
+      },
+    });
     expect(searchProducts).not.toHaveBeenCalled();
   });
 

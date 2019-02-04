@@ -27,9 +27,13 @@ export class ErrorPage extends Component<Props> {
      * here we can then return it to the result so we can properly report it
      * to Honeybadger.
      */
-
     if (ctx.err && ctx.res && !ctx.res.capturedError) {
       ctx.res.capturedError = ctx.err;
+    }
+
+    // Log to console for dev mode
+    if (process.env.NODE_ENV !== 'production') {
+      console.error(ctx.err || (ctx.res && ctx.res.capturedError));
     }
 
     return initialProps;
