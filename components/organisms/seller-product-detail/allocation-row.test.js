@@ -86,7 +86,7 @@ describe('Seller Product Details Allocation Row', () => {
     const select = wrapper.find('FormInput').first();
     const event = { target: { foo: 'bar' } };
     select.props().onBlur(event);
-    expect(props.onUpdate).toHaveBeenCalledWith({ price: '$48,000.00' });
+    expect(props.onUpdate).toHaveBeenCalledWith({ price: '48000.00' });
     expect(props.handleBlur).toHaveBeenCalledWith(event);
   });
 

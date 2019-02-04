@@ -91,9 +91,9 @@ class AllocationRow extends Component<Props> {
           <FormInput
             name={this.getNamePath([index, 'price'])}
             value={price}
-            onChange={e =>
-              onUpdate({ price: stripNonNumbers(e.target.value, true) })
-            }
+            onChange={e => {
+              onUpdate({ price: stripNonNumbers(e.target.value, true) });
+            }}
             onBlur={e => {
               onUpdate({ price: price ? formatCurrency(price) : '' });
               handleBlur(e);
@@ -118,7 +118,10 @@ class AllocationRow extends Component<Props> {
           <InputError errors={errors} touched={touched} name="amount" />
         </FormGroup>
         <TotalValue>
-          {formatCurrency(stripNonNumbers(price, true) * amount)}
+          {formatCurrency(stripNonNumbers(price, true) * amount, {
+            prefix: '$',
+            addCommas: 'true',
+          })}
         </TotalValue>
         <ToggleWrapper>
           <ToggleSwitch
