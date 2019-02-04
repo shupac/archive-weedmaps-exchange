@@ -1,6 +1,6 @@
 // @flow
-import React, { Fragment } from 'react';
-import { LicenseNumber, LicenseType } from './styles';
+import React from 'react';
+import { LicenseRow, LicenseNumber, LicenseType } from './styles';
 
 type License = {
   licenseType: string,
@@ -12,12 +12,12 @@ type Props = {
 };
 
 const LicenseItem = ({ license }: Props) => (
-  <Fragment>
+  <LicenseRow>
     <LicenseType>
       {license.licenseType}:{` `}
     </LicenseType>
     <LicenseNumber>{license.number && license.number}</LicenseNumber>
-  </Fragment>
+  </LicenseRow>
 );
 
 export default LicenseItem;

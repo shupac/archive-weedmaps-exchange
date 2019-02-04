@@ -14,12 +14,14 @@ export const LicenseType = styled.span`
   font-size: ${rem(14)};
   color: ${theme.colors.oxfordBlue};
   font-weight: 600;
-  line-height: ${rem(20)};
 `;
 
 export const LicenseNumber = styled.span`
   font-size: ${rem(14)};
   color: ${theme.colors.oxfordBlue};
   font-weight: 400;
-  line-height: ${rem(20)};
+`;
+
+export const LicenseRow = styled.div`
+  margin-bottom: 8px;
 `;
