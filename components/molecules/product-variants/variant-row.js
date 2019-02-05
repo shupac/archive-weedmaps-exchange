@@ -16,6 +16,7 @@ type Props = {
   quantity?: number,
   resetField: (string, number, boolean) => void,
   cartError?: CartErrorType,
+  resetCartErrors: string => void,
 };
 
 const VariantRow = ({
@@ -26,6 +27,7 @@ const VariantRow = ({
   resetField,
   fieldValue,
   cartError,
+  resetCartErrors,
 }: Props) => {
   const inStock: boolean = !!(
     variant.inStock &&
@@ -64,7 +66,10 @@ const VariantRow = ({
             <span>
               {variant.amount}
               <ResetLink
-                onClick={() => resetField(variant.id, variant.amount, false)}
+                onClick={() => {
+                  resetField(variant.id, variant.amount, false);
+                  resetCartErrors(variant.id);
+                }}
               >
                 Reset Quantity
               </ResetLink>

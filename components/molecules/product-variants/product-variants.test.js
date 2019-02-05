@@ -206,6 +206,7 @@ describe('Product Variants', () => {
           handleChange={jest.fn()}
           resetField={resetField}
           cartError={cartError}
+          resetCartErrors={jest.fn()}
         />,
       );
       component
@@ -214,6 +215,38 @@ describe('Product Variants', () => {
         .find(ResetLink)
         .simulate('click');
       expect(resetField).toHaveBeenCalled();
+    });
+    it('will make the ResetLink disappear once it is clicked', () => {
+      const { mockStore } = setup();
+      const component = shallow(
+        <ProductVariants variants={mockVariants} store={mockStore} />,
+      );
+      component.setState({
+        cartErrors: [
+          {
+            itemId: 'cb429ae1-cb29-46b8-adcc-1eb234dc266b',
+            error: 'quantity_unavailable',
+          },
+        ],
+      });
+      component
+        .find('Formik')
+        .dive()
+        .find('VariantRow')
+        .first()
+        .dive()
+        .find(ResetLink)
+        .simulate('click');
+      expect(
+        component
+          .find('Formik')
+          .dive()
+          .find('VariantRow')
+          .first()
+          .dive()
+          .find(ResetLink)
+          .exists(),
+      ).toEqual(false);
     });
     it('will show an available variant as in-stock after an error', () => {
       const variant = {
