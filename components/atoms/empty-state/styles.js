@@ -11,6 +11,7 @@ export const NoResults = styled.div`
   align-items: center;
   margin-top: 80px;
   width: 100%;
+  grid-column: 1/-1;
   text-align: center;
   color: ${text.normal};
   > img {

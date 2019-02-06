@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import findByTestId from 'lib/jest/find-by-test-id';
 import mockPurchaseOrders from 'mocks/purchase-orders';
 import ContextMenu, { MenuItem } from 'components/molecules/context-menu';
 import { OrdersTable } from './';
@@ -116,5 +117,11 @@ describe('OrdersTable', () => {
       .last()
       .simulate('click');
     expect(onReorder).toHaveBeenCalledWith(mockPurchaseOrders[0].id);
+  });
+
+  it('should display an empty state if no results found', () => {
+    const wrapper = shallow(<OrdersTable orders={[]} buyersTable />);
+    const emptyState = findByTestId(wrapper, 'empty-results');
+    expect(emptyState.exists()).toEqual(true);
   });
 });

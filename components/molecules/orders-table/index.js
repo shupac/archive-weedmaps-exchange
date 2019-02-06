@@ -4,6 +4,7 @@ import { formatDollars } from 'lib/common/strings';
 import StatusPill from 'components/atoms/order-status-pill';
 import StyledLink from 'components/atoms/styled-link';
 import { SortButton } from 'components/atoms/sort-button';
+import EmptyState from 'components/atoms/empty-state';
 import ContextMenu, { MenuItem } from 'components/molecules/context-menu';
 import { STATUS_TYPES } from 'lib/common/constants';
 import { PurchaseOrderType } from 'models/purchase-order';
@@ -121,6 +122,16 @@ export class OrdersTable extends Component<Props, State> {
           </HeadCol>
           <span />
         </Fragment>
+
+        {orders.length === 0 && (
+          <EmptyState
+            data-test-id="empty-results"
+            image="no_results_found"
+            title="No Orders Found"
+            body="Try adjusting your search or filters to find what you're
+            looking for."
+          />
+        )}
 
         {orders.map(order => {
           const { cancelable } = STATUS_TYPES[order.status];
