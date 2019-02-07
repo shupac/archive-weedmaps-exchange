@@ -139,19 +139,19 @@ describe('Buyer Detail Modal', () => {
     expect(
       modalWrapper
         .find('DetailDescription')
-        .at(1)
+        .at(3)
         .text(),
     ).toEqual('weedmaps');
     expect(
       modalWrapper
         .find('DetailDescription')
-        .at(2)
+        .at(1)
         .text(),
     ).toEqual('123 Irvine');
     expect(
       modalWrapper
         .find('DetailDescription')
-        .at(3)
+        .at(2)
         .text(),
     ).toEqual('Knock on the door');
     expect(

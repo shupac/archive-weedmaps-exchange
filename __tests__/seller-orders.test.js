@@ -103,8 +103,8 @@ describe('Seller Purchase Orders Page', () => {
       .mockReturnValue();
 
     await instance.handleStatusChange('1234')({
-      text: 'cancel',
-      value: 'cancel',
+      text: 'canceled',
+      value: 'canceled',
     });
 
     expect(openCancelModal).toHaveBeenCalledWith('1234');

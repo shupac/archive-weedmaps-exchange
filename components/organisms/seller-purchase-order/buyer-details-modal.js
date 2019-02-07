@@ -31,14 +31,14 @@ const BuyerDetailsModal = ({
 }: Props) => (
   <Modal header="Buyer Details">
     <SellerDetailsWrapper>
-      <DetailsTitle>Buyer Location Name</DetailsTitle>
+      <DetailsTitle>Buyer Name</DetailsTitle>
       <DetailDescription>{buyerLocationName}</DetailDescription>
-      <DetailsTitle>Contact Name</DetailsTitle>
-      <DetailDescription>{buyerName}</DetailDescription>
       <DetailsTitle>Shipping Address</DetailsTitle>
       <DetailDescription>{buyerAddress}</DetailDescription>
       <DetailsTitle>Delivery Instructions</DetailsTitle>
       <DetailDescription>{buyerDeliveryInstructions}</DetailDescription>
+      <DetailsTitle>Contact Name</DetailsTitle>
+      <DetailDescription>{buyerName}</DetailDescription>
       <DetailsTitle>Contact Phone</DetailsTitle>
       {buyerPhone ? (
         <DetailDescription>

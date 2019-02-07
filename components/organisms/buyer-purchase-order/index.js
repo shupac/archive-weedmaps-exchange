@@ -8,7 +8,7 @@ import BackArrow from 'components/atoms/icons/back-arrow';
 import StatusPill from 'components/atoms/order-status-pill';
 import { ButtonPrimary, ButtonWhiteNoHover } from 'components/atoms/button';
 import Loader from 'components/atoms/loader';
-import { formatOrderId, formatCurrency } from 'lib/common/strings';
+import { formatOrderId, formatDollars } from 'lib/common/strings';
 import { formatDate } from 'lib/common/date';
 import { type StoreType } from 'lib/types/store';
 import { type PurchaseOrderType } from 'models/purchase-order';
@@ -187,12 +187,12 @@ class BuyerPurchaseOrder extends Component<Props> {
         <Totals>
           <TotalsRow>
             <TotalLabel>Subtotal</TotalLabel>
-            <Subtotal>{formatCurrency(subtotal)}</Subtotal>
+            <Subtotal>{formatDollars(Number(subtotal))}</Subtotal>
           </TotalsRow>
 
           <TotalsRow>
             <TotalLabel>Shipping Fee</TotalLabel>
-            <Subtotal>{formatCurrency(shippingFee)}</Subtotal>
+            <Subtotal>{formatDollars(Number(shippingFee))}</Subtotal>
           </TotalsRow>
 
           <TotalsRow>
@@ -201,7 +201,7 @@ class BuyerPurchaseOrder extends Component<Props> {
 
           <TotalsRow>
             <TotalLabel>Total</TotalLabel>
-            <Subtotal>{formatCurrency(total)}</Subtotal>
+            <Subtotal>{formatDollars(Number(total))}</Subtotal>
           </TotalsRow>
         </Totals>
       </PurchaseOrderWrapper>

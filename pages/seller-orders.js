@@ -25,7 +25,7 @@ type OptionType = {
 export class SellerOrdersPage extends Component<Props> {
   handleStatusChange = (orderId: string) => async (option: OptionType) => {
     const status = option.value;
-    if (status === 'cancel') this.openCancelModal(orderId);
+    if (status === 'canceled') this.openCancelModal(orderId);
     else {
       const { sellerOrders } = this.props.store;
       const success = await sellerOrders.updateOrderStatus(orderId, status);
