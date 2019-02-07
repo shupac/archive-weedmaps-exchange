@@ -34,6 +34,8 @@ Array [
       },
     ],
     "sellerData": Object {
+      "brandId": "d054b34f-428e-4583-a2a4-27f4e5aea6f3",
+      "brandName": "GfarmaLabs",
       "sellerAddress": "{\\"territory\\":\\"OR\\",\\"street_address\\":\\"120 Columbia Ave NE\\",\\"region\\":{\\"name\\":\\"Washington\\",\\"id\\":\\"bd457c68-fee7-485b-b3ab-c2daabba3e4f\\"},\\"postal_code\\":\\"97818\\",\\"country\\":\\"us\\",\\"city\\":\\"Boardman\\"}",
       "sellerEmail": "test@test.com",
       "sellerId": "2f4ddb82-3b67-4780-8ae4-7f27da36d813",
@@ -80,6 +82,8 @@ Array [
       },
     ],
     "sellerData": Object {
+      "brandId": "d60ca06a-89db-4584-99a8-1f9b9f427e42",
+      "brandName": null,
       "sellerAddress": "{\\"territory\\":\\"OR\\",\\"street_address\\":\\"120 Columbia Ave NE\\",\\"region\\":{\\"name\\":\\"Washington\\",\\"id\\":\\"bd457c68-fee7-485b-b3ab-c2daabba3e4f\\"},\\"postal_code\\":\\"97818\\",\\"country\\":\\"us\\",\\"city\\":\\"Boardman\\"}",
       "sellerEmail": "test@test.com",
       "sellerId": "2f4ddb82-3b67-4780-8ae4-7f27da36d813",
@@ -151,6 +155,8 @@ Object {
     },
   ],
   "sellerData": Object {
+    "brandId": null,
+    "brandName": null,
     "sellerAddress": null,
     "sellerEmail": "test@test.com",
     "sellerId": "2f4ddb82-3b67-4780-8ae4-7f27da36d813",

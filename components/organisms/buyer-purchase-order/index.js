@@ -93,7 +93,13 @@ class BuyerPurchaseOrder extends Component<Props> {
       expectedShipDateMax,
     )}`;
 
-    const { sellerName, sellerEmail, sellerPhone, sellerLicenses } = sellerData;
+    const {
+      sellerName,
+      sellerEmail,
+      sellerPhone,
+      sellerLicenses,
+      brandName,
+    } = sellerData;
 
     const { cancelable } = STATUS_TYPES[status];
 
@@ -143,6 +149,7 @@ class BuyerPurchaseOrder extends Component<Props> {
                   </StyledSellerName>
                   {store.uiStore.activeModal === 'sellerDetailsModal' && (
                     <SellerDetailsModal
+                      brandName={brandName}
                       sellerName={sellerName}
                       sellerEmail={sellerEmail}
                       sellerPhone={sellerPhone}

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'lib/routes';
 import { type OrderItemType } from 'lib/data-access/models/purchase-order';
-import { formatCurrency } from 'lib/common/strings';
+import { formatDollars } from 'lib/common/strings';
 import {
   ProductRowWrapper,
   ProductWrapper,
@@ -50,11 +50,11 @@ const ProductRow = ({ item }: Props) => {
 
       <div>{category}</div>
 
-      <div>{formatCurrency(price)}</div>
+      <div>{formatDollars(Number(price))}</div>
 
       <div>{amount}</div>
 
-      <Subtotal>{formatCurrency(parseFloat(price) * amount)}</Subtotal>
+      <Subtotal>{formatDollars(Number(parseFloat(price) * amount))}</Subtotal>
     </ProductRowWrapper>
   );
 };

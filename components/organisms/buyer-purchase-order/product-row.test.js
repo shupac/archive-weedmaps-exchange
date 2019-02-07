@@ -48,19 +48,19 @@ describe('Seller Details Modal', () => {
     expect(
       wrapper
         .find('DetailDescription')
-        .first()
+        .at(1)
         .text(),
     ).toEqual('West Coast Cure');
     expect(
       wrapper
         .find('DetailDescription')
-        .at(1)
+        .at(2)
         .text(),
     ).toEqual('(111) 222-3333');
     expect(
       wrapper
         .find('DetailDescription')
-        .at(2)
+        .at(3)
         .text(),
     ).toEqual('test@test.com');
     expect(

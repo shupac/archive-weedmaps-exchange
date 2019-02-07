@@ -131,13 +131,6 @@ describe('Seller Purchase Orders Page', () => {
     expect(mockSetFilter).toHaveBeenCalled();
   });
 
-  it('should clean up disposer on unmount', () => {
-    const { tree, instance } = setup();
-    const disposeFetchOrders = jest.spyOn(instance, 'disposeFetchOrders');
-    tree.unmount();
-    expect(disposeFetchOrders).toHaveBeenCalled();
-  });
-
   it('should render a loader if unmounted', () => {
     const { tree } = setup();
     expect(tree.find(Loader).exists()).toEqual(true);

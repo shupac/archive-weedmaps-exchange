@@ -34,6 +34,10 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
 
   query = new ObservableMap();
 
+  defaultQuery = {
+    sort: '-date_ordered',
+  };
+
   @observable
   dateRange = {};
 
@@ -75,7 +79,10 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
     query => {
       const { buyerOrders } = this.props.store;
 
-      buyerOrders.fetchPurchaseOrders(query);
+      buyerOrders.fetchPurchaseOrders({
+        ...this.defaultQuery,
+        ...query,
+      });
     },
     { name: 'Search and fetch filters data' },
   );
@@ -83,9 +90,7 @@ export class BuyerPurchaseOrders extends Component<Props, State> {
   componentDidMount() {
     const { store } = this.props;
 
-    store.buyerOrders.fetchPurchaseOrders({
-      sort: '-date_ordered',
-    });
+    store.buyerOrders.fetchPurchaseOrders(this.defaultQuery);
 
     store.buyerOrders.fetchPOSellers();
     // eslint-disable-next-line

@@ -2,11 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import SellerOrdersStore from 'lib/data-access/stores/seller-orders';
 import UiStore from 'lib/data-access/stores/ui';
+import mockPurchaseOrders from 'lib/mocks/purchase-orders';
 import { ButtonWhiteNoHover } from 'components/atoms/button';
 import mockPurchaseOrder from 'mocks/purchase-order';
 import Loader from 'components/atoms/loader';
 import { SellerPurchaseOrder } from './';
 import { OrderHeader } from './styles';
+import BuyerDetailModal from './buyer-details-modal';
 
 const orderId = 'b97329d4-a7ae-4c7a-ab5e-4de8aec22f50';
 
@@ -19,14 +21,20 @@ function setup() {
 
   const mockStore = {
     sellerOrders: SellerOrdersStore.create(
-      {},
+      { orderData: mockPurchaseOrders[0] },
       {
         client: mockFetchClient,
       },
     ),
     uiStore: UiStore.create(),
   };
-  const component = <SellerPurchaseOrder store={mockStore} orderId={orderId} />;
+  const props = {
+    onCancelOrder: jest.fn(),
+    onStatusChange: jest.fn(),
+  };
+  const component = (
+    <SellerPurchaseOrder store={mockStore} orderId={orderId} {...props} />
+  );
   const wrapper = shallow(component, {
     disableLifecycleMethods: true,
   });
@@ -94,38 +102,6 @@ describe('Buyer Purchase Order Page', () => {
     expect(reasonLabel).toEqual('Reason for Cancelation');
   });
 
-  it('should dispose on unmount', () => {
-    const { wrapper } = setup();
-    const instance = wrapper.instance();
-    const dispose = jest.spyOn(instance, 'dispose');
-    instance.componentWillUnmount();
-    expect(dispose).toHaveBeenCalled();
-    dispose.mockRestore();
-  });
-
-  it('should not update order data if modal is transitioning', done => {
-    const { wrapper, mockStore } = setup();
-    const instance = wrapper.instance();
-    instance.componentDidMount();
-
-    setTimeout(() => {
-      mockStore.uiStore.openModal('testModal');
-    }, 0);
-
-    setTimeout(() => {
-      mockStore.sellerOrders.setOrderData({
-        ...mockPurchaseOrder,
-        status: 'test',
-      });
-      mockStore.uiStore.closeModal();
-    }, 400);
-
-    setTimeout(() => {
-      expect(instance.orderData.status).toEqual('not_started');
-      done();
-    }, 410);
-  });
-
   it('should open BuyerDetailsModal when seller is clicked', done => {
     const { wrapper, mockStore } = setup();
     const openModal = jest.spyOn(mockStore.uiStore, 'openModal');
@@ -137,5 +113,88 @@ describe('Buyer Purchase Order Page', () => {
       expect(openModal).toHaveBeenCalledWith('buyerDetailsModal');
       done();
     }, 0);
+  });
+});
+
+describe('Buyer Detail Modal', () => {
+  it('should render the Buyer Detail Modal', () => {
+    const modalProps = {
+      buyerName: 'weedmaps',
+      buyerEmail: 'weed@weedmaps.com',
+      buyerPhone: '555-555-5555',
+      buyerLicenses: [],
+      buyerDeliveryInstructions: 'Knock on the door',
+      buyerAddress: '123 Irvine',
+      buyerLocationName: 'weedmaps',
+    };
+    const modalComponent = <BuyerDetailModal {...modalProps} />;
+    const modalWrapper = shallow(modalComponent);
+    expect(modalWrapper.exists()).toEqual(true);
+    expect(
+      modalWrapper
+        .find('DetailDescription')
+        .first()
+        .text(),
+    ).toEqual('weedmaps');
+    expect(
+      modalWrapper
+        .find('DetailDescription')
+        .at(1)
+        .text(),
+    ).toEqual('weedmaps');
+    expect(
+      modalWrapper
+        .find('DetailDescription')
+        .at(2)
+        .text(),
+    ).toEqual('123 Irvine');
+    expect(
+      modalWrapper
+        .find('DetailDescription')
+        .at(3)
+        .text(),
+    ).toEqual('Knock on the door');
+    expect(
+      modalWrapper
+        .find('DetailDescription')
+        .at(4)
+        .text(),
+    ).toEqual('(555) 555-5555');
+    expect(
+      modalWrapper
+        .find('DetailDescription')
+        .last()
+        .text(),
+    ).toEqual('N/A');
+  });
+  it('should render when there is no buyer phone or with licenses', () => {
+    const modalProps = {
+      buyerName: 'weedmaps',
+      buyerEmail: 'weed@weedmaps.com',
+      buyerLicenses: [
+        {
+          licenseType: 'medical',
+          number: 123,
+        },
+      ],
+      buyerDeliveryInstructions: 'Knock on the door',
+      buyerAddress: '123 Irvine',
+      buyerLocationName: 'weedmaps',
+    };
+    const modalComponent = <BuyerDetailModal {...modalProps} />;
+    const modalWrapper = shallow(modalComponent);
+
+    expect(
+      modalWrapper
+        .find('DetailDescription')
+        .at(4)
+        .text(),
+    ).toEqual('N/A');
+    expect(
+      modalWrapper
+        .find('DetailDescription')
+        .last()
+        .text(),
+    ).toEqual('medical 123');
   });
 });

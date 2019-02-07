@@ -1,19 +1,16 @@
 // @flow
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { observable, reaction } from 'mobx';
 import at from 'lodash/at';
 import StyledLink from 'components/atoms/styled-link';
 import BackArrow from 'components/atoms/icons/back-arrow';
 import StatusPillDropDown from 'components/atoms/order-status-pill/status-pill-dropdown';
-import { ButtonPrimary, ButtonWhiteNoHover } from 'components/atoms/button';
+import { ButtonWhiteNoHover } from 'components/atoms/button';
 import Loader from 'components/atoms/loader';
-import { formatOrderId, formatCurrency } from 'lib/common/strings';
+import { formatOrderId, formatDollars } from 'lib/common/strings';
 import ProductRow from 'components/organisms/buyer-purchase-order/product-row';
 import { formatDate } from 'lib/common/date';
 import { type StoreType } from 'lib/types/store';
-import { type PurchaseOrderType } from 'models/purchase-order';
-import { STATUS_TYPES } from 'lib/common/constants';
 import {
   PurchaseOrderWrapper,
   OrderHeader,
@@ -30,44 +27,31 @@ import {
 } from './styles';
 import BuyerDetailsModal from './buyer-details-modal';
 
+type CategorySelected = {
+  value: string,
+  text: string,
+};
+
 type Props = {
   orderId: string,
   store: StoreType,
-  onCancelOrder: string => void,
+  onStatusChange: string => CategorySelected => void,
   onReorder: string => void,
 };
 
 class SellerPurchaseOrder extends Component<Props> {
-  @observable
-  orderData: ?PurchaseOrderType = null;
-
-  dispose = reaction(
-    () => {
-      const { uiStore, sellerOrders } = this.props.store;
-      const { activeModal, modalTransitioning } = uiStore;
-      const { orderData } = sellerOrders;
-
-      return { activeModal, modalTransitioning, orderData: { ...orderData } };
-    },
-    ({ activeModal, modalTransitioning, orderData }) => {
-      if (!activeModal && !modalTransitioning) this.orderData = orderData;
-    },
-    { name: 'Watch modal transition' },
-  );
-
   componentDidMount() {
     const { orderId, store } = this.props;
+
     store.sellerOrders.fetchOrder(orderId);
   }
 
-  componentWillUnmount() {
-    this.dispose();
-  }
-
   render() {
-    const { orderId, onCancelOrder, store } = this.props;
+    const { store, orderId, onStatusChange } = this.props;
 
-    if (!this.orderData) return <Loader />;
+    const { orderData } = store.sellerOrders;
+
+    if (!orderData) return <Loader />;
 
     const {
       orderDate,
@@ -75,12 +59,14 @@ class SellerPurchaseOrder extends Component<Props> {
       expectedShipDateMin,
       expectedShipDateMax,
       status,
+      statusChangeOptions,
+      selectedOption,
       statusReason,
       orderItems,
       subtotal,
       shippingFee,
       total,
-    } = this.orderData;
+    } = orderData;
 
     const address = at(JSON.parse(buyerData.buyerAddress), [
       'street_address',
@@ -99,9 +85,8 @@ class SellerPurchaseOrder extends Component<Props> {
       buyerLicenses,
       buyerPhone,
       buyerName,
+      buyerLocationName,
     } = buyerData;
-
-    const { cancelable } = STATUS_TYPES[status];
 
     return (
       <PurchaseOrderWrapper>
@@ -116,11 +101,6 @@ class SellerPurchaseOrder extends Component<Props> {
             <ButtonWhiteNoHover onClick={() => window.print()}>
               View or print
             </ButtonWhiteNoHover>
-            {cancelable && status !== 'not_started' && (
-              <ButtonPrimary onClick={onCancelOrder}>
-                Cancel order
-              </ButtonPrimary>
-            )}
           </HeaderButtons>
         </OrderHeader>
 
@@ -152,6 +132,7 @@ class SellerPurchaseOrder extends Component<Props> {
                       buyerLicenses={buyerLicenses}
                       buyerDeliveryInstructions={buyerDeliveryInstructions}
                       buyerAddress={address}
+                      buyerLocationName={buyerLocationName}
                     />
                   )}
                 </td>
@@ -160,7 +141,13 @@ class SellerPurchaseOrder extends Component<Props> {
                 <td>{address}</td>
                 <td>{shipDate}</td>
                 <td>
-                  <StatusPillDropDown status={status} orderId={orderId} />
+                  <StatusPillDropDown
+                    status={status}
+                    orderId={orderId}
+                    options={statusChangeOptions}
+                    selectedOption={selectedOption}
+                    onChange={onStatusChange(orderId)}
+                  />
                 </td>
                 {status === 'canceled' && <td>{statusReason}</td>}
               </tr>
@@ -188,13 +175,13 @@ class SellerPurchaseOrder extends Component<Props> {
               <b>Delivery Instructions</b>
             </InstructionWrapper>
             <TotalLabel>Subtotal</TotalLabel>
-            <Subtotal>{formatCurrency(subtotal)}</Subtotal>
+            <Subtotal>{formatDollars(Number(subtotal))}</Subtotal>
           </TotalsRow>
 
           <TotalsRow>
             <InstructionWrapper>{buyerDeliveryInstructions}</InstructionWrapper>
             <TotalLabel>Shipping Fee</TotalLabel>
-            <Subtotal>{formatCurrency(shippingFee)}</Subtotal>
+            <Subtotal>{formatDollars(Number(shippingFee))}</Subtotal>
           </TotalsRow>
 
           <TotalsRow>
@@ -203,7 +190,7 @@ class SellerPurchaseOrder extends Component<Props> {
 
           <TotalsRow>
             <TotalLabel>Total</TotalLabel>
-            <Subtotal>{formatCurrency(total)}</Subtotal>
+            <Subtotal>{formatDollars(Number(total))}</Subtotal>
           </TotalsRow>
         </Totals>
       </PurchaseOrderWrapper>

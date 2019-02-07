@@ -13,6 +13,7 @@ function setup(mockData) {
   const props = {
     onClose: jest.fn(),
     onSubmit: jest.fn(),
+    context: 'buyer',
   };
 
   const store = {

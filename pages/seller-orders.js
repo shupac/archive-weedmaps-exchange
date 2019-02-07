@@ -8,6 +8,7 @@ import { PageContent, PageLayout } from 'components/layouts/page-layout';
 import CancelOrderModal from 'components/organisms/cancel-order-modal';
 import SellerPurchaseOrders from 'components/organisms/seller-purchase-orders';
 import SellerPurchaseOrder from 'components/organisms/seller-purchase-order';
+import { ALERT_STATUS } from 'lib/common/constants';
 
 import { type StoreType } from 'lib/types/store';
 
@@ -16,12 +17,61 @@ type Props = {
   router: any,
 };
 
+type OptionType = {
+  text: string,
+  value: string,
+};
+
 export class SellerOrdersPage extends Component<Props> {
-  cancelOrder = async (orderId: string) => {
-    const { sellerOrders, uiStore } = this.props.store;
+  handleStatusChange = (orderId: string) => async (option: OptionType) => {
+    const status = option.value;
+    if (status === 'cancel') this.openCancelModal(orderId);
+    else {
+      const { sellerOrders } = this.props.store;
+      const success = await sellerOrders.updateOrderStatus(orderId, status);
+      if (!success) this.showErrorToast();
+    }
+  };
+
+  openCancelModal = async (orderId: string) => {
+    const { uiStore, sellerOrders } = this.props.store;
 
     await sellerOrders.cancelOrder(orderId);
     uiStore.openModal('cancelOrder');
+  };
+
+  closeCancelModal = () => {
+    const { sellerOrders, uiStore } = this.props.store;
+    sellerOrders.cancelOrder(null);
+    uiStore.closeModal();
+  };
+
+  submitCancelModal = async (reason: string) => {
+    const { sellerOrders } = this.props.store;
+
+    const { cancelOrderId, ordersList } = sellerOrders;
+
+    const success = await sellerOrders.updateOrderStatus(
+      cancelOrderId,
+      'canceled',
+      reason,
+    );
+
+    if (success) this.closeCancelModal();
+    else this.showErrorToast();
+
+    await sellerOrders.fetchOrder(cancelOrderId);
+    if (ordersList) sellerOrders.refreshOrderInList(sellerOrders.orderData);
+  };
+
+  showErrorToast = () => {
+    const { uiStore } = this.props.store;
+
+    uiStore.notifyToast({
+      title: 'Could not complete request',
+      body: 'The order status may have changed. Please try again.',
+      status: ALERT_STATUS.ERROR,
+    });
   };
 
   render() {
@@ -34,15 +84,19 @@ export class SellerOrdersPage extends Component<Props> {
       <PageLayout>
         <PageContent>
           <ShowIfRoute match="/seller/orders">
-            <SellerPurchaseOrders onCancelOrder={this.cancelOrder} />
+            <SellerPurchaseOrders onStatusChange={this.handleStatusChange} />
           </ShowIfRoute>
           <ShowIfRoute match="/seller/orders/(.*)">
             <SellerPurchaseOrder
               orderId={orderId}
-              onCancelOrder={() => this.cancelOrder(orderId)}
+              onStatusChange={this.handleStatusChange}
             />
           </ShowIfRoute>
-          <CancelOrderModal />
+          <CancelOrderModal
+            context="seller"
+            onClose={this.closeCancelModal}
+            onSubmit={this.submitCancelModal}
+          />
         </PageContent>
       </PageLayout>
     );

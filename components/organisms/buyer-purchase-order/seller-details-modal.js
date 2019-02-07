@@ -12,11 +12,13 @@ import {
 type Props = {
   sellerName: string,
   sellerEmail: string,
-  sellerPhone: string,
+  sellerPhone?: string,
+  brandName: string,
   sellerLicenses: LicenseType[],
 };
 
 const SellerDetailsModal = ({
+  brandName,
   sellerName,
   sellerEmail,
   sellerPhone,
@@ -24,7 +26,9 @@ const SellerDetailsModal = ({
 }: Props) => (
   <Modal header="Seller Details">
     <SellerDetailsWrapper>
-      <DetailsTitle>Seller Name</DetailsTitle>
+      <DetailsTitle>Brand Name</DetailsTitle>
+      <DetailDescription>{brandName}</DetailDescription>
+      <DetailsTitle>Contact Name</DetailsTitle>
       <DetailDescription>{sellerName}</DetailDescription>
       <DetailsTitle>Contact Phone</DetailsTitle>
       {sellerPhone ? (

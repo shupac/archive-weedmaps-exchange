@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react';
+import { observer } from 'mobx-react';
+import get from 'lodash.get';
 import { formatDate } from 'lib/common/date';
 import { formatDollars } from 'lib/common/strings';
 import StatusPill from 'components/atoms/order-status-pill';
@@ -22,6 +24,7 @@ type Props = {
   onCancelOrder: string => void,
   onReorder: string => void,
   buyersTable: false,
+  onStatusChange: string => void,
 };
 
 export class OrdersTable extends Component<Props, State> {
@@ -48,7 +51,13 @@ export class OrdersTable extends Component<Props, State> {
   }
 
   render() {
-    const { orders, onCancelOrder, onReorder, buyersTable } = this.props;
+    const {
+      orders,
+      onCancelOrder,
+      onReorder,
+      buyersTable,
+      onStatusChange,
+    } = this.props;
     const { activeSort } = this.state;
     const customerType = buyersTable ? 'buyer' : 'seller';
 
@@ -134,44 +143,66 @@ export class OrdersTable extends Component<Props, State> {
         )}
 
         {orders.map(order => {
-          const { cancelable } = STATUS_TYPES[order.status];
+          const cancelable = get(
+            STATUS_TYPES,
+            [order.status, 'cancelable'],
+            false,
+          );
+
+          const {
+            id,
+            orderDate,
+            sellerData,
+            buyerData,
+            expectedShipDateMin,
+            expectedShipDateMax,
+            zoneName,
+            total,
+            status,
+            statusChangeOptions,
+            selectedOption,
+          } = order;
 
           return (
-            <Fragment key={order.id}>
-              <StyledLink href={`/${customerType}/orders/${order.id}`}>
-                {order.id.substring(0, 6).toUpperCase()}
+            <Fragment key={id}>
+              <StyledLink href={`/${customerType}/orders/${id}`}>
+                {id.substring(0, 6).toUpperCase()}
               </StyledLink>
-              <p>{formatDate(order.orderDate)}</p>
+              <p>{formatDate(orderDate)}</p>
               <p>
                 {customerType === 'buyer'
-                  ? order.sellerData.sellerName
-                  : order.buyerData.buyerName}
+                  ? sellerData.sellerName
+                  : buyerData.buyerName}
               </p>
-              <p>{order.buyerData.buyerLocationName}</p>
+              <p>{buyerData.buyerLocationName}</p>
               {customerType === 'buyer' ? (
                 <p>
-                  {formatDate(order.expectedShipDateMin)}-
-                  {formatDate(order.expectedShipDateMax)}
+                  {formatDate(expectedShipDateMin)}-
+                  {formatDate(expectedShipDateMax)}
                 </p>
               ) : (
-                <p>{order.zoneName}</p>
+                <p>{zoneName}</p>
               )}
-              <p>{formatDollars(Number(order.total))}</p>
+              <p>{formatDollars(Number(total))}</p>
               {buyersTable ? (
-                <StatusPill status={order.status} />
+                <StatusPill status={status} />
               ) : (
-                <StatusPillDropDown status={order.status} orderId={order.id} />
+                <StatusPillDropDown
+                  status={status}
+                  orderId={id}
+                  options={statusChangeOptions}
+                  selectedOption={selectedOption}
+                  onChange={onStatusChange(id)}
+                />
               )}
               {buyersTable && (
                 <ContextMenu>
                   {cancelable && (
-                    <MenuItem onClick={() => onCancelOrder(order.id)}>
+                    <MenuItem onClick={() => onCancelOrder(id)}>
                       Cancel
                     </MenuItem>
                   )}
-                  <MenuItem onClick={() => onReorder(order.id)}>
-                    Reorder
-                  </MenuItem>
+                  <MenuItem onClick={() => onReorder(id)}>Reorder</MenuItem>
                 </ContextMenu>
               )}
               <Border />
@@ -183,4 +214,4 @@ export class OrdersTable extends Component<Props, State> {
   }
 }
 
-export default OrdersTable;
+export default observer(OrdersTable);

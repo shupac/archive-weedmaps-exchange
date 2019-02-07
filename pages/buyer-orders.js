@@ -45,6 +45,7 @@ class BuyerOrdersPage extends Component<Props> {
     );
 
     if (success) this.closeCancelModal();
+    else this.showErrorToast();
 
     await buyerOrders.fetchOrder(cancelOrderId);
     buyerOrders.refreshOrderInList(buyerOrders.orderData);
@@ -79,6 +80,16 @@ class BuyerOrdersPage extends Component<Props> {
   getTitle = (itemsAdded: number) =>
     `You added ${itemsAdded} item${itemsAdded === 1 ? '' : 's'} to you cart`;
 
+  showErrorToast = () => {
+    const { uiStore } = this.props.store;
+
+    uiStore.notifyToast({
+      title: 'Could not complete request',
+      body: 'The order status may have changed. Please try again.',
+      status: ALERT_STATUS.ERROR,
+    });
+  };
+
   render() {
     const { router } = this.props;
     const {
@@ -103,6 +114,7 @@ class BuyerOrdersPage extends Component<Props> {
           </ShowIfRoute>
 
           <CancelOrderModal
+            context="buyer"
             onClose={this.closeCancelModal}
             onSubmit={this.submitCancelModal}
           />

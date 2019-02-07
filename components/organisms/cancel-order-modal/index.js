@@ -13,6 +13,7 @@ type Props = {
   store: StoreType,
   onClose: () => void,
   onSubmit: string => void,
+  context: 'buyer' | 'seller',
 };
 
 class CancelOrderModal extends Component<Props> {
@@ -30,24 +31,35 @@ class CancelOrderModal extends Component<Props> {
     onClose();
   };
 
+  submit = () => {
+    const { onSubmit } = this.props;
+    onSubmit(this.reason.trim());
+    this.close();
+  };
+
   render() {
-    const { store, onSubmit } = this.props;
+    const { store, context } = this.props;
 
-    const { cancelOrderId, orderData } = store.buyerOrders;
+    const storeName = `${context}Orders`;
 
-    const { text, cancelable } = orderData
-      ? STATUS_TYPES[orderData.status]
-      : { text: '', cancelable: true };
+    const { cancelOrderId, orderData } = store[storeName];
+
+    const { text, cancelable } =
+      orderData && STATUS_TYPES[orderData.status]
+        ? STATUS_TYPES[orderData.status]
+        : { text: '', cancelable: true };
 
     if (!cancelOrderId) return null;
+
+    const otherParty = context === 'seller' ? 'buyer' : 'seller';
 
     return (
       <Modal header="Cancel Order" store={store}>
         <CancelModalWrapper>
           <div>
             Canceling the order will remove the PO from your list, and notify
-            the seller that the order has been canceled.
-            <p>Please inform the seller why you are canceling the PO.</p>
+            the {otherParty} that the order has been canceled.
+            <p>Please inform the {otherParty} why you are canceling the PO.</p>
           </div>
 
           <TextArea
@@ -62,8 +74,8 @@ class CancelOrderModal extends Component<Props> {
             <p>Are you sure you want to cancel the PO?</p>
           ) : (
             <ErrorText>
-              You may no longer cancel this order because the seller has marked
-              the status as {text}.
+              You may no longer cancel this order because the {otherParty} has
+              marked the status as {text}.
             </ErrorText>
           )}
 
@@ -74,7 +86,7 @@ class CancelOrderModal extends Component<Props> {
               </ButtonWhiteNoHover>
               <ButtonPrimary
                 disabled={!this.reason.trim()}
-                onClick={() => onSubmit(this.reason.trim())}
+                onClick={this.submit}
               >
                 Yes, Cancel PO
               </ButtonPrimary>

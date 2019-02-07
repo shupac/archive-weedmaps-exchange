@@ -7,6 +7,7 @@ import UiStore from 'lib/data-access/stores/ui';
 import { ButtonWhiteNoHover } from 'components/atoms/button';
 import mockPurchaseOrder from 'mocks/purchase-order';
 import Loader from 'components/atoms/loader';
+import SellerDetailsModal from './seller-details-modal';
 import { BuyerPurchaseOrder } from './';
 import { OrderHeader } from './styles';
 
@@ -147,5 +148,78 @@ describe('Buyer Purchase Order Page', () => {
       expect(openModal).toHaveBeenCalledWith('sellerDetailsModal');
       done();
     }, 0);
+  });
+});
+
+describe('Seller Details Modal', () => {
+  it('should render the seller details modal', () => {
+    const props = {
+      brandName: 'weed',
+      sellerName: 'Test',
+      sellerEmail: 'test@test.com',
+      sellerPhone: '123-123-1234',
+      sellerLicenses: [],
+    };
+    const component = <SellerDetailsModal {...props} />;
+    const wrapper = shallow(component);
+    expect(wrapper.exists()).toEqual(true);
+    expect(
+      wrapper
+        .find('DetailDescription')
+        .first()
+        .text(),
+    ).toEqual('weed');
+    expect(
+      wrapper
+        .find('DetailDescription')
+        .at(1)
+        .text(),
+    ).toEqual('Test');
+    expect(
+      wrapper
+        .find('DetailDescription')
+        .at(2)
+        .text(),
+    ).toEqual('(123) 123-1234');
+    expect(
+      wrapper
+        .find('DetailDescription')
+        .at(3)
+        .text(),
+    ).toEqual('test@test.com');
+    expect(
+      wrapper
+        .find('DetailDescription')
+        .at(4)
+        .text(),
+    ).toEqual('N/A');
+  });
+  it('should render with no phone and with licenses', () => {
+    const props = {
+      brandName: 'weed',
+      sellerName: 'Test',
+      sellerEmail: 'test@test.com',
+      sellerLicenses: [
+        {
+          licenseType: 'medical',
+          number: '123',
+          id: '1234',
+        },
+      ],
+    };
+    const component = <SellerDetailsModal {...props} />;
+    const wrapper = shallow(component);
+    expect(
+      wrapper
+        .find('DetailDescription')
+        .at(2)
+        .text(),
+    ).toEqual('N/A');
+    expect(
+      wrapper
+        .find('DetailDescription')
+        .last()
+        .text(),
+    ).toEqual('medical 123');
   });
 });

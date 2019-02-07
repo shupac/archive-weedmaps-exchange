@@ -20,6 +20,7 @@ type DateRange = {
 type Props = {
   store: StoreType,
   onCancelOrder: string => void,
+  onStatusChange: string => void,
 };
 
 type State = {
@@ -32,6 +33,10 @@ export class SellerPurchaseOrders extends Component<Props, State> {
   };
 
   query = new ObservableMap();
+
+  defaultQuery = {
+    sort: '-date_ordered',
+  };
 
   @observable
   dateRange = {};
@@ -69,17 +74,25 @@ export class SellerPurchaseOrders extends Component<Props, State> {
     this.setFilter('end_date', this.stringifyDate(dateRange.endDate));
   };
 
-  disposeFetchOrders = reaction(
+  disposeQueryReaction = reaction(
+    () => this.query.toJSON(),
+    query => {
+      const { sellerOrders } = this.props.store;
+      sellerOrders.fetchPurchaseOrders({
+        ...this.defaultQuery,
+        ...query,
+      });
+    },
+  );
+
+  disposeActiveBrandReaction = reaction(
     () => {
       const { authStore } = this.props.store;
-      return {
-        query: this.query.toJSON(),
-        activeBrand: authStore.activeSellerBrand,
-      };
+      return authStore.activeSellerBrand.value;
     },
-    ({ query }) => {
+    () => {
       const { sellerOrders } = this.props.store;
-      sellerOrders.fetchPurchaseOrders(query);
+      sellerOrders.fetchPurchaseOrders(this.defaultQuery);
     },
     { name: 'Search and fetch filters data' },
   );
@@ -87,9 +100,7 @@ export class SellerPurchaseOrders extends Component<Props, State> {
   componentDidMount() {
     const { store } = this.props;
 
-    store.sellerOrders.fetchPurchaseOrders({
-      sort: '-date_ordered',
-    });
+    store.sellerOrders.fetchPurchaseOrders(this.defaultQuery);
 
     store.sellerOrders.fetchPOBuyers();
     // eslint-disable-next-line
@@ -97,12 +108,13 @@ export class SellerPurchaseOrders extends Component<Props, State> {
   }
 
   componentWillUnmount() {
-    this.disposeFetchOrders();
+    this.disposeActiveBrandReaction();
+    this.disposeQueryReaction();
   }
 
   render() {
     const { mounted } = this.state;
-    const { store, onCancelOrder } = this.props;
+    const { store, onCancelOrder, onStatusChange } = this.props;
     const { sellerOrders } = store;
     const { ordersLoading, ordersList } = sellerOrders;
     const { totalEntries, pageSize, pageNumber } = sellerOrders.ordersListMeta;
@@ -149,6 +161,7 @@ export class SellerPurchaseOrders extends Component<Props, State> {
             orders={ordersList}
             setSort={this.setSort}
             onCancelOrder={onCancelOrder}
+            onStatusChange={onStatusChange}
           />
           {totalEntries >= 1 && (
             <Pagination>
