@@ -139,6 +139,7 @@ export class OrdersTable extends Component<Props, State> {
             title="No Orders Found"
             body="Try adjusting your search or filters to find what you're
             looking for."
+            style={{ marginBottom: '85px' }}
           />
         )}
 

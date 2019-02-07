@@ -68,7 +68,7 @@ export const AvailabilityWrapper = styled.div`
     align-items: center;
 
     > :first-child {
-      margin-right: 16px;
+      margin-left: 16px;
     }
   }
 `;
