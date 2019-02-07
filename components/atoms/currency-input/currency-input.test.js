@@ -2,14 +2,15 @@ import { shallow } from 'enzyme';
 import CurrencyInput from './';
 
 function setup() {
+  const setFieldValue = jest.fn();
   const props = {
     value: '10.00',
-    customHandleChange: k => k,
+    setFieldValue,
   };
   const component = <CurrencyInput {...props} />;
   const wrapper = shallow(component);
   const instance = wrapper.instance();
-  return { wrapper, instance };
+  return { wrapper, instance, setFieldValue };
 }
 
 describe('CurrencyInput', () => {
@@ -19,7 +20,9 @@ describe('CurrencyInput', () => {
   });
 
   it('should handle change', () => {
-    const { instance } = setup();
+    const { instance, setFieldValue } = setup();
+    setFieldValue.mockClear();
+
     const longNumberEvent = {
       currentTarget: {
         value: '15.00',
@@ -37,5 +40,7 @@ describe('CurrencyInput', () => {
     expect(instance.state.value).toEqual('15.00');
     instance.handleChange(shortNumberEvent);
     expect(instance.state.value).toEqual('0.10');
+
+    expect(setFieldValue).toBeCalled();
   });
 });

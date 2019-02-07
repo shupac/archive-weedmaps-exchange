@@ -6,7 +6,8 @@ import { DollarSignWrapper, Input } from './styles';
 
 type Props = {
   placeholder?: string,
-  customHandleChange?: (value: string) => void,
+  setFieldValue?: (name: ?string, value: string) => void,
+  name?: string,
   value: string,
 };
 
@@ -20,13 +21,13 @@ export class CurrencyInput extends Component<Props, State> {
   };
 
   handleChange = (e: SyntheticEvent<HTMLInputElement>) => {
-    const { customHandleChange } = this.props;
+    const { setFieldValue, name } = this.props;
     const valueAsCurrency = toCurrency(e.currentTarget.value);
 
     this.setState({ value: valueAsCurrency });
 
-    if (customHandleChange) {
-      customHandleChange(valueAsCurrency);
+    if (setFieldValue) {
+      setFieldValue(name, valueAsCurrency);
     }
   };
 
@@ -45,8 +46,7 @@ export class CurrencyInput extends Component<Props, State> {
       <Flex>
         <DollarSignWrapper>$</DollarSignWrapper>
         <Input
-          type="text"
-          pattern="[0-9]"
+          type="number"
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
