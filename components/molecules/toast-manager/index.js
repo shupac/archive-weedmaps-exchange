@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import type { ToastAlertType } from 'lib/data-access/models/ui';
 import { Link } from 'lib/routes';
+
 import {
   NotificationDeck,
   Notification,
@@ -10,7 +11,7 @@ import {
   NotificationCloseButton,
   NotificationTitle,
   NotificationContainer,
-} from '@ghostgroup/ui';
+} from '@ghostgroup/ui.toast-notifications';
 import { NotificationList, NotificationCard, NotificationLink } from './styles';
 
 NotificationTitle.displayName = 'NotificationTitle';

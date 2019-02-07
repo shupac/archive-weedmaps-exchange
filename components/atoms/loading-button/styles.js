@@ -1,4 +1,5 @@
-import { Button, WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
+import Button from '@ghostgroup/ui.button';
 import styled from 'styled-components';
 
 const { state } = WmTheme.style;

@@ -1,4 +1,5 @@
-import { Select as SelectBase, SelectStyles, WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
+import SelectBase, { SelectStyles } from '@ghostgroup/ui.select';
 import styled from 'styled-components';
 
 const { Item, SelectButton } = SelectStyles;

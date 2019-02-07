@@ -43,23 +43,15 @@ function setup(store: any) {
 describe('ShipmentCart', () => {
   it('should render the shipment card', () => {
     const { shipmentWrapper } = setup();
-    expect(
-      shipmentWrapper
-        .find('VendorCartHeader')
-        .dive()
-        .text(),
-    ).toEqual('Shipment 1 of 3:THClear Co');
+    expect(shipmentWrapper.find('VendorCartHeader').text()).toEqual(
+      'Shipment 1 of 3:THClear Co',
+    );
   });
 
   it('should show inline error in the shipment cart', () => {
     const { shipmentWrapper } = setup();
 
-    expect(
-      shipmentWrapper
-        .find('ErrorMessage')
-        .dive()
-        .text(),
-    ).toEqual(
+    expect(shipmentWrapper.find('ErrorMessage').text()).toEqual(
       '<ErrorIcon /> THClear Co has a minimum order amount of $10,000.00.',
     );
   });
@@ -83,12 +75,7 @@ describe('ProductRow', () => {
         .last()
         .text(),
     ).toEqual('50 Units');
-    expect(
-      productRowWrapper
-        .find('RowTotal')
-        .dive()
-        .text(),
-    ).toEqual('$100,000.00');
+    expect(productRowWrapper.find('RowTotal').text()).toEqual('$100,000.00');
     expect(
       productRowWrapper.find('QuantityWrapper').props().outOfStock,
     ).toEqual(false);

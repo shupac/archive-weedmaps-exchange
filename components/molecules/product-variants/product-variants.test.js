@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 import TextInput from 'components/atoms/forms/text-input';
 import { mockVariants } from 'lib/mocks/product-details';
 import { ProductVariants } from './index';
@@ -275,7 +275,6 @@ describe('Product Variants', () => {
       expect(
         component
           .find(Stock)
-          .dive()
           .text()
           .includes('In Stock'),
       ).toEqual(true);
@@ -339,7 +338,6 @@ describe('Product Variants', () => {
       expect(
         component
           .find(Stock)
-          .dive()
           .text()
           .includes('Out of Stock'),
       ).toEqual(true);

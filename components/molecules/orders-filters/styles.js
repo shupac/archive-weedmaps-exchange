@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { ComboSelect as ComboSelectBase, WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
+import ComboSelectBase from '@ghostgroup/ui.combo-select';
 
 const FiltersRow = styled.div`
   display: grid;

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 
 type Props = {
   fill?: string,

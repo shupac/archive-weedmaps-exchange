@@ -79,7 +79,7 @@ class FilterContainer extends React.Component<Props, State> {
           maxHeight={maxHeight}
         >
           <Filters
-            innerRef={n => {
+            ref={n => {
               this.contents = n;
             }}
           >

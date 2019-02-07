@@ -100,6 +100,7 @@ class TreeFilterSection extends React.Component<Props> {
     const selectedOptions = this.getSelectedOptions();
 
     let parentCheckedState;
+    // $FlowFixMe
     const children = tree.children.map(child => {
       let checked;
       if (selectedOptions[tree.parent.id]) checked = true;

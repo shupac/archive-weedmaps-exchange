@@ -1,20 +1,9 @@
-import styled from 'styled-components';
-
 import { Cart, Papers, Gear, Info } from 'components/atoms/icons';
-
-function sizeIcon(icon) {
-  return styled(icon).attrs({
-    size: {
-      width: '18px',
-      height: '18px',
-    },
-  })``;
-}
 
 export const buyerData = [
   {
     name: 'Marketplace',
-    icon: sizeIcon(Cart),
+    icon: Cart,
     route: {
       name: 'marketplace',
       params: {
@@ -25,7 +14,7 @@ export const buyerData = [
   },
   {
     name: 'Purchase Orders',
-    icon: sizeIcon(Papers),
+    icon: Papers,
     route: {
       name: 'buyerOrders',
       path: '/buyer-orders',
@@ -36,7 +25,7 @@ export const buyerData = [
 export const sellerData = [
   {
     name: 'Purchase Orders',
-    icon: sizeIcon(Cart),
+    icon: Cart,
     route: {
       name: 'sellerOrders',
       path: '/seller-orders',
@@ -44,7 +33,7 @@ export const sellerData = [
   },
   {
     name: 'Products',
-    icon: sizeIcon(Papers),
+    icon: Papers,
     route: {
       name: 'sellerProducts',
       path: '/seller-products',
@@ -55,7 +44,7 @@ export const sellerData = [
 export const buyerFooterData = [
   {
     name: 'settings',
-    icon: sizeIcon(Gear),
+    icon: Gear,
     route: {
       name: 'settings',
       params: {
@@ -66,7 +55,7 @@ export const buyerFooterData = [
   },
   {
     name: 'help',
-    icon: sizeIcon(Info),
+    icon: Info,
     route: {
       name: 'help',
       path: '/help',
@@ -77,7 +66,7 @@ export const buyerFooterData = [
 export const sellerFooterData = [
   {
     name: 'settings',
-    icon: sizeIcon(Gear),
+    icon: Gear,
     route: {
       name: 'sellerSettings',
       params: {
@@ -88,7 +77,7 @@ export const sellerFooterData = [
   },
   {
     name: 'help',
-    icon: sizeIcon(Info),
+    icon: Info,
     route: {
       name: 'help',
       path: '/help',

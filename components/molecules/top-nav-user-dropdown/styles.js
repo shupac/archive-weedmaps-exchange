@@ -1,6 +1,8 @@
 // @flow
 import styled from 'styled-components';
-import { WmTheme, Select as SelectBase, SelectStyles } from '@ghostgroup/ui';
+// $FlowFixMe
+import SelectBase, { SelectStyles } from '@ghostgroup/ui.select';
+import WmTheme from '@ghostgroup/ui.theme';
 import { ButtonBase } from 'components/atoms/button';
 import { rem } from 'polished';
 
@@ -25,6 +27,7 @@ export const DropdownSelector = styled.div`
   align-items: center;
   padding: ${rem(8)} ${rem(16)};
 `;
+// $FlowFixMe
 DropdownSelector.displayName = 'DropdownSelector';
 
 export const UserDropdownMenu = styled.div`
@@ -39,6 +42,7 @@ export const UserDropdownMenu = styled.div`
   border-top: none;
   z-index: 3;
 `;
+// $FlowFixMe
 UserDropdownMenu.displayName = 'UserDropdownMenu';
 
 export const Username = styled.div`

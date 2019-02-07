@@ -31,13 +31,9 @@ describe('empty-state', () => {
       />,
     );
 
-    expect(
-      component
-        .dive()
-        .find(NoResultsTitle)
-        .dive()
-        .text(),
-    ).toEqual('No Products Available');
+    expect(component.find(NoResultsTitle).text()).toEqual(
+      'No Products Available',
+    );
   });
 
   it('should render a button and route', () => {
@@ -51,13 +47,9 @@ describe('empty-state', () => {
       />,
     );
 
-    expect(
-      component
-        .dive()
-        .find('BrowseProductButton')
-        .dive()
-        .text(),
-    ).toEqual('Button Label');
+    expect(component.find('BrowseProductButton').text()).toEqual(
+      'Button Label',
+    );
   });
 
   it('should render a body with instructions', () => {
@@ -69,13 +61,7 @@ describe('empty-state', () => {
       />,
     );
 
-    expect(
-      component
-        .dive()
-        .find(NoResultsInstructions)
-        .dive()
-        .text(),
-    ).toEqual(
+    expect(component.find(NoResultsInstructions).text()).toEqual(
       'There are currently no products available, please try again later.',
     );
   });

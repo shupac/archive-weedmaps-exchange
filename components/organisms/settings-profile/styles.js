@@ -1,4 +1,5 @@
-import { Select, SelectStyles, WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
+import Select, { SelectStyles } from '@ghostgroup/ui.select';
 import styled from 'styled-components';
 import theme from 'lib/styles/theme';
 import { rem } from 'polished';

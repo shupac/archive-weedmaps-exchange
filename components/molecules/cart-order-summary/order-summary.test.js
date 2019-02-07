@@ -54,7 +54,6 @@ describe('Order Summary', () => {
       component
         .find('ErrorMessage')
         .first()
-        .dive()
         .text(),
     ).toEqual(
       'Seller has a minimum order amount. Please update your cart to continue.',
@@ -63,7 +62,6 @@ describe('Order Summary', () => {
       component
         .find('ErrorMessage')
         .at(1)
-        .dive()
         .text(),
     ).toEqual(
       'Some items in your cart no longer have your quantity available. Please update your cart to continue.',
@@ -72,7 +70,6 @@ describe('Order Summary', () => {
       component
         .find('ErrorMessage')
         .at(2)
-        .dive()
         .text(),
     ).toEqual(
       'Some items in your cart are no longer in stock. Please update your cart to continue.',

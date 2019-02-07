@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
 import AuthStore from 'lib/data-access/stores/auth';
 import UiStore from 'lib/data-access/stores/ui';
-import { AppHeader } from '@ghostgroup/ui';
+import { AppHeader } from '@ghostgroup/ui.side-nav';
 import { mockWmProfile, mockWmxUser } from 'lib/mocks/user';
 import { SideNavComponent } from './page-side-nav';
 

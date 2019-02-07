@@ -2,7 +2,8 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'next/router';
 import { inject } from 'mobx-react';
-import { Tabs } from '@ghostgroup/ui';
+// $FlowFixMe
+import { Tabs } from '@ghostgroup/ui.tabs';
 import TabButton from 'components/atoms/tab-button';
 import { ButtonPrimary } from 'components/atoms/button';
 import { Link } from 'lib/routes';

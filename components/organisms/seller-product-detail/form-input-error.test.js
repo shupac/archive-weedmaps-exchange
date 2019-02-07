@@ -30,11 +30,6 @@ describe('Seller Product Details Form Input Error', () => {
       },
       name: 'name',
     });
-    expect(
-      wrapper
-        .find('ErrorMessage')
-        .dive()
-        .text(),
-    ).toEqual('Test error');
+    expect(wrapper.find('ErrorMessage').text()).toEqual('Test error');
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { CloseButton, PanelContainer } from './styles';
 import { DrawerHead, SlideInDrawer } from './';
 
@@ -14,13 +14,13 @@ describe('Slide In Drawer ', () => {
     expect(wrapper.props().children.length).toEqual(2);
   });
   it('should be visible when show prop is true ', () => {
-    const wrapper = shallow(<SlideInDrawer show />);
+    const wrapper = mount(<SlideInDrawer show />);
     const panel = wrapper.find(PanelContainer);
     expect(panel).toHaveStyleRule('width: 100%');
   });
 
   it('should be hidden when show prop is false ', () => {
-    const wrapper = shallow(<SlideInDrawer />);
+    const wrapper = mount(<SlideInDrawer />);
     const panel = wrapper.find(PanelContainer);
     expect(panel).toHaveStyleRule('width: 0%');
   });

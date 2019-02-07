@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 import { rem } from 'polished';
 import styled from 'styled-components';
 import { Flex } from '@ghostgroup/grid-styled';
@@ -11,7 +11,7 @@ import {
 
 const PLACEHOLDER = 0;
 
-const PageButton = styled.button`
+export const PageButton = styled.button`
   min-width: ${rem(32)};
   height: ${rem(32)};
   font-size: ${rem(14)};
@@ -23,6 +23,7 @@ const PageButton = styled.button`
   cursor: pointer;
   background: ${WmTheme.style.background.light};
 `;
+// $FlowFixMe
 PageButton.displayName = 'PageButton';
 
 const PlaceholderButton = styled(PageButton)`
@@ -37,6 +38,7 @@ const CurrentPageButton = styled(PageButton)`
   background-color: ${WmTheme.style.state.primary};
   cursor: default;
 `;
+// $FlowFixMe
 CurrentPageButton.displayName = 'CurrentPageButton';
 
 const ChangePageButton = styled(PageButton)`
@@ -53,11 +55,13 @@ const ChangePageButton = styled(PageButton)`
 const PreviousPageButton = styled(ChangePageButton)`
   margin: 0 ${rem(6)} 0 0;
 `;
+// $FlowFixMe
 PreviousPageButton.displayName = 'PreviousPageButton';
 
 const NextPageButton = styled(ChangePageButton)`
   margin: 0 0 0 ${rem(6)};
 `;
+// $FlowFixMe
 NextPageButton.displayName = 'NextPageButton';
 
 type Props = {

@@ -1,7 +1,7 @@
 // @flow
 import React, { type Node } from 'react';
 import styled from 'styled-components';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 import theme from 'lib/styles/theme';
 import { rem } from 'polished';
 

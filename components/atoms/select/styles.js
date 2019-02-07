@@ -2,7 +2,9 @@
 import type { ComponentType } from 'react';
 import styled, { css } from 'styled-components';
 import { rem } from 'polished';
-import { Icons, WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
+// $FlowFixMe
+import Icons from '@ghostgroup/ui.icons';
 
 const { border, text, state, background, shadow } = WmTheme.style;
 const BUTTON_HEIGHT = '40px';
@@ -22,6 +24,7 @@ export type SelectButtonTypes = {
   hasError: boolean,
 };
 
+// $FlowFixMe
 export const SelectButton = (styled.button`
   width: 100%;
   height: ${BUTTON_HEIGHT};
@@ -79,6 +82,7 @@ export type ItemTypes = {
   isSelected: boolean,
 };
 
+// $FlowFixMe
 export const Item = (styled.div`
   display: flex;
   align-items: center;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
 import { ButtonPrimary, ButtonWhiteNoHover } from 'components/atoms/button';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 import { Flex as StyledFlex } from '@ghostgroup/grid-styled';
 
 const { background, shadow, text, icon, state } = WmTheme.style;

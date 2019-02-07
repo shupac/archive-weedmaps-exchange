@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 

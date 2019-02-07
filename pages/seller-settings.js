@@ -8,7 +8,8 @@ import {
   PageLayout,
   TabContent,
 } from 'components/layouts/page-layout';
-import { Tabs } from '@ghostgroup/ui';
+// $FlowFixMe
+import { Tabs } from '@ghostgroup/ui.tabs';
 import { Link } from 'lib/routes';
 import TabButton from 'components/atoms/tab-button';
 import Subheader from 'components/atoms/subheader';

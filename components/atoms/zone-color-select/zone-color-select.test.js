@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Select from 'components/atoms/select';
 import findByTestId from 'lib/jest/find-by-test-id';
 import ColorKey from './styles';
@@ -55,7 +55,7 @@ describe('ColorSelect', () => {
   });
 
   it('should apply proper style to color keys ', () => {
-    const styledComponent = shallow(<ColorKey color="#BDE4A7" />);
+    const styledComponent = mount(<ColorKey color="#BDE4A7" />);
     expect(styledComponent).toHaveStyleRule('border: 1px solid #BDE4A7');
     expect(styledComponent).toHaveStyleRule(
       'background-color: rgba(74,144,226,0.4)',

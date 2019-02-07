@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { rem } from 'polished';
-import { WmTheme, Select } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
+import Select from '@ghostgroup/ui.select';
 import { Form } from 'formik';
 import { ButtonPrimary } from 'components/atoms/button';
 

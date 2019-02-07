@@ -4,10 +4,13 @@
 .*/node_modules/graphql/.*
 .*/node_modules/@mapbox/.*
 .*/node_modules/danger/.*
-.*/node_modules/@ghostgroup/.*
 .*/build/.*
 .*/__mocks__/.*
 .*/node_modules/mapbox-gl/.*
+
+[untyped]
+.*/node_modules/@ghostgroup/ui.icons/.*
+.*/node_modules/@ghostgroup/ui.toast-notifications/.*
 
 [include]
 

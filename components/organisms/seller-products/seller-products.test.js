@@ -1,7 +1,7 @@
 // @flow
 import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
-import { ToggleSwitch } from '@ghostgroup/ui';
+import ToggleSwitch from '@ghostgroup/ui.toggle';
 import SellerSettingsStore from 'lib/data-access/stores/seller-settings';
 import SellerProductsStore from 'lib/data-access/stores/seller-products';
 import AuthStore from 'lib/data-access/stores/auth';

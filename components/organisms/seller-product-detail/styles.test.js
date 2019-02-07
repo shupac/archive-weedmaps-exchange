@@ -1,5 +1,5 @@
-import { shallow } from 'enzyme';
-import { WmTheme } from '@ghostgroup/ui';
+import { shallow, mount } from 'enzyme';
+import WmTheme from '@ghostgroup/ui.theme';
 
 import { FormInput, StyledSelect } from './styles';
 
@@ -12,7 +12,7 @@ describe('FormInput component styles', () => {
   });
 
   it('should show red border when error is true', () => {
-    const wrapper = shallow(<FormInput error />);
+    const wrapper = mount(<FormInput error />);
     expect(wrapper.find('input')).toHaveStyleRule(
       'border',
       `1px solid ${danger}`,

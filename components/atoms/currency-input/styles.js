@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 import { StyledInput } from 'components/atoms/forms/styles.js';
 
 const { background, state } = WmTheme.style;

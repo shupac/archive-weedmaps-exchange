@@ -75,18 +75,17 @@ describe('Paging Controls', () => {
 
   it('should call onSelectPage when clicking on a page number', () => {
     const onSelectPage = jest.fn();
-    const wrapper = mount(
+    const wrapper = shallow(
       <PagingControls
         pageCount={4}
         currentPage={3}
         onSelectPage={onSelectPage}
       />,
     );
-    wrapper
-      .find('PageButton')
-      .at(4)
-      .simulate('click');
-    expect(onSelectPage).toHaveBeenCalledWith(4);
+    const pageButton = wrapper.find('PageButton').first();
+
+    pageButton.simulate('click');
+    expect(onSelectPage).toHaveBeenCalledWith(1);
   });
 
   it('should call onSelectPage when clicking previous page button', () => {

@@ -37,6 +37,7 @@ export const NotificationCount = styled.div`
   min-width: 20px;
   text-align: center;
 `;
+// $FlowFixMe
 NotificationCount.displayName = 'NotificationCount';
 
 export const NotificationWrapper = styled.div`
@@ -47,6 +48,7 @@ export const NotificationWrapper = styled.div`
   top: -10px;
   left: 15px;
 `;
+// $FlowFixMe
 NotificationWrapper.displayName = 'NotificationWrapper';
 
 const Notification = ({ store }: { store: StoreType }) => (

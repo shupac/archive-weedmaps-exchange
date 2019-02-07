@@ -407,6 +407,7 @@ export class ZoneEditor extends React.Component<Props> {
           </CSSTransition>
         </ActionContainer>
         <MapContainer flex={[2.15]}>
+          {/* // $FlowFixMe */}
           <FullWidthMap fit={!this.boundsBroken} onMoveEnd={this.onMapMove}>
             {!this.loading && this.geoJsonLayers()}
           </FullWidthMap>

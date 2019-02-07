@@ -1,23 +1,17 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Tooltip from './';
 import { TooltipStyle, SpeechBubble } from './styles';
 
 describe('Tooltip', () => {
   it('should render tooltip', () => {
-    const component = shallow(<Tooltip message="tooltip">Hello</Tooltip>);
+    const component = mount(<Tooltip message="tooltip">Hello</Tooltip>);
     component.setState({ hover: true });
     expect(component.find(TooltipStyle).exists()).toEqual(true);
-    expect(
-      component
-        .find(SpeechBubble)
-        .dive()
-        .text(),
-    ).toEqual('tooltip');
-    expect(component.find(TooltipStyle).dive()).toHaveStyleRule(
-      'display: block',
-    );
+    expect(component.find(SpeechBubble).text()).toEqual('tooltip');
+    expect(component.find(TooltipStyle)).toHaveStyleRule('display: block');
   });
+
   it('should handle onMouseOver', () => {
     const component = shallow(<Tooltip message="tooltip">Hello</Tooltip>);
     const instance = component.instance();
@@ -25,6 +19,7 @@ describe('Tooltip', () => {
     instance.onMouseOver();
     expect(setState).toHaveBeenCalledWith({ hover: true });
   });
+
   it('should handle onMouseOut', () => {
     const component = shallow(<Tooltip message="tooltip">Hello</Tooltip>);
     const instance = component.instance();

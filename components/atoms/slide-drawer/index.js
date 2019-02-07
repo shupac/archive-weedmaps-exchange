@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
-import { Icons } from '@ghostgroup/ui';
+// $FlowFixMe
+import Icons from '@ghostgroup/ui.icons';
 import { PanelContainer, ToggleRow, CloseButton } from './styles';
 
 type DrawerProps = {

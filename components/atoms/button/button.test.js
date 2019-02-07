@@ -1,17 +1,17 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 import Button, { ButtonGradient, ButtonPrimary, ButtonWhite } from './';
 
 describe('button', () => {
   it('It renders with no props', () => {
-    const tree = shallow(<Button> Edit </Button>);
-    expect(tree.find('button')).toHaveLength(1);
+    const button = shallow(<Button> Edit </Button>);
+    expect(button.exists()).toEqual(true);
   });
 
   it('It renders width and height props', () => {
-    const tree = shallow(
+    const tree = mount(
       <Button w={40} h={40}>
         Default Button
       </Button>,
@@ -21,23 +21,17 @@ describe('button', () => {
   });
 
   it('It renders a button with primary styles', () => {
-    const tree = shallow(<ButtonPrimary>Primary Button</ButtonPrimary>).dive();
-    expect(tree.find('button')).toHaveStyleRule(
-      'background',
-      theme.style.state.primary,
-    );
+    const button = mount(<ButtonPrimary>Primary Button</ButtonPrimary>);
+    expect(button).toHaveStyleRule('background', theme.style.state.primary);
   });
 
   it('It renders a button with gradient style', () => {
-    const tree = shallow(<ButtonGradient>Gradient Button</ButtonGradient>);
-    expect(tree.find('button')).toHaveStyleRule('border', '1px solid #CBD1E0');
+    const button = mount(<ButtonGradient>Gradient Button</ButtonGradient>);
+    expect(button).toHaveStyleRule('border', '1px solid #CBD1E0');
   });
 
   it('It renders a button with white styles', () => {
-    const tree = shallow(<ButtonWhite>White Button</ButtonWhite>).dive();
-    expect(tree.find('button')).toHaveStyleRule(
-      'background',
-      theme.style.state.secondary,
-    );
+    const button = mount(<ButtonWhite>White Button</ButtonWhite>);
+    expect(button).toHaveStyleRule('background', theme.style.state.secondary);
   });
 });

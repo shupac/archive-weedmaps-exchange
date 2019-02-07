@@ -6,6 +6,7 @@ import { Provider } from 'mobx-react';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 import * as React from 'react';
 import PageProgressBar from 'components/atoms/nprogress-bar';
+import GlobalStyle from 'lib/styles/global';
 import { type NextContext, type NextComponentType } from 'lib/next/types';
 import logger from 'lib/common/logger';
 import { createRootStore } from 'lib/data-access/stores';
@@ -33,6 +34,7 @@ function createSdk(req, res) {
     storage: req
       ? new ExpressTokenStorage({
           req,
+          // $FlowFixMe
           res,
           ...COOKIE_CONFIG,
         })
@@ -193,6 +195,7 @@ export default class ExchangeApp extends App {
         <Head>
           <title>Weedmaps Exchange</title>
         </Head>
+        <GlobalStyle />
         <Provider store={this.store}>
           <Component {...pageProps} />
         </Provider>

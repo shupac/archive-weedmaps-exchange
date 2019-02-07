@@ -1,7 +1,7 @@
 // @flow
 import styled from 'styled-components';
 import { rem } from 'polished';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 
 const { danger } = WmTheme.style.state;
 
@@ -12,7 +12,7 @@ const ErrorMessage = styled.div`
   margin-bottom: 16px;
   color: ${danger};
 `;
-
+// $FlowFixMe
 ErrorMessage.displayName = 'ErrorMessage';
 
 type Props = {

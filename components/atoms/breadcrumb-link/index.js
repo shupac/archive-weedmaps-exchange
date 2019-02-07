@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ChevronRight } from 'components/atoms/icons/chevron';
 import styled from 'styled-components';
 import { rem, darken } from 'polished';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 
 const { state } = WmTheme.style;
 
@@ -23,7 +23,7 @@ const ActiveLink = styled.span`
     margin: 0 8px;
   }
 `;
-
+// $FlowFixMe
 ActiveLink.displayName = 'ActiveLink';
 
 type Props = {

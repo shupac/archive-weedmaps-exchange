@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
-import { Icons } from '@ghostgroup/ui';
+// $FlowFixMe
+import Icons from '@ghostgroup/ui.icons';
 
 import {
   Wrapper,
@@ -77,11 +78,13 @@ class CatalogCarousel extends React.Component<Props, State> {
 
     let offset = 0;
     for (let i = 0; i < index; i += 1) {
+      // $FlowFixMe
       offset += this.cardRefs[i].clientWidth;
     }
 
     const maxOffset = Math.max(
       0,
+      // $FlowFixMe
       this.content.clientWidth - this.wrapper.clientWidth,
     );
 
@@ -103,7 +106,7 @@ class CatalogCarousel extends React.Component<Props, State> {
         // eslint-disable-next-line
         key={i}
         margin={cardMargin}
-        innerRef={n => {
+        ref={n => {
           this.cardRefs[i] = n;
         }}
       >
@@ -136,12 +139,12 @@ class CatalogCarousel extends React.Component<Props, State> {
         </Header>
 
         <ContentWrapper
-          innerRef={n => {
+          ref={n => {
             this.wrapper = n;
           }}
         >
           <Content
-            innerRef={n => {
+            ref={n => {
               this.content = n;
             }}
             style={{ left: -scrollLeft }}

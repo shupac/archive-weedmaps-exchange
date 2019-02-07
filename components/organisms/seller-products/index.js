@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import { reaction } from 'mobx';
 import { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
-import { ToggleSwitch } from '@ghostgroup/ui';
+import ToggleSwitch from '@ghostgroup/ui.toggle';
 import { Link, Router } from 'lib/routes';
 import { type RouterType } from 'lib/types/router';
 import { type StoreType } from 'lib/types/store';
@@ -355,10 +355,12 @@ export class SellerProducts extends Component<Props, State> {
           <TableCell>{zoneCount || <NoValue>{zoneCount}</NoValue>}</TableCell>
 
           <TableCell>
+            {/* // $FlowFixMe */}
             <ToggleSwitch
               checked={active}
               onChange={() => this.setActive(sellerProduct, !active)}
               disabled={!quantity}
+              hideLabel
             />
           </TableCell>
         </Fragment>

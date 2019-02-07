@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { rem, transparentize } from 'polished';
-import { WmTheme, Button } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
+import Button from '@ghostgroup/ui.button';
 
 const { background, icon, state, text, border } = WmTheme.style;
 

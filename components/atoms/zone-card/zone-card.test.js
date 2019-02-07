@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import zones from 'lib/mocks/zones';
 import ContextMenu from 'components/molecules/context-menu';
 import ZoneCard from './';
@@ -31,7 +31,7 @@ describe('Zone Card', () => {
   });
 
   it('should render the correct color key style', () => {
-    const { component } = setup();
+    const component = mount(<ZoneCard zone={zones[2]} />);
     const colorKey = component.find('[data-test-id="zone-card-color"]');
     expect(colorKey).toHaveStyleRule('background-color: #4A90E2');
   });

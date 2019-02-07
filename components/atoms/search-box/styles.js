@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
-import { Icons, WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
+import Icons from '@ghostgroup/ui.icons';
 import React from 'react';
 
 const { text, border, icon, state } = WmTheme.style;

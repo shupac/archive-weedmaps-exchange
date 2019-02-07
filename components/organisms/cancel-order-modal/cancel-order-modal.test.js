@@ -72,12 +72,7 @@ describe('Cancel Order Modal', () => {
   it('should show error text if form is not cancelable', () => {
     const { wrapper } = setup(mockPurchaseOrders[1]);
 
-    expect(
-      wrapper
-        .find('ErrorText')
-        .dive()
-        .text(),
-    ).toEqual(
+    expect(wrapper.find('ErrorText').text()).toEqual(
       'You may no longer cancel this order because the seller has marked the status as canceled.',
     );
   });

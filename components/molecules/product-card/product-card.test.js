@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Card } from '@ghostgroup/ui';
+import { mount } from 'enzyme';
+import Card from '@ghostgroup/ui.card';
 import { mockProducts } from 'lib/mocks/product-card';
 import {
   CardWrapper,
@@ -52,7 +52,7 @@ describe('Get Unit', () => {
 describe('Product Card', () => {
   describe('With One Price Set', () => {
     it('should render the product card', () => {
-      const component = shallow(
+      const component = mount(
         <ProductCard {...mockProducts[0]} onClick={jest.fn()} width="200px" />,
       );
       expect(component.find(CardWrapper).exists()).toEqual(true);
@@ -61,27 +61,19 @@ describe('Product Card', () => {
       expect(component.find(Row).length).toEqual(2);
       expect(component.find(Price).exists()).toEqual(true);
       expect(component.find(PriceUnit).exists()).toEqual(true);
-      const card = component
-        .find(CardWrapper)
-        .dive()
-        .find(Card)
-        .dive();
+      const card = component.find(CardWrapper).find(Card);
       expect(card).toHaveStyleRule('width: 200px');
       expect(card).toHaveStyleRule('cursor: pointer');
-      const noWidth = shallow(<ProductCard {...mockProducts[0]} />)
+      const noWidth = mount(<ProductCard {...mockProducts[0]} />)
         .find(CardWrapper)
-        .dive()
-        .find(Card)
-        .dive();
+        .find(Card);
       expect(noWidth).toHaveStyleRule('width: 217px');
       expect(noWidth).toHaveStyleRule('cursor: default');
-      expect(component.find(Product).dive()).toHaveStyleRule('opacity: 1');
+      expect(component.find(Product)).toHaveStyleRule('opacity: 1');
     });
 
     it('should render out of stock products', () => {
-      const component = shallow(
-        <ProductCard {...mockProducts[0]} outOfStock />,
-      );
+      const component = mount(<ProductCard {...mockProducts[0]} outOfStock />);
       expect(component.find(CardWrapper).exists()).toEqual(true);
       expect(component.find(Grouped).exists()).toEqual(true);
       expect(component.find(Name).exists()).toEqual(true);
@@ -89,7 +81,7 @@ describe('Product Card', () => {
       expect(component.find(Row).exists()).toEqual(true);
       expect(component.find(Price).exists()).toEqual(true);
       expect(component.find(OutOfStock).exists()).toEqual(true);
-      expect(component.find(Product).dive()).toHaveStyleRule('opacity: 0.4');
+      expect(component.find(Product)).toHaveStyleRule('opacity: 0.4');
     });
   });
 });

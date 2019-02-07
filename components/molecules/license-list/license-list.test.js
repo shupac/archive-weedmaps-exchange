@@ -23,7 +23,6 @@ describe('License List', () => {
         .find(LicenseItem)
         .dive()
         .find(LicenseType)
-        .dive()
         .text(),
     ).toEqual('Sales: ');
     expect(
@@ -31,7 +30,6 @@ describe('License List', () => {
         .find(LicenseItem)
         .dive()
         .find(LicenseNumber)
-        .dive()
         .text(),
     ).toEqual('420710');
   });

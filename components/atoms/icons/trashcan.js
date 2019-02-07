@@ -1,5 +1,5 @@
 import React from 'react';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 import { shape, string } from 'prop-types';
 import IconWrapper from './icon-wrapper.styled';
 

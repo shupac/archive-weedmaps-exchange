@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const Info = ({
-  size = { width: '16px', height: '16px' },
+  size = { width: '18px', height: '18px' },
   fill = themeDefault.style.icon.light,
 }: Props) => (
   <svg {...size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

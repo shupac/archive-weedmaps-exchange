@@ -207,12 +207,9 @@ describe('Price Range Filter', () => {
         .props().hasError,
     ).toEqual(true);
 
-    expect(
-      wrapper
-        .find('ErrorMessage')
-        .dive()
-        .text(),
-    ).toEqual('Min Price must be lower than Max Price');
+    expect(wrapper.find('ErrorMessage').text()).toEqual(
+      'Min Price must be lower than Max Price',
+    );
   });
 
   it('should display error for invalid prices', () => {

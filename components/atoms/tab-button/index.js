@@ -1,4 +1,5 @@
-import { Tab, WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
+import { Tab } from '@ghostgroup/ui.tabs';
 import styled from 'styled-components';
 import { rem } from 'polished';
 

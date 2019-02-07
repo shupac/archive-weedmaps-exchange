@@ -1,6 +1,6 @@
 // @flow
 import React, { Fragment } from 'react';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 import Spinner from 'components/atoms/icons/spinner';
 import ButtonLoadingProgress from 'components/atoms/loading-button/styles';
 

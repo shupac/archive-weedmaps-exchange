@@ -2,7 +2,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 
 const A = styled.a`
   display: block;

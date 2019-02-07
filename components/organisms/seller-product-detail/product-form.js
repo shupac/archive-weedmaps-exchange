@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { ToggleSwitch } from '@ghostgroup/ui';
+import ToggleSwitch from '@ghostgroup/ui.toggle';
 import { Router } from 'lib/routes';
 import get from 'lodash.get';
 import LoadingButton from 'components/atoms/loading-button';
@@ -184,7 +184,9 @@ class ProductForm extends Component<Props, State> {
                 </p>
                 <div>
                   Publish Product
+                  {/* // $FlowFixMe */}
                   <ToggleSwitch
+                    hideLabel
                     checked={values.active}
                     onChange={event => {
                       event.target = {
@@ -229,7 +231,7 @@ class ProductForm extends Component<Props, State> {
     const { push, replace, remove } = arrayHelpers;
 
     this.addVariant = () => push(new Variant());
-
+    // $FlowFixMe
     return variants.map((variant, i) => (
       <VariantCard
         key={variant.id}

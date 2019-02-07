@@ -50,6 +50,7 @@ export class LocationSelector extends Component<Props> {
    * @returns {{text: LocationType.name, value: LocationType.id}[]}
    */
   setLocationOptions = (locations: LocationType[]) =>
+    // $FlowFixMe
     locations.map(({ name, id }) => ({
       text: name,
       value: id,

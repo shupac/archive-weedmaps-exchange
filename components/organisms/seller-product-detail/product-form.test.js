@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
 import findByTestId from 'lib/jest/find-by-test-id';
-import { ToggleSwitch } from '@ghostgroup/ui';
+import ToggleSwitch from '@ghostgroup/ui.toggle';
 import mockProductDetails from 'mocks/seller-product-details';
 import mockZones from 'mocks/zones';
 

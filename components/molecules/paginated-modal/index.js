@@ -3,7 +3,8 @@ import { Component, type Node } from 'react';
 import { type StoreType } from 'lib/types/store';
 import { inject, observer } from 'mobx-react';
 import Modal from 'components/atoms/modal';
-import { Icons } from '@ghostgroup/ui';
+// $FlowFixMe
+import Icons from '@ghostgroup/ui.icons';
 import theme from 'lib/styles/theme';
 import { ContentWrapper, PagingWrapper } from './styles';
 

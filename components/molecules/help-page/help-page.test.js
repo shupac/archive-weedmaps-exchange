@@ -13,20 +13,12 @@ describe('HelpPage', () => {
   it('should render the component', () => {
     const { wrapper } = setup();
 
-    expect(
-      wrapper
-        .find('[data-test-id="help-title"]')
-        .dive()
-        .text(),
-    ).toEqual('Help');
+    expect(wrapper.find('[data-test-id="help-title"]').text()).toEqual('Help');
     expect(wrapper.find('[data-test-id="contact-phone"]').text()).toEqual(
       '1-844-WEEDMAPS (933-3627)',
     );
-    expect(
-      wrapper
-        .find('[data-test-id="contact-email"]')
-        .dive()
-        .text(),
-    ).toEqual('customerservice@weedmaps.com');
+    expect(wrapper.find('[data-test-id="contact-email"]').text()).toEqual(
+      'customerservice@weedmaps.com',
+    );
   });
 });

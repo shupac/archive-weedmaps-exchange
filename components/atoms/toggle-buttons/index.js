@@ -1,5 +1,5 @@
 import React, { type Node } from 'react';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 import styled from 'styled-components';
 import { ButtonBase } from 'components/atoms/button';
 

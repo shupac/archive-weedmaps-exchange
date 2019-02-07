@@ -3,7 +3,7 @@ import { rem } from 'polished';
 import { color } from 'lib/styles/theme-getters';
 import theme from 'lib/styles/theme';
 import styled, { css } from 'styled-components';
-import { Button as uiButton } from '@ghostgroup/ui';
+import uiButton from '@ghostgroup/ui.button';
 /* eslint-disable no-unused-vars */
 export const ButtonBase = css`
   cursor: pointer;

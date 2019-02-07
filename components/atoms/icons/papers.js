@@ -40,7 +40,7 @@ Papers.propTypes = {
 
 Papers.defaultProps = {
   className: '',
-  size: { width: '14px', height: '16px' },
+  size: { width: '18px', height: '18px' },
   fill: themeDefault.colors.teal,
 };
 

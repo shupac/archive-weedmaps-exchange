@@ -77,6 +77,7 @@ class CartConfirmation extends Component<Props> {
   }
 
   renderPurchaseOrders = (purchaseOrders: PurchaseOrderType[]) =>
+    // $FlowFixMe
     purchaseOrders.map((po, index) => {
       const { id, sellerData } = po;
       const {

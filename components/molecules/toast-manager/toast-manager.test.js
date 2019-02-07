@@ -24,14 +24,12 @@ describe('Toast Manager', () => {
       component
         .find('NotificationTitle')
         .first()
-        .dive()
         .text(),
     ).toEqual('toast title');
     expect(
       component
         .find('NotificationMessage')
         .first()
-        .dive()
         .text(),
     ).toEqual('toast body');
   });
@@ -49,21 +47,18 @@ describe('Toast Manager', () => {
       component
         .find('NotificationTitle')
         .first()
-        .dive()
         .text(),
     ).toEqual('toast title with link');
     expect(
       component
         .find('NotificationMessage')
         .first()
-        .dive()
         .text(),
     ).toEqual('toast body with link');
     expect(
       component
         .find('NotificationLink')
         .first()
-        .dive()
         .text(),
     ).toEqual('link label');
   });

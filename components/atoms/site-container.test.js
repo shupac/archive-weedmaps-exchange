@@ -1,10 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import SiteWrapper from './site-container';
 
 describe('Site Wrapper', () => {
   it('should have the Site Wrapper styling', () => {
-    const component = shallow(<SiteWrapper />);
+    const component = mount(<SiteWrapper />);
     expect(component).toHaveStyleRule('width: 100%');
   });
 });

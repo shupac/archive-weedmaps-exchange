@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Notification, { NotificationWrapper, NotificationCount } from './';
 
 function setup() {
@@ -17,22 +17,14 @@ describe('Top Nav Notification', () => {
     const tree = shallow(<Notification store={mockStore} />);
     expect(tree.exists()).toEqual(true);
   });
+
   it('Notification with count', () => {
     const { mockStore } = setup();
-    const tree = shallow(<Notification store={mockStore} />).dive();
+    const tree = mount(<Notification store={mockStore} />);
     expect(tree.exists()).toEqual(true);
-    expect(
-      tree
-        .dive()
-        .find(NotificationCount)
-        .dive()
-        .text(),
-    ).toEqual('2');
-    expect(
-      tree
-        .dive()
-        .find(NotificationWrapper)
-        .dive(),
-    ).toHaveStyleRule('transform: scale(1)');
+    expect(tree.find(NotificationCount).text()).toEqual('2');
+    expect(tree.find(NotificationWrapper)).toHaveStyleRule(
+      'transform: scale(1)',
+    );
   });
 });

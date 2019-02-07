@@ -49,28 +49,24 @@ describe('Seller Details Modal', () => {
       wrapper
         .find('DetailDescription')
         .first()
-        .dive()
         .text(),
     ).toEqual('West Coast Cure');
     expect(
       wrapper
         .find('DetailDescription')
         .at(1)
-        .dive()
         .text(),
     ).toEqual('(111) 222-3333');
     expect(
       wrapper
         .find('DetailDescription')
         .at(2)
-        .dive()
         .text(),
     ).toEqual('test@test.com');
     expect(
       wrapper
         .find('DetailDescription')
         .last()
-        .dive()
         .text(),
     ).toEqual('N/A');
   });

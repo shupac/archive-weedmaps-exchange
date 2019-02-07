@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Tab } from '@ghostgroup/ui';
+import { mount } from 'enzyme';
+import { Tab } from '@ghostgroup/ui.tabs';
 import TabButton from './';
 
 describe('Tab Button', () => {
   it('should render Tab Button', () => {
-    const component = shallow(<TabButton />);
-    expect(component.find(Tab).dive()).toHaveStyleRule('padding: 16px');
+    const component = mount(<TabButton />);
+    expect(component.find(Tab)).toHaveStyleRule('padding: 16px');
   });
 });

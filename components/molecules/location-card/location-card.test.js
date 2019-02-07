@@ -1,6 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { ButtonWhiteNoHover } from 'components/atoms/button';
+import { shallow, mount } from 'enzyme';
 import Shiitake from 'shiitake';
 import LocationCard from './index';
 import { LocationCardInstructions, LocationCardButton } from './styles';
@@ -42,7 +41,7 @@ describe('Location Card', () => {
     ).toContain('Knock twice, stand on one foot, say the alphabet backwards');
   });
   it('should render out the Location Card with No Delivery Instructions', () => {
-    const component = shallow(
+    const component = mount(
       <LocationCard
         locationTitle={mockLocationCardData.data.locationTitle}
         locationAddress={mockLocationCardData.data.locationAddress}
@@ -52,18 +51,9 @@ describe('Location Card', () => {
     expect(
       component
         .find(LocationCardInstructions)
-        .children()
         .find(Shiitake)
-        .dive()
         .text(),
     ).toContain('N/A');
-    expect(
-      component
-        .find(LocationCardButton)
-        .dive()
-        .find(ButtonWhiteNoHover)
-        .dive(),
-    ).toHaveStyleRule('width : 100%');
   });
   it('should handle the handleDelete method', () => {
     const props = {

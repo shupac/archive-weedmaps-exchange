@@ -2,7 +2,10 @@
 // @flow
 
 import React from 'react';
-import { Tabs, Icons } from '@ghostgroup/ui';
+// $FlowFixMe
+import Icons from '@ghostgroup/ui.icons';
+// $FlowFixMe
+import { Tabs } from '@ghostgroup/ui.tabs';
 import {
   AddBusinessButton,
   ListingHeadersTabsWrapper,

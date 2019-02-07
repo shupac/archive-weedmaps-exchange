@@ -231,6 +231,7 @@ exports[`Seller Products Page should show pagination 1`] = `
           <ToggleSwitch
             checked={false}
             disabled={false}
+            hideLabel={true}
             onChange={[Function]}
           />
         </styles__TableCell>
@@ -264,6 +265,7 @@ exports[`Seller Products Page should show pagination 1`] = `
           <ToggleSwitch
             checked={false}
             disabled={false}
+            hideLabel={true}
             onChange={[Function]}
           />
         </styles__TableCell>
@@ -299,6 +301,7 @@ exports[`Seller Products Page should show pagination 1`] = `
           <ToggleSwitch
             checked={true}
             disabled={true}
+            hideLabel={true}
             onChange={[Function]}
           />
         </styles__TableCell>

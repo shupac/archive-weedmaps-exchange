@@ -328,12 +328,9 @@ describe('Marketplace Catalog', () => {
     const instance = wrapper.instance();
     instance.componentDidMount();
 
-    expect(
-      wrapper
-        .find(Pagination)
-        .dive()
-        .text(),
-    ).toEqual('Showing 1-3 of 3 Products');
+    expect(wrapper.find(Pagination).text()).toEqual(
+      'Showing 1-3 of 3 Products',
+    );
   });
 
   it('should display the product count for only one product on page', () => {
@@ -354,12 +351,9 @@ describe('Marketplace Catalog', () => {
     const instance = wrapper.instance();
     instance.componentDidMount();
 
-    expect(
-      wrapper
-        .find(Pagination)
-        .dive()
-        .text(),
-    ).toEqual('Showing 9 of 9 Products<PagingControls />');
+    expect(wrapper.find(Pagination).text()).toEqual(
+      'Showing 9 of 9 Products<PagingControls />',
+    );
   });
 
   it('should reset store on unmount', () => {

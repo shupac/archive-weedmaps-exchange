@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
-import { Card } from '@ghostgroup/ui';
+import Card from '@ghostgroup/ui.card';
 
 const textNormal = theme.style.text.normal;
 const textGray = theme.palette.darkGrey1;

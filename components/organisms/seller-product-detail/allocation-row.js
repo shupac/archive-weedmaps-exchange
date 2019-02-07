@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import { ToggleSwitch } from '@ghostgroup/ui';
+// $FlowFixMe
+import ToggleSwitch from '@ghostgroup/ui.toggle';
 import set from 'lodash.set';
 import { stripNonNumbers, formatCurrency } from 'lib/common/strings';
 import Trashcan from 'components/atoms/icons/trashcan';
@@ -124,10 +125,12 @@ class AllocationRow extends Component<Props> {
           })}
         </TotalValue>
         <ToggleWrapper>
+          {/* // $FlowFixMe */}
           <ToggleSwitch
             name={this.getNamePath([index, 'active'])}
             checked={active}
             onChange={() => onUpdate({ active: !active })}
+            hideLabel
           />
         </ToggleWrapper>
         <TrashWrapper onClick={onDelete}>

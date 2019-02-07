@@ -2,7 +2,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from 'lib/styles/theme';
-import { Icons } from '@ghostgroup/ui';
+// $FlowFixMe
+import Icons from '@ghostgroup/ui.icons';
 
 const { icon } = theme.style;
 

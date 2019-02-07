@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { rem } from 'polished';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 import Theme from 'lib/styles/theme';
 
 const { background, text, border, shadow, icon } = WmTheme.style;

@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable react/jsx-closing-bracket-location */
 import React from 'react';
-import { WmTheme } from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
 
 const { icon } = WmTheme.style;
 

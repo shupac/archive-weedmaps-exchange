@@ -34,10 +34,7 @@ export const SuggestionList = styled.ul`
   padding-left: 0;
 `;
 
-export const AddressSuggestionInput = styled.input.attrs({
-  className: 'addressSuggestion',
-  autoComplete: 'off',
-})`
+export const AddressSuggestionInput = styled.input`
   border: 1px solid
     ${({ error }) =>
       error ? `${theme.colors.red}` : `${theme.colors.blueHaze}`};

@@ -1,4 +1,4 @@
-import { Select, SelectStyles } from '@ghostgroup/ui';
+import Select, { SelectStyles } from '@ghostgroup/ui.select';
 import { ButtonWhite } from 'components/atoms/button';
 import styled from 'styled-components';
 import theme from 'lib/styles/theme';

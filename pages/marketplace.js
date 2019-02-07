@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import { inject } from 'mobx-react';
 import AuthConnector from 'components/containers/auth-connector';
-import { Tabs } from '@ghostgroup/ui';
+// $FlowFixMe
+import { Tabs } from '@ghostgroup/ui.tabs';
 import { Link } from 'lib/routes';
 import {
   PageContent,

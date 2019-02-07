@@ -5,8 +5,11 @@ import { withRouter } from 'next/router';
 import { type StoreType } from 'lib/types/store';
 import styled from 'styled-components';
 
-// UI Components
-import { SideNav, SideNavLayout, SideNavLink, AppHeader } from '@ghostgroup/ui';
+import SideNav, {
+  SideNavLayout,
+  SideNavLink,
+  AppHeader,
+} from '@ghostgroup/ui.side-nav';
 
 // Component Data
 import {

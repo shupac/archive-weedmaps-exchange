@@ -99,6 +99,7 @@ export class ProductVariants extends Component<Props, State> {
     const stripped = entries.filter(
       item => variantIds.has(item[0]) && typeof item[1] === 'number',
     );
+    // $FlowFixMe
     return stripped.map(item => ({
       variant_id: item[0],
       quantity: item[1],

@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
-import {
-  NotificationCard as NotificationCardBase,
-  WmTheme,
-} from '@ghostgroup/ui';
+import WmTheme from '@ghostgroup/ui.theme';
+import { NotificationCard as NotificationCardBase } from '@ghostgroup/ui.toast-notifications';
 
 const { state } = WmTheme.style;
 
