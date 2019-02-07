@@ -9,7 +9,7 @@ export const NoResults = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 80px;
+  margin: 80px 0;
   width: 100%;
   grid-column: 1/-1;
   text-align: center;
