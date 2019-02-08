@@ -10,9 +10,13 @@ function setup() {
     sellerPhone,
     sellerEmail,
     sellerLicenses,
+    brandName,
+    sellerContactName,
   } = mockPurchaseOrder.sellerData;
   const modalComponent = (
     <SellerDetailsModal
+      brandName={brandName}
+      sellerContactName={sellerContactName}
       sellerName={sellerName}
       sellerPhone={sellerPhone}
       sellerEmail={sellerEmail}
@@ -48,9 +52,15 @@ describe('Seller Details Modal', () => {
     expect(
       wrapper
         .find('DetailDescription')
-        .at(1)
+        .first()
         .text(),
     ).toEqual('West Coast Cure');
+    expect(
+      wrapper
+        .find('DetailDescription')
+        .at(1)
+        .text(),
+    ).toEqual('Test Name');
     expect(
       wrapper
         .find('DetailDescription')

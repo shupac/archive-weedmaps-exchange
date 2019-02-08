@@ -16,7 +16,7 @@ type Props = {
   buyerLicenses: string,
   buyerDeliveryInstructions: string,
   buyerAddress: string,
-  buyerLocationName: string,
+  buyerContactName?: string,
   buyerLicenses: LicenseType[],
 };
 
@@ -27,18 +27,18 @@ const BuyerDetailsModal = ({
   buyerLicenses,
   buyerDeliveryInstructions,
   buyerAddress,
-  buyerLocationName,
+  buyerContactName,
 }: Props) => (
   <Modal header="Buyer Details">
     <SellerDetailsWrapper>
       <DetailsTitle>Buyer Name</DetailsTitle>
-      <DetailDescription>{buyerLocationName}</DetailDescription>
+      <DetailDescription>{buyerName}</DetailDescription>
       <DetailsTitle>Shipping Address</DetailsTitle>
       <DetailDescription>{buyerAddress}</DetailDescription>
       <DetailsTitle>Delivery Instructions</DetailsTitle>
       <DetailDescription>{buyerDeliveryInstructions}</DetailDescription>
       <DetailsTitle>Contact Name</DetailsTitle>
-      <DetailDescription>{buyerName}</DetailDescription>
+      <DetailDescription>{buyerContactName || 'N/A'}</DetailDescription>
       <DetailsTitle>Contact Phone</DetailsTitle>
       {buyerPhone ? (
         <DetailDescription>

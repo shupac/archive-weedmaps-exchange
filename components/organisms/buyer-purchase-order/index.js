@@ -94,11 +94,11 @@ class BuyerPurchaseOrder extends Component<Props> {
     )}`;
 
     const {
-      sellerName,
       sellerEmail,
       sellerPhone,
       sellerLicenses,
       brandName,
+      sellerContactName,
     } = sellerData;
 
     const { cancelable } = STATUS_TYPES[status];
@@ -145,12 +145,12 @@ class BuyerPurchaseOrder extends Component<Props> {
                       store.uiStore.openModal('sellerDetailsModal')
                     }
                   >
-                    {sellerName}
+                    {brandName}
                   </StyledSellerName>
                   {store.uiStore.activeModal === 'sellerDetailsModal' && (
                     <SellerDetailsModal
                       brandName={brandName}
-                      sellerName={sellerName}
+                      sellerContactName={sellerContactName}
                       sellerEmail={sellerEmail}
                       sellerPhone={sellerPhone}
                       sellerLicenses={sellerLicenses}

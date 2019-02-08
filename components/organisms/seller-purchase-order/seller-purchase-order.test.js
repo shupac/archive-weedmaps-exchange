@@ -125,7 +125,7 @@ describe('Buyer Detail Modal', () => {
       buyerLicenses: [],
       buyerDeliveryInstructions: 'Knock on the door',
       buyerAddress: '123 Irvine',
-      buyerLocationName: 'weedmaps',
+      buyerContactName: 'weedmaps',
     };
     const modalComponent = <BuyerDetailModal {...modalProps} />;
     const modalWrapper = shallow(modalComponent);

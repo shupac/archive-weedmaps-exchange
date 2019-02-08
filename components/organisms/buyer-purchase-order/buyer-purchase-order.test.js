@@ -155,9 +155,10 @@ describe('Seller Details Modal', () => {
   it('should render the seller details modal', () => {
     const props = {
       brandName: 'weed',
-      sellerName: 'Test',
+      sellerContactName: 'Test',
       sellerEmail: 'test@test.com',
       sellerPhone: '123-123-1234',
+      sellerName: 'test',
       sellerLicenses: [],
     };
     const component = <SellerDetailsModal {...props} />;
@@ -197,8 +198,9 @@ describe('Seller Details Modal', () => {
   it('should render with no phone and with licenses', () => {
     const props = {
       brandName: 'weed',
-      sellerName: 'Test',
+      sellerContactName: 'Test',
       sellerEmail: 'test@test.com',
+      sellerName: 'test',
       sellerLicenses: [
         {
           licenseType: 'medical',

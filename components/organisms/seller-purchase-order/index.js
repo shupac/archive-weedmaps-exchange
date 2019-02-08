@@ -85,7 +85,7 @@ class SellerPurchaseOrder extends Component<Props> {
       buyerLicenses,
       buyerPhone,
       buyerName,
-      buyerLocationName,
+      buyerContactName,
     } = buyerData;
 
     return (
@@ -127,12 +127,12 @@ class SellerPurchaseOrder extends Component<Props> {
                   {store.uiStore.activeModal === 'buyerDetailsModal' && (
                     <BuyerDetailsModal
                       buyerName={buyerName}
+                      buyerContactName={buyerContactName}
                       buyerEmail={buyerEmail}
                       buyerPhone={buyerPhone}
                       buyerLicenses={buyerLicenses}
                       buyerDeliveryInstructions={buyerDeliveryInstructions}
                       buyerAddress={address}
-                      buyerLocationName={buyerLocationName}
                     />
                   )}
                 </td>

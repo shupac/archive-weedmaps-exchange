@@ -10,17 +10,17 @@ import {
 } from './styles';
 
 type Props = {
-  sellerName: string,
   sellerEmail: string,
   sellerPhone?: string,
   brandName: string,
+  sellerContactName?: string,
   sellerLicenses: LicenseType[],
 };
 
 const SellerDetailsModal = ({
   brandName,
-  sellerName,
   sellerEmail,
+  sellerContactName,
   sellerPhone,
   sellerLicenses,
 }: Props) => (
@@ -29,7 +29,7 @@ const SellerDetailsModal = ({
       <DetailsTitle>Brand Name</DetailsTitle>
       <DetailDescription>{brandName}</DetailDescription>
       <DetailsTitle>Contact Name</DetailsTitle>
-      <DetailDescription>{sellerName}</DetailDescription>
+      <DetailDescription>{sellerContactName || 'N/A'}</DetailDescription>
       <DetailsTitle>Contact Phone</DetailsTitle>
       {sellerPhone ? (
         <DetailDescription>
