@@ -45,7 +45,7 @@ type Props = {
   setFieldValue: string => void,
 };
 
-export const ProfileForm = ({
+export const FormTemplate = ({
   values,
   errors,
   touched,
@@ -58,7 +58,8 @@ export const ProfileForm = ({
   initialValues,
   setFieldValue,
 }: Props) => {
-  const { addressSuggestions } = store;
+  const { addressSuggestions, authStore } = store;
+  const { activeContext } = authStore;
   const { licenses } = values;
   const requiredKeys = [
     'name',
@@ -91,7 +92,9 @@ export const ProfileForm = ({
       <Form>
         <FormHeader>Profile</FormHeader>
         <FormBody>
-          <FormCategory>Organization</FormCategory>
+          <FormCategory>
+            {activeContext === 'seller' ? 'Brand' : 'Organization'}
+          </FormCategory>
           <RequiredAsteriskLabel>Name</RequiredAsteriskLabel>
           <FormInput
             data-test-id="form-name"
@@ -273,8 +276,8 @@ export const ProfileForm = ({
             <CancelButton
               data-test-id="button-cancel"
               type="button"
-              onClick={x => {
-                handleReset(x);
+              onClick={() => {
+                handleReset();
                 addressSuggestions.clearAddressInput();
               }}
             >
@@ -320,8 +323,8 @@ const schema = Yup.object().shape({
   ),
 });
 
-const FormikWrapper = withFormik({
-  mapPropsToValues({ organization }) {
+const ProfileSettingsForm = withFormik({
+  mapPropsToValues({ settingsData }) {
     const {
       id,
       contactName,
@@ -330,7 +333,7 @@ const FormikWrapper = withFormik({
       name,
       phoneNumber,
       licenses,
-    } = organization;
+    } = settingsData;
 
     const addString = address
       ? `${address.streetAddress}, ${address.city}, ${
@@ -349,13 +352,13 @@ const FormikWrapper = withFormik({
     };
   },
   validationSchema: schema,
+  displayName: 'ProfileSettingsForm',
+  enableReinitialize: true,
   handleSubmit: (values, { props, setSubmitting, resetForm }) => {
     props.onSubmit(values);
     setSubmitting(false);
     resetForm(values);
   },
-})(inject('store')(observer(ProfileForm)));
+})(FormTemplate);
 
-const Profile = FormikWrapper;
-
-export default Profile;
+export default inject('store')(observer(ProfileSettingsForm));

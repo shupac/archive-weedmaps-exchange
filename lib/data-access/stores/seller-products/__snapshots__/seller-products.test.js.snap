@@ -16,9 +16,11 @@ Object {
       "smallUrl": "https://images.weedmaps.com/products/000/052/107/avatar/square/1506462031-170918_303KushLW_3874.jpg?development=1",
     },
     "brand": Object {
+      "address": undefined,
       "avatarImage": Object {
         "id": "f8754a5a-01bd-46b3-ac72-5d2ae311ad28",
       },
+      "contactName": null,
       "deliveryEta": Object {
         "etaMax": 3,
         "etaMaxUnit": "day",
@@ -26,10 +28,12 @@ Object {
         "etaMinUnit": "day",
       },
       "description": "<p><ins><strong>Our Mission:</strong></ins></p> <p><em>Get Harmonized.</em></p> <p> </p> <p>Harmony Extracts passionately champions the cannabis and those within it. Wanting to do their part for the cannabis community, Harmony Extracts develops invariably excellent extract products in a long-time heart of the industry: Denver, Colorado. Here for everyone from the average smoker to the connoisseur market, Harmony Extracts assembles a team from the Old Guard of cannabis to bring the best quality and cleanest product to market at the most affordable prices. At Harmony Extracts, excellence is their norm.</p> <p><strong><ins>History:</ins></strong></p> <p>While Harmony Extracts officially started in August 2016, the passionate team behind the brand holds more than a decade’s worth of experience in the cannabis industry. Starting in 2003, the partners of Harmony Extracts began in cultivation before expanding into extraction and other leadership positions as the Colorado marijuana market became first medical and then recreational. As this team did everything from run cultivation centers to operate dispensaries, they soon felt a void in the marijuana market for consistent and quality extract product. The founders wanted to do things the right way, improving things from both a customer service and product standpoint and introducing a professionalism to the cannabis industry. Thus, Harmony Extracts sprung onto the scene fighting tooth and nail to meet Denver’s strict quality regulations and offer consistent, reliably excellent extractions.</p> <p>Today, Harmony Extracts lines the shelves of thirty dispensaries, where patients and recreational users alike notice their quality and recognize their brand. Harmony Extracts produces their world class products from their two state-of-the-art extraction facilities in Denver.</p> <p><strong><ins>Process:</ins></strong></p> <p>Hailing from many larger names in the industry, the extractors behind Harmony Extracts joined forces and combined the best methods to create their cannabis product. All of their flowers they grow in-house, or purchase from one or two of their exclusive vendors, to ensure their best materials remain the best. Drawing from classic strains and new, exciting genetics, Harmony Extracts uses butane and propane proprietary blend extraction to create the clearest and most potent shatter and wax. Their flagship product, their “Nectar” offers users an ultra-refined hydrocarbon extract with the potency of a distillate and the flavor of a live resin. Their proprietary method of extraction allows them to create a terpene-rich solution that crystallizes THCA, enabling them to separate the high-terpene cannabinoids from the crystals and reintroduce the plant materials at the end.</p> <p><strong><ins>Products:</ins></strong></p> <p>Harmony Extracts’ products started at “good” and have grown into “great” today.hey continually reevaluate their methods to keep delivering consistent excellence to their consumers. At the 2016 Hemp Connoisseur Championship, their four entries brought home eight different awards for Best Live Resin, Shatter and Wax. Always promising a high potency, their Nectar regularly tests at a potency of 99.99% THCA</p> <p><strong><ins>Lab Testing:</ins></strong></p> <p>Harmony Extracts exclusively tests their products with TEQ Analytical Laboratories in Aurora, Colorado, double checking their extracts for potency, terpene content, and any residual solvents.</p> <p><strong><ins>Networks:</ins></strong></p> <p>Currently, Harmony Extracts distributes their concentrate products to dispensaries throughout Colorado, found in popular dispensaries including Kind Love, Good Chemistry, Colorado Harvest Company and DANK in Denver, Boulder, and Crescent View. While they currently only work with recreational stores, they soon will offer products to medical patients. Harmony Extracts hopes to expand to more states by the start of 2018.</p>",
+      "email": null,
       "id": "e98a5787-2e60-4302-b566-c6454a69a91f",
       "licenses": Array [],
       "minimumPurchasePrice": 0,
       "name": "Harmony Extracts",
+      "phoneNumber": null,
       "shippingFee": 0,
       "slug": "harmony-extracts",
     },
@@ -141,9 +145,11 @@ Array [
         "smallUrl": "https://images-acceptance.weedmaps.com/products/000/024/998/avatar/square/natureslab_live24k-1.jpg",
       },
       "brand": Object {
+        "address": undefined,
         "avatarImage": Object {
           "id": "ae387ff7-73b7-442c-b3bd-5221bb342bf4",
         },
+        "contactName": null,
         "deliveryEta": Object {
           "etaMax": 3,
           "etaMaxUnit": "day",
@@ -151,10 +157,12 @@ Array [
           "etaMinUnit": "day",
         },
         "description": "<p><strong><ins>Our Mission:</ins></strong></p> <p><em>Do it for the Lab.</em></p> <p> </p> <p>Nature's Lab Extracts is hardly your average extract company. They specialize in creating honest products, crafted from the highest quality ingredients and cutting edge techniques to bring quality medicine to patients in California. Prioritizing greatness, they strive to offer connoisseur grade cannabis goods to the discerning consumer that are ripe with flavor, highly potent, and consistently excellent. Nature's Lab Extracts offers a happy, satisfied dabbing experience. Every time.</p> <p><strong><ins>History:</ins></strong></p> <p>While it didn’t start out with the name until later, Nature’s Lab Extracts began in the marijuana industry stretching back to 2008, where the founder transitioned from a background in mechanical engineering to cannabis extraction. Seeing the unsafe methods utilized back in the early days of concentrates, he knew their was a safer way to extract cannabis without the risk of blowing something up. Perfecting his BHO extraction methods, the founder began Nature’s Lab Extracts to share his creations with the marijuana world. Years later Nature’s Lab Extracts has grown an immense following, available in nearly 200 dispensaries throughout California and winning forty-five awards to date for their extractions.</p> <p><strong><ins>Process:</ins></strong></p> <p>Nature’s Lab Extracts utilizes the same extraction methods that have worked since the beginning while continually innovating for better ways to create their products. Using BHO methods, they extract their live resin and Nug Run concentrates from their in-house grown cannabis, cultivating strains their patients want instead of random genetics. They’ve exacted the science of their extractions to offer 0 parts per million purity from their high-quality flowers, and their Spacewalker strain (a Skywalker OG backcross) and G13 (an OG cross) indicate their dedication to excellence.</p> <p><strong><ins>Products:</ins></strong></p> <p>Products: A connoisseur's company, Nature’s Lab Extracts specializes in crafting Live Resins and Nug Run extractions; all pulled from organically cultivated and incredibly potent cannabis flower. Patients love their many strains, including their in-house Spacewalker, their Spacey, and their C-4. As they expand, Nature’s Lab Extracts plans on launching a vape pen line with unique terpene profiles down the line.</p> <p><strong><ins>Lab Testing:</ins></strong></p> <p>Nature’s Lab Extracts proudly maintains zero parts per million contaminants in their extracts, and tests with Anresco Laboratories in San Francisco to verify their record. They test each batch for pesticides, residual solvents, bacteria, and potency.</p> <p><strong><ins>Networks:</ins></strong></p> <p>Nature’s Lab Extracts is proud to line the shelves of 160 stores throughout the state of California. Patients can find their products in San Francisco, Sacramento, Bakersfield, Orange County, Los Angeles, the Inland Empire and San Diego. Notable dispensaries include Green Wolf, Neighborhood Wellness Center and Harborside, and they collaborate with Cookies, Russian Assassin Boys, Nature’s Farm, DNA Genetics, Nameless Genetics and Bert Baccarat to create exciting unique cannabis products.</p>",
+        "email": null,
         "id": "79577912-8b01-4194-b69d-e988a91d5113",
         "licenses": Array [],
         "minimumPurchasePrice": 0,
         "name": "Natures Lab Extracts",
+        "phoneNumber": null,
         "shippingFee": 0,
         "slug": "natures-lab-extracts",
       },
@@ -211,7 +219,9 @@ Array [
         "smallUrl": "https://images-acceptance.weedmaps.com/products/000/016/381/avatar/square/blvdsupply_2_palmstee_1.png",
       },
       "brand": Object {
+        "address": undefined,
         "avatarImage": undefined,
+        "contactName": null,
         "deliveryEta": Object {
           "etaMax": 3,
           "etaMaxUnit": "day",
@@ -219,10 +229,12 @@ Array [
           "etaMinUnit": "day",
         },
         "description": "",
+        "email": null,
         "id": "9ffabab9-75bd-4d17-b8f6-265470243155",
         "licenses": Array [],
         "minimumPurchasePrice": 0,
         "name": "BLVD Supply",
+        "phoneNumber": null,
         "shippingFee": 0,
         "slug": "blvd-supply",
       },
@@ -291,9 +303,11 @@ Array [
         "smallUrl": "https://images.weedmaps.com/products/000/052/107/avatar/square/1506462031-170918_303KushLW_3874.jpg?development=1",
       },
       "brand": Object {
+        "address": undefined,
         "avatarImage": Object {
           "id": "f8754a5a-01bd-46b3-ac72-5d2ae311ad28",
         },
+        "contactName": null,
         "deliveryEta": Object {
           "etaMax": 3,
           "etaMaxUnit": "day",
@@ -301,10 +315,12 @@ Array [
           "etaMinUnit": "day",
         },
         "description": "<p><ins><strong>Our Mission:</strong></ins></p> <p><em>Get Harmonized.</em></p> <p> </p> <p>Harmony Extracts passionately champions the cannabis and those within it. Wanting to do their part for the cannabis community, Harmony Extracts develops invariably excellent extract products in a long-time heart of the industry: Denver, Colorado. Here for everyone from the average smoker to the connoisseur market, Harmony Extracts assembles a team from the Old Guard of cannabis to bring the best quality and cleanest product to market at the most affordable prices. At Harmony Extracts, excellence is their norm.</p> <p><strong><ins>History:</ins></strong></p> <p>While Harmony Extracts officially started in August 2016, the passionate team behind the brand holds more than a decade’s worth of experience in the cannabis industry. Starting in 2003, the partners of Harmony Extracts began in cultivation before expanding into extraction and other leadership positions as the Colorado marijuana market became first medical and then recreational. As this team did everything from run cultivation centers to operate dispensaries, they soon felt a void in the marijuana market for consistent and quality extract product. The founders wanted to do things the right way, improving things from both a customer service and product standpoint and introducing a professionalism to the cannabis industry. Thus, Harmony Extracts sprung onto the scene fighting tooth and nail to meet Denver’s strict quality regulations and offer consistent, reliably excellent extractions.</p> <p>Today, Harmony Extracts lines the shelves of thirty dispensaries, where patients and recreational users alike notice their quality and recognize their brand. Harmony Extracts produces their world class products from their two state-of-the-art extraction facilities in Denver.</p> <p><strong><ins>Process:</ins></strong></p> <p>Hailing from many larger names in the industry, the extractors behind Harmony Extracts joined forces and combined the best methods to create their cannabis product. All of their flowers they grow in-house, or purchase from one or two of their exclusive vendors, to ensure their best materials remain the best. Drawing from classic strains and new, exciting genetics, Harmony Extracts uses butane and propane proprietary blend extraction to create the clearest and most potent shatter and wax. Their flagship product, their “Nectar” offers users an ultra-refined hydrocarbon extract with the potency of a distillate and the flavor of a live resin. Their proprietary method of extraction allows them to create a terpene-rich solution that crystallizes THCA, enabling them to separate the high-terpene cannabinoids from the crystals and reintroduce the plant materials at the end.</p> <p><strong><ins>Products:</ins></strong></p> <p>Harmony Extracts’ products started at “good” and have grown into “great” today.hey continually reevaluate their methods to keep delivering consistent excellence to their consumers. At the 2016 Hemp Connoisseur Championship, their four entries brought home eight different awards for Best Live Resin, Shatter and Wax. Always promising a high potency, their Nectar regularly tests at a potency of 99.99% THCA</p> <p><strong><ins>Lab Testing:</ins></strong></p> <p>Harmony Extracts exclusively tests their products with TEQ Analytical Laboratories in Aurora, Colorado, double checking their extracts for potency, terpene content, and any residual solvents.</p> <p><strong><ins>Networks:</ins></strong></p> <p>Currently, Harmony Extracts distributes their concentrate products to dispensaries throughout Colorado, found in popular dispensaries including Kind Love, Good Chemistry, Colorado Harvest Company and DANK in Denver, Boulder, and Crescent View. While they currently only work with recreational stores, they soon will offer products to medical patients. Harmony Extracts hopes to expand to more states by the start of 2018.</p>",
+        "email": null,
         "id": "e98a5787-2e60-4302-b566-c6454a69a91f",
         "licenses": Array [],
         "minimumPurchasePrice": 0,
         "name": "Harmony Extracts",
+        "phoneNumber": null,
         "shippingFee": 0,
         "slug": "harmony-extracts",
       },

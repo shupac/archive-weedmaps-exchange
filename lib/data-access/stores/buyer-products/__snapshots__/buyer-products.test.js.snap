@@ -37,9 +37,12 @@ Object {
       "smallUrl": "https://images.weedmaps.com/products/000/023/221/avatar/square/gfarmsalab_nug-run-indica_2.jpg?development=1",
     },
     "brand": Object {
+      "address": undefined,
       "avatarImage": undefined,
+      "contactName": null,
       "deliveryEta": undefined,
       "description": "<p><strong><ins>Our Mission:</ins></strong></p> <p><em>Leader of the American Cannabis Revolution</em></p> ",
+      "email": null,
       "id": "d054b34f-428e-4583-a2a4-27f4e5aea6f3",
       "licenses": Array [
         Object {
@@ -50,6 +53,7 @@ Object {
       ],
       "minimumPurchasePrice": 123,
       "name": "GfarmaLabs",
+      "phoneNumber": null,
       "shippingFee": undefined,
       "slug": "gfarmalabs",
     },
@@ -130,9 +134,12 @@ Array [
         "smallUrl": "https://images.weedmaps.com/products/000/023/221/avatar/square/gfarmsalab_nug-run-indica_2.jpg?development=1",
       },
       "brand": Object {
+        "address": undefined,
         "avatarImage": undefined,
+        "contactName": null,
         "deliveryEta": undefined,
         "description": "<p><strong><ins>Our Mission:</ins></strong></p> <p><em>Leader of the American Cannabis Revolution</em></p> ",
+        "email": null,
         "id": "d054b34f-428e-4583-a2a4-27f4e5aea6f3",
         "licenses": Array [
           Object {
@@ -143,6 +150,7 @@ Array [
         ],
         "minimumPurchasePrice": 123,
         "name": "GfarmaLabs",
+        "phoneNumber": null,
         "shippingFee": undefined,
         "slug": "gfarmalabs",
       },

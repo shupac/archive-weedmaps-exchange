@@ -5,7 +5,7 @@ import AuthStore from 'lib/data-access/stores/auth';
 import { LICENSE_TYPES } from 'lib/common/constants';
 import mockOrganization from 'lib/mocks/organization';
 import mockUserData from 'lib/mocks/user-data';
-import Profile, { ProfileForm } from './profile-form';
+import ProfileSettingsForm, { FormTemplate } from './profile-form';
 import { SettingsProfile } from './';
 
 function setup(org) {
@@ -20,7 +20,9 @@ function setup(org) {
     ),
   };
   const component = <SettingsProfile store={mockStore} />;
-  const wrapper = shallow(component);
+  const wrapper = shallow(component, {
+    disableLifecycleMethods: true,
+  });
   const instance = wrapper.instance();
   return { wrapper, instance, mockStore };
 }
@@ -38,13 +40,16 @@ function formSetup() {
       isAddressCommitted: jest.fn(),
       setQuery: jest.fn(),
     },
+    authStore: {
+      activeContext: 'seller',
+    },
   };
   const props = {
     errors: { name: 'address' },
     touched: { name: 'address' },
   };
   const formWrapper = shallow(
-    <ProfileForm
+    <FormTemplate
       store={store}
       values={mockOrganization}
       licenseTypes={LICENSE_TYPES}
@@ -55,14 +60,10 @@ function formSetup() {
   return { formWrapper, instance, store };
 }
 
-describe('Profile', () => {
+describe('ProfileSettingsForm', () => {
   it('should not render the profile if there is no organization data', () => {
     const { wrapper } = setup(undefined);
-    expect(wrapper.find(Profile).length).toEqual(0);
-  });
-  it('should render the Buyer Profile page when there is organization data', () => {
-    const { wrapper } = setup(mockOrganization);
-    expect(wrapper.find(Profile).exists()).toEqual(true);
+    expect(wrapper.find(ProfileSettingsForm).length).toEqual(0);
   });
 });
 
