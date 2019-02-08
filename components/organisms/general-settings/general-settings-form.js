@@ -206,9 +206,10 @@ const GeneralSettingsForm = withFormik({
     };
   },
   validationSchema: schema,
-  handleSubmit: (values, { props, setSubmitting }) => {
+  handleSubmit: (values, { props, setSubmitting, resetForm }) => {
     props.onSubmit(values);
     setSubmitting(false);
+    resetForm(values);
   },
   displayName: 'GeneralSettingsForm',
 })(FormTemplate);
