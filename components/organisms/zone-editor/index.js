@@ -25,6 +25,7 @@ import { CSSTransition } from 'react-transition-group';
 import uniqueKey from 'lib/common/unique-key';
 import Modal from 'components/atoms/modal';
 import { ModalContentWrapper, ButtonRow } from 'components/atoms/modal/styles';
+import { ALERT_STATUS } from 'lib/common/constants';
 
 import {
   Container,
@@ -173,8 +174,18 @@ export class ZoneEditor extends React.Component<Props> {
       await this.selectedZone.update();
     }
 
-    this.selectedZoneRegions.clear();
-    this.creatingEditingZone = false;
+    if (this.selectedZone.lastError) {
+      const toastAlert = {
+        autoDismiss: 4000,
+        status: ALERT_STATUS.ERROR,
+        title: 'Error',
+        body: 'Zone could not be saved. Please try again.',
+      };
+      this.props.store.uiStore.notifyToast(toastAlert);
+    } else {
+      this.selectedZoneRegions.clear();
+      this.creatingEditingZone = false;
+    }
   };
 
   @action
