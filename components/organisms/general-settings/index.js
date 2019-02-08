@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { computed, reaction } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import Loader from 'components/atoms/loader';
 import { type AuthStoreType } from 'lib/data-access/stores/auth';
@@ -32,12 +33,22 @@ export class GeneralSettings extends Component<Props> {
     return this.props.store.authStore;
   }
 
+  @computed
   get brand(): Brands {
     return this.props.store.authStore.brand;
   }
 
+  dispose = reaction(
+    () => this.authStore.activeSellerBrand.value,
+    brand => this.authStore.fetchBrand(brand),
+  );
+
   componentDidMount() {
     this.authStore.fetchBrand(this.authStore.activeSellerBrand.value);
+  }
+
+  componentWillUnmount() {
+    this.dispose();
   }
 
   handleSubmit = async (values: formValues) => {
@@ -83,6 +94,7 @@ export class GeneralSettings extends Component<Props> {
 
   render() {
     if (!this.brand) return <Loader />;
+
     return (
       <GeneralSettingsForm
         brand={this.brand}

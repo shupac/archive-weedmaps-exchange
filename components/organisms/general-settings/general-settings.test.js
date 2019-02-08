@@ -2,22 +2,34 @@ import { shallow } from 'enzyme';
 import { mockBrand } from 'lib/mocks/brands';
 import { mockWmxUser } from 'lib/mocks/user';
 import { mockOrg } from 'lib/mocks/organization';
+import AuthStore from 'lib/data-access/stores/auth';
 import UiStore from 'lib/data-access/stores/ui';
 import Loader from 'components/atoms/loader';
 import { GeneralSettings } from './';
 
+const mockUserSeller = {
+  ...mockWmxUser,
+  preferences: {
+    ...mockWmxUser.preferences,
+    userContext: 'seller',
+    brandId: 'e98a5787-2e60-4302-b566-c6454a69a91f',
+  },
+};
+
 function setup(brand) {
   const mockStore = {
-    authStore: {
-      wmxUser: mockWmxUser,
-      org: mockOrg,
+    authStore: AuthStore.create({
       brand,
-      activeSellerBrand: {
-        text: 'Harmony Extracts',
-        value: 'e98a5787-2e60-4302-b566-c6454a69a91f',
+      wmxUser: {
+        ...mockWmxUser,
+        preferences: {
+          ...mockWmxUser.preferences,
+          userContext: 'seller',
+          brandId: '9ffabab9-75bd-4d17-b8f6-265470243155',
+        },
       },
-      updateBrand: jest.fn(),
-    },
+      org: mockOrg,
+    }),
     uiStore: UiStore.create(),
   };
   const component = <GeneralSettings store={mockStore} />;
@@ -63,5 +75,23 @@ describe('GeneralSettings', () => {
     };
     wrapper.instance().onConfirmToast(false);
     expect(notifyToast).toHaveBeenCalledWith(notification);
+  });
+
+  it('disposes of the reaction when unmounting', () => {
+    const { wrapper } = setup();
+    const dispose = jest.spyOn(wrapper.instance(), 'dispose');
+    wrapper.unmount();
+    expect(dispose).toHaveBeenCalled();
+  });
+
+  it('will refetch brand data when the brand id changes', () => {
+    const { mockStore } = setup();
+    const mockFetchBrand = jest.spyOn(mockStore.authStore, 'fetchBrand');
+    mockStore.authStore.setUser(mockUserSeller);
+    setTimeout(() => {
+      expect(mockFetchBrand).toHaveBeenCalledWith(
+        mockUserSeller.preferences.brandId,
+      );
+    }, 100);
   });
 });

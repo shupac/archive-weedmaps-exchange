@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { observer } from 'mobx-react';
 import { withFormik } from 'formik';
 import moment from 'moment';
 import * as Yup from 'yup';
@@ -135,6 +136,7 @@ export const FormTemplate = ({
             data-test-id="button-cancel"
             type="button"
             onClick={handleReset}
+            disabled={!dirty}
           >
             Cancel
           </CancelButton>
@@ -206,12 +208,12 @@ const GeneralSettingsForm = withFormik({
     };
   },
   validationSchema: schema,
-  handleSubmit: (values, { props, setSubmitting, resetForm }) => {
+  handleSubmit: (values, { props, setSubmitting }) => {
     props.onSubmit(values);
     setSubmitting(false);
-    resetForm(values);
   },
   displayName: 'GeneralSettingsForm',
+  enableReinitialize: true,
 })(FormTemplate);
 
-export default GeneralSettingsForm;
+export default observer(GeneralSettingsForm);
