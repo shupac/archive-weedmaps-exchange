@@ -26,7 +26,9 @@ export class SettingsProfile extends React.Component<Props> {
 
   componentDidMount() {
     const { authStore } = this.props.store;
-    authStore.fetchBrand(authStore.activeSellerBrand.value);
+    if (authStore.activeContext === 'seller') {
+      authStore.fetchBrand(authStore.activeSellerBrand.value);
+    }
   }
 
   componentWillUnmount() {
@@ -56,15 +58,21 @@ export class SettingsProfile extends React.Component<Props> {
     uiStore.notifyToast(notification);
   };
 
-  onSubmit = async (organization: OrganizationType) => {
+  onSubmit = async (profileData: OrganizationType) => {
     const { authStore } = this.props.store;
-    const successFlag = await authStore.updateOrganization(organization);
-    this.onConfirmToast(successFlag);
+    if (authStore.activeContext === 'buyer') {
+      const successFlag = await authStore.updateOrganization(profileData);
+      this.onConfirmToast(successFlag);
+    } else {
+      const successFlag = await authStore.updateBrand(profileData);
+      this.onConfirmToast(successFlag);
+    }
   };
 
   render() {
     const { org, activeContext, brand } = this.props.store.authStore;
-    if (!org || !brand) return <Loader />;
+    if (activeContext === 'buyer' && !org) return <Loader />;
+    if (activeContext === 'seller' && !brand) return <Loader />;
     return (
       <ProfileSettingsForm
         settingsData={activeContext === 'seller' ? brand : org}

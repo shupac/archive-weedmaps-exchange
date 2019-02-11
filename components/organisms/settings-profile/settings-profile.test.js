@@ -41,7 +41,7 @@ function formSetup() {
       setQuery: jest.fn(),
     },
     authStore: {
-      activeContext: 'seller',
+      wmxUser: mockUserData,
     },
   };
   const props = {
@@ -107,8 +107,8 @@ describe('LocationForm', () => {
     const { instance, mockStore } = setup();
     const updateOrganization = jest
       .spyOn(mockStore.authStore, 'updateOrganization')
-      .mockReturnValue(Promise.resolve(true));
-    instance.onSubmit();
+      .mockResolvedValue(true);
+    instance.onSubmit(mockOrganization);
     expect(await updateOrganization).toHaveBeenCalled();
   });
 
@@ -116,7 +116,7 @@ describe('LocationForm', () => {
     const { instance, mockStore } = setup();
     const updateOrganization = jest
       .spyOn(mockStore.authStore, 'updateOrganization')
-      .mockReturnValue(Promise.resolve(false));
+      .mockResolvedValue(false);
     instance.onSubmit();
     expect(await updateOrganization).toHaveBeenCalled();
   });
