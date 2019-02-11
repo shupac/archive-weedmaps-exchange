@@ -69,9 +69,6 @@ export class ProductVariants extends Component<Props, State> {
     }, 0);
 
   validateQuantity = (value: number) => {
-    if (value === '') {
-      return false;
-    }
     if (value < 0) {
       return 'Must be positive value';
     } else if (value % 1 !== 0) {

@@ -106,7 +106,7 @@ class Catalog extends Component<Props, State> {
     Router.pushRoute('marketplace', query, { shallow: true });
   };
 
-  getCategories = () => {
+  getCategories = (): any => {
     const { departments } = this.props.store.buyerSettings;
     return departments.map(parent => ({
       parent: {

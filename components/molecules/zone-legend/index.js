@@ -40,7 +40,7 @@ export class ZoneLegend extends React.Component<Props> {
     this.loading = false;
   };
 
-  geoJsonLayers = () => {
+  geoJsonLayers = (): React.Node => {
     const { zones } = this.props.store;
     const zoneRegions = zones.zoneRegions
       .map(region => {

@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, Fragment } from 'react';
+import * as React from 'react';
 import { reaction } from 'mobx';
 import { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
@@ -58,7 +58,7 @@ const defaultState = {
   ascending: true,
 };
 
-export class SellerProducts extends Component<Props, State> {
+export class SellerProducts extends React.Component<Props, State> {
   state = {
     mounted: false,
   };
@@ -138,7 +138,7 @@ export class SellerProducts extends Component<Props, State> {
     Router.pushRoute('sellerProducts', query, { shallow: true });
   };
 
-  getCategories = () => {
+  getCategories = (): any => {
     const { departments } = this.props.store.sellerSettings;
     return departments.map(parent => ({
       parent: {
@@ -311,9 +311,8 @@ export class SellerProducts extends Component<Props, State> {
     );
   };
 
-  renderSellerProducts = () => {
+  renderSellerProducts = (): React.Node => {
     const { sellerProducts } = this.props.store.sellerProducts;
-
     return sellerProducts.map(sellerProduct => {
       const {
         active,
@@ -338,7 +337,7 @@ export class SellerProducts extends Component<Props, State> {
       const { id, name, avatarImage } = product;
 
       return (
-        <Fragment key={id}>
+        <React.Fragment key={id}>
           <TableCell>
             <AvatarName>
               <img src={avatarImage.smallUrl} alt={name} />
@@ -363,7 +362,7 @@ export class SellerProducts extends Component<Props, State> {
               hideLabel
             />
           </TableCell>
-        </Fragment>
+        </React.Fragment>
       );
     });
   };

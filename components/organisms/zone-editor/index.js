@@ -313,21 +313,23 @@ export class ZoneEditor extends React.Component<Props> {
       })
       .filter(el => el);
 
-    const availableRegions = zones.regionsWithoutZones.map(region => {
-      const { geometry } = region;
-      return (
-        <GeoJson
-          onClick={() => this.toggleRegion(region)}
-          key={region.id.toString()}
-          layerKey={region.id.toString()}
-          geometry={geometry}
-          fill="#fff"
-          outline="#a6acbc"
-          opacity={0.8}
-          label={region.name.replace('Brands', '')}
-        />
-      );
-    });
+    const availableRegions: React.Node = zones.regionsWithoutZones.map(
+      region => {
+        const { geometry } = region;
+        return (
+          <GeoJson
+            onClick={() => this.toggleRegion(region)}
+            key={region.id.toString()}
+            layerKey={region.id.toString()}
+            geometry={geometry}
+            fill="#fff"
+            outline="#a6acbc"
+            opacity={0.8}
+            label={region.name.replace('Brands', '')}
+          />
+        );
+      },
+    );
 
     return [...zoneRegions, availableRegions];
   };

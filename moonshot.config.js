@@ -44,6 +44,7 @@ export default {
             'http://localhost:*',
             'ws://localhost:*',
             'https://uptime.com',
+            'https://rum.uptime.com',
           ],
           'report-uri': [config.contentPolicyReportUri],
         },

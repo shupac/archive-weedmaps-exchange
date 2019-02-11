@@ -34,7 +34,7 @@ services:
     labels:
       io.rancher.scheduler.global: 'true'
       io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
-      io.rancher_activelb.visibility: ${VISIBILITY}
+      io.rancher_activelb.visibility: private
       # Server names from Consul
       io.rancher_activelb.server_names: ${SERVER_NAMES_STORYBOOK}
       com.datadoghq.ad.check_names: '["tcp_check"]'

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
-import rem from 'polished/lib/helpers/rem';
+import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 import Caret, { DIRECTION } from 'components/atoms/icons/caret';
 
@@ -23,7 +23,7 @@ const ClickableTableHeaderItem = styled.button`
     white-space: nowrap;
   }
   > svg {
-    opacity: ${({ isActive }) => (isActive ? 1 : 0)};
+    opacity: ${props => (props.isActive ? '1' : '0')};
     margin-left: ${rem(8)};
   }
   &:hover {
@@ -45,7 +45,7 @@ export const SortButton = ({
   isActive,
   ...rest
 }: Props) => (
-  <ClickableTableHeaderItem isActive={isActive} {...rest}>
+  <ClickableTableHeaderItem {...rest} isActive={isActive}>
     <p>{children}</p>
     <Caret direction={pointsUp ? DIRECTION.up : DIRECTION.down} />
   </ClickableTableHeaderItem>

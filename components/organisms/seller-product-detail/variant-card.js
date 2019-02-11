@@ -74,7 +74,7 @@ type ArrayHelpers = {
 };
 
 class VariantCard extends Component<Props> {
-  getAvailableZones = () => {
+  getAvailableZones = (): ZoneType[] => {
     const {
       variant: { allocations },
       zones,

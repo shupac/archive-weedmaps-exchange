@@ -68,6 +68,7 @@ export const AuthConnectorWrapper = ComponentToCompose => {
     }
 
     render() {
+      // eslint-disable-next-line
       if (this.props.userNotEnabled) {
         return <ErrorPageComponent statusCode={403} />;
       }

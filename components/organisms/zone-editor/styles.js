@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 import { Flex, Box } from '@ghostgroup/grid-styled';
 import Map from 'components/atoms/map';
-import rem from 'polished/lib/helpers/rem';
+import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 import Close from 'components/atoms/icons/close';
 

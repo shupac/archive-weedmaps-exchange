@@ -41,7 +41,7 @@ export const NotificationCount = styled.div`
 NotificationCount.displayName = 'NotificationCount';
 
 export const NotificationWrapper = styled.div`
-  transform: scale(${props => (props.show ? 1.0 : 0.0)});
+  transform: scale(${props => (props.show ? '1.0' : '0.0')});
   transform-origin: 50% 50%;
   transition: transform 0.3s ease-out;
   position: absolute;

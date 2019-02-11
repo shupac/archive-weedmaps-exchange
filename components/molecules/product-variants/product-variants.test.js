@@ -380,10 +380,6 @@ describe('Product Variants', () => {
     const fractionError = component.validateQuantity(2.5);
     expect(fractionError).toEqual('Must be whole value');
 
-    // Test validation for empty strings
-    const stringError = component.validateQuantity('');
-    expect(stringError).toBe(false);
-
     // Test validation for valid values
     const legitVal = component.validateQuantity(2);
     expect(legitVal).toBe(false);

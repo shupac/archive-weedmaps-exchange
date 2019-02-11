@@ -31,7 +31,7 @@ type Props = {
   contactName: string,
   phone: string,
   email: string,
-  isPrimary: boolean,
+  isPrimary?: boolean,
   onEdit: () => void,
   onDelete: () => void,
 };

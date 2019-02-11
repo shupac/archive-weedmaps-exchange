@@ -32,7 +32,10 @@ export class SellerPurchaseOrders extends Component<Props, State> {
     mounted: false,
   };
 
-  query = new ObservableMap();
+  query: ObservableMap<
+    string[] | string,
+    string | number,
+  > = new ObservableMap();
 
   defaultQuery = {
     sort: '-date_ordered',
