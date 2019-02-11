@@ -14,11 +14,13 @@ export const FeaturedPhotoWrapper = styled.div`
   border-radius: 3px;
   background-color: ${background.light};
   box-shadow: 0 1px 3px 0 ${shadow};
-  background-size: cover;
-  background-position: center center;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  img {
+    cursor: pointer;
+  }
 `;
 FeaturedPhotoWrapper.displayName = 'FeaturedPhoto';
 
@@ -50,3 +52,10 @@ export const MiniPhoto = styled.div`
   cursor: pointer;
 `;
 MiniPhoto.displayName = 'MiniPhoto';
+
+export const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+`;

@@ -1,70 +1,59 @@
 // @flow
 import React, { Component, Fragment } from 'react';
-import { observable, action } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
-import find from 'lodash.find';
+import get from 'lodash.get';
 import { type StoreType } from 'lib/types/store';
 import type { ImageType } from 'lib/data-access/models/image';
 import PaginatedModal from 'components/molecules/paginated-modal';
 import {
   ProductPhotosWrapper,
+  FeaturedPhotoWrapper,
   MiniPhotoWrapper,
+  MiniPhoto,
   LightboxPhotoWrapper,
+  Image,
 } from './styles';
-import MiniPhotos from './mini-photos';
-import FeaturedPhoto from './featured-photo';
 
 type Props = {
   store: StoreType,
   productPhotos: ImageType[],
-  featuredProduct: ImageType,
-  changeFeaturePhoto: (id: string) => void,
 };
 
 type State = {
-  lightBoxIndex: number,
+  featuredPhotoIndex: number,
 };
 
 export class ProductPhotos extends Component<Props, State> {
   @observable
-  lightBoxIndex = 0;
+  featuredPhotoIndex = 0;
+
+  @computed
+  get featuredPhoto(): ImageType {
+    return this.props.productPhotos[this.featuredPhotoIndex];
+  }
 
   @action
   onNextItem = () => {
     const { productPhotos } = this.props;
-    this.lightBoxIndex = (this.lightBoxIndex + 1) % productPhotos.length;
+    this.featuredPhotoIndex =
+      (this.featuredPhotoIndex + 1) % productPhotos.length;
   };
 
   @action
   onPrevItem = () => {
     const { productPhotos } = this.props;
     // Goto the end if we are at the first item
-    if (this.lightBoxIndex === 0) {
-      this.lightBoxIndex = productPhotos.length - 1;
+    if (this.featuredPhotoIndex === 0) {
+      this.featuredPhotoIndex = productPhotos.length - 1;
     } else {
-      this.lightBoxIndex = (this.lightBoxIndex - 1) % productPhotos.length;
+      this.featuredPhotoIndex -= 1;
     }
   };
 
   @action
-  setLightBoxIndex = (idx: number) => {
-    this.lightBoxIndex = idx;
-  };
-
-  changeFeaturePhoto = (photoId: string) => {
-    const { buyerProducts } = this.props.store;
-    const { productDetails } = buyerProducts;
-
-    const clickedPhoto = find(productDetails.galleryImages, {
-      id: photoId,
-    });
-
-    const featuredIndex = productDetails.galleryImages.findIndex(
-      photo => photo.id === photoId,
-    );
-
-    this.setLightBoxIndex(featuredIndex);
-    buyerProducts.setFeaturedProductPhoto(clickedPhoto);
+  setFeaturedPhotoIndex = (index: number) => {
+    this.featuredPhotoIndex = index;
   };
 
   onOpenLightbox = () => {
@@ -75,26 +64,37 @@ export class ProductPhotos extends Component<Props, State> {
   render() {
     const { productPhotos, store } = this.props;
     const { buyerProducts, uiStore } = store;
-    const { featuredProductPhoto } = buyerProducts;
+
+    const productName = get(buyerProducts, [
+      'productDetailsData, product, name',
+      '',
+    ]);
 
     return (
       <Fragment>
         <ProductPhotosWrapper>
-          <FeaturedPhoto
-            featuredPhoto={featuredProductPhoto}
-            modalHandler={this.onOpenLightbox}
-          />
+          <FeaturedPhotoWrapper>
+            {this.featuredPhoto ? (
+              <Image
+                src={this.featuredPhoto.largeUrl}
+                alt={productName}
+                onClick={this.onOpenLightbox}
+              />
+            ) : (
+              'No picture Available'
+            )}
+          </FeaturedPhotoWrapper>
+
           <MiniPhotoWrapper>
             {productPhotos &&
-              productPhotos.map(photo => (
-                <MiniPhotos
+              productPhotos.map((photo, index) => (
+                <MiniPhoto
                   key={photo.id}
-                  photo={photo}
-                  onClick={() => this.changeFeaturePhoto(photo.id)}
-                  isFeatured={
-                    featuredProductPhoto && photo.id === featuredProductPhoto.id
-                  }
-                />
+                  onClick={() => this.setFeaturedPhotoIndex(index)}
+                  isFeatured={this.featuredPhotoIndex === index}
+                >
+                  <Image src={photo.smallUrl} alt={productName} />
+                </MiniPhoto>
               ))}
           </MiniPhotoWrapper>
         </ProductPhotosWrapper>
@@ -103,13 +103,16 @@ export class ProductPhotos extends Component<Props, State> {
             onNextItem={this.onNextItem}
             onPrevItem={this.onPrevItem}
           >
-            <LightboxPhotoWrapper
-              style={{
-                backgroundImage: `url(${
-                  productPhotos[this.lightBoxIndex].largeUrl
-                })`,
-              }}
-            />
+            <LightboxPhotoWrapper>
+              <Image
+                src={get(
+                  productPhotos,
+                  [this.featuredPhotoIndex, 'largeUrl'],
+                  '',
+                )}
+                alt={productName}
+              />
+            </LightboxPhotoWrapper>
           </PaginatedModal>
         )}
       </Fragment>

@@ -68,6 +68,17 @@ export class ProductDetails extends Component<Props> {
   render() {
     const { buyerProducts } = this.props.store;
 
+    const {
+      name,
+      avatarImage,
+      galleryImages,
+      brand,
+      licenses,
+    } = buyerProducts.productDetails;
+
+    const photos = [...galleryImages];
+    if (avatarImage) photos.unshift(avatarImage);
+
     if (!buyerProducts.productDetailsSuccess) {
       return (
         <EmptyState
@@ -86,26 +97,17 @@ export class ProductDetails extends Component<Props> {
           routeParams={{ tab: 'catalog' }}
           queryParams={CATALOG_QUERY_PARAMS}
         />
-        <Breadcrumbs
-          links={this.constructBreadcrumb()}
-          activeLabel={buyerProducts.productDetails.name}
-        />
+        <Breadcrumbs links={this.constructBreadcrumb()} activeLabel={name} />
         <GridLayout>
           <div>
-            <ProductPhotos
-              productPhotos={buyerProducts.productDetails.galleryImages}
-              store={this.props.store}
-            />
-            <LicenseList
-              brandName={buyerProducts.productDetails.brand}
-              licenseList={buyerProducts.productDetails.licenses}
-            />
+            <ProductPhotos productPhotos={photos} store={this.props.store} />
+            <LicenseList brandName={brand} licenseList={licenses} />
           </div>
           <MainPanel>
             <ProductDescription productDetail={buyerProducts.productDetails} />
             <ProductVariants
               variants={buyerProducts.productVariants}
-              productName={buyerProducts.productDetails.name}
+              productName={name}
             />
           </MainPanel>
         </GridLayout>
