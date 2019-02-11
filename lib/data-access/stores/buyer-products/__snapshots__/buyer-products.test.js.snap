@@ -19,6 +19,8 @@ Array [
 ]
 `;
 
+exports[`BuyerProducts Store can fetch featured products and set data 1`] = `Array []`;
+
 exports[`BuyerProducts Store can fetch product details and set data 1`] = `
 Object {
   "id": "5cd4463d-52bf-4b18-84f4-e3b378fbc989",

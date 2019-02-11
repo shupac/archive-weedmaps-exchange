@@ -2,9 +2,14 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { observable } from 'mobx';
 import { mockCategories, mockEmptyCategories } from 'lib/mocks/categories';
+import {
+  mockCategoryProducts,
+  mockCategoryCard,
+} from 'lib/mocks/category-products';
 import Loader from 'components/atoms/loader';
 import SearchBar from 'components/molecules/search-bar';
 import EmptyState from 'components/atoms/empty-state';
+import BuyerProducts from 'lib/data-access/stores/buyer-products';
 import { Discover } from './';
 
 const mockStore = {
@@ -12,6 +17,11 @@ const mockStore = {
     getDepartments: jest.fn(),
     departmentsLoading: false,
     departments: mockCategories,
+  },
+  buyerProducts: {
+    getFeaturedProducts: jest.fn(),
+    featuredProducts: mockCategoryCard.data,
+    featuredProductsData: mockCategoryProducts,
   },
   authStore: observable({
     selectedLocation: {
@@ -26,6 +36,7 @@ const mockLoadingStore = {
     departmentsLoading: true,
     departments: mockCategories,
   },
+  buyerProducts: BuyerProducts.create(),
   authStore: {
     selectedLocation: {
       id: 1,
@@ -39,6 +50,7 @@ const mockEmptyStore = {
     departmentsLoading: false,
     departments: mockEmptyCategories,
   },
+  buyerProducts: BuyerProducts.create(),
   authStore: {
     selectedLocation: {
       id: 1,
@@ -58,12 +70,14 @@ describe('Marketplace Discover', () => {
     expect(wrapper.exists()).toEqual(true);
   });
 
-  it('should render category cards', () => {
+  it('should render category and featured product cards', () => {
     const wrapper = setup({ store: mockStore });
     const instance = wrapper.instance();
     instance.componentDidMount();
     const catCard = wrapper.find('CategoryCard');
+    const productCard = wrapper.find('ProductCard');
     expect(catCard.exists()).toEqual(true);
+    expect(productCard.exists()).toEqual(true);
   });
 
   it('should fetch department data on mount', () => {
@@ -72,6 +86,14 @@ describe('Marketplace Discover', () => {
     instance.fetchDepartmentData = jest.fn();
     instance.componentDidMount();
     expect(instance.fetchDepartmentData).toHaveBeenCalled();
+  });
+
+  it('should fetch featured products data on mount', () => {
+    const wrapper = setup({ store: mockStore });
+    const instance = wrapper.instance();
+    instance.fetchFeaturedProductsData = jest.fn();
+    instance.componentDidMount();
+    expect(instance.fetchFeaturedProductsData).toHaveBeenCalled();
   });
 
   it('disposes of the reaction when unmounting', () => {
@@ -107,8 +129,12 @@ describe('Marketplace Discover', () => {
     const fetchDepartmentData = jest
       .spyOn(instance, 'fetchDepartmentData')
       .mockReturnValue();
+    const fetchFeaturedProductsData = jest
+      .spyOn(instance, 'fetchFeaturedProductsData')
+      .mockReturnValue();
     mockStore.authStore.selectedLocation = { id: 2 };
     expect(fetchDepartmentData).toHaveBeenCalled();
+    expect(fetchFeaturedProductsData).toHaveBeenCalled();
     fetchDepartmentData.mockRestore();
   });
 
