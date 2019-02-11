@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import { reaction } from 'mobx';
+import { Router } from 'lib/routes';
 import SearchBar from 'components/molecules/search-bar';
 import CategoryCard from 'components/molecules/category-card';
 import CatalogCarousel from 'components/molecules/carousel';
@@ -58,6 +59,9 @@ export class Discover extends Component<Props, State> {
     buyerProducts.getFeaturedProducts();
   }
 
+  goToProduct = (productId: string) =>
+    Router.pushRoute(`/buyer/marketplace/catalog/product/${productId}`);
+
   renderFullState = (
     departments: DepartmentType[],
     featuredProducts: ProductCardType[],
@@ -79,7 +83,11 @@ export class Discover extends Component<Props, State> {
       cardMargin={16}
     >
       {featuredProducts.map(product => (
-        <ProductCard key={product.id} {...product} />
+        <ProductCard
+          key={product.id}
+          onClick={() => this.goToProduct(product.id)}
+          {...product}
+        />
       ))}
     </CatalogCarousel>,
   ];
