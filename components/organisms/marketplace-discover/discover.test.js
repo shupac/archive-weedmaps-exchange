@@ -23,6 +23,7 @@ const mockStore = {
     getFeaturedProducts: jest.fn(),
     featuredProducts: mockCategoryCard.data,
     featuredProductsData: mockCategoryProducts,
+    setFeaturedProductsData: jest.fn(),
   },
   authStore: observable({
     selectedLocation: {

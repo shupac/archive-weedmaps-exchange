@@ -46,6 +46,7 @@ export class Discover extends Component<Props, State> {
   }
 
   componentWillUnmount() {
+    this.props.store.buyerProducts.setFeaturedProductsData([]);
     this.dispose();
   }
 
@@ -95,10 +96,11 @@ export class Discover extends Component<Props, State> {
   render() {
     const { store } = this.props;
     const { departments, departmentsLoading } = store.buyerSettings;
-    const { featuredProducts } = store.buyerProducts;
+    const { featuredProducts, featuredProductsLoading } = store.buyerProducts;
     const { mounted } = this.state;
+    const loading = !mounted || departmentsLoading || featuredProductsLoading;
 
-    if (!mounted || departmentsLoading) {
+    if (loading) {
       return (
         <LoaderWrapper>
           <Loader />
