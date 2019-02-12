@@ -4,7 +4,6 @@ import { inject, observer } from 'mobx-react';
 import { reaction } from 'mobx';
 import { type StoreType } from 'lib/types/store';
 import { type LocationType } from 'lib/data-access/models/location';
-import { MapPin } from 'components/atoms/icons';
 import { SelectWrapper, Select } from './styles';
 
 type Props = {
@@ -74,7 +73,6 @@ export class LocationSelector extends Component<Props> {
 
     return (
       <SelectWrapper>
-        <MapPin size={20} />
         <Select
           items={this.setLocationOptions(locations)}
           selectedItem={this.setActiveSelection(activeLocation)}

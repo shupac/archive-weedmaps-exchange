@@ -25,6 +25,6 @@ export const Select = styled(SelectBase)`
     }
   }
   ${SelectButton} {
-    padding: 0 40px;
+    padding: 0 40px 0 10px;
   }
 `;
