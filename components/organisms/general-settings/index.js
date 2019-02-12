@@ -4,7 +4,7 @@ import { computed, reaction } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import Loader from 'components/atoms/loader';
 import { type AuthStoreType } from 'lib/data-access/stores/auth';
-import { type Brands } from 'lib/data-access/models/brand';
+import { type BrandType } from 'lib/data-access/models/brand';
 import { type StoreType } from 'lib/types/store';
 import GeneralSettingsForm from './general-settings-form';
 
@@ -34,7 +34,7 @@ export class GeneralSettings extends Component<Props> {
   }
 
   @computed
-  get brand(): Brands {
+  get brand(): BrandType {
     return this.props.store.authStore.brand;
   }
 
@@ -53,16 +53,15 @@ export class GeneralSettings extends Component<Props> {
 
   handleSubmit = async (values: formValues) => {
     const brand = {
-      minimum_purchase_price: values.minimumPurchasePrice,
-      shipping_fee: values.shippingFee,
-      delivery_eta: {
-        eta_min_unit: values.etaMinUnit,
-        eta_min: values.etaMin,
-        eta_max_unit: values.etaMaxUnit,
-        eta_max: values.etaMax,
+      id: this.brand.id,
+      minimumPurchasePrice: values.minimumPurchasePrice,
+      shippingFee: values.shippingFee,
+      deliveryEta: {
+        etaMinUnit: values.etaMinUnit,
+        etaMin: values.etaMin,
+        etaMaxUnit: values.etaMaxUnit,
+        etaMax: values.etaMax,
       },
-      name: this.authStore.activeSellerBrand.text,
-      id: this.authStore.activeSellerBrand.value,
     };
     const successFlag = await this.authStore.updateBrand(brand);
     this.onConfirmToast(successFlag);
