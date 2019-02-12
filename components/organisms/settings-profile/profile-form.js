@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import { withFormik, Form, FieldArray } from 'formik';
 import * as Yup from 'yup';
+import { getSnapshot } from 'mobx-state-tree';
 import { type StoreType } from 'lib/types/store';
 import { LICENSE_TYPES } from 'lib/common/constants';
-import { inject, observer } from 'mobx-react';
+import { inject } from 'mobx-react';
 import isEqual from 'lodash.isequal';
 import theme from 'lib/styles/theme';
 import Trashcan from 'components/atoms/icons/trashcan';
@@ -60,7 +61,6 @@ export const FormTemplate = ({
 }: Props) => {
   const { addressSuggestions, authStore } = store;
   const { activeContext } = authStore;
-  const { licenses } = values;
   const requiredKeys = [
     'name',
     'contactName',
@@ -69,7 +69,9 @@ export const FormTemplate = ({
     'email',
   ];
 
-  const licenseReq = values.licenses.every(license => license.number);
+  const { licenses } = values;
+
+  const licenseReq = licenses.every(license => license.number);
 
   const saveEnabled =
     dirty &&
@@ -183,9 +185,9 @@ export const FormTemplate = ({
             validateOnChange
             render={({ push, replace, remove }) => (
               <Fragment>
-                {values.licenses &&
-                  values.licenses.length > 0 &&
-                  values.licenses.map((license, index) => (
+                {licenses &&
+                  licenses.length > 0 &&
+                  licenses.map((license, index) => (
                     <FormDivide
                       style={{ marginBottom: '16px' }}
                       key={license.id ? license.id : index}
@@ -348,7 +350,7 @@ const ProfileSettingsForm = withFormik({
       contactName: contactName || '',
       phoneNumber: phoneNumber || '',
       email: email || '',
-      licenses: licenses || [],
+      licenses: getSnapshot(licenses) || [],
     };
   },
   validationSchema: schema,
@@ -361,4 +363,4 @@ const ProfileSettingsForm = withFormik({
   },
 })(FormTemplate);
 
-export default inject('store')(observer(ProfileSettingsForm));
+export default inject('store')(ProfileSettingsForm);
