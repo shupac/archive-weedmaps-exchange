@@ -259,7 +259,7 @@ export const FormTemplate = ({
                   type="button"
                   onClick={() =>
                     push({
-                      licenseType: remainingLicenses[0],
+                      license_type: remainingLicenses[0],
                       number: '',
                     })
                   }
