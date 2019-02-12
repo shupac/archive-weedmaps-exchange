@@ -36,20 +36,23 @@ export class SettingsProfile extends React.Component<Props> {
   }
 
   onConfirmToast = (successFlag: boolean) => {
-    const { uiStore } = this.props.store;
+    const { uiStore, authStore } = this.props.store;
     let notification;
     if (successFlag) {
       notification = {
         title: 'Success',
-        body: 'Your organization has been saved',
+        body: `Your ${
+          authStore.activeContext === 'buyer' ? 'organization' : 'brand'
+        } has been saved`,
         autoDismiss: 3000,
         status: 'SUCCESS',
       };
     } else {
       notification = {
         title: 'Error',
-        body:
-          'There was a problem saving your organization. Please check the address and try again',
+        body: `There was a problem saving your ${
+          authStore.activeContext === 'buyer' ? 'organization' : 'brand'
+        }. Please check the address and try again`,
         autoDismiss: 8000,
         status: 'ERROR',
       };
