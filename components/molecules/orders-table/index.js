@@ -83,15 +83,27 @@ export class OrdersTable extends Component<Props, State> {
               date ordered
             </SortButton>
           </HeadCol>
-          <HeadCol>
-            <SortButton
-              onClick={() => this.onSort('brand_name')}
-              isActive={activeSort === 'brand_name'}
-              pointsUp={this.isPointedUp}
-            >
-              {buyersTable ? 'seller' : 'buyer'}
-            </SortButton>
-          </HeadCol>
+          {buyersTable ? (
+            <HeadCol>
+              <SortButton
+                onClick={() => this.onSort('brand_name')}
+                isActive={activeSort === 'brand_name'}
+                pointsUp={this.isPointedUp}
+              >
+                seller
+              </SortButton>
+            </HeadCol>
+          ) : (
+            <HeadCol>
+              <SortButton
+                onClick={() => this.onSort('buyer')}
+                isActive={activeSort === 'buyer'}
+                pointsUp={this.isPointedUp}
+              >
+                buyer
+              </SortButton>
+            </HeadCol>
+          )}
           <HeadCol>
             <SortButton
               onClick={() => this.onSort('location')}
