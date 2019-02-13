@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { reaction } from 'mobx';
 import { type StoreType } from 'lib/types/store';
@@ -12,7 +12,7 @@ import ProductVariants from 'components/molecules/product-variants';
 import Breadcrumbs from 'components/molecules/breadcrumbs';
 import { CATALOG_QUERY_PARAMS } from 'lib/common/constants';
 
-import { GridLayout, MainPanel } from './styles';
+import { GridLayout, MainPanel, ProductDetailWrapper } from './styles';
 
 type Props = {
   store: StoreType,
@@ -91,7 +91,7 @@ export class ProductDetails extends Component<Props> {
       );
     }
     return (
-      <Fragment>
+      <ProductDetailWrapper>
         <SearchBar
           route="marketplace"
           routeParams={{ tab: 'catalog' }}
@@ -111,7 +111,7 @@ export class ProductDetails extends Component<Props> {
             />
           </MainPanel>
         </GridLayout>
-      </Fragment>
+      </ProductDetailWrapper>
     );
   }
 }
