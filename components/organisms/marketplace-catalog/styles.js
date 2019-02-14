@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
+import { ButtonWhiteNoHover } from 'components/atoms/button';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -26,4 +27,10 @@ export const Pagination = styled.div`
   align-items: center;
   font-size: ${rem(14)};
   color: ${theme.style.text.normal};
+`;
+
+export const ViewAllButton = styled(ButtonWhiteNoHover)`
+  height: 35px;
+  margin-left: 8px;
+  width: ${rem(110)};
 `;

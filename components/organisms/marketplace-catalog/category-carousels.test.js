@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { mockCategoryProducts } from 'mocks/category-products';
-import CatalogCarousel from 'components/molecules/carousel';
+import Carousel from 'components/molecules/carousel';
 import ProductCard from 'components/molecules/product-card';
 import Loader from 'components/atoms/loader';
 import EmptyState from 'components/atoms/empty-state';
 
-import { CategoryCarousels } from './carousels';
+import { CategoryCarousels } from './category-carousels';
 
 const mockStore = {
   buyerProducts: {
@@ -43,13 +43,13 @@ describe('CategoryCarousels', () => {
     instance.componentDidMount();
     expect(
       wrapper
-        .find(CatalogCarousel)
+        .find(Carousel)
         .first()
         .props().title,
     ).toEqual('Concentrates');
     expect(
       wrapper
-        .find(CatalogCarousel)
+        .find(Carousel)
         .last()
         .props().title,
     ).toEqual('Edibles');

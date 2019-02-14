@@ -19,7 +19,7 @@ import {
   AVAILABILITY_FILTERS,
   CATALOG_QUERY_PARAMS,
 } from 'lib/common/constants';
-import CategoryCarousels from './carousels';
+import CategoryCarousels from './category-carousels';
 import { Wrapper, Content, Products, Pagination } from './styles';
 
 type Props = {

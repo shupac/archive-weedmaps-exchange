@@ -14,7 +14,7 @@ import ProductCard from 'components/molecules/product-card';
 import Loader from 'components/atoms/loader';
 import PagingControls from 'components/molecules/paging-controls';
 import { Catalog } from './';
-import CategoryCarousels from './carousels';
+import CategoryCarousels from './category-carousels';
 import { Products, Pagination } from './styles';
 
 const mockStore = {

@@ -5,7 +5,7 @@ import { reaction } from 'mobx';
 import { Router } from 'lib/routes';
 import SearchBar from 'components/molecules/search-bar';
 import CategoryCard from 'components/molecules/category-card';
-import CatalogCarousel from 'components/molecules/carousel';
+import Carousel from 'components/molecules/carousel';
 import ProductCard from 'components/molecules/product-card';
 import { type ProductCardType } from 'models/buyer-product';
 import EmptyState from 'components/atoms/empty-state';
@@ -67,7 +67,7 @@ export class Discover extends Component<Props, State> {
     departments: DepartmentType[],
     featuredProducts: ProductCardType[],
   ) => [
-    <CatalogCarousel title="Categories" cardMargin={16}>
+    <Carousel title="Categories" cardMargin={16}>
       {departments.map(({ id, name, avatarImageUrl, iconImageUrl }) => (
         <CategoryCard
           key={id}
@@ -77,12 +77,8 @@ export class Discover extends Component<Props, State> {
           image={avatarImageUrl}
         />
       ))}
-    </CatalogCarousel>,
-    <CatalogCarousel
-      key="featured-products"
-      title="Featured Products"
-      cardMargin={16}
-    >
+    </Carousel>,
+    <Carousel key="featured-products" title="Featured Products" cardMargin={16}>
       {featuredProducts.map(product => (
         <ProductCard
           key={product.id}
@@ -90,7 +86,7 @@ export class Discover extends Component<Props, State> {
           {...product}
         />
       ))}
-    </CatalogCarousel>,
+    </Carousel>,
   ];
 
   render() {

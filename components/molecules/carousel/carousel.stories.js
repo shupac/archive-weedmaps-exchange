@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, number, text } from '@storybook/addon-knobs/react';
 import { action } from '@storybook/addon-actions';
 
-import CatalogCarousel from './';
+import Carousel from '.';
 import data from './mock-data.js';
 
 const PageWrapper = styled.div`
@@ -27,7 +27,7 @@ export default storiesOf('Carousel', module)
   .addDecorator(withKnobs)
   .add('Default', () => (
     <PageWrapper>
-      <CatalogCarousel
+      <Carousel
         title={text('Title', 'Edibles')}
         cardMargin={number('Card Margin', 16)}
       >
@@ -45,15 +45,15 @@ export default storiesOf('Carousel', module)
             {i}
           </Card>
         ))}
-      </CatalogCarousel>
+      </Carousel>
     </PageWrapper>
   ))
-  .add('Can View All', () => (
+  .add('With additional actions', () => (
     <PageWrapper>
-      <CatalogCarousel
+      <Carousel
         title={text('Title', 'Edibles')}
         cardMargin={number('Card Margin', 16)}
-        onViewAll={action('view all')}
+        additionalActions={<div onClick={action('view all')}>View All</div>}
       >
         {data.map((width, i) => (
           <Card
@@ -69,12 +69,12 @@ export default storiesOf('Carousel', module)
             {i}
           </Card>
         ))}
-      </CatalogCarousel>
+      </Carousel>
     </PageWrapper>
   ))
   .add('No controls', () => (
     <PageWrapper>
-      <CatalogCarousel
+      <Carousel
         title={text('Title', 'Edibles')}
         cardMargin={number('Card Margin', 16)}
       >
@@ -92,16 +92,12 @@ export default storiesOf('Carousel', module)
             {i}
           </Card>
         ))}
-      </CatalogCarousel>
+      </Carousel>
     </PageWrapper>
   ))
   .add('Multiple carousels', () => (
     <PageWrapper>
-      <CatalogCarousel
-        title="Edibles"
-        cardMargin={16}
-        onViewAll={action('view all Edibles')}
-      >
+      <Carousel title="Edibles" cardMargin={16}>
         {data.map((width, i) => (
           <Card
             key={width}
@@ -115,12 +111,8 @@ export default storiesOf('Carousel', module)
             {i}
           </Card>
         ))}
-      </CatalogCarousel>
-      <CatalogCarousel
-        title="Flower"
-        cardMargin={16}
-        onViewAll={action('view all Flower')}
-      >
+      </Carousel>
+      <Carousel title="Flower" cardMargin={16}>
         {data.map((width, i) => (
           <Card
             key={width}
@@ -134,6 +126,6 @@ export default storiesOf('Carousel', module)
             {i}
           </Card>
         ))}
-      </CatalogCarousel>
+      </Carousel>
     </PageWrapper>
   ));

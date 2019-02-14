@@ -9,7 +9,6 @@ import {
   Title,
   Controls,
   Control,
-  ViewAllButton,
   ContentWrapper,
   Content,
   CardWrapper,
@@ -23,7 +22,7 @@ const {
 type Props = {
   cardMargin?: number,
   title?: string,
-  onViewAll?: () => mixed,
+  additionalActions?: React.Node,
   children?: React.ChildrenArray<*>,
 };
 
@@ -33,7 +32,7 @@ type State = {
   atLimit?: boolean,
 };
 
-class CatalogCarousel extends React.Component<Props, State> {
+class Carousel extends React.Component<Props, State> {
   static defaultProps = {
     cardMargin: 8,
     title: 'Title',
@@ -96,8 +95,10 @@ class CatalogCarousel extends React.Component<Props, State> {
   }
 
   render() {
-    const { children, title, cardMargin, onViewAll } = this.props;
+    const { children, title, cardMargin, additionalActions } = this.props;
     const { currentIndex, scrollLeft, atLimit } = this.state;
+    const showAdditionalActions =
+      !(currentIndex === 0 && atLimit) && !!additionalActions;
 
     if (!children) return null;
 
@@ -132,10 +133,7 @@ class CatalogCarousel extends React.Component<Props, State> {
               </Control>
             </Controls>
           )}
-
-          {onViewAll && (
-            <ViewAllButton onClick={onViewAll}>View All</ViewAllButton>
-          )}
+          {showAdditionalActions && additionalActions}
         </Header>
 
         <ContentWrapper
@@ -157,4 +155,4 @@ class CatalogCarousel extends React.Component<Props, State> {
   }
 }
 
-export default CatalogCarousel;
+export default Carousel;

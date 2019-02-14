@@ -51,21 +51,6 @@ export const Control = styled.div`
   }
 `;
 
-export const ViewAllButton = styled.div`
-  height: 35px;
-  background-color: white;
-  border-radius: 3px;
-  border: 1px solid ${({ theme }) => theme.style.border.default};
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 0 12px;
-  text-transform: uppercase;
-  margin-left: 8px;
-  display: flex;
-  align-items: center;
-`;
-
 export const ContentWrapper = styled.div`
   // flex: 1;
   overflow-x: hidden;

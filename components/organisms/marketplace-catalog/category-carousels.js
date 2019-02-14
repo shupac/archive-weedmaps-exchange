@@ -1,13 +1,15 @@
 // @flow
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import { Link } from 'lib/routes';
 import { reaction } from 'mobx';
 import styled from 'styled-components';
-import CatalogCarousel from 'components/molecules/carousel';
+import Carousel from 'components/molecules/carousel';
 import ProductCard from 'components/molecules/product-card';
 import { type CategoryProductsType } from 'models/category-products';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
 import EmptyState from 'components/atoms/empty-state';
+import { ViewAllButton } from './styles';
 
 const CatalogWrapper = styled.div``;
 
@@ -71,10 +73,19 @@ class CategoryCarousels extends Component<CategoryProductsType, State> {
     return (
       <CatalogWrapper>
         {categoryProducts.map(category => (
-          <CatalogCarousel
+          <Carousel
             key={category.id}
             title={category.name}
             cardMargin={16}
+            additionalActions={
+              <Link
+                key={category.id}
+                route="marketplace"
+                params={{ tab: 'catalog', categories: category.id }}
+              >
+                <ViewAllButton>View All</ViewAllButton>
+              </Link>
+            }
           >
             {category.products.map(product => (
               <ProductCard
@@ -83,7 +94,7 @@ class CategoryCarousels extends Component<CategoryProductsType, State> {
                 onClick={() => gotoProduct(product.id)}
               />
             ))}
-          </CatalogCarousel>
+          </Carousel>
         ))}
       </CatalogWrapper>
     );
