@@ -122,6 +122,7 @@ class Carousel extends React.Component<Props, State> {
 
           {!(currentIndex === 0 && atLimit) && (
             <Controls>
+              {showAdditionalActions && additionalActions}
               <Control
                 onClick={() => this.onPrev()}
                 disabled={currentIndex === 0}
@@ -133,7 +134,6 @@ class Carousel extends React.Component<Props, State> {
               </Control>
             </Controls>
           )}
-          {showAdditionalActions && additionalActions}
         </Header>
 
         <ContentWrapper

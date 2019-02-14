@@ -31,6 +31,6 @@ export const Pagination = styled.div`
 
 export const ViewAllButton = styled(ButtonWhiteNoHover)`
   height: 35px;
-  margin-left: 8px;
+  margin-right: 8px;
   width: ${rem(110)};
 `;
