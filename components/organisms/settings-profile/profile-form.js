@@ -155,6 +155,7 @@ export const FormTemplate = ({
                 onBlur={handleBlur}
                 value={normalizePhoneNumber(values.phoneNumber)}
                 placeholder="Enter Phone"
+                maxLength="14"
                 error={errors.phoneNumber && touched.phoneNumber}
               />
               {errors.phoneNumber && touched.phoneNumber && (
