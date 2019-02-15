@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { action, observable, computed } from 'mobx';
 import get from 'lodash.get';
 import { type StoreType } from 'lib/types/store';
-import { type CartItemType, type CartType } from 'lib/data-access/models/cart';
+import { type CartItemType } from 'lib/data-access/models/cart';
 import { formatDollars } from 'lib/common/strings.js';
 import ErrorIcon from 'components/atoms/icons/error';
 import ProductRow from './product-row';
@@ -17,6 +17,8 @@ import {
   ColLabelRight,
   Border,
   ErrorMessage,
+  NoteInput,
+  NoteInputLabel,
 } from './styles';
 
 type Props = {
@@ -24,7 +26,6 @@ type Props = {
   count?: number,
   index: ?number,
   cartItems: CartItemType[],
-  cart: CartType,
 };
 
 export class ShipmentCard extends Component<Props> {
@@ -47,6 +48,21 @@ export class ShipmentCard extends Component<Props> {
       ...this.rowSubtotals,
       [rowId]: itemtotals,
     };
+  };
+
+  get brandId() {
+    const { cartItems } = this.props;
+    return get(cartItems[0], 'variant.product.brand.id', 0);
+  }
+
+  onNoteChange = (text: string) => {
+    const { store } = this.props;
+    const { buyerCart } = store;
+
+    buyerCart.setShipmentNote({
+      ...buyerCart.shipmentNote,
+      [this.brandId]: text,
+    });
   };
 
   // If every product in a shipment card has unavailable location
@@ -94,7 +110,20 @@ export class ShipmentCard extends Component<Props> {
               />
             ))}
           <SubtotalWrapper>
-            Subtotal: <b>{formatDollars(this.shipmentSubTotal)}</b>
+            <span>
+              <NoteInputLabel>Notes</NoteInputLabel>
+              <NoteInput
+                value={get(buyerCart, `shipmentNote[${this.brandId}]`, '')}
+                onChange={e => this.onNoteChange(e.target.value)}
+                maxLength={255}
+                rows={2}
+                placeholder="Add a note..."
+                data-test-id="notes-input"
+              />
+            </span>{' '}
+            <span>
+              Subtotal: <b>{formatDollars(this.shipmentSubTotal)}</b>
+            </span>
           </SubtotalWrapper>
           {!this.hasMinimumErrorState() &&
             this.shipmentSubTotal < minimumPurchasePrice && (

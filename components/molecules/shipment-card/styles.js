@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import WmTheme from '@ghostgroup/ui.theme';
+import TextArea from 'components/atoms/forms/text-area';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 
@@ -176,10 +177,12 @@ export const UpdateLink = styled.a`
 `;
 UpdateLink.displayName = 'UpdateLink';
 
-export const SubtotalWrapper = styled.p`
+export const SubtotalWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
   grid-column: 1/-1;
   text-align: right;
-  padding-right: 16px;
+  padding: 0 16px;
   margin: 0 0 16px 0;
 `;
 SubtotalWrapper.displayName = 'SubtotalWrapper';
@@ -208,3 +211,17 @@ export const ErrorMessage = styled.div`
   }
 `;
 ErrorMessage.displayName = 'ErrorMessage';
+
+export const NoteInput = styled(TextArea)`
+  height: 50px;
+  min-width: 400px;
+`;
+
+export const NoteInputLabel = styled.label`
+  text-align: left;
+  display: block;
+  font-size: ${rem(14)};
+  font-weight: 600;
+  color: ${icon.light};
+  margin-bottom: 4px;
+`;

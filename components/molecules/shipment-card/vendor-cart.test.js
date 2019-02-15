@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import findByTestId from 'lib/jest/find-by-test-id';
 import BuyerCart from 'lib/data-access/stores/buyer-cart';
 import { mockErrorCart } from 'lib/mocks/cart';
-import ShipmentCard from './';
+import { ShipmentCard } from './';
 import ProductRow from './product-row';
 
 function setup(store: any) {
@@ -16,6 +17,9 @@ function setup(store: any) {
     },
     {
       client: mockFetchClient,
+      localStorage: {
+        setInLocal: jest.fn(),
+      },
     },
   );
 
@@ -37,7 +41,7 @@ function setup(store: any) {
   const shipmentWrapper = shallow(
     <ShipmentCard store={mockStore} {...props} />,
   ).dive();
-  return { productRowWrapper, shipmentWrapper };
+  return { productRowWrapper, shipmentWrapper, mockBuyerCartStore };
 }
 
 describe('ShipmentCart', () => {
@@ -54,6 +58,14 @@ describe('ShipmentCart', () => {
     expect(shipmentWrapper.find('ErrorMessage').text()).toEqual(
       '<ErrorIcon /> THClear Co has a minimum order amount of $10,000.00.',
     );
+  });
+  it('should handle custom notes on the shipment card', () => {
+    const { shipmentWrapper, mockBuyerCartStore } = setup();
+    const onNoteChange = jest.spyOn(mockBuyerCartStore, 'setShipmentNote');
+    const notesInput = findByTestId(shipmentWrapper, 'notes-input');
+
+    notesInput.simulate('change', { target: { value: 'Custom note' } });
+    expect(onNoteChange).toHaveBeenCalled();
   });
 });
 
