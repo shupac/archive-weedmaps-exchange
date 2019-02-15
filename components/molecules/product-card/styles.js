@@ -14,7 +14,6 @@ export const CardWrapper = styled(Card)`
   display: flex;
   flex-direction: column;
   box-shadow: 0 1px 3px ${theme.style.shadow};
-  cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
 `;
 CardWrapper.displayName = 'CardWrapper';
 

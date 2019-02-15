@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { mockCategoryProducts } from 'mocks/category-products';
 import Carousel from 'components/molecules/carousel';
-import ProductCard from 'components/molecules/product-card';
 import Loader from 'components/atoms/loader';
 import EmptyState from 'components/atoms/empty-state';
 
@@ -17,12 +16,8 @@ const mockStore = {
   },
 };
 
-const mockGotoProduct = jest.fn();
-
 function setup({ store }) {
-  const component = (
-    <CategoryCarousels store={store} gotoProduct={mockGotoProduct} />
-  );
+  const component = <CategoryCarousels store={store} />;
   const wrapper = shallow(component, {
     disableLifecycleMethods: true,
   });
@@ -53,19 +48,6 @@ describe('CategoryCarousels', () => {
         .last()
         .props().title,
     ).toEqual('Edibles');
-  });
-
-  it('should go to the product detail page when card is clicked', () => {
-    const wrapper = setup({ store: mockStore });
-    const instance = wrapper.instance();
-    instance.componentDidMount();
-    wrapper
-      .find(ProductCard)
-      .first()
-      .simulate('click');
-    expect(mockGotoProduct).toHaveBeenCalledWith(
-      '4e12ea30-ccd8-455e-841b-1e4b0c7ac799',
-    );
   });
 
   it('should render the loader when loading', () => {

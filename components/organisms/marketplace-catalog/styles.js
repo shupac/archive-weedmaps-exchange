@@ -34,3 +34,8 @@ export const ViewAllButton = styled(ButtonWhiteNoHover)`
   margin-right: 8px;
   width: ${rem(110)};
 `;
+
+export const StyledLink = styled.a`
+  text-decoration: none;
+  cursor: pointer;
+`;

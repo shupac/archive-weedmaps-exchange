@@ -23,7 +23,6 @@ type Props = {
   category: string,
   outOfStock?: boolean,
   width?: string,
-  onClick?: () => void,
 };
 
 export const getPrice = (minPrice: number, maxPrice: number) => {
@@ -52,11 +51,10 @@ class ProductCard extends Component<Props> {
       category,
       outOfStock,
       width,
-      onClick,
     } = this.props;
 
     return (
-      <CardWrapper width={width} onClick={onClick}>
+      <CardWrapper width={width}>
         <Product outOfStock={outOfStock}>
           <ImageWrapper>
             <img src={imageUrl} alt={name} />

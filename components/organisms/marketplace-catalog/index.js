@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'next/router';
 import { reaction } from 'mobx';
-import { Router } from 'lib/routes';
+import { Router, Link } from 'lib/routes';
 import { inject, observer } from 'mobx-react';
 import FilterPanel from 'components/molecules/filter-panel';
 import FilterSection from 'components/molecules/filter-section';
@@ -20,7 +20,7 @@ import {
   CATALOG_QUERY_PARAMS,
 } from 'lib/common/constants';
 import CategoryCarousels from './category-carousels';
-import { Wrapper, Content, Products, Pagination } from './styles';
+import { Wrapper, Content, Products, Pagination, StyledLink } from './styles';
 
 type Props = {
   router: RouterType,
@@ -177,9 +177,6 @@ class Catalog extends Component<Props, State> {
     );
   }
 
-  gotoProduct = (productId: string) =>
-    Router.pushRoute(`/buyer/marketplace/catalog/product/${productId}`);
-
   renderProducts() {
     const { router, store } = this.props;
     const { mounted } = this.state;
@@ -188,7 +185,7 @@ class Catalog extends Component<Props, State> {
     const hasQuery = Object.keys(router.query).filter(param =>
       queryParams.includes(param),
     ).length;
-    if (!hasQuery) return <CategoryCarousels gotoProduct={this.gotoProduct} />;
+    if (!hasQuery) return <CategoryCarousels />;
 
     // show search results
     const {
@@ -228,12 +225,11 @@ class Catalog extends Component<Props, State> {
       <Fragment>
         <Products>
           {searchResults.map(product => (
-            <ProductCard
-              key={product.id}
-              {...product}
-              width="100%"
-              onClick={() => this.gotoProduct(product.id)}
-            />
+            <Link href={`/buyer/marketplace/catalog/product/${product.id}`}>
+              <StyledLink>
+                <ProductCard key={product.id} {...product} width="100%" />
+              </StyledLink>
+            </Link>
           ))}
         </Products>
 

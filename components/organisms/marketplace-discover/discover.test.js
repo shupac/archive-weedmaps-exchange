@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { observable } from 'mobx';
-import { Router } from 'lib/routes';
 import { mockCategories, mockEmptyCategories } from 'lib/mocks/categories';
 import {
   mockCategoryProducts,
@@ -138,20 +137,6 @@ describe('Marketplace Discover', () => {
     expect(fetchDepartmentData).toHaveBeenCalled();
     expect(fetchFeaturedProductsData).toHaveBeenCalled();
     fetchDepartmentData.mockRestore();
-  });
-
-  it('should call goToProduct when ProductCard is clicked', () => {
-    const mockedRouter = { push: () => {} };
-    Router.router = mockedRouter;
-    const wrapper = setup({ store: mockStore });
-    const instance = wrapper.instance();
-    const goToProduct = jest.spyOn(instance, 'goToProduct');
-    instance.componentDidMount();
-    wrapper
-      .find('ProductCard')
-      .first()
-      .simulate('click');
-    expect(goToProduct).toHaveBeenCalledWith('uuid');
   });
 
   describe('if categories are empty', () => {

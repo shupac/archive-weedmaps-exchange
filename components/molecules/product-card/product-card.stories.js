@@ -16,7 +16,6 @@ class Wrapper extends Component<Props> {
       <div style={{ display: 'flex' }}>
         {products.map(product => (
           <ProductCard
-            onClick={() => console.log('clicked', product)}
             key={product.id}
             id={product.id}
             brand={product.brand}

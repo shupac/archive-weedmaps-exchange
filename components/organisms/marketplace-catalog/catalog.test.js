@@ -10,7 +10,6 @@ import {
 import { mockBrands } from 'lib/mocks/brands';
 import { mockProduct } from 'lib/mocks/search-results';
 import EmptyState from 'components/atoms/empty-state';
-import ProductCard from 'components/molecules/product-card';
 import Loader from 'components/atoms/loader';
 import PagingControls from 'components/molecules/paging-controls';
 import { Catalog } from './';
@@ -237,19 +236,6 @@ describe('Marketplace Catalog', () => {
     expect(wrapper.find(CategoryCarousels).exists()).toEqual(false);
     expect(wrapper.find(Products).exists()).toEqual(false);
     expect(wrapper.find(EmptyState).exists()).toEqual(true);
-  });
-
-  it('should go to the product detail page when card is clicked', () => {
-    const wrapper = setup({ store: mockStore });
-    const instance = wrapper.instance();
-    instance.componentDidMount();
-
-    const push = jest.spyOn(Router, 'pushRoute').mockReturnValue();
-    wrapper.find(ProductCard).simulate('click');
-    expect(push).toHaveBeenCalledWith(
-      '/buyer/marketplace/catalog/product/1234',
-    );
-    push.mockRestore();
   });
 
   it('should render the loader when loading', () => {

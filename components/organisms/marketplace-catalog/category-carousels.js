@@ -9,7 +9,7 @@ import ProductCard from 'components/molecules/product-card';
 import { type CategoryProductsType } from 'models/category-products';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
 import EmptyState from 'components/atoms/empty-state';
-import { ViewAllButton } from './styles';
+import { ViewAllButton, StyledLink } from './styles';
 
 const CatalogWrapper = styled.div``;
 
@@ -48,7 +48,7 @@ class CategoryCarousels extends Component<CategoryProductsType, State> {
   }
 
   render() {
-    const { store, gotoProduct } = this.props;
+    const { store } = this.props;
     const { mounted } = this.state;
     const { categoryProductsLoading, categoryProducts } = store.buyerProducts;
 
@@ -83,16 +83,18 @@ class CategoryCarousels extends Component<CategoryProductsType, State> {
                 route="marketplace"
                 params={{ tab: 'catalog', categories: category.id }}
               >
-                <ViewAllButton>View All</ViewAllButton>
+                <StyledLink>
+                  <ViewAllButton>View All</ViewAllButton>
+                </StyledLink>
               </Link>
             }
           >
             {category.products.map(product => (
-              <ProductCard
-                key={product.id}
-                {...product}
-                onClick={() => gotoProduct(product.id)}
-              />
+              <Link href={`/buyer/marketplace/catalog/product/${product.id}`}>
+                <StyledLink>
+                  <ProductCard key={product.id} {...product} />
+                </StyledLink>
+              </Link>
             ))}
           </Carousel>
         ))}
