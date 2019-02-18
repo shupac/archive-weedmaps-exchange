@@ -208,7 +208,7 @@ exports[`Seller Products Page should show pagination 1`] = `
               src="https://images-acceptance.weedmaps.com/products/000/024/998/avatar/square/natureslab_live24k-1.jpg"
             />
             <Link
-              href="/seller/products/b3f4fd48-6698-43cd-addc-33504fcd0434"
+              route="/seller/products/b3f4fd48-6698-43cd-addc-33504fcd0434"
             >
               <a>
                 24K Live Resin Shatter
@@ -242,7 +242,7 @@ exports[`Seller Products Page should show pagination 1`] = `
               src="https://images-acceptance.weedmaps.com/products/000/016/381/avatar/square/blvdsupply_2_palmstee_1.png"
             />
             <Link
-              href="/seller/products/914a63ff-a67b-47fb-946b-86c991ce4560"
+              route="/seller/products/914a63ff-a67b-47fb-946b-86c991ce4560"
             >
               <a>
                 2 Palms Tee
@@ -276,7 +276,7 @@ exports[`Seller Products Page should show pagination 1`] = `
               src="https://images.weedmaps.com/products/000/052/107/avatar/square/1506462031-170918_303KushLW_3874.jpg?development=1"
             />
             <Link
-              href="/seller/products/554cc78e-d9f3-4240-8b57-63a377c5a240"
+              route="/seller/products/554cc78e-d9f3-4240-8b57-63a377c5a240"
             >
               <a>
                 303 Kush Live Wax

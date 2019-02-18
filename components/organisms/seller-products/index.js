@@ -341,7 +341,7 @@ export class SellerProducts extends React.Component<Props, State> {
           <TableCell>
             <AvatarName>
               <img src={avatarImage.smallUrl} alt={name} />
-              <Link href={`/seller/products/${id}`}>
+              <Link route={`/seller/products/${id}`}>
                 <a>{name}</a>
               </Link>
             </AvatarName>

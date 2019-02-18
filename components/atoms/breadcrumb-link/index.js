@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import Link from 'next/link';
 import { ChevronRight } from 'components/atoms/icons/chevron';
+import { Link } from 'lib/routes';
 import styled from 'styled-components';
 import { rem, darken } from 'polished';
 import WmTheme from '@ghostgroup/ui.theme';
@@ -33,7 +33,7 @@ type Props = {
 
 export const BreadcrumbLink = ({ label, route }: Props) => (
   <ActiveLink>
-    <Link href={route}>
+    <Link route={route}>
       <a>{label}</a>
     </Link>
     <ChevronRight size={{ width: '8px', height: '8px' }} />
