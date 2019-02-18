@@ -43,7 +43,7 @@ export const OrderSummaryHeader = styled.div`
 export const OrderSummaryDetailsWrapper = styled.div`
   margin: 24px;
   margin-bottom: 16px;
-  padding-bottom: 16px;
+  padding-bottom: 24px;
   > a {
     margin-top: 16px;
   }

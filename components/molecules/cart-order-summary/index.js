@@ -1,11 +1,11 @@
 // @flow
 import React, { Fragment } from 'react';
-import Link from 'next/link';
 import { formatDollars } from 'lib/common/strings';
 import uniqby from 'lodash.uniqby';
 import errorDictionary from 'lib/common/cart-errors';
 import { ButtonWhiteNoHover } from 'components/atoms/button';
 import LoadingButton from 'components/atoms/loading-button';
+import StyledLink from 'components/atoms/styled-link';
 import { type CartType } from 'lib/data-access/models/cart';
 import uniqueKey from 'lib/common/unique-key';
 import {
@@ -72,11 +72,9 @@ const CartOrderSummary = ({ cart, quantity, onSubmit, isLoading }: Props) => {
                 </LoadingButton>
               )}
               <ContinueWrapper>
-                <Link href="/buyer/marketplace/discover">
-                  <a>
-                    <ButtonWhiteNoHover>Continue Shopping</ButtonWhiteNoHover>
-                  </a>
-                </Link>
+                <StyledLink href="/buyer/marketplace/discover">
+                  <ButtonWhiteNoHover>Continue Shopping</ButtonWhiteNoHover>
+                </StyledLink>
               </ContinueWrapper>
             </Fragment>
           )}

@@ -9,7 +9,6 @@ const A = styled.a`
   text-decoration: none;
   color: ${WmTheme.style.state.primary};
   cursor: pointer;
-  width: fit-content;
 `;
 
 type Props = {
