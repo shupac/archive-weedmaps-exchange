@@ -47,6 +47,7 @@ export const MiniPhoto = styled.div`
   }
   background-size: cover;
   background-position: center center;
+  background-color: ${background.light};
   border: ${({ isFeatured }) =>
     isFeatured ? `1px solid ${WmColor.primary}` : 'none'};
   cursor: pointer;

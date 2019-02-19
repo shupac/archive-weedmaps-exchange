@@ -87,7 +87,7 @@ export class ProductPhotos extends Component<Props, State> {
 
           <MiniPhotoWrapper>
             {productPhotos &&
-              productPhotos.map((photo, index) => (
+              productPhotos.slice(0, 6).map((photo, index) => (
                 <MiniPhoto
                   key={photo.id}
                   onClick={() => this.setFeaturedPhotoIndex(index)}
