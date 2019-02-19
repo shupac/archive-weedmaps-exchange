@@ -68,7 +68,10 @@ export class OrdersFilters extends Component<Props> {
 
     return (
       <FiltersRow>
-        <SearchBox onHandleSearch={setSearch} />
+        <SearchBox
+          onHandleSearch={setSearch}
+          placeholder="Search by Order ID"
+        />
         <DateRange dateRange={dateRange} setDateRange={setDateRange} />
         {buyersTable ? (
           <ComboSelect
