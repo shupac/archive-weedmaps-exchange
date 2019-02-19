@@ -213,8 +213,10 @@ export const ErrorMessage = styled.div`
 ErrorMessage.displayName = 'ErrorMessage';
 
 export const NoteInput = styled(TextArea)`
-  height: 50px;
+  height: 40px;
   min-width: 400px;
+  resize: vertical;
+  padding: 8px;
 `;
 
 export const NoteInputLabel = styled.label`

@@ -111,13 +111,13 @@ export class ShipmentCard extends Component<Props> {
             ))}
           <SubtotalWrapper>
             <span>
-              <NoteInputLabel>Notes</NoteInputLabel>
+              <NoteInputLabel>Order Notes</NoteInputLabel>
               <NoteInput
                 value={get(buyerCart, `shipmentNote[${this.brandId}]`, '')}
                 onChange={e => this.onNoteChange(e.target.value)}
                 maxLength={255}
                 rows={2}
-                placeholder="Add a note..."
+                placeholder="e.g., delivery details, special instructions, etc."
                 data-test-id="notes-input"
               />
             </span>{' '}
