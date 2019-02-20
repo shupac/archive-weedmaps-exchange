@@ -128,7 +128,7 @@ export class ProductVariants extends Component<Props, State> {
     const { uiStore, buyerProducts } = this.props.store;
 
     const alertContent = {
-      title: `You added ${buyerProducts.productDetails.name} to you cart`,
+      title: `You added ${buyerProducts.productDetails.name} to your cart`,
       link: { label: 'VIEW CART', route: '/buyer/cart' },
       status: ALERT_STATUS.SUCCESS,
       autoDismiss: 4000,

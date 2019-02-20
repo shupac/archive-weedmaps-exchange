@@ -109,5 +109,6 @@ export const ButtonWhiteNoHover = styled(uiButton)`
   width: ${props => (props.w ? rem(props.w) : '100%')};
   background: ${theme.style.state.secondary};
   border: 1px solid ${theme.style.border.default};
+  text-decoration: none;
 `;
 ButtonWhite.displayName = 'ButtonWhiteNoHover';

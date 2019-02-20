@@ -78,7 +78,7 @@ class BuyerOrdersPage extends Component<Props> {
   };
 
   getTitle = (itemsAdded: number) =>
-    `You added ${itemsAdded} item${itemsAdded === 1 ? '' : 's'} to you cart`;
+    `You added ${itemsAdded} item${itemsAdded === 1 ? '' : 's'} to your cart`;
 
   showErrorToast = () => {
     const { uiStore } = this.props.store;

@@ -148,7 +148,7 @@ describe('Buyer Purchase Orders Page', () => {
         route: '/buyer/cart',
       },
       status: 'SUCCESS',
-      title: 'You added 1 item to you cart',
+      title: 'You added 1 item to your cart',
     });
     expect(fetchCart).toHaveBeenCalled();
     done();
@@ -178,7 +178,7 @@ describe('Buyer Purchase Orders Page', () => {
 
   it('should pluralize toast message', () => {
     const { instance } = setup();
-    expect(instance.getTitle(2)).toEqual('You added 2 items to you cart');
+    expect(instance.getTitle(2)).toEqual('You added 2 items to your cart');
   });
 
   it('should handle onCancelOrder for purchase order detail', () => {

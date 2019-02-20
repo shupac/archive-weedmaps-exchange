@@ -93,7 +93,7 @@ class SellerPurchaseOrder extends Component<Props> {
     return (
       <PurchaseOrderWrapper>
         <OrderHeader>
-          <StyledLink href="/seller/orders">
+          <StyledLink route="/seller/orders">
             <BackArrow />
           </StyledLink>
           <span style={{ marginLeft: '16px' }}>

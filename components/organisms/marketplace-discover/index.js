@@ -2,17 +2,16 @@
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import { reaction } from 'mobx';
-import { Link } from 'lib/routes';
 import SearchBar from 'components/molecules/search-bar';
 import CategoryCard from 'components/molecules/category-card';
 import Carousel from 'components/molecules/carousel';
 import ProductCard from 'components/molecules/product-card';
 import { type ProductCardType } from 'models/buyer-product';
 import EmptyState from 'components/atoms/empty-state';
+import StyledLink from 'components/atoms/styled-link';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
 import { type DepartmentType } from 'models/department';
 import { CATALOG_QUERY_PARAMS } from 'lib/common/constants';
-import StyledLink from './styles';
 
 type Props = {
   store: any,
@@ -78,11 +77,9 @@ export class Discover extends Component<Props, State> {
     </Carousel>,
     <Carousel key="featured-products" title="Featured Products" cardMargin={16}>
       {featuredProducts.map(product => (
-        <Link href={`/buyer/marketplace/catalog/product/${product.id}`}>
-          <StyledLink>
-            <ProductCard key={product.id} {...product} />
-          </StyledLink>
-        </Link>
+        <StyledLink route={`/buyer/marketplace/catalog/product/${product.id}`}>
+          <ProductCard key={product.id} {...product} />
+        </StyledLink>
       ))}
     </Carousel>,
   ];

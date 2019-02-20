@@ -8,8 +8,9 @@ import Carousel from 'components/molecules/carousel';
 import ProductCard from 'components/molecules/product-card';
 import { type CategoryProductsType } from 'models/category-products';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
+import StyledLink from 'components/atoms/styled-link';
 import EmptyState from 'components/atoms/empty-state';
-import { ViewAllButton, StyledLink } from './styles';
+import { ViewAllButton } from './styles';
 
 const CatalogWrapper = styled.div``;
 
@@ -82,19 +83,18 @@ class CategoryCarousels extends Component<CategoryProductsType, State> {
                 key={category.id}
                 route="marketplace"
                 params={{ tab: 'catalog', categories: category.id }}
+                passHref
               >
-                <StyledLink>
-                  <ViewAllButton>View All</ViewAllButton>
-                </StyledLink>
+                <ViewAllButton as="a">View All</ViewAllButton>
               </Link>
             }
           >
             {category.products.map(product => (
-              <Link href={`/buyer/marketplace/catalog/product/${product.id}`}>
-                <StyledLink>
-                  <ProductCard key={product.id} {...product} />
-                </StyledLink>
-              </Link>
+              <StyledLink
+                route={`/buyer/marketplace/catalog/product/${product.id}`}
+              >
+                <ProductCard key={product.id} {...product} />
+              </StyledLink>
             ))}
           </Carousel>
         ))}

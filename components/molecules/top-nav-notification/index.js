@@ -1,12 +1,12 @@
 // @flow
 import React from 'react';
-import { Router } from 'lib/routes';
 import theme from 'lib/styles/theme';
 import { inject, observer } from 'mobx-react';
 import { type StoreType } from 'lib/types/store';
 import styled from 'styled-components';
 import { Cart } from 'components/atoms/icons';
 import { rem } from 'polished';
+import StyledLink from 'components/atoms/styled-link';
 
 const CartContainer = styled.div`
   display: flex;
@@ -52,16 +52,16 @@ export const NotificationWrapper = styled.div`
 NotificationWrapper.displayName = 'NotificationWrapper';
 
 const Notification = ({ store }: { store: StoreType }) => (
-  <CartContainer onClick={() => Router.pushRoute('/buyer/cart')}>
-    <IconWrapper>
-      <a>
+  <StyledLink route="/buyer/cart">
+    <CartContainer>
+      <IconWrapper>
         <Cart size={{ width: '24px', height: '24px' }} />
-      </a>
-      <NotificationWrapper show={store.buyerCart.cartItemCount}>
-        <NotificationCount>{store.buyerCart.cartItemCount}</NotificationCount>
-      </NotificationWrapper>
-    </IconWrapper>
-  </CartContainer>
+        <NotificationWrapper show={store.buyerCart.cartItemCount}>
+          <NotificationCount>{store.buyerCart.cartItemCount}</NotificationCount>
+        </NotificationWrapper>
+      </IconWrapper>
+    </CartContainer>
+  </StyledLink>
 );
 
 export default inject('store')(observer(Notification));

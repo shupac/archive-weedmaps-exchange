@@ -177,7 +177,7 @@ export class OrdersTable extends Component<Props, State> {
 
           return (
             <Fragment key={id}>
-              <StyledLink href={`/${customerType}/orders/${id}`}>
+              <StyledLink route={`/${customerType}/orders/${id}`}>
                 {id.substring(0, 6).toUpperCase()}
               </StyledLink>
               <p>{formatDate(orderDate)}</p>

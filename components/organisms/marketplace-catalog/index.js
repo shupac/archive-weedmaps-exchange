@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'next/router';
 import { reaction } from 'mobx';
-import { Router, Link } from 'lib/routes';
+import { Router } from 'lib/routes';
 import { inject, observer } from 'mobx-react';
 import FilterPanel from 'components/molecules/filter-panel';
 import FilterSection from 'components/molecules/filter-section';
@@ -12,6 +12,7 @@ import SearchBar from 'components/molecules/search-bar';
 import ProductCard from 'components/molecules/product-card';
 import PagingControls from 'components/molecules/paging-controls';
 import EmptyState from 'components/atoms/empty-state';
+import StyledLink from 'components/atoms/styled-link';
 import Loader, { LoaderWrapper } from 'components/atoms/loader';
 import { type RouterType } from 'lib/types/router';
 import { type StoreType } from 'lib/types/store';
@@ -20,7 +21,7 @@ import {
   CATALOG_QUERY_PARAMS,
 } from 'lib/common/constants';
 import CategoryCarousels from './category-carousels';
-import { Wrapper, Content, Products, Pagination, StyledLink } from './styles';
+import { Wrapper, Content, Products, Pagination } from './styles';
 
 type Props = {
   router: RouterType,
@@ -225,11 +226,11 @@ class Catalog extends Component<Props, State> {
       <Fragment>
         <Products>
           {searchResults.map(product => (
-            <Link href={`/buyer/marketplace/catalog/product/${product.id}`}>
-              <StyledLink>
-                <ProductCard key={product.id} {...product} width="100%" />
-              </StyledLink>
-            </Link>
+            <StyledLink
+              route={`/buyer/marketplace/catalog/product/${product.id}`}
+            >
+              <ProductCard key={product.id} {...product} width="100%" />
+            </StyledLink>
           ))}
         </Products>
 

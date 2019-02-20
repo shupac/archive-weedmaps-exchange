@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import Link from 'next/link';
+import { Link } from 'lib/routes';
 import styled from 'styled-components';
 import WmTheme from '@ghostgroup/ui.theme';
 
@@ -12,12 +12,12 @@ const A = styled.a`
 `;
 
 type Props = {
-  href: string,
+  route: string,
   children?: React.ChildrenArray<*>,
 };
 
-export default ({ href, children }: Props) => (
-  <Link href={href}>
+export default ({ route, children }: Props) => (
+  <Link route={route}>
     <A>{children}</A>
   </Link>
 );

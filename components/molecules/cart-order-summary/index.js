@@ -2,10 +2,10 @@
 import React, { Fragment } from 'react';
 import { formatDollars } from 'lib/common/strings';
 import uniqby from 'lodash.uniqby';
+import { Link } from 'lib/routes';
 import errorDictionary from 'lib/common/cart-errors';
 import { ButtonWhiteNoHover } from 'components/atoms/button';
 import LoadingButton from 'components/atoms/loading-button';
-import StyledLink from 'components/atoms/styled-link';
 import { type CartType } from 'lib/data-access/models/cart';
 import uniqueKey from 'lib/common/unique-key';
 import {
@@ -72,9 +72,11 @@ const CartOrderSummary = ({ cart, quantity, onSubmit, isLoading }: Props) => {
                 </LoadingButton>
               )}
               <ContinueWrapper>
-                <StyledLink href="/buyer/marketplace/discover">
-                  <ButtonWhiteNoHover>Continue Shopping</ButtonWhiteNoHover>
-                </StyledLink>
+                <Link passHref route="/buyer/marketplace/discover">
+                  <ButtonWhiteNoHover as="a">
+                    Continue Shopping
+                  </ButtonWhiteNoHover>
+                </Link>
               </ContinueWrapper>
             </Fragment>
           )}
