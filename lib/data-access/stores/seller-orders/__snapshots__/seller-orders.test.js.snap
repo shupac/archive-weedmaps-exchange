@@ -16,6 +16,7 @@ Object {
     ],
     "buyerLocationName": "Andrew's Cryb",
     "buyerName": "Andrew",
+    "buyerNote": "test",
     "buyerPhone": "(303) 555-5555",
   },
   "expectedShipDateMax": "2018-11-15T17:48:29.169876Z",

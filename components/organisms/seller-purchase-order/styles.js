@@ -199,12 +199,19 @@ export const Subtotal = styled.div`
   font-weight: 600;
   text-align: right;
   justify-content: flex-end;
+  margin-bottom: 16px;
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 `;
 
 export const Totals = styled.div`
+  display: grid;
+  color: ${text.normal};
+  grid-template-columns: 4fr 1fr 110px;
   background-color: ${background.secondary};
   margin-bottom: 16px;
-  padding: 24px 0;
+  padding: 24px 32px 24px 0;
   border-bottom: 1px solid ${border.default};
 
   @media print {
@@ -214,21 +221,12 @@ export const Totals = styled.div`
   }
 `;
 
-export const TotalsRow = styled.div`
-  ${gridColumnsBody}
-  background-color: ${background.secondary};
-  font-size: ${rem(14)};
-  padding-bottom: 16px;
-  padding-right: 32px;
-
-  &:last-of-type {
-    font-weight: 600;
-    padding-bottom: 0;
-  }
-`;
-
 export const TotalLabel = styled.div`
-  grid-column: 4;
+  grid-column: 3;
+  margin-bottom: 16px;
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 `;
 
 export const InstructionWrapper = styled.div`
@@ -236,9 +234,20 @@ export const InstructionWrapper = styled.div`
   grid-column: 1;
 `;
 
+export const DescriptionWrapper = styled.div`
+  margin: 8px 0 16px 24px;
+`;
+
+export const BuyerInstructions = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: ${rem(14)};
+`;
+
 export const TotalDivider = styled.div`
   grid-column: 4/-1;
   border-bottom: 1px solid ${border.default};
+  margin-bottom: 16px;
 `;
 
 export const SellerDetailsWrapper = styled.div`

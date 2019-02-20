@@ -18,12 +18,13 @@ import {
   HeaderButtons,
   ProductsLabels,
   Totals,
-  TotalsRow,
   Subtotal,
   TotalLabel,
   TotalDivider,
   StyledSellerName,
   InstructionWrapper,
+  BuyerInstructions,
+  DescriptionWrapper,
 } from './styles';
 import BuyerDetailsModal from './buyer-details-modal';
 
@@ -86,6 +87,7 @@ class SellerPurchaseOrder extends Component<Props> {
       buyerPhone,
       buyerName,
       buyerContactName,
+      buyerNote,
     } = buyerData;
 
     return (
@@ -170,28 +172,42 @@ class SellerPurchaseOrder extends Component<Props> {
         </div>
 
         <Totals>
-          <TotalsRow>
-            <InstructionWrapper>
-              <b>Delivery Instructions</b>
-            </InstructionWrapper>
+          <BuyerInstructions>
+            {buyerDeliveryInstructions.length > 0 && (
+              <>
+                <InstructionWrapper>
+                  <b>Delivery Instructions</b>
+                </InstructionWrapper>
+                <DescriptionWrapper>
+                  {buyerDeliveryInstructions}
+                </DescriptionWrapper>
+              </>
+            )}
+            {buyerNote.length > 0 && (
+              <>
+                <InstructionWrapper>
+                  <b>Order Notes</b>
+                </InstructionWrapper>
+                <DescriptionWrapper>{buyerNote}</DescriptionWrapper>
+              </>
+            )}
+          </BuyerInstructions>
+          <BuyerInstructions>
             <TotalLabel>Subtotal</TotalLabel>
-            <Subtotal>{formatDollars(Number(subtotal))}</Subtotal>
-          </TotalsRow>
-
-          <TotalsRow>
-            <InstructionWrapper>{buyerDeliveryInstructions}</InstructionWrapper>
             <TotalLabel>Shipping Fee</TotalLabel>
-            <Subtotal>{formatDollars(Number(shippingFee))}</Subtotal>
-          </TotalsRow>
-
-          <TotalsRow>
             <TotalDivider />
-          </TotalsRow>
-
-          <TotalsRow>
-            <TotalLabel>Total</TotalLabel>
-            <Subtotal>{formatDollars(Number(total))}</Subtotal>
-          </TotalsRow>
+            <TotalLabel>
+              <b>Total</b>
+            </TotalLabel>
+          </BuyerInstructions>
+          <BuyerInstructions>
+            <Subtotal>{formatDollars(Number(subtotal))}</Subtotal>
+            <Subtotal>{formatDollars(Number(shippingFee))}</Subtotal>
+            <TotalDivider />
+            <Subtotal>
+              <b>{formatDollars(Number(total))}</b>
+            </Subtotal>
+          </BuyerInstructions>
         </Totals>
       </PurchaseOrderWrapper>
     );
