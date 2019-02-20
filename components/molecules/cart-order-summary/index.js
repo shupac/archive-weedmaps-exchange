@@ -24,9 +24,16 @@ type Props = {
   onSubmit?: () => void,
   quantity?: number,
   isLoading?: boolean,
+  allItemsUnavailable?: boolean,
 };
 
-const CartOrderSummary = ({ cart, quantity, onSubmit, isLoading }: Props) => {
+const CartOrderSummary = ({
+  cart,
+  quantity,
+  onSubmit,
+  isLoading,
+  allItemsUnavailable,
+}: Props) => {
   const { total, subtotal, shippingFee, items, cartErrors } = cart;
   quantity = quantity || items.reduce((acc, value) => acc + value.amount, 0);
   const uniqErrors = uniqby(cartErrors, 'error');
@@ -51,12 +58,21 @@ const CartOrderSummary = ({ cart, quantity, onSubmit, isLoading }: Props) => {
           {onSubmit && (
             <Fragment>
               {cartErrors.length > 0 ? (
-                uniqErrors.map(cartError => (
-                  <ErrorMessage key={uniqueKey()}>
-                    {errorDictionary[cartError.error] ||
-                      errorDictionary.general}
-                  </ErrorMessage>
-                ))
+                uniqErrors.map(cartError => {
+                  if (
+                    allItemsUnavailable &&
+                    cartError.error === 'minimum_purchase'
+                  ) {
+                    return null;
+                  }
+
+                  return (
+                    <ErrorMessage key={uniqueKey()}>
+                      {errorDictionary[cartError.error] ||
+                        errorDictionary.general}
+                    </ErrorMessage>
+                  );
+                })
               ) : (
                 <LoadingButton
                   onClick={onSubmit}

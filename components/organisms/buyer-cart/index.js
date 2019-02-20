@@ -46,6 +46,7 @@ export class BuyerCart extends Component<Props> {
       cartItemsByBrand,
       cart,
       checkoutCart,
+      allItemsUnavailable,
     } = buyerCart;
 
     if (loadingCart && !submittingCart) {
@@ -85,6 +86,7 @@ export class BuyerCart extends Component<Props> {
                 onSubmit={checkoutCart}
                 quantity={cart.items.length}
                 isLoading={submittingCart}
+                allItemsUnavailable={allItemsUnavailable}
               />
             </CartSidebar>
           </CartLayout>

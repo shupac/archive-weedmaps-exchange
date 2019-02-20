@@ -34,6 +34,7 @@ describe('Order Summary', () => {
     props = {
       cart: mockErrorCart,
       onSubmit: jest.fn(),
+      allItemsUnavailable: true,
     };
     const component = shallow(<CartOrderSummary {...props} />);
     expect(
@@ -42,7 +43,7 @@ describe('Order Summary', () => {
         .find('span')
         .text(),
     ).toEqual('$10.00');
-    expect(component.find('ErrorMessage').length).toEqual(4);
+    expect(component.find('ErrorMessage').length).toEqual(2);
   });
   it('should render out the error message', () => {
     props = {
