@@ -14,14 +14,26 @@ type Props = {
 const regionNames = regions => regions.map(({ name }) => name);
 
 const ZoneCard = ({ zone, withMenu, onEdit, onDelete }: Props) => (
-  <ZoneWrapper data-test-id="zone-card-wrapper">
+  <ZoneWrapper
+    data-test-id="zone-card-wrapper"
+    onClick={() => onEdit && onEdit(zone)}
+  >
     <TitleRow>
       <ColorKey color={zone.color} data-test-id="zone-card-color" />
       <p>{zone.name}</p>
       {withMenu && (
         <ContextMenu>
-          <MenuItem onClick={() => onEdit && onEdit(zone)}>Edit</MenuItem>
-          <MenuItem onClick={() => onDelete && onDelete(zone)}>Delete</MenuItem>
+          {onEdit && <MenuItem onClick={() => onEdit(zone)}>Edit</MenuItem>}
+          {onDelete && (
+            <MenuItem
+              onClick={e => {
+                e.stopPropagation();
+                onDelete(zone);
+              }}
+            >
+              Delete
+            </MenuItem>
+          )}
         </ContextMenu>
       )}
     </TitleRow>

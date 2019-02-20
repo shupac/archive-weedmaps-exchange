@@ -10,6 +10,7 @@ export const ZoneWrapper = styled.div`
   padding: 16px;
   background-color: ${state.light};
   border-bottom: 1px solid ${border.default};
+  cursor: pointer;
 `;
 
 export const TitleRow = styled.div`

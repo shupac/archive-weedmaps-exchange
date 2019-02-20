@@ -66,7 +66,7 @@ export class ColorSelect extends React.Component<Props, State> {
         data-test-id="select-box"
         items={this.colorOptions}
         selectedItem={selectedRegionColor || this.initialSelection}
-        itemToString={item => item.text}
+        itemToString={item => item && item.text}
         onChange={this.handleSelectChange}
         placeholder="Please choose a zone color.."
       />

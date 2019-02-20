@@ -2,6 +2,7 @@
 import styled from 'styled-components';
 import { Flex, Box } from '@ghostgroup/grid-styled';
 import Map from 'components/atoms/map';
+import TextInput from 'components/atoms/forms/text-input';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 import Close from 'components/atoms/icons/close';
@@ -183,4 +184,8 @@ export const NoZones = styled(Flex)`
   p {
     font-size: ${rem(14)};
   }
+`;
+
+export const StyledTextInput = styled(TextInput)`
+  font-weight: 400;
 `;

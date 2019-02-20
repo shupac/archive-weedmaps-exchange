@@ -47,6 +47,7 @@ export class ZoneEditor extends React.Component<Props> {
   @observable loading = false;
   @observable dirty = false;
   @observable searchQuery = '';
+  @observable isEdit = false;
   /**
    * Has the map been moved from the initial bounds
    * @type {boolean}
@@ -133,6 +134,7 @@ export class ZoneEditor extends React.Component<Props> {
 
   onZoneEdit = (zone: ZoneType) => {
     this.zoneSnapshot = getSnapshot(zone);
+    this.isEdit = true;
     // show the edit form
     this.creatingEditingZone = true;
     // set the selected zone
@@ -148,6 +150,7 @@ export class ZoneEditor extends React.Component<Props> {
   @action
   onZoneCreate = () => {
     this.creatingEditingZone = true;
+    this.isEdit = false;
     this.selectedZone = Zone.create({
       cId: uniqueKey(),
       id: '',
@@ -173,19 +176,40 @@ export class ZoneEditor extends React.Component<Props> {
     } else {
       await this.selectedZone.update();
     }
-
     if (this.selectedZone.lastError) {
-      const toastAlert = {
-        autoDismiss: 4000,
-        status: ALERT_STATUS.ERROR,
-        title: 'Error',
-        body: 'Zone could not be saved. Please try again.',
-      };
-      this.props.store.uiStore.notifyToast(toastAlert);
+      this.onConfirmToast(false, this.selectedZone.lastError.response.status);
     } else {
+      this.onConfirmToast(true);
       this.selectedZoneRegions.clear();
       this.creatingEditingZone = false;
     }
+  };
+
+  onConfirmToast = (successFlag: boolean, status?: number) => {
+    const { uiStore } = this.props.store;
+    let notification;
+    if (successFlag) {
+      notification = {
+        title: 'Zone Saved Successfully',
+        body: `Now you can allocate product inventory to "${
+          this.selectedZone.name
+        }"`,
+        autoDismiss: 3000,
+        status: ALERT_STATUS.SUCCESS,
+      };
+    } else {
+      notification = {
+        title: 'Zone Error',
+        body:
+          status === 404
+            ? 'Changes could not be saved because the zone was deleted by another user.'
+            : 'There was a problem saving your zone',
+        autoDismiss: 8000,
+        status: ALERT_STATUS.ERROR,
+      };
+    }
+
+    uiStore.notifyToast(notification);
   };
 
   @action
@@ -354,6 +378,7 @@ export class ZoneEditor extends React.Component<Props> {
               selectedRegions={this.selectedZone && this.selectedZone.regions}
               zone={this.selectedZone}
               zoneNames={this.zoneNames}
+              isEdit={this.isEdit}
             />
           </CSSTransition>
 

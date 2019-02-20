@@ -43,7 +43,12 @@ class ContextMenu extends React.Component<Props> {
 
     return (
       <ContextMenuWrapper>
-        <Dots onClick={this.openMenu} />
+        <Dots
+          onClick={e => {
+            if (e.stopPropagation) e.stopPropagation();
+            this.openMenu();
+          }}
+        />
 
         {this.isOpen && <Menu>{children}</Menu>}
       </ContextMenuWrapper>

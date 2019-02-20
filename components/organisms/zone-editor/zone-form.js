@@ -1,6 +1,5 @@
 // @flow
 import * as React from 'react';
-import TextInput from 'components/atoms/forms/text-input';
 import { ButtonPrimary, ButtonWhite } from 'components/atoms/button';
 import { inject, observer } from 'mobx-react';
 import { observable, action } from 'mobx';
@@ -20,6 +19,7 @@ import {
   ClearButton,
   FormControl,
   ZoneListCta,
+  StyledTextInput,
 } from './styles';
 
 type Props = {
@@ -29,6 +29,7 @@ type Props = {
   onCancel: () => void,
   onSubmit: () => void,
   zoneNames: string[],
+  isEdit: boolean,
 };
 
 export class ZoneForm extends React.Component<Props> {
@@ -74,16 +75,21 @@ export class ZoneForm extends React.Component<Props> {
   };
 
   render() {
-    const { onRemoveRegionFromZone, zone, selectedRegions } = this.props;
+    const {
+      onRemoveRegionFromZone,
+      zone,
+      selectedRegions,
+      isEdit,
+    } = this.props;
     return (
       <NewZoneContainer>
         <ZoneFormHeader p={[12]}>
-          <NewZoneHeader>New Zone</NewZoneHeader>
+          <NewZoneHeader>{isEdit ? 'Edit Zone' : 'New Zone'}</NewZoneHeader>
           <FormControl>
             <RequiredAsteriskLabel required>
               <label htmlFor="zone-name">Zone Name</label>
             </RequiredAsteriskLabel>
-            <TextInput
+            <StyledTextInput
               data-test-id="zone-name-input"
               hasError={!!this.errorMsg}
               errorMessage={this.errorMsg}
