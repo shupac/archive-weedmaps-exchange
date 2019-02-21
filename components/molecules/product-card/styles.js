@@ -14,6 +14,7 @@ export const CardWrapper = styled(Card)`
   display: flex;
   flex-direction: column;
   box-shadow: 0 1px 3px ${theme.style.shadow};
+  margin: 1px 0 2px 1px;
 `;
 CardWrapper.displayName = 'CardWrapper';
 
@@ -56,6 +57,7 @@ export const Name = styled.div`
   font-size: ${rem(16)};
   line-height: ${rem(22)};
   margin-bottom: auto;
+  margin-top: 4px;
 `;
 
 export const PriceUnit = styled.div`

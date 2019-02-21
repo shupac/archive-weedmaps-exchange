@@ -52,7 +52,6 @@ export const Control = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-  // flex: 1;
   overflow-x: hidden;
 `;
 
