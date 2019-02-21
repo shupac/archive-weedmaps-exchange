@@ -37,7 +37,7 @@ export const FormControl = styled.div`
 
 export const ZoneRegionListDelete = styled(Close).attrs({
   fill: theme.palette.darkGrey2,
-  size: rem(14),
+  size: '14px',
 })``;
 
 export const ZoneRegionListItem = styled.li`
