@@ -2,7 +2,7 @@ import WmTheme from '@ghostgroup/ui.theme';
 import SelectBase, { SelectStyles } from '@ghostgroup/ui.select';
 import styled from 'styled-components';
 
-const { Item, SelectButton } = SelectStyles;
+const { Item } = SelectStyles;
 const { state } = WmTheme.style;
 
 export const SelectWrapper = styled.div`
@@ -16,7 +16,7 @@ export const SelectWrapper = styled.div`
     left: 10px;
     z-index: 1;
   }
-  > button {
+  button {
     padding: 0 40px 0 32px;
   }
 `;
@@ -26,8 +26,5 @@ export const Select = styled(SelectBase)`
     :hover {
       color: ${state.primaryCompanion};
     }
-  }
-  ${SelectButton} {
-    padding: 0 40px 0 32px;
   }
 `;
