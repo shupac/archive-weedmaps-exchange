@@ -12,9 +12,12 @@ export const SelectWrapper = styled.div`
   margin-right: 16px;
   > svg {
     position: absolute;
-    top: 10px;
+    top: 12px;
     left: 10px;
     z-index: 1;
+  }
+  > button {
+    padding: 0 40px 0 32px;
   }
 `;
 
@@ -25,6 +28,6 @@ export const Select = styled(SelectBase)`
     }
   }
   ${SelectButton} {
-    padding: 0 40px 0 10px;
+    padding: 0 40px 0 32px;
   }
 `;
