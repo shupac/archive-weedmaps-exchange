@@ -11,12 +11,6 @@ describe('map', () => {
     MapBox = require('mapbox-gl');
   });
 
-  it('will setup the mapbox styles', () => {
-    const wrapper = shallow(<Map />);
-    const styleTag = findByTestId(wrapper, 'map-style-tag');
-    expect(styleTag.length).toBe(1);
-  });
-
   it('will provide the map via context', () => {
     const wrapper = shallow(<Map />);
     const mapProvider = findByTestId(wrapper, 'map-provider');

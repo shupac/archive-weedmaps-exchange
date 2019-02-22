@@ -1,6 +1,5 @@
 // @flow
 import * as React from 'react'; // React, { Component, Fragment, createRef, Children } from 'react';
-import Head from 'next/head';
 import config from 'config';
 import {
   getBoundingBox,
@@ -125,14 +124,6 @@ export default class Map extends React.Component<Props, State> {
 
     return (
       <>
-        <Head>
-          <link
-            data-test-id="map-style-tag"
-            key="mapbox-styles"
-            href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css"
-            rel="stylesheet"
-          />
-        </Head>
         <div ref={this.mapRef} className={className} />
         <MapContext.Provider value={this.state.map} data-test-id="map-provider">
           {children}
