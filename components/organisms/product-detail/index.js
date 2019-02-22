@@ -104,11 +104,15 @@ export class ProductDetails extends Component<Props> {
             <LicenseList brandName={brand} licenseList={licenses} />
           </div>
           <MainPanel>
-            <ProductDescription productDetail={buyerProducts.productDetails} />
-            <ProductVariants
-              variants={buyerProducts.productVariants}
-              productName={name}
-            />
+            <div>
+              <ProductDescription
+                productDetail={buyerProducts.productDetails}
+              />
+              <ProductVariants
+                variants={buyerProducts.productVariants}
+                productName={name}
+              />
+            </div>
           </MainPanel>
         </GridLayout>
       </ProductDetailWrapper>

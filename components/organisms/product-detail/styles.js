@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import WmTheme from '@ghostgroup/ui.theme';
+
+const { background } = WmTheme.style;
 
 export const ProductDetailWrapper = styled.div`
   max-width: 1170px;
@@ -13,9 +16,8 @@ export const GridLayout = styled.div`
 
 export const MainPanel = styled.div`
   width: 100%;
-  align-self: baseline;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+
+  > div {
+    background-color: ${background.light};
+  }
 `;
