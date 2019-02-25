@@ -5,7 +5,7 @@ import BuyerOrders from 'lib/data-access/stores/buyer-orders';
 import RootStore from 'lib/data-access/stores';
 import UiStore from 'lib/data-access/stores/ui';
 import mockPurchaseOrders from 'mocks/purchase-orders';
-import TextArea from 'components/atoms/forms/text-area';
+import TextArea from 'components/atoms/text-area';
 import { ButtonPrimary } from 'components/atoms/button';
 import CancelOrderModal from './';
 

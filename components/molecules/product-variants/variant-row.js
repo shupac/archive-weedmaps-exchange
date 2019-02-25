@@ -3,7 +3,7 @@ import React from 'react';
 import { formatDollars } from 'lib/common/strings';
 import type { VariantType } from 'lib/data-access/models/variant';
 import { ErrorIcon } from 'components/atoms/icons/error';
-import TextInput from 'components/atoms/forms/text-input';
+import TextInput from 'components/atoms/text-input';
 import { type CartErrorType } from 'lib/data-access/models/cart';
 import { cartErrorMsg } from 'lib/common/cart-errors';
 import { TableRow, Stock, QuantityAlert, ResetLink } from './styles';
@@ -47,7 +47,6 @@ const VariantRow = ({
         disabled={!inStock}
         onChange={handleChange}
         min="1"
-        hasError={inStock && (cartError || error)}
         errorMessage={error}
         value={inStock ? fieldValue : ''}
       />

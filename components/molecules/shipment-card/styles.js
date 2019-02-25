@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import WmTheme from '@ghostgroup/ui.theme';
-import TextArea from 'components/atoms/forms/text-area';
 import { rem } from 'polished';
 import theme from 'lib/styles/theme';
 
@@ -211,13 +210,6 @@ export const ErrorMessage = styled.div`
   }
 `;
 ErrorMessage.displayName = 'ErrorMessage';
-
-export const NoteInput = styled(TextArea)`
-  height: 40px;
-  min-width: 400px;
-  resize: vertical;
-  padding: 8px;
-`;
 
 export const NoteInputLabel = styled.label`
   text-align: left;

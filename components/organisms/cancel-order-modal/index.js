@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import Modal from 'components/atoms/modal';
-import TextArea from 'components/atoms/forms/text-area';
+import TextArea from 'components/atoms/text-area';
 import { ButtonPrimary, ButtonWhiteNoHover } from 'components/atoms/button';
 import { type StoreType } from 'lib/types/store';
 import { STATUS_TYPES } from 'lib/common/constants';

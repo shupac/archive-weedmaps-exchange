@@ -4,7 +4,7 @@ import { withRouter } from 'next/router';
 import { Router } from 'lib/routes';
 import { type RouterType } from 'lib/types/router';
 import { stripNonNumbersWithDot } from 'lib/common/strings';
-import TextInput from 'components/atoms/forms/text-input';
+import TextInput from 'components/atoms/text-input';
 import FilterContainer from 'components/atoms/filter-container';
 import { Wrapper, Seperator, ErrorMessage } from './styles';
 

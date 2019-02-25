@@ -7,7 +7,7 @@ import ZoneColorSelect from 'components/atoms/zone-color-select';
 import { type ZoneType } from 'lib/data-access/models/zone';
 import { type RegionType } from 'lib/data-access/models/region';
 import RequiredAsteriskLabel from 'components/atoms/required-asterisk';
-import TextInput from 'components/atoms/forms/text-input';
+import TextInput from 'components/atoms/text-input';
 import {
   NewZoneContainer,
   NewZoneFooter,
@@ -91,7 +91,6 @@ export class ZoneForm extends React.Component<Props> {
             </RequiredAsteriskLabel>
             <TextInput
               data-test-id="zone-name-input"
-              hasError={!!this.errorMsg}
               errorMessage={this.errorMsg}
               placeholder="Zone Name e.g. West Coast Zone"
               name="zone-name"

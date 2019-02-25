@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
 import WmTheme from '@ghostgroup/ui.theme';
-import { StyledInput } from 'components/atoms/forms/styles.js';
+import { InputStyles } from 'components/atoms/text-input/styles';
 
 const { background, state } = WmTheme.style;
 
@@ -18,6 +18,7 @@ export const DollarSignWrapper = styled.div`
   border-radius: 3px 0 0 3px;
 `;
 
-export const Input = styled(StyledInput)`
+export const Input = styled.input`
+  ${InputStyles};
   border-radius: 0 3px 3px 0;
 `;

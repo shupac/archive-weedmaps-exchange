@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
 import FilterContainer from 'components/atoms/filter-container';
-import TextInput from 'components/atoms/forms/text-input';
+import TextInput from 'components/atoms/text-input';
 import { PriceRangeFilter } from './';
 import { Wrapper, ErrorMessage } from './styles';
 
@@ -199,7 +199,6 @@ describe('Price Range Filter', () => {
         .first()
         .props().hasError,
     ).toEqual(true);
-
     expect(
       wrapper
         .find(TextInput)
@@ -214,6 +213,7 @@ describe('Price Range Filter', () => {
 
   it('should display error for invalid prices', () => {
     const wrapper = setup({ minPrice: 'foo', maxPrice: 'bar' });
+
     expect(
       wrapper
         .find(TextInput)

@@ -7,6 +7,7 @@ import { type StoreType } from 'lib/types/store';
 import { type CartItemType } from 'lib/data-access/models/cart';
 import { formatDollars } from 'lib/common/strings.js';
 import ErrorIcon from 'components/atoms/icons/error';
+import TextArea from 'components/atoms/text-area';
 import ProductRow from './product-row';
 import {
   VendorCartHeader,
@@ -17,7 +18,6 @@ import {
   ColLabelRight,
   Border,
   ErrorMessage,
-  NoteInput,
   NoteInputLabel,
 } from './styles';
 
@@ -112,12 +112,13 @@ export class ShipmentCard extends Component<Props> {
           <SubtotalWrapper>
             <span>
               <NoteInputLabel>Order Notes</NoteInputLabel>
-              <NoteInput
+              <TextArea
                 value={get(buyerCart, `shipmentNote[${this.brandId}]`, '')}
                 onChange={e => this.onNoteChange(e.target.value)}
                 maxLength={255}
                 rows={2}
-                placeholder="e.g., delivery details, special instructions, etc."
+                maxRows={10}
+                placeholder="e.g. delivery details, special instructions, etc."
                 data-test-id="notes-input"
               />
             </span>{' '}

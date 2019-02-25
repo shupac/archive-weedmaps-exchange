@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
 import WmTheme from '@ghostgroup/ui.theme';
-import TextInput from 'components/atoms/forms/text-input';
+import TextInput from 'components/atoms/text-input';
 import { mockVariants } from 'lib/mocks/product-details';
 import { ProductVariants } from './index';
 import VariantRow from './variant-row';
