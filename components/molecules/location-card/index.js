@@ -71,13 +71,19 @@ export class LocationCard extends Component<Props> {
           )}
         </LocationCardTitle>
         <LocationCardAddress>
-          <span>{streetAddress}</span>
-          <br />
-          <span>
-            {city}, {territory} {postalCode}{' '}
-          </span>
-          <br />
-          <span style={{ textTransform: 'uppercase' }}>{country}</span>
+          {streetAddress ? (
+            <>
+              <span>{streetAddress}</span>
+              <br />
+              <span>
+                {city}, {territory} {postalCode}{' '}
+              </span>
+              <br />
+              <span style={{ textTransform: 'uppercase' }}>{country}</span>
+            </>
+          ) : (
+            'Address Incomplete'
+          )}
         </LocationCardAddress>
         <LocationCardInstructions>
           <span>Delivery Instructions</span> <br />

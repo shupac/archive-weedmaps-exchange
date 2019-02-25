@@ -40,6 +40,7 @@ describe('Location Card', () => {
         .text(),
     ).toContain('Knock twice, stand on one foot, say the alphabet backwards');
   });
+
   it('should render out the Location Card with No Delivery Instructions', () => {
     const component = mount(
       <LocationCard
@@ -55,6 +56,7 @@ describe('Location Card', () => {
         .text(),
     ).toContain('N/A');
   });
+
   it('should handle the handleDelete method', () => {
     const props = {
       onDelete: jest.fn(),
@@ -74,6 +76,7 @@ describe('Location Card', () => {
       .simulate('click');
     expect(props.onDelete).toHaveBeenCalled();
   });
+
   it('should handle the handleEdit method', () => {
     const props = {
       onEdit: jest.fn(),
@@ -91,5 +94,18 @@ describe('Location Card', () => {
       .first()
       .simulate('click');
     expect(props.onEdit).toHaveBeenCalled();
+  });
+
+  it('should handle incomplete address', () => {
+    const wrapper = shallow(
+      <LocationCard
+        locationTitle={mockLocationCardData.data.locationTitle}
+        locationAddress={mockLocationCardData.data.locationAddress}
+        locationContact={mockLocationCardData.data.locationContact}
+      />,
+    );
+    expect(wrapper.find('LocationCardAddress').text()).toEqual(
+      'Address Incomplete',
+    );
   });
 });
