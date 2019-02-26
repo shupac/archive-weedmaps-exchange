@@ -54,8 +54,8 @@ export class GeneralSettings extends Component<Props> {
   handleSubmit = async (values: formValues) => {
     const brand = {
       id: this.brand.id,
-      minimumPurchasePrice: values.minimumPurchasePrice,
-      shippingFee: values.shippingFee,
+      minimumPurchasePrice: Number(values.minimumPurchasePrice),
+      shippingFee: Number(values.shippingFee),
       deliveryEta: {
         etaMinUnit: values.etaMinUnit,
         etaMin: values.etaMin,

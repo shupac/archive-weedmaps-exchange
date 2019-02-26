@@ -63,6 +63,7 @@
     "@ghostgroup/wm-sdk-js": "~5.2.2",
     "@mapbox/geojson-extent": "^0.3.2",
     "chalk": "^2.4.1",
+    "cleave.js": "^1.4.7",
     "date-fns": "^1.29.0",
     "downshift": "~3.1.8",
     "formik": "^1.4.2",

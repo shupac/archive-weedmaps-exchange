@@ -6,6 +6,7 @@ import moment from 'moment';
 import * as Yup from 'yup';
 import { Flex } from '@ghostgroup/grid-styled';
 import Select from 'components/atoms/select';
+import NumericInput from 'components/atoms/numeric-input';
 import {
   GeneralWrapper,
   GeneralHeader,
@@ -20,7 +21,6 @@ import {
   InputTitle,
   ErrorMessage,
   EtaMaxErrorMessage,
-  StyledCurrencyInput,
   StyledTextInput,
 } from './styles';
 
@@ -53,22 +53,34 @@ export const FormTemplate = ({
         <Flex>
           <ShippingMinInputWrapper>
             <InputTitle>Minimum Purchase</InputTitle>
-            <StyledCurrencyInput
+            <NumericInput
               name="minimumPurchasePrice"
               placeholder="ex. $50.00"
-              value={parseFloat(values.minimumPurchasePrice || '0').toFixed(2)}
-              setFieldValue={setFieldValue}
+              value={values.minimumPurchasePrice || '0'}
+              onChange={e =>
+                setFieldValue('minimumPurchasePrice', e.target.rawValue)
+              }
               data-test-id="minimum-purchase"
+              options={{
+                numeral: true,
+                prefix: '$',
+                rawValueTrimPrefix: true,
+              }}
             />
           </ShippingMinInputWrapper>
           <ShippingMinInputWrapper>
             <InputTitle>Shipping Fee</InputTitle>
-            <StyledCurrencyInput
+            <NumericInput
               name="shippingFee"
               placeholder="ex. $50.00"
-              value={parseFloat(values.shippingFee || '0').toFixed(2)}
+              value={values.shippingFee || '0'}
               data-test-id="shipping-fee"
-              setFieldValue={setFieldValue}
+              onChange={e => setFieldValue('shippingFee', e.target.rawValue)}
+              options={{
+                numeral: true,
+                prefix: '$',
+                rawValueTrimPrefix: true,
+              }}
             />
           </ShippingMinInputWrapper>
         </Flex>

@@ -1,4 +1,5 @@
 import { shallow } from 'enzyme';
+import findByTestId from 'lib/jest/find-by-test-id';
 import { mockBrand, mockBrandForForm } from 'lib/mocks/brands';
 import GeneralSettingsForm, { FormTemplate } from './general-settings-form';
 
@@ -30,7 +31,7 @@ function setup(isDirty) {
   const childComponent = <FormTemplate {...formikProps} />;
   const parentWrapper = shallow(parentComponent);
   const childWrapper = shallow(childComponent);
-  return { childWrapper, parentWrapper };
+  return { childWrapper, parentWrapper, formikProps };
 }
 
 describe('GeneralSettingsForm', () => {
@@ -49,10 +50,10 @@ describe('GeneralSettingsForm', () => {
     expect(childWrapper.exists()).toBe(true);
     expect(
       childWrapper.find('[data-test-id="shipping-fee"]').props(),
-    ).toHaveProperty('value', '100.00');
+    ).toHaveProperty('value', 100);
     expect(
       childWrapper.find('[data-test-id="minimum-purchase"]').props(),
-    ).toHaveProperty('value', '80.00');
+    ).toHaveProperty('value', 80);
     expect(
       childWrapper.find('[data-test-id="eta-min"]').props(),
     ).toHaveProperty('value', 1);
@@ -77,5 +78,20 @@ describe('GeneralSettingsForm', () => {
     const { childWrapper } = setup(true);
     const save = childWrapper.find('[data-test-id="button-submit"]');
     expect(save.props().disabled).toBe(false);
+  });
+
+  it('should set the minimumPurchasePrice field value ', () => {
+    const { childWrapper, formikProps } = setup();
+    const minimumPurchasePrice = findByTestId(childWrapper, 'minimum-purchase');
+    minimumPurchasePrice.simulate('change', { target: { value: '5' } });
+    expect(formikProps.setFieldValue).toHaveBeenCalled();
+  });
+
+  it('should set the shipping fee field value ', () => {
+    const { childWrapper, formikProps } = setup();
+    const shippingFee = findByTestId(childWrapper, 'shipping-fee');
+
+    shippingFee.simulate('change', { target: { value: '5' } });
+    expect(formikProps.setFieldValue).toHaveBeenCalled();
   });
 });

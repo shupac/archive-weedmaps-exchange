@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
 import { ButtonPrimary, ButtonWhiteNoHover } from 'components/atoms/button';
-import CurrencyInput from 'components/atoms/currency-input';
 import TextInput from 'components/atoms/text-input';
 import WmTheme from '@ghostgroup/ui.theme';
 import { Flex as StyledFlex } from '@ghostgroup/grid-styled';
@@ -98,16 +97,6 @@ export const AddButton = styled(ButtonPrimary)`
 
 export const InputTitle = styled.div`
   margin-bottom: 4px;
-`;
-
-export const StyledCurrencyInput = styled(CurrencyInput)`
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  -moz-appearance: textfield;
 `;
 
 export const StyledTextInput = styled(TextInput)`
