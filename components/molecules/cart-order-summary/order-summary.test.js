@@ -43,7 +43,7 @@ describe('Order Summary', () => {
         .find('span')
         .text(),
     ).toEqual('$10.00');
-    expect(component.find('ErrorMessage').length).toEqual(2);
+    expect(component.find('ErrorMessage').length).toEqual(4);
   });
   it('should render out the error message', () => {
     props = {
@@ -51,6 +51,7 @@ describe('Order Summary', () => {
       onSubmit: jest.fn(),
     };
     const component = shallow(<CartOrderSummary {...props} />);
+
     expect(
       component
         .find('ErrorMessage')
@@ -74,6 +75,14 @@ describe('Order Summary', () => {
         .text(),
     ).toEqual(
       'Some items in your cart are no longer in stock. Please update your cart to continue.',
+    );
+    expect(
+      component
+        .find('ErrorMessage')
+        .at(3)
+        .text(),
+    ).toEqual(
+      'There was a problem with your order. Please update your cart to continue.',
     );
   });
 });
