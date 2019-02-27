@@ -60,6 +60,7 @@ Object {
       "slug": "gfarmalabs",
     },
     "categories": Array [],
+    "containsCannabis": null,
     "departments": Array [
       Object {
         "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",
@@ -148,6 +149,7 @@ Array [
         "slug": "gfarmalabs",
       },
       "categories": Array [],
+      "containsCannabis": null,
       "departments": Array [
         Object {
           "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",

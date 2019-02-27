@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import { Router } from 'lib/routes';
 import findByTestId from 'lib/jest/find-by-test-id';
 import ToggleSwitch from '@ghostgroup/ui.toggle';
+import ComboCheckbox from 'components/atoms/combo-checkbox';
 import mockProductDetails from 'mocks/seller-product-details';
 import mockZones from 'mocks/zones';
 
@@ -50,6 +51,22 @@ describe('Seller Product Detail Product Form', () => {
       target: {
         value: !mockProductDetails.active,
         name: 'active',
+      },
+    });
+  });
+
+  it('should handle contains cannabis checkbox click', () => {
+    const { wrapper, formikProps } = setup();
+    const checkbox = wrapper.find(ComboCheckbox);
+    const event = { target: null };
+    checkbox.props().onChange(false, event);
+    expect(formikProps.handleChange).toHaveBeenCalledWith({
+      target: {
+        value: {
+          ...mockProductDetails.product,
+          containsCannabis: false,
+        },
+        name: 'product',
       },
     });
   });

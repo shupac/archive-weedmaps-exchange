@@ -14,7 +14,7 @@ export const CategoryCardWrapper = styled.div`
   overflow: hidden;
   background-size: cover;
   background-position: center center;
-  box-shadow: inset 0 0 0 100px ${theme.colors.shadow.dark};
+  box-shadow: inset 0 0 0 100px ${theme.colors.shadowDark};
   a {
     text-decoration: none;
   }

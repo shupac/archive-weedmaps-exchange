@@ -72,7 +72,7 @@ export const ZoneRegionList = styled.ul`
 
 export const ActionContainer = styled(Box)`
   position: relative;
-  box-shadow: 3px 0 3px 0px ${theme.colors.shadow.light};
+  box-shadow: 3px 0 3px 0px ${theme.colors.shadow};
   z-index: 1;
   overflow-x: hidden;
 `;

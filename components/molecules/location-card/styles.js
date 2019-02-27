@@ -7,7 +7,7 @@ export const LocationCardWrapper = styled.div`
   width: 256px;
   border-radius: 3px;
   background-color: ${theme.colors.white};
-  box-shadow: 0 1px 3px 0 ${theme.colors.shadow.light};
+  box-shadow: 0 1px 3px 0 ${theme.colors.shadow};
   padding: 17px;
   display: flex;
   flex-direction: column;

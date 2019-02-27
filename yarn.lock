@@ -1351,145 +1351,155 @@
   dependencies:
     path-to-regexp "^2.1.0"
 
-"@ghostgroup/ui.button@21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.button/-/ui.button-21.2.3.tgz#8f1d94d660ea783f53fd5c4b25c6b45783f8d5d7"
-  integrity sha512-dsZEVeyjUJgeA0cqMsIj4Vyd9rU1o+oMrgQhZB7lHE5o4qu6bBgve2oJvUIDt9II+wObUQwL56TfI/3DclVPIw==
+"@ghostgroup/ui.button@21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.button/-/ui.button-21.2.5.tgz#7ce7dc9c234ba8d5445342ed019298448da8cbbc"
+  integrity sha512-+cPBm12KaIyRkKbMhlErh2pxHIuwUEfo7qpXypFnwoRpEG6f82T45qtmUgsjeM6MVmvrj42qUDwVuTsIbj7bSg==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@ghostgroup/ui.icons" "^21.2.3"
-    "@ghostgroup/ui.theme" "^21.2.3"
+    "@ghostgroup/ui.icons" "^21.2.5"
+    "@ghostgroup/ui.theme" "^21.2.5"
 
-"@ghostgroup/ui.card@21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.card/-/ui.card-21.2.3.tgz#94afc7c556e1b368afa72f92f165047e48a97775"
-  integrity sha512-Z8ttx5qrJNO/4eJm3LSZXXD0f+ILWoa/CFbJmHkKlG7dR1q4iI6AI2G2LwZIJObGrEOOlqT9UdPEuvGgrFfDVw==
+"@ghostgroup/ui.card@21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.card/-/ui.card-21.2.5.tgz#88de4ddd120da7437eabf266e4021c9084524c1e"
+  integrity sha512-7365nMx2tLxp/Yygo2zOyLjQ8IIQs4DpQSUZoHXMguBeGotKCpmxg0XA6FhxCPPM07y5zY6Mku8aE0/7BwLWig==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@ghostgroup/ui.theme" "^21.2.3"
+    "@ghostgroup/ui.theme" "^21.2.5"
 
-"@ghostgroup/ui.combo-select@21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.combo-select/-/ui.combo-select-21.2.3.tgz#cefcb1d7e64cb5da816a0f4caaa10d9c934cfb2f"
-  integrity sha512-gKR6w79UvybG2ff8HS+DYyN+eoPJvSHQB0pmmp9jpTwwLNaL3rnWeg0Siafi1yut4Tp57tsvwramNcm4NmZyyw==
+"@ghostgroup/ui.combo-select@21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.combo-select/-/ui.combo-select-21.2.5.tgz#2b264674d0c372a325e1c78854aeb5e40ea0a83a"
+  integrity sha512-EW6Hcjg3iuZ29h5x4YbzTRUHclqWmKW3FoqbObf9iGuXnECUZCzjxM2gAE6OFFzoEL6Zshhn9dP9BFeep3FMSA==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@ghostgroup/ui.icons" "^21.2.3"
-    "@ghostgroup/ui.theme" "^21.2.3"
+    "@ghostgroup/ui.icons" "^21.2.5"
+    "@ghostgroup/ui.theme" "^21.2.5"
     downshift "~2.1.4"
 
-"@ghostgroup/ui.constants@^21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.constants/-/ui.constants-21.2.3.tgz#005e1e45d512dd8f83751f46ed0788efaa3b4596"
-  integrity sha512-xE/q08IyTujL6xsdKAMmsDU0l1dFBhSTwG6jND/8H3l8xDDeoMXo1/e7dl7JO0Qwh86cdhCp6xtq5EOwtV/J5A==
+"@ghostgroup/ui.constants@^21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.constants/-/ui.constants-21.2.5.tgz#204da7d2c9afc07802f987c1e07a6c770a81f244"
+  integrity sha512-5EJjlkV5gal0IaHTJfhy7/fsmPx6rcUKq6TCivO3l7QOqV0ROX9k4vhp6zraXsgZm9yEKhtER1WOJ9zpWWbi8g==
   dependencies:
     "@babel/runtime" "^7.0.0"
 
-"@ghostgroup/ui.icons@21.2.3", "@ghostgroup/ui.icons@^21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.icons/-/ui.icons-21.2.3.tgz#d64ad3d0cc1bbb22c6cc419e83d191f8645b95ba"
-  integrity sha512-bQ0AilMdoIoeI+KUGdqNK/1sEYDZxV+5HrlOJKcclS0D0MBN7bX7jI/iobqU7PyuurXlEGAEZchVNFoxlWKo+A==
+"@ghostgroup/ui.icons@21.2.5", "@ghostgroup/ui.icons@^21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.icons/-/ui.icons-21.2.5.tgz#ccacaa595156d4bd9e33610d2ef7557c0ded08f2"
+  integrity sha512-unZAM52jGNjfzA1B4vsemTrWxcjMc854kI3cPBngYei76mzEMP9GPB9XxBcYTwwwos6rLSWuZCoPVhQXB0V33A==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@ghostgroup/ui.constants" "^21.2.3"
-    "@ghostgroup/ui.theme" "^21.2.3"
+    "@ghostgroup/ui.constants" "^21.2.5"
+    "@ghostgroup/ui.theme" "^21.2.5"
 
-"@ghostgroup/ui.logos@^21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.logos/-/ui.logos-21.2.3.tgz#e1dae14ee0a1cd415fc4e2ca479ecb73b0109959"
-  integrity sha512-7FOdWv+0FOyJ0Zqc8/mkCMhqXEqn7bMk44bJrWYIzi0kOKaK31yrjBnP4Ea6xi0YGTEgOgq2xx5NWuggJwRa+A==
+"@ghostgroup/ui.logos@^21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.logos/-/ui.logos-21.2.5.tgz#03db9aef7e2fc3f56aa333f6bf2bd40505d538c0"
+  integrity sha512-g0AKws7RJGNLwHNWQsmLM9VtZ8+BmefRc27u70Td+XwzvNmEoRM3Ghkyv88gma26/Y8I00yck60BurZrdIEsWA==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@ghostgroup/ui.theme" "^21.2.3"
+    "@ghostgroup/ui.theme" "^21.2.5"
 
-"@ghostgroup/ui.multi-select@^21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.multi-select/-/ui.multi-select-21.2.3.tgz#d9e4ab4983aa8aad6bd2b910aaab64ff294085c0"
-  integrity sha512-N/2LdUYF7I0yfj8Ek6hCyG9bKgUldmjOtrQu2VlnEB7R4u0sRGqJ6lIW2Fns5BW6Xvuz4AXniIk8Tw85w90hOg==
+"@ghostgroup/ui.multi-select@^21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.multi-select/-/ui.multi-select-21.2.5.tgz#8f0df4f38d133c2a84a65c08a4465e920e313241"
+  integrity sha512-pNtJPAOF5ZNM0HLKWZvtoexO+iJNWKVlgT15kdyvuJl38YXn+iI8H3xcQ5VVnaRuL9NEQ1qs+Qgk/O9PNipr/g==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@ghostgroup/ui.icons" "^21.2.3"
-    "@ghostgroup/ui.theme" "^21.2.3"
+    "@ghostgroup/ui.icons" "^21.2.5"
+    "@ghostgroup/ui.theme" "^21.2.5"
     downshift "~2.1.4"
 
-"@ghostgroup/ui.replacer@^21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.replacer/-/ui.replacer-21.2.3.tgz#bdc15899a0278b2af64a17ca8e044610a1c62547"
-  integrity sha512-PJTA+ZCNENlFzvPjdbOJ2U02BOaEye3Q6lgmLNb330/aLqz6E8xfp4mzYoryDVS3J3vlGaYM2xIsrrOJn3E/RA==
+"@ghostgroup/ui.replacer@^21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.replacer/-/ui.replacer-21.2.5.tgz#1a683ccb0ba3cf3bc247234c387240866602517d"
+  integrity sha512-dxmt0MbTIxGs+h34kbujicC5+u8iCEsc/Wi0THq6iMJfNMccbZ8Q4bHxGWZaPafHsua/DFKmzbE9orPcHCii8A==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@ghostgroup/ui.theme" "^21.2.3"
+    "@ghostgroup/ui.theme" "^21.2.5"
     react-css-transition-replace "~3.0.3"
 
-"@ghostgroup/ui.select@21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.select/-/ui.select-21.2.3.tgz#689aee8c1e3091858c6ebade7dd3c7b4996487fa"
-  integrity sha512-2RtefDrAqsGHBFg8UgAlzq8YZNmD9cVlkATCAk7vUsH5rJp0ZjYmCufdslPkk8Jd+5+757mnpksckVbxN3E9dA==
+"@ghostgroup/ui.select@21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.select/-/ui.select-21.2.5.tgz#f2db9ae9076d51d8c070d60ef82f9773ec6b3244"
+  integrity sha512-78YZnkCo3SuwU2SXo1uvgoB6gXvThIIF52nv1T38g82ZskzOGPIy6KfWuxkjStXqQ5d1tHbbw+QAGxs3TCO8YQ==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@ghostgroup/ui.icons" "^21.2.3"
-    "@ghostgroup/ui.theme" "^21.2.3"
+    "@ghostgroup/ui.icons" "^21.2.5"
+    "@ghostgroup/ui.theme" "^21.2.5"
     downshift "~2.1.4"
 
-"@ghostgroup/ui.side-nav@21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.side-nav/-/ui.side-nav-21.2.3.tgz#077390ff67c93b2e8bd26f9d24ff794b08eeb3b4"
-  integrity sha512-CL0RYWZrnasgGR5Ey7VDsg/JCDUwZjcOWmiBFdWF7llwKgEMmVbhOR2AVCIFHN4zcMVNAiXrrBv7XqEw1KIvxg==
+"@ghostgroup/ui.side-nav@21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.side-nav/-/ui.side-nav-21.2.5.tgz#02c347c8e16c7de47c26c331c58b58485bc4b7be"
+  integrity sha512-oXm5oWCqbAWl6823ynepnKmkkDXZ2+p81+v1qu2pHBym3Ss1whu9oIeIjdbZnwRddy6ZMc1zfZbWG1IIVEDFBg==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@ghostgroup/ui.icons" "^21.2.3"
-    "@ghostgroup/ui.logos" "^21.2.3"
-    "@ghostgroup/ui.replacer" "^21.2.3"
-    "@ghostgroup/ui.theme" "^21.2.3"
+    "@ghostgroup/ui.icons" "^21.2.5"
+    "@ghostgroup/ui.logos" "^21.2.5"
+    "@ghostgroup/ui.replacer" "^21.2.5"
+    "@ghostgroup/ui.theme" "^21.2.5"
 
-"@ghostgroup/ui.tabs@21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.tabs/-/ui.tabs-21.2.3.tgz#5a2f188685c1c8f4571bce1360b2039c707fcff6"
-  integrity sha512-9PDjd1NqCezSTKrsSeCIGu9wIOqt1j11cBn4eJuKgvr3oJpM7wemyQCJMkGZbuDkIZBxtcZbMzMLIZJ6qTVRVQ==
+"@ghostgroup/ui.tabs@21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.tabs/-/ui.tabs-21.2.5.tgz#688fb295552d3bf4aa6ed9fa398ad42b901dffd2"
+  integrity sha512-XakdPK8V2QUClKXy14gu+PO9t2O7lGaEZPnPX/L+BNsiEYJJ5Jr8HI/wyucanrb/JnyebFfzqJhi7xQVvDWCuA==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@ghostgroup/ui.theme" "^21.2.3"
+    "@ghostgroup/ui.theme" "^21.2.5"
     react-resize-detector "~1.1.0"
 
-"@ghostgroup/ui.text-limit-textbox@21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.text-limit-textbox/-/ui.text-limit-textbox-21.2.3.tgz#399442148db37c15901eabcdbd83ee2a44e06d61"
-  integrity sha512-f7BnqTTNoiy13HdX/sLZDZ8PdnudCqBWCwYHLXMiIykqAMjWt1aNZ1oaLWlW22kAf3t7p3fgwS5F7H57CjIAhA==
+"@ghostgroup/ui.text-limit-textbox@21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.text-limit-textbox/-/ui.text-limit-textbox-21.2.5.tgz#3dc0ea1910f071066ae75687588255b7312a68ea"
+  integrity sha512-k5SbA/WxGygqAy3/MDMYgAmXkPx7lxTAqnsUQlekrvxL6/boYoTwPYPpfrsFTtU8NQM5uw2LZqaF2MSAn1MEuQ==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@ghostgroup/ui.theme" "^21.2.3"
+    "@ghostgroup/ui.theme" "^21.2.5"
 
-"@ghostgroup/ui.theme@21.2.3", "@ghostgroup/ui.theme@^21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.theme/-/ui.theme-21.2.3.tgz#62e69c9721aef04358202aa06648079a15d95d2c"
-  integrity sha512-7CGIpUZAqKQ5MzwVRCznfGHtz8RsZMUoFnAmtsdWXv/IjvGQ9diCYA2bEJkAv2bPOwoFAmwFl1PZXsPJOb36IA==
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-
-"@ghostgroup/ui.timer@21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.timer/-/ui.timer-21.2.3.tgz#09256884651547c50a3635db273c894ae130c5ad"
-  integrity sha512-s2pTYy+em3mVUX7HkwSabf8+KYBBqs8EsFUxKcKt7ElrOAxUk7Pzyo+wFkpvCbWqopBcMGTi60Q/CEc8spKXvQ==
+"@ghostgroup/ui.theme@21.2.5", "@ghostgroup/ui.theme@^21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.theme/-/ui.theme-21.2.5.tgz#023295037e9e469da912d559ccdf18cbaaa69d28"
+  integrity sha512-O7bA757iJVuJZQwDRyMHGWIZEdxPBoB+pYTTin6TK+AmjyRNDF2WB4Ti1cES3uKq763Qv7Ka2GGNcn54SG9DQg==
   dependencies:
     "@babel/runtime" "^7.0.0"
 
-"@ghostgroup/ui.toast-notifications@21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.toast-notifications/-/ui.toast-notifications-21.2.3.tgz#4a7208eb372e92dd285c4a977f0e24bde5901da3"
-  integrity sha512-KmguhvUKH98/qHqEV8/ky3WtZCFeW/XcbteXXf88R5xO25LaP8KMTUTKQzbmvJZp2HN+yoMXW3rkxoLNcNQ7OA==
+"@ghostgroup/ui.timer@21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.timer/-/ui.timer-21.2.5.tgz#2131f6c1806e20ff1c9646995b6b16d08fb32a21"
+  integrity sha512-u8E4EDxlpRvcvfap7YD9QXP1Uerwi9Gaww/T/XpvcVJ5qDcQBXx9venTXQ1Nn2nATJadDAngRJGqzeCQ+3fRjw==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@ghostgroup/ui.icons" "^21.2.3"
-    "@ghostgroup/ui.theme" "^21.2.3"
+
+"@ghostgroup/ui.toast-notifications@21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.toast-notifications/-/ui.toast-notifications-21.2.5.tgz#d0841118f38570af9a7fe166d887fd80db008cbc"
+  integrity sha512-SrxFeOw2IM5TLKcZ3KW8VdWoUd+MSOqDGfGgt8pmdDNxicYE73sz2H/iQ8MqwAL13y6EtmzuB/xmsrEIm1psyg==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    "@ghostgroup/ui.icons" "^21.2.5"
+    "@ghostgroup/ui.theme" "^21.2.5"
     react-pose "~4.0.2"
 
-"@ghostgroup/ui.toggle@21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.toggle/-/ui.toggle-21.2.3.tgz#352225295de9394d539143412ede6932e2edb179"
-  integrity sha512-vcFrjrKK8R0Qam3sgyx1rVnhFsYqS9k++f3WPNbgndIUPYFqzU9y8vW9hF2yLWA5pv9nfb5dGwO3YH8p24nhGA==
+"@ghostgroup/ui.toggle@21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.toggle/-/ui.toggle-21.2.5.tgz#377a7ed2756adcdbda31f53a88ee86cfa4693257"
+  integrity sha512-FrFM72TOh37AGDOeAlpaMbopkxMrfpoS6tytwI5yAd/dM9FYMsciArApyOtQNGrJDk3V91udrRChMyokw+wlEw==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    "@ghostgroup/ui.theme" "^21.2.3"
+    "@ghostgroup/ui.theme" "^21.2.5"
+
+"@ghostgroup/ui.tooltip@^21.2.5":
+  version "21.2.5"
+  resolved "https://registry.yarnpkg.com/@ghostgroup/ui.tooltip/-/ui.tooltip-21.2.5.tgz#73db968787237bf59dae242b9ffb2ac85abc2477"
+  integrity sha512-T+Ip6IIvPGjLrTH3s9Q1v5Vcw+m4KGzNuciFEjfb6yUa86GUOM//7jKsGkMSMhA/wYScmQi7oFX7VN/Ae+S2TA==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    "@ghostgroup/ui.theme" "^21.2.5"
+    react-popper "1.3.0"
+    react-pose "~4.0.2"
 
 "@ghostgroup/wm-express-login-proxy@^1.0.0", "@ghostgroup/wm-express-login-proxy@~1.0.0":
   version "1.0.0"
@@ -2150,10 +2160,23 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.40.tgz#4314888d5cd537945d73e9ce165c04cc550144a4"
   integrity sha512-RRSjdwz63kS4u7edIwJUn8NqKLLQ6LyqF/X4+4jp38MBT3Vwetewi2N4dgJEshLbDwNgOJXNYoOwzVZUSSLhkQ==
 
+"@types/prop-types@*":
+  version "15.5.9"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.9.tgz#f2d14df87b0739041bc53a7d75e3d77d726a3ec0"
+  integrity sha512-Nha5b+jmBI271jdTMwrHiNXM+DvThjHOfyZtMX9kj/c/LUj2xiLHsG/1L3tJ8DjAoQN48cHwUwtqBotjyXaSdQ==
+
 "@types/q@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.1.tgz#48fd98c1561fe718b61733daed46ff115b496e18"
   integrity sha512-eqz8c/0kwNi/OEHQfvIuJVLTst3in0e7uTKeuY+WL/zfKn0xVujOTp42bS/vUUokhK5P2BppLd9JXMOMHcgbjA==
+
+"@types/react@^16.1.0":
+  version "16.8.4"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.4.tgz#134307f5266e866d5e7c25e47f31f9abd5b2ea34"
+  integrity sha512-Mpz1NNMJvrjf0GcDqiK8+YeOydXfD8Mgag3UtqQ5lXYTsMnOiHcKmO48LiSWMb1rSHB9MV/jlgyNzeAVxWMZRQ==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
 
 "@types/unist@*", "@types/unist@^2.0.0":
   version "2.0.2"
@@ -4546,7 +4569,7 @@ create-react-class@^15.6.2:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
-create-react-context@^0.2.2:
+create-react-context@^0.2.1, create-react-context@^0.2.2:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/create-react-context/-/create-react-context-0.2.3.tgz#9ec140a6914a22ef04b8b09b7771de89567cb6f3"
   integrity sha512-CQBmD0+QGgTaxDL3OX1IDXYqjkp2It4RIbcb99jS6AEg27Ga+a9G3JtK6SIu0HBwPLZlmwt9F7UwWA4Bn92Rag==
@@ -4753,6 +4776,11 @@ cssstyle@^1.0.0:
   integrity sha512-364AI1l/M5TYcFH83JnOH/pSqgaNnKmYgKrm0didZMGKWjQB60dymwWy1rKUgL3J1ffdq9xVi2yGLHdSjjSNog==
   dependencies:
     cssom "0.3.x"
+
+csstype@^2.2.0:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.2.tgz#3043d5e065454579afc7478a18de41909c8a2f01"
+  integrity sha512-Rl7PvTae0pflc1YtxtKbiSqq20Ts6vpIYOD5WBafl4y123DyHUeLrRdQP66sQW8/6gmX8jrYJLXwNeMqYVJcow==
 
 culvert@^0.1.2:
   version "0.1.2"
@@ -10892,6 +10920,11 @@ popmotion@^8.6.2:
     stylefire "^2.3.4"
     tslib "^1.9.1"
 
+popper.js@^1.14.4:
+  version "1.14.7"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.7.tgz#e31ec06cfac6a97a53280c3e55e4e0c860e7738e"
+  integrity sha512-4q1hNvoUre/8srWsH7hnoSJ5xVmIL4qgz+s4qf2TnJIMyZFUFMGH+9vE7mXynAlHSZ/NdTmmow86muD0myUkVQ==
+
 pose-core@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/pose-core/-/pose-core-2.1.0.tgz#653c85a9a06f924611b909b4a2180ce102bbb258"
@@ -11584,6 +11617,19 @@ react-outside-click-handler@^1.2.0:
     consolidated-events "^1.1.1 || ^2.0.0"
     object.values "^1.0.4"
     prop-types "^15.6.1"
+
+react-popper@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-1.3.0.tgz#e769199bbe1273611957892f9950ef1d42c3f7ce"
+  integrity sha512-Dbn9kwgFzNFRi8yz/i4Qp7d1hkCYhWX6uJOFz0+PoNNm9uJMnFAqSPNgUUCV49L6p5zz5mKtMiudbgIqjAe1uw==
+  dependencies:
+    "@types/react" "^16.1.0"
+    babel-runtime "6.x.x"
+    create-react-context "^0.2.1"
+    popper.js "^1.14.4"
+    prop-types "^15.6.1"
+    typed-styles "^0.0.5"
+    warning "^3.0.0"
 
 react-portal@^4.1.5:
   version "4.2.0"
@@ -13733,6 +13779,11 @@ type-is@~1.6.16:
   dependencies:
     media-typer "0.3.0"
     mime-types "~2.1.18"
+
+typed-styles@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/typed-styles/-/typed-styles-0.0.5.tgz#a60df245d482a9b1adf9c06c078d0f06085ed1cf"
+  integrity sha512-ht+rEe5UsdEBAa3gr64+QjUOqjOLJfWLvl5HZR5Ev9uo/OnD3p43wPeFSB1hNFc13GXQF/JU1Bn0YHLUqBRIlw==
 
 typedarray@^0.0.6:
   version "0.0.6"

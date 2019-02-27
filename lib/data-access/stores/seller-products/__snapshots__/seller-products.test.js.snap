@@ -49,6 +49,7 @@ Object {
         "slug": "live-resin",
       },
     ],
+    "containsCannabis": true,
     "departments": Array [
       Object {
         "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",
@@ -173,6 +174,7 @@ Array [
           "slug": "live-resin",
         },
       ],
+      "containsCannabis": null,
       "departments": Array [
         Object {
           "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",
@@ -245,6 +247,7 @@ Array [
           "slug": "men-s-apparel",
         },
       ],
+      "containsCannabis": null,
       "departments": Array [
         Object {
           "id": "4a257a1c-7f54-4be3-ba6f-53fde73fb5f6",
@@ -336,6 +339,7 @@ Array [
           "slug": "live-resin",
         },
       ],
+      "containsCannabis": null,
       "departments": Array [
         Object {
           "id": "81ac71b1-1c0c-490e-ad8a-062a6a1ae9a6",

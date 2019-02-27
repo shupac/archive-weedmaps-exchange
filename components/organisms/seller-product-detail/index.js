@@ -97,11 +97,11 @@ export class SellerProductDetails extends Component<Props, State> {
     actions.setSubmitting(true);
     const success = await sellerProducts.updateSellerProduct(values);
     actions.setSubmitting(false);
-    this.displaySumbitNotification(success);
+    this.displaySubmitNotification(success);
     if (success) actions.resetForm();
   };
 
-  displaySumbitNotification = (success: boolean) => {
+  displaySubmitNotification = (success: boolean) => {
     const { uiStore } = this.props.store;
 
     const notification = {

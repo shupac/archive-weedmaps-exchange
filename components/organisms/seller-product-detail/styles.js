@@ -7,6 +7,28 @@ import { ButtonPrimary } from 'components/atoms/button';
 
 const { background, text, shadow, icon, border, state } = WmTheme.style;
 
+const WrapperStyles = css`
+  border-radius: 3px;
+  box-shadow: 0 1px 3px 0 ${shadow};
+  background-color: ${background.light};
+`;
+
+const HoverStyles = css`
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+export const VariantDetailWrapper = styled.div`
+  display: grid;
+  grid-template-rows: 182px 106px;
+  grid-row-gap: 16px;
+`;
+
+export const StyledHeader = styled.h2`
+  font-size: ${rem(20)};
+`;
+
 export const StyledForm = styled(Form)`
   flex: 1;
   display: flex;
@@ -33,13 +55,6 @@ export const Layout = styled.div`
   grid-template-columns: 780px 374px;
   grid-column-gap: 16px;
   padding-bottom: 16px;
-
-  > div {
-    border-radius: 3px;
-    box-shadow: 0 1px 3px 0 ${shadow};
-    padding: 24px;
-    background-color: ${background.light};
-  }
 `;
 
 export const ProductName = styled.div`
@@ -50,13 +65,18 @@ export const ProductName = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
+  ${WrapperStyles};
+  padding: 24px;
   font-size: ${rem(14)};
   line-height: ${rem(20)};
 `;
 
 export const AvailabilityWrapper = styled.div`
+  ${WrapperStyles};
+  padding: 7px 24px;
   font-size: ${rem(14)};
   align-self: baseline;
+  height: 182px;
 
   p {
     margin: 24px 0;
@@ -73,16 +93,27 @@ export const AvailabilityWrapper = styled.div`
   }
 `;
 
-export const AvailabilityHeader = styled.div`
-  font-size: ${rem(20)};
-  font-weight: 600;
+export const CategorizationWrapper = styled.div`
+  ${WrapperStyles};
+  padding: 7px 24px;
+  font-size: ${rem(14)};
+  height: 115px;
+
+  > div:last-of-type {
+    display: flex;
+    align-items: center;
+
+    > :nth-child(2) {
+      margin: 0 22px 0 10px;
+    }
+  }
 `;
 
 export const VariantHeader = styled.div`
   font-size: ${rem(20)};
+  font-weight: 600;
   line-height: ${rem(22)};
   margin-bottom: 16px;
-  font-weight: 600;
 `;
 
 export const VariantInfo = styled.div`
@@ -128,9 +159,6 @@ export const VariantDetails = styled.div`
   display: grid;
   grid-template-columns: 1fr 170px 86px 150px 32px;
   grid-column-gap: 8px;
-  background-color: ${background.secondary};
-  box-shadow: 0 1px 0 0 ${icon.inverted};
-  border-radius: 3px 3px 0 0;
 `;
 
 export const FormGroup = styled.div``;
@@ -262,6 +290,19 @@ export const Footer = styled.div`
   align-items: center;
   font-weight: 600;
   color: ${icon.light};
+`;
+
+export const InfoIconWrapper = styled.div`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${HoverStyles};
+`;
+
+export const ContainsCannabisWrapper = styled.span`
+  ${HoverStyles};
 `;
 
 Footer.displayName = 'Footer';

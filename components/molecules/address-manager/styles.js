@@ -41,7 +41,7 @@ export const AddressManagerWrapper = styled.div`
   width: 100%;
   border-radius: 3px;
   background-color: ${theme.colors.white};
-  box-shadow: 0 1px 3px 0 ${theme.colors.shadow.light};
+  box-shadow: 0 1px 3px 0 ${theme.colors.shadow};
   font-family: ${theme.text.proximaNovaFont};
   color: ${theme.colors.oxfordBlue};
 `;

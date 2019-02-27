@@ -51,7 +51,7 @@ describe('ComboCheckbox', () => {
 
     component.find(Container).simulate('click');
     expect(onToggle).toHaveBeenCalled();
-    expect(onToggle).toBeCalledWith(true);
+    expect(onToggle).toBeCalledWith(true, expect.objectContaining({}));
   });
 
   it('should toggle state from true to false when clicked', () => {
@@ -61,7 +61,7 @@ describe('ComboCheckbox', () => {
 
     component.find(Container).simulate('click');
     expect(onToggle).toHaveBeenCalled();
-    expect(onToggle).toBeCalledWith(false);
+    expect(onToggle).toBeCalledWith(false, expect.objectContaining({}));
   });
 
   it('should toggle state from 0 to 1 when clicked', () => {
@@ -73,7 +73,7 @@ describe('ComboCheckbox', () => {
 
     component.find(Container).simulate('click');
     expect(onToggle).toHaveBeenCalled();
-    expect(onToggle).toBeCalledWith(1);
+    expect(onToggle).toBeCalledWith(1, expect.objectContaining({}));
   });
 
   it('should toggle state from 1 to 2 when clicked', () => {
@@ -85,7 +85,7 @@ describe('ComboCheckbox', () => {
 
     component.find(Container).simulate('click');
     expect(onToggle).toHaveBeenCalled();
-    expect(onToggle).toBeCalledWith(2);
+    expect(onToggle).toBeCalledWith(2, expect.objectContaining({}));
   });
 
   it('should toggle state from 2 to 0 when clicked', () => {
@@ -97,6 +97,6 @@ describe('ComboCheckbox', () => {
 
     component.find(Container).simulate('click');
     expect(onToggle).toHaveBeenCalled();
-    expect(onToggle).toBeCalledWith(0);
+    expect(onToggle).toBeCalledWith(0, expect.objectContaining({}));
   });
 });

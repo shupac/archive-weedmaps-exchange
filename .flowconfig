@@ -11,6 +11,7 @@
 .*/node_modules/@ghostgroup/ui.icons/.*
 .*/node_modules/@ghostgroup/ui.toast-notifications/.*
 .*/node_modules/polished/lib/mixins/.*
+.*/node_modules/@ghostgroup/ui.tooltip/.*
 [include]
 
 [libs]

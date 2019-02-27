@@ -8,7 +8,10 @@ type Checked = 0 | 1 | 2 | boolean;
 type Props = {
   checked: Checked,
   allowPartial?: ?boolean,
-  onChange: (checked: Checked) => void,
+  onChange: (
+    checked: Checked,
+    event: SyntheticEvent<HTMLButtonElement>,
+  ) => void,
 };
 
 class ComboCheckbox extends React.Component<Props> {
@@ -16,7 +19,7 @@ class ComboCheckbox extends React.Component<Props> {
     allowPartial: false,
   };
 
-  handleClick = () => {
+  handleClick = (event: SyntheticEvent<HTMLButtonElement>) => {
     const { checked, allowPartial, onChange } = this.props;
 
     let next;
@@ -29,7 +32,7 @@ class ComboCheckbox extends React.Component<Props> {
       next = !checked;
     }
 
-    onChange(next);
+    onChange(next, event);
   };
 
   render() {

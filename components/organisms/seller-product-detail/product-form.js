@@ -1,6 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import ToggleSwitch from '@ghostgroup/ui.toggle';
+import Icons from '@ghostgroup/ui.icons';
+import { TooltipHover } from '@ghostgroup/ui.tooltip';
+import WmTheme from '@ghostgroup/ui.theme';
 import { Router } from 'lib/routes';
 import get from 'lodash.get';
 import LoadingButton from 'components/atoms/loading-button';
@@ -11,19 +14,20 @@ import { type ZoneType } from 'models/zone';
 import { FieldArray } from 'formik';
 import Breadcrumbs from 'components/molecules/breadcrumbs';
 import SlideInDrawer, { DrawerHead } from 'components/atoms/slide-drawer';
+import ComboCheckbox from 'components/atoms/combo-checkbox';
 import ZoneLegend from 'components/molecules/zone-legend';
 import uniqueKey from 'lib/common/unique-key';
 import VariantCard from './variant-card';
 
 import {
   StyledForm,
+  StyledHeader,
   SellerProductWrapper,
   ScrollWrapper,
   Layout,
   ProductName,
   ContentWrapper,
   AvailabilityWrapper,
-  AvailabilityHeader,
   VariantHeader,
   VariantInfo,
   AddVariantButton,
@@ -31,6 +35,10 @@ import {
   ZonesLink,
   VariantsWrapper,
   Footer,
+  CategorizationWrapper,
+  VariantDetailWrapper,
+  InfoIconWrapper,
+  ContainsCannabisWrapper,
 } from './styles';
 
 type Props = {
@@ -176,28 +184,77 @@ class ProductForm extends Component<Props, State> {
                   />
                 </VariantsWrapper>
               </ContentWrapper>
-              <AvailabilityWrapper>
-                <AvailabilityHeader>Availability</AvailabilityHeader>
-                <p>
-                  Once published, buyers can browse and purchase this product in
-                  the marketplace.
-                </p>
-                <div>
-                  Publish Product
-                  {/* // $FlowFixMe */}
-                  <ToggleSwitch
-                    hideLabel
-                    checked={values.active}
-                    onChange={event => {
-                      event.target = {
-                        value: !active,
-                        name: 'active',
-                      };
-                      handleChange(event);
-                    }}
-                  />
-                </div>
-              </AvailabilityWrapper>
+              <VariantDetailWrapper>
+                <AvailabilityWrapper>
+                  <StyledHeader>Availability</StyledHeader>
+                  <p>
+                    Once published, buyers can browse and purchase this product
+                    in the marketplace.
+                  </p>
+                  <div>
+                    Publish Product
+                    {/* // $FlowFixMe */}
+                    <ToggleSwitch
+                      hideLabel
+                      checked={values.active}
+                      onChange={event => {
+                        event.target = {
+                          value: !active,
+                          name: 'active',
+                        };
+                        handleChange(event);
+                      }}
+                    />
+                  </div>
+                </AvailabilityWrapper>
+                <CategorizationWrapper>
+                  <StyledHeader>Categorization</StyledHeader>
+                  <div>
+                    <ComboCheckbox
+                      checked={product.containsCannabis}
+                      onChange={(checked, event) => {
+                        handleChange({
+                          ...event,
+                          target: {
+                            value: { ...product, containsCannabis: checked },
+                            name: 'product',
+                          },
+                        });
+                      }}
+                    />
+                    <ContainsCannabisWrapper
+                      onClick={event =>
+                        handleChange({
+                          ...event,
+                          target: {
+                            value: {
+                              ...product,
+                              containsCannabis: !product.containsCannabis,
+                            },
+                            name: 'product',
+                          },
+                        })
+                      }
+                    >
+                      Product contains cannabis
+                    </ContainsCannabisWrapper>
+                    <TooltipHover
+                      tooltipChildren={
+                        <div style={{ maxWidth: 240 }}>
+                          When checked, we will add an estimated excise tax to
+                          this product at checkout.
+                        </div>
+                      }
+                      placement="bottom"
+                      id="tooltip-hover"
+                    >
+                      <InfoIconWrapper>
+                        <Icons.Info size={18} fill={WmTheme.style.icon.light} />
+                      </InfoIconWrapper>
+                    </TooltipHover>
+                  </div>
+                </CategorizationWrapper>
+              </VariantDetailWrapper>
             </Layout>
           </ScrollWrapper>
         </SellerProductWrapper>
