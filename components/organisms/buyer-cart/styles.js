@@ -45,7 +45,8 @@ export const BrowseProductButton = styled.button`
 BrowseProductButton.displayName = 'BrowseProductButton';
 
 export const CartWrapper = styled.div`
-  //margin-left: 16px;
+  max-width: 1170px;
+  margin: 0 auto;
   padding: 0 16px;
 `;
 
