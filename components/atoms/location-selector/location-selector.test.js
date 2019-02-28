@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { mockLocations } from 'lib/mocks/location';
 import BuyerSettings from 'lib/data-access/stores/buyer-settings';
+import UiStore from 'lib/data-access/stores/ui';
 import { LocationSelector } from './';
 import { Select } from './styles';
 
@@ -11,6 +12,7 @@ function setup() {
       { locations: mockLocations },
       { client: { fetch: jest.fn().mockReturnValue(mockLocations) } },
     ),
+    uiStore: UiStore.create(),
   };
   const component = <LocationSelector store={mockStore} />;
   const wrapper = shallow(component);
@@ -42,6 +44,29 @@ describe('Location Selector', () => {
     const instance = wrapper.instance();
     instance.handleSelectChange(selection);
     expect(mockUpdateActiveLocation).toHaveBeenCalledWith(selection.value);
+  });
+
+  it('should show error toast if updateActiveLocation throws error', () => {
+    const { wrapper, mockStore } = setup();
+    const notifyToast = jest.spyOn(mockStore.uiStore, 'notifyToast');
+    const selection = {
+      text: "Andrew's Cryb",
+      value: 'fake value',
+    };
+    jest
+      .spyOn(mockStore.buyerSettings, 'updateActiveLocation')
+      .mockReturnValue(false);
+    const instance = wrapper.instance();
+    const notification = {
+      title: 'Location Error',
+      body: 'Location was deleted by another user.',
+      autoDismiss: 8000,
+      status: 'ERROR',
+    };
+    instance.handleSelectChange(selection);
+    setTimeout(() => {
+      expect(notifyToast).toHaveBeenCalledWith(notification);
+    }, 100);
   });
 
   it('disposes of the reaction when unmounting', () => {

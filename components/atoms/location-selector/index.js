@@ -60,9 +60,17 @@ export class LocationSelector extends Component<Props> {
    * Select onChange handler
    * @param locationSelected
    */
-  handleSelectChange = ({ value: locationId }: { value: string }) => {
-    const { buyerSettings } = this.props.store;
-    buyerSettings.updateActiveLocation(locationId);
+  handleSelectChange = async ({ value: locationId }: { value: string }) => {
+    const { buyerSettings, uiStore } = this.props.store;
+    const success = await buyerSettings.updateActiveLocation(locationId);
+    if (!success) {
+      uiStore.notifyToast({
+        title: 'Location Error',
+        body: 'Location was deleted by another user.',
+        autoDismiss: 8000,
+        status: 'ERROR',
+      });
+    }
   };
 
   render() {
@@ -78,7 +86,7 @@ export class LocationSelector extends Component<Props> {
         <Select
           items={this.setLocationOptions(locations)}
           selectedItem={this.setActiveSelection(activeLocation)}
-          itemToString={item => item.text}
+          itemToString={item => item && item.text}
           onChange={this.handleSelectChange}
           placeholder="Loading locations.."
         />
