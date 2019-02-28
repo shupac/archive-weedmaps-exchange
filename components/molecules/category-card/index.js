@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { Link } from 'lib/routes';
+import Image from 'components/atoms/image';
 import { CategoryCardWrapper, CategoryCardTitle } from './styles';
 
 type Props = {
@@ -19,7 +20,7 @@ const CategoryCard = ({ title, image, icon, id }: Props) => (
     <a style={{ textDecoration: 'none' }}>
       <CategoryCardWrapper style={{ backgroundImage: `url(${image})` }}>
         <div style={{ maxHeight: '50px' }}>
-          <img src={icon} alt="Icon" />
+          <Image src={icon} alt="Icon" />
         </div>
         <CategoryCardTitle>{title}</CategoryCardTitle>
       </CategoryCardWrapper>

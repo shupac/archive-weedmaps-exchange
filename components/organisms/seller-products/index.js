@@ -21,6 +21,7 @@ import {
   SELLER_PRODUCTS_QUERY_PARAMS,
 } from 'lib/common/constants';
 import { removeUndefinedProperties } from 'lib/common/universal-helpers';
+import Image from 'components/atoms/image';
 
 import {
   SellerProductsWrapper,
@@ -340,7 +341,7 @@ export class SellerProducts extends React.Component<Props, State> {
         <React.Fragment key={id}>
           <TableCell>
             <AvatarName>
-              <img src={avatarImage.smallUrl} alt={name} />
+              <Image src={avatarImage.smallUrl} alt={name} />
               <Link route={`/seller/products/${id}`}>
                 <a>{name}</a>
               </Link>

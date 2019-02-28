@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import Shiitake from 'shiitake';
 import { PriceRangeType } from 'lib/data-access/models/product';
+import Image from 'components/atoms/image';
 import {
   CardWrapper,
   Product,
@@ -57,7 +58,7 @@ class ProductCard extends Component<Props> {
       <CardWrapper width={width}>
         <Product outOfStock={outOfStock}>
           <ImageWrapper>
-            <img src={imageUrl} alt={name} />
+            <Image src={imageUrl} alt={name} />
           </ImageWrapper>
           <Info>
             <Row>
