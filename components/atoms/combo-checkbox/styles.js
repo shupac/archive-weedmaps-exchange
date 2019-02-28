@@ -11,6 +11,7 @@ export const Container = styled.div`
   background-color: ${({ checked }) =>
     checked ? theme.colors.primary : 'initial'};
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   &:hover {
