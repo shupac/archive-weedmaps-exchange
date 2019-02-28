@@ -190,7 +190,7 @@ class BuyerPurchaseOrder extends Component<Props> {
 
         <Totals>
           <BuyerInstructions>
-            {buyerDeliveryInstructions.length > 0 && (
+            {buyerDeliveryInstructions && (
               <>
                 <InstructionWrapper>
                   <b>Delivery Instructions</b>
@@ -200,7 +200,7 @@ class BuyerPurchaseOrder extends Component<Props> {
                 </DescriptionWrapper>
               </>
             )}
-            {buyerNote.length > 0 && (
+            {buyerNote && (
               <>
                 <InstructionWrapper>
                   <b>Order Notes</b>
